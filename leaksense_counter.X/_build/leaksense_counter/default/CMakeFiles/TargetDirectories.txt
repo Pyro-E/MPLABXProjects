@@ -1,0 +1,4 @@
+/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/default/CMakeFiles/leaksense_counter_default_default_XC8_compile.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/default/CMakeFiles/leaksense_counter_default_image_U7B5UFXR.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/default/CMakeFiles/edit_cache.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/default/CMakeFiles/rebuild_cache.dir
