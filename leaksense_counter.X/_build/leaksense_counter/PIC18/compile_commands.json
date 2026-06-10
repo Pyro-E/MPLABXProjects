@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/PIC18",
+  "command": "/Applications/microchip/xc8/v3.10/bin/xc8-cc -DXPRJ_PIC18=PIC18 -D__16LF18313__ -D__DEBUG=1 -I/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/cmake/leaksense_counter/PIC18/../../.. -c -mcpu=16LF18313 -mdfp=/Users/kevinlu/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8 -fno-short-double -fno-short-float -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto -o CMakeFiles/leaksense_counter_PIC18_PIC18_toolchain_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/main.c.p1 -c /Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/main.c",
+  "file": "/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/main.c",
+  "output": "/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/PIC18/CMakeFiles/leaksense_counter_PIC18_PIC18_toolchain_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/main.c.p1"
+}
+]

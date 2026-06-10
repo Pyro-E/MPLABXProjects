@@ -42,6 +42,9 @@ CMAKE_ASM_FLAGS_RELWITHDEBINFO:STRING=
 // MinSizeRel ...
 CMAKE_BUILD_TYPE:STRING=
 
+//Enable colored diagnostics throughout.
+CMAKE_COLOR_DIAGNOSTICS:BOOL=ON
+
 //C compiler
 CMAKE_C_COMPILER:STRING=/Applications/microchip/xc8/v3.10/bin/xc8-cc
 

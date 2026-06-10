@@ -1,6 +1,7 @@
 {
-    "hashFileVersion": "1.0.0",
-    "projectFileHash": "2d4e2e2a52befaab1ecbde0a484d9b1ef0d242f0da7bb358dd3f08f89dce9ba0",
+    "hashFileVersion": "1.1.0",
+    "projectFileHash": "9d6feb0afe049d9cf76809920d965acbbc8436125bbcb72f201e8d0b11138831",
     "cmakeFilesHash": "1683cfbf38f0fc517597ec88d4b4adeb1c733ed91a847684a074cc7abd6b27aa",
-    "cmakerVersion": "4.2.1"
+    "cmakerVersion": "4.2.2",
+    "workspacePath": "/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X"
 }

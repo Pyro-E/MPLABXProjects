@@ -7630,29 +7630,48 @@ extern __bank0 __bit __timeout;
 
 
 
+
 #pragma config FEXTOSC = OFF
-
-
-#pragma config RSTOSC = HFINT1
-
+#pragma config RSTOSC = HFINTOSC_1MHZ
 #pragma config CLKOUTEN = OFF
-
+#pragma config PR1WAY = ON
 #pragma config CSWEN = ON
-
 #pragma config FCMEN = ON
+#pragma config FCMENP = ON
+#pragma config FCMENS = ON
 
+#pragma config MCLRE = EXTMCLR
+#pragma config PWRTS = PWRT_OFF
+#pragma config MVECEN = ON
+#pragma config IVT1WAY = ON
+#pragma config LPBOREN = OFF
+#pragma config BOREN = SBORDIS
 
-#pragma config MCLRE = ON
-# 41 "main.c"
-#pragma config WRT = OFF
-
+#pragma config BORV = VBOR_1P9
+#pragma config ZCD = OFF
+#pragma config PPS1WAY = ON
+#pragma config STVREN = ON
 #pragma config LVP = ON
+#pragma config XINST = OFF
 
+#pragma config WDTCPS = WDTCPS_31
+#pragma config WDTE = ON
+#pragma config WDTCWS = WDTCWS_7
+#pragma config WDTCCS = SC
+
+#pragma config BBSIZE = BBSIZE_512
+#pragma config BBEN = OFF
+#pragma config SAFEN = OFF
+#pragma config DEBUG = OFF
+
+#pragma config WRTB = OFF
+#pragma config WRTC = OFF
+#pragma config WRTD = OFF
+#pragma config WRTSAF = OFF
+#pragma config WRTAPP = OFF
 
 #pragma config CP = OFF
-
-#pragma config CPD = OFF
-# 84 "main.c"
+# 91 "main.c"
 volatile uint16_t pulse_count = 0;
 volatile uint16_t minute_count_latched = 0;
 volatile uint8_t minute_ready = 0;
@@ -7664,7 +7683,7 @@ static void queue_test_packet(void) {
   minute_count_latched = 0x1234u;
   minute_ready = 1;
   led_pulse_ticks = 120;
-  LATAbits.LATA5 = 1;
+  LATCbits.LATC1 = 1;
 }
 
 static void clock_init(void) {
@@ -7676,11 +7695,12 @@ static void gpio_init(void) {
 
 
   ANSELA = 0x00;
+  ANSELC = 0x00;
 
 
   ADCON0bits.ADON = 0;
   CM1CON0 = 0x00;
-  DAC1CON0 = 0x00;
+
 
 
   ODCONA = 0x00;
@@ -7690,13 +7710,14 @@ static void gpio_init(void) {
 
 
   LATA = 0x00;
+  LATC = 0x00;
 
 
   TRISAbits.TRISA0 = 0;
   TRISAbits.TRISA1 = 1;
   TRISAbits.TRISA2 = 1;
   TRISAbits.TRISA4 = 0;
-  TRISAbits.TRISA5 = 0;
+  TRISCbits.TRISC1 = 0;
 
   WPUA = 0x00;
 
@@ -7711,8 +7732,8 @@ static void gpio_init(void) {
   TRISAbits.TRISA4 = 0;
   LATAbits.LATA4 = 0;
 
-  TRISAbits.TRISA5 = 0;
-  LATAbits.LATA5 = 1;
+  TRISCbits.TRISC1 = 0;
+  LATCbits.LATC1 = 1;
 }
 
 static void ioc_init(void) {
@@ -7729,15 +7750,15 @@ static void timer1_init_1s(void) {
 
 
 
-  T1CONbits.TMR1CS = 0b00;
-  T1CONbits.T1CKPS = 0b11;
-  T1CONbits.T1SYNC = 0;
-  T1CONbits.T1SOSC = 0;
+  TMR1CONbits.TMR1ON = 0;
+  TMR1CONbits.T1RD16 = 0;
+  TMR1CONbits.NOT_SYNC = 0;
+  TMR1CONbits.CKPS = 0b11;
   TMR1H = 0x85;
   TMR1L = 0xEE;
   PIR1bits.TMR1IF = 0;
   PIE1bits.TMR1IE = 1;
-  T1CONbits.TMR1ON = 1;
+  TMR1CONbits.TMR1ON = 1;
 }
 
 static void timer1_reload_1s(void) {
@@ -7752,7 +7773,6 @@ static void pps_init(void) {
 static void interrupt_init(void) {
   PIR0bits.IOCIF = 0;
   PIE0bits.IOCIE = 1;
-
   INTCONbits.PEIE = 1;
   INTCONbits.GIE = 1;
 }
@@ -7816,6 +7836,10 @@ static uint8_t wait_for_ack_8clocks(uint16_t timeout_ms) {
 static uint8_t service_particle_readout(void) {
   uint16_t c;
   uint8_t flags = 0xA5u;
+  uint8_t gie_was_enabled = INTCONbits.GIE;
+
+
+  INTCONbits.GIE = 0;
 
   c = minute_count_latched;
 
@@ -7824,6 +7848,7 @@ static uint8_t service_particle_readout(void) {
 
   if (!wait_for_photon_start(5000u)) {
     LATAbits.LATA4 = 0;
+    INTCONbits.GIE = gie_was_enabled;
     return 0;
   }
 
@@ -7834,11 +7859,13 @@ static uint8_t service_particle_readout(void) {
   LATAbits.LATA0 = 0;
   if (!wait_for_ack_8clocks(1000u)) {
     LATAbits.LATA4 = 0;
+    INTCONbits.GIE = gie_was_enabled;
     return 0;
   }
 
   LATAbits.LATA4 = 0;
   minute_ready = 0;
+  INTCONbits.GIE = gie_was_enabled;
   return 1;
 }
 
@@ -7861,9 +7888,9 @@ void __attribute__((picinterrupt(("")))) isr(void) {
     if (sec_ticks >= 10u) {
       sec_ticks = 0;
 
-      if (!minute_ready) {
-        queue_test_packet();
-      }
+
+
+
 
     }
   }
@@ -7877,18 +7904,14 @@ void main(void) {
   ioc_init();
   timer1_init_1s();
   interrupt_init();
-# 316 "main.c"
-  LATAbits.LATA0 = 1;
-  _delay((unsigned long)((2)*(1000000UL/4000.0)));
-  uint8_t self = PORTAbits.RA0;
-
+# 331 "main.c"
   while (1) {
-    LATAbits.LATA5 = 1;
+    LATCbits.LATC1 = 1;
 
     if (led_pulse_ticks) {
       led_pulse_ticks--;
       if (led_pulse_ticks == 0) {
-        LATAbits.LATA5 = 0;
+        LATCbits.LATC1 = 0;
       }
     }
 

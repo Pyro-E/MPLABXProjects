@@ -25,7 +25,7 @@
     <conf name="default" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC16LF18313</targetDevice>
+        <targetDevice>PIC18F16Q40</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
@@ -34,7 +34,7 @@
         <platform>4</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC16F1xxxx_DFP" vendor="Microchip" version="1.24.387"/>
+        <pack name="PIC18F-Q_DFP" vendor="Microchip" version="1.24.430"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>

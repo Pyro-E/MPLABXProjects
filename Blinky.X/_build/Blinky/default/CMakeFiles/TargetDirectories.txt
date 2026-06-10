@@ -1,0 +1,4 @@
+/Users/kevinlu/Code/Github/MPLABXProjects/Blinky.X/_build/Blinky/default/CMakeFiles/Blinky_default_default_XC8_compile.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/Blinky.X/_build/Blinky/default/CMakeFiles/Blinky_default_image_fpF8sdqc.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/Blinky.X/_build/Blinky/default/CMakeFiles/edit_cache.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/Blinky.X/_build/Blinky/default/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,4 @@
+/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/PIC18/CMakeFiles/leaksense_counter_PIC18_PIC18_toolchain_compile.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/PIC18/CMakeFiles/leaksense_counter_PIC18_image_bFs_k2cg.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/PIC18/CMakeFiles/edit_cache.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leaksense_counter.X/_build/leaksense_counter/PIC18/CMakeFiles/rebuild_cache.dir

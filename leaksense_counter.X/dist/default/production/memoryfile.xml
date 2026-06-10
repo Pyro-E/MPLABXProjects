@@ -2,16 +2,16 @@
 <project>
   <executable name="dist/default/production/leaksense_counter.X.production.hex">
     <memory name="program">
-      <units>words</units>
-      <length>2048</length>
-      <used>449</used>
-      <free>1599</free>
+      <units>bytes</units>
+      <length>65536</length>
+      <used>940</used>
+      <free>64596</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
-      <length>256</length>
-      <used>17</used>
-      <free>239</free>
+      <length>4096</length>
+      <used>16</used>
+      <free>4080</free>
     </memory>
   </executable>
 </project>

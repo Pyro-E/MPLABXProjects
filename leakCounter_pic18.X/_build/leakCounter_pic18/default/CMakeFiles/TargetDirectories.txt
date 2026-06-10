@@ -1,0 +1,4 @@
+/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/_build/leakCounter_pic18/default/CMakeFiles/leakCounter_pic18_default_default_XC8_compile.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/_build/leakCounter_pic18/default/CMakeFiles/leakCounter_pic18_default_image_YH9KO_2D.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/_build/leakCounter_pic18/default/CMakeFiles/edit_cache.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/_build/leakCounter_pic18/default/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/_build/leakCounter_pic18/default",
+  "command": "/Applications/microchip/xc8/v3.10/bin/xc8-cc -DXPRJ_default=default -D__18F16Q40__ -D__DEBUG=1 -I/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/cmake/leakCounter_pic18/default/../../.. -c -mcpu=18F16Q40 -mdfp=/Users/kevinlu/.mchp_packs/Microchip/PIC18F-Q_DFP/1.24.430/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles/leakCounter_pic18_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/main.c.p1 -c /Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/main.c",
+  "file": "/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/main.c",
+  "output": "/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/_build/leakCounter_pic18/default/CMakeFiles/leakCounter_pic18_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/leakCounter_pic18.X/main.c.p1"
+}
+]
