@@ -55,30 +55,29 @@
 
 // //
 // // ===================== PIN MAP ==================== // Pin mapping banner
-// // RA0 = PIC_DATA  -> Photon D3 // Serial data output to Photon
-// // RA1 = PIC_CLK   <- Photon D2 // Clock input from Photon
-// // RA2 = FLOW_PULSE_CLEAN input // Flow pulse input pin
-// // RA4 = PIC_WAKE  -> Photon D10/WKP // Wake signal output to Photon
+// // RA5 = PIC_DATA  -> Photon D3 // Serial data output to Photon
+// // RA4 = PIC_CLK   <- Photon D2 // Clock input from Photon
+// // RC0 = FLOW_PULSE_CLEAN input // Flow pulse input pin
+// // RA0 = PIC_WAKE  -> Photon D10/WKP // Wake signal output to Photon
 // // RC1 = STATUS_LED output // Curiosity Nano on-board LED
 //
 
+#define PIC_DATA_TRIS TRISAbits.TRISA5
+#define PIC_DATA_LAT LATAbits.LATA5
+#define PIC_DATA_PORT PORTAbits.RA5
 
-#define PIC_DATA_TRIS TRISAbits.TRISA0
-#define PIC_DATA_LAT LATAbits.LATA0
-#define PIC_DATA_PORT PORTAbits.RA0
+#define PIC_CLK_TRIS TRISAbits.TRISA4
+#define PIC_CLK_PORT PORTAbits.RA4
 
-#define PIC_CLK_TRIS TRISAbits.TRISA1
-#define PIC_CLK_PORT PORTAbits.RA1
+#define FLOW_TRIS TRISCbits.TRISC0
+#define FLOW_PORT PORTCbits.RC0
+#define FLOW_WPU WPUCbits.WPUC0
 
-#define FLOW_TRIS TRISAbits.TRISA2
-#define FLOW_PORT PORTAbits.RA2
-#define FLOW_WPU WPUAbits.WPUA2
+#define PIC_WAKE_TRIS TRISAbits.TRISA0
+#define PIC_WAKE_LAT LATAbits.LATA0
 
-#define PIC_WAKE_TRIS TRISAbits.TRISA4
-#define PIC_WAKE_LAT LATAbits.LATA4
-
-#define STATUS_LED_TRIS TRISAbits.TRISA5
-#define STATUS_LED_LAT LATAbits.LATA5
+#define STATUS_LED_TRIS TRISCbits.TRISC1
+#define STATUS_LED_LAT LATCbits.LATC1
 
 #define TEST_MODE_FIXED_PACKET 0u
 #define TEST_PACKET_INTERVAL_SECONDS 10u
@@ -94,6 +93,7 @@ volatile uint8_t minute_ready = 0;
 volatile uint8_t sec_ticks = 0;
 volatile uint8_t led_pulse_ticks = 0;
 volatile uint16_t tx_retry_cooldown_ms = 0;
+volatile uint8_t blink_ms_counter = 0;
 
 static void queue_test_packet(void) {
   minute_count_latched = TEST_PACKET_COUNT;
@@ -111,6 +111,7 @@ static void gpio_init(void) {
 
   // Disable analog
   ANSELA = 0x00;
+  ANSELC = 0x00;
 
   // Disable ADC/comparator/DAC that can steal pins
   ADCON0bits.ADON = 0;
@@ -125,15 +126,22 @@ static void gpio_init(void) {
 
   // Clear latches first
   LATA = 0x00;
+  LATC = 0x00;
 
-  // Directions
-  TRISAbits.TRISA0 = 0; // DATA out
-  TRISAbits.TRISA1 = 1; // CLK in
-  TRISAbits.TRISA2 = 1; // FLOW in
-  TRISAbits.TRISA4 = 0; // WAKE out
-  TRISAbits.TRISA5 = 0; // LED out
+  // Directions 
+// RA5 = PIC_DATA → Particle D3
+// RA4 = PIC_CLK ← Particle D2
+// RA0 = PIC_WAKE → Particle D10 / WKP
+// RC0 = FLOW_PULSE_CLEAN input (flow pulse sensor input on the PIC)
+  TRISAbits.TRISA5 = 0; // DATA out
+  TRISAbits.TRISA4 = 1; // CLK in
+  TRISCbits.TRISC0 = 1; // FLOW in
+  TRISAbits.TRISA0 = 0; // WAKE out
+  TRISCbits.TRISC1 = 0; // LED out
 
+  // Pull-ups
   WPUA = 0x00;
+  WPUC = 0x00;
 
   PIC_DATA_TRIS = 0;
   PIC_DATA_LAT = 0;
@@ -151,10 +159,10 @@ static void gpio_init(void) {
 }
 
 static void ioc_init(void) {
-  // Count rising edges on RA2
-  IOCAPbits.IOCAP2 = 1;
-  IOCANbits.IOCAN2 = 0;
-  IOCAFbits.IOCAF2 = 0;
+  // Count rising edges on RC0
+  IOCCPbits.IOCCP0 = 1;
+  IOCCNbits.IOCCN0 = 0;
+  IOCCFbits.IOCCF0 = 0;
 }
 
 static void timer1_init_1s(void) {
@@ -286,11 +294,12 @@ static uint8_t service_particle_readout(void) {
 
 void __interrupt() isr(void) {
   if (PIR0bits.IOCIF) {
-    if (IOCAFbits.IOCAF2) {
+    if (IOCCFbits.IOCCF0) {
       pulse_count++;
       minute_count_latched = pulse_count;
       minute_ready = 1;
-      IOCAFbits.IOCAF2 = 0;
+      STATUS_LED_LAT = !STATUS_LED_LAT;
+      IOCCFbits.IOCCF0 = 0;
     }
     PIR0bits.IOCIF = 0;
   }
@@ -328,12 +337,18 @@ void main(void) {
   //   PIC_DATA_LAT = 0;
 
   while (1) {
-    STATUS_LED_LAT = 1;
-
+    // LED behavior: pulse has priority; otherwise blink at 10Hz (10 cycles/sec => toggle every 50ms)
     if (led_pulse_ticks) {
+      STATUS_LED_LAT = 1;
       led_pulse_ticks--;
       if (led_pulse_ticks == 0) {
         STATUS_LED_LAT = 0;
+      }
+    } else {
+      blink_ms_counter++;
+      if (blink_ms_counter >= 50) {
+        blink_ms_counter = 0;
+        STATUS_LED_LAT = !STATUS_LED_LAT;
       }
     }
 
