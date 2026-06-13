@@ -6,6 +6,7 @@
  */
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <xc.h>
 
 #define _XTAL_FREQ 1000000UL
@@ -84,19 +85,70 @@
 #define TEST_PACKET_COUNT 0x1234u
 #define TEST_PACKET_FLAGS 0xA5u
 #define START_WAIT_TIMEOUT_MS 5000u
-#define ACK_WAIT_TIMEOUT_MS 1000u
+#define ACK_WAIT_TIMEOUT_MS 1000u     // ~2.6ms/byte * 10 pairs * 3 bytes/pair = 60 bytes => 156ms at 120us/bit + margin
 #define RETRY_COOLDOWN_MS 5u
 
+// High-frequency input support (up to 100 Hz)
+#define INPUT_DEBOUNCE_MS 2u    // Debounce period for noisy input
+#define PULSE_HOLD_TIME_MS 5u   // Minimum pulse width to count
+
+// 10-minute rolling buffer: one entry per minute, 10 slots, resets every 10 minutes
+#define TOGGLE_BUFFER_PAIRS 10
+#define TOGGLE_BUFFER_BYTES (TOGGLE_BUFFER_PAIRS * 3)
+
+// 24 bits per pair: 4-bit interval (0-9) + 20-bit count (uint16_t in low 16)
+// byte[0] = (interval & 0x0F) << 4   top nibble = interval, lower nibble = 0
+// byte[1] = count >> 8
+// byte[2] = count & 0xFF
+typedef struct {
+  uint8_t buf[TOGGLE_BUFFER_BYTES];
+  uint8_t pair_count;       // entries stored this window (0 to TOGGLE_BUFFER_PAIRS)
+  uint16_t minute_elapsed;  // absolute minutes since session start
+} toggle_meter_t;
+
 volatile uint16_t pulse_count = 0;
-volatile uint16_t minute_count_latched = 0;
+volatile uint8_t current_pair[3] = {0};  // latest packed (interval, count) frame
 volatile uint8_t minute_ready = 0;
 volatile uint8_t sec_ticks = 0;
+volatile uint8_t interval_count = 0;     // 0-9, position within 10-minute window
 volatile uint8_t led_pulse_ticks = 0;
 volatile uint16_t tx_retry_cooldown_ms = 0;
 volatile uint8_t blink_ms_counter = 0;
+volatile toggle_meter_t toggle_meter = {0};
+volatile uint8_t print_buf_requested = 0;
+
+// 24 bits per pair: 4-bit interval (0-9) + 20-bit count (uint16_t in low 16)
+// byte[0] = (interval & 0x0F) << 4   upper nibble = interval, lower nibble = 0
+// byte[1] = count >> 8
+// byte[2] = count & 0xFF
+static void pack_meter_pair(uint8_t interval, uint16_t count, uint8_t *buf) {
+  buf[0] = (uint8_t)((interval & 0x0F) << 4);
+  buf[1] = (uint8_t)(count >> 8);
+  buf[2] = (uint8_t)(count & 0xFF);
+}
+
+static void unpack_meter_pair(const uint8_t *buf, uint8_t *interval, uint16_t *count) {
+  *interval = buf[0] >> 4;
+  *count    = ((uint16_t)buf[1] << 8) | buf[2];
+}
+
+// Write snapshot into fixed slot buf[interval*3]; interval is the direct index (0-9)
+static void store_meter_snapshot(uint8_t interval, uint16_t count) {
+  pack_meter_pair(interval, count, (uint8_t *)&toggle_meter.buf[interval * 3]);
+  toggle_meter.pair_count = interval + 1;
+}
+
+static void toggle_meter_init(void) {
+  toggle_meter.pair_count = 0;
+  toggle_meter.minute_elapsed = 0;
+}
+
+static void toggle_meter_reset(void) {
+  toggle_meter.pair_count = 0;
+}
 
 static void queue_test_packet(void) {
-  minute_count_latched = TEST_PACKET_COUNT;
+  pack_meter_pair(interval_count, TEST_PACKET_COUNT & 0xFFFF, (uint8_t *)current_pair);
   minute_ready = 1;
   led_pulse_ticks = 120;
   STATUS_LED_LAT = 1;
@@ -193,6 +245,40 @@ static void pps_init(void) {
   // not needed here since we are bit-banging
 }
 
+// UART1 TX on RF0 at 9600 baud (Curiosity Nano CDC port)
+// BRGS=1 (4x mode): BRG = 1MHz/(4*9600) - 1 = 25 => 9615 baud (0.16% error)
+static void uart_init(void) {
+  ANSELBbits.ANSELB5 = 0;   // RB5 digital (nEDBG CDC TX on Curiosity Nano)
+  TRISBbits.TRISB5 = 0;     // RB5 output
+  RB5PPS = 0x20;             // route U1TX to RB5
+
+  U1CON0bits.BRGS = 1;      // 4x baud rate divisor
+  U1BRGL = 25;
+  U1BRGH = 0;
+  U1CON0bits.TXEN = 1;      // enable TX
+  U1CON0bits.RXEN = 0;
+  U1CON0bits.MODE = 0;      // async 8-bit, no parity
+  U1CON1bits.ON = 1;        // enable UART
+}
+
+void putch(char c) {
+  while (!PIR4bits.U1TXIF);  // wait for TX buffer empty
+  U1TXB = c;
+}
+
+static void print_buffer(void) {
+  uint8_t n = toggle_meter.pair_count;
+  uint8_t interval;
+  uint16_t count;
+
+  printf("min=%u:", (n > 0) ? (uint8_t)(n - 1) : 0);
+  for (uint8_t i = 0; i < n; i++) {
+    unpack_meter_pair((const uint8_t *)&toggle_meter.buf[i * 3], &interval, &count);
+    printf(" %u=%u", interval, count);
+  }
+  printf("\r\n");
+}
+
 static void interrupt_init(void) {
   PIR0bits.IOCIF = 0;
   PIE0bits.IOCIE = 1;
@@ -256,15 +342,11 @@ static uint8_t wait_for_ack_8clocks(uint16_t timeout_ms) {
   return (count == 8);
 }
 
-static uint8_t service_particle_readout(void) {
-  uint16_t c;
-  uint8_t flags = TEST_PACKET_FLAGS; // simple frame marker/debug byte
+// Send full buffer to Boron: 1 byte pair_count, then pair_count*3 bytes of packed pairs.
+// Boron decodes interval = buf[0]>>4, count = (buf[1]<<8)|buf[2] for each pair.
+static uint8_t service_particle_send_packed(void) {
   uint8_t gie_was_enabled = INTCON0bits.GIE;
-
-  // Keep bit-banged transfer timing deterministic.
   INTCON0bits.GIE = 0;
-
-  c = minute_count_latched;
 
   PIC_WAKE_LAT = 1;
   __delay_ms(2);
@@ -275,9 +357,11 @@ static uint8_t service_particle_readout(void) {
     return 0;
   }
 
-  send_byte((uint8_t)(c >> 8));
-  send_byte((uint8_t)(c & 0xFF));
-  send_byte(flags);
+  uint8_t n = toggle_meter.pair_count;
+  send_byte(n);
+  for (uint8_t i = 0; i < n * 3u; i++) {
+    send_byte((uint8_t)toggle_meter.buf[i]);
+  }
 
   PIC_DATA_LAT = 0;
   if (!wait_for_ack_8clocks(ACK_WAIT_TIMEOUT_MS)) {
@@ -295,10 +379,10 @@ static uint8_t service_particle_readout(void) {
 void __interrupt() isr(void) {
   if (PIR0bits.IOCIF) {
     if (IOCCFbits.IOCCF0) {
+      // Optimized for high-frequency input (up to 100 Hz)
+      // Minimal ISR processing: just count pulses
       pulse_count++;
-      minute_count_latched = pulse_count;
-      minute_ready = 1;
-      STATUS_LED_LAT = !STATUS_LED_LAT;
+      // Clear flag
       IOCCFbits.IOCCF0 = 0;
     }
     PIR0bits.IOCIF = 0;
@@ -309,47 +393,60 @@ void __interrupt() isr(void) {
     timer1_reload_1s();
 
     sec_ticks++;
-    if (sec_ticks >= TEST_PACKET_INTERVAL_SECONDS) {
+
+    // At minute boundary: pack, store, send, then advance interval and reset counter
+    if (sec_ticks >= 60) {
       sec_ticks = 0;
-#if TEST_MODE_FIXED_PACKET
-      if (!minute_ready) {
-        queue_test_packet();
+      pack_meter_pair(interval_count, pulse_count, (uint8_t *)current_pair);
+      store_meter_snapshot(interval_count, pulse_count);
+      minute_ready = 1;
+      print_buf_requested = 1;
+      pulse_count = 0;
+      interval_count++;
+      if (interval_count >= 10) {
+        interval_count = 0;
       }
-#endif
+      toggle_meter.minute_elapsed++;
     }
+
+#if TEST_MODE_FIXED_PACKET
+    if (!minute_ready) {
+      queue_test_packet();
+    }
+#endif
   }
 }
 
 void main(void) {
 
   clock_init();
+  uart_init();
   gpio_init();
   pps_init();
   ioc_init();
   timer1_init_1s();
   interrupt_init();
-
-  // Temporary: force DATA high for 2 seconds after boot to verify line works
-  //   PIC_DATA_LAT = 1;
-  //   for (int i = 0; i < 2000; i++) {
-  //     __delay_ms(1);
-  //   }
-  //   PIC_DATA_LAT = 0;
+  toggle_meter_init();
 
   while (1) {
     // LED behavior: pulse has priority; otherwise blink at 10Hz (10 cycles/sec => toggle every 50ms)
-    if (led_pulse_ticks) {
-      STATUS_LED_LAT = 1;
-      led_pulse_ticks--;
-      if (led_pulse_ticks == 0) {
-        STATUS_LED_LAT = 0;
-      }
-    } else {
-      blink_ms_counter++;
-      if (blink_ms_counter >= 50) {
-        blink_ms_counter = 0;
-        STATUS_LED_LAT = !STATUS_LED_LAT;
-      }
+    // if (led_pulse_ticks) {
+    //   STATUS_LED_LAT = 1;
+    //   led_pulse_ticks--;
+    //   if (led_pulse_ticks == 0) {
+    //     STATUS_LED_LAT = 0;
+    //   }
+    // } else {
+    //   blink_ms_counter++;
+    //   if (blink_ms_counter >= 50) {
+    //     blink_ms_counter = 0;
+    //     STATUS_LED_LAT = !STATUS_LED_LAT;
+    //   }
+    // }
+
+    if (print_buf_requested) {
+      print_buf_requested = 0;
+      print_buffer();
     }
 
     if (tx_retry_cooldown_ms) {
@@ -357,7 +454,7 @@ void main(void) {
     }
 
     if (minute_ready && (tx_retry_cooldown_ms == 0)) {
-      if (!service_particle_readout()) {
+      if (!service_particle_send_packed()) {
         tx_retry_cooldown_ms = RETRY_COOLDOWN_MS;
       }
     }
