@@ -225,7 +225,7 @@ static void timer1_init_1s(void) {
   // preload = 65536 - 31250 = 34286 = 0x85EE
 
   // Configure Timer1 using device-specific bit names
-  TMR1CONbits.TMR1ON = 0;            // ensure Timer1 off while configuring
+  TMR1CONbits.TMR1ON = 0;           // ensure Timer1 off while configuring
   TMR1CONbits.T1CKPS0 = 1;          // prescaler bit 0
   TMR1CONbits.T1CKPS1 = 1;          // prescaler bit 1 => 1:8
   TMR1CONbits.nT1SYNC = 1;          // not synchronized (matches previous T1SYNC = 0)
@@ -420,13 +420,13 @@ void __interrupt() isr(void) {
 void main(void) {
 
   clock_init();
-  uart_init();
-  gpio_init();
-  pps_init();
-  ioc_init();
-  timer1_init_1s();
-  interrupt_init();
-  toggle_meter_init();
+  uart_init();    // Optional: for debug output to serial console
+  gpio_init();    // Set up I/O pins
+  pps_init();    // Not needed here since we are bit-banging
+  ioc_init();   // Set up interrupt-on-change for flow pulse input
+  timer1_init_1s();     // Set up Timer1 for 1-second interrupts
+  interrupt_init();     // Enable global interrupts
+  toggle_meter_init();     // Initialize toggle meter state
 
   while (1) {
     // LED behavior: pulse has priority; otherwise blink at 10Hz (10 cycles/sec => toggle every 50ms)
