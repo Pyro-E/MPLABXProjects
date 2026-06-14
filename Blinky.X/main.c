@@ -66,11 +66,11 @@
 void main(void) {
     /* Configure PORTC pin RC1 as digital output and clear latch */
     ANSELC = 0x00;         // Disable analog on PORTC
-    TRISCbits.TRISC1 = 0;  // RC1 as output for PIC18F16Q40 Curiosity Nano
-    LATCbits.LATC1 = 0;    // start low
+    TRISCbits.TRISC3 = 0;  // RC1 as output for PIC18F16Q40 Curiosity Nano
+    LATCbits.LATC3 = 0;    // start low
 
     while (1) {
-        LATCbits.LATC1 ^= 1; // toggle LED pin using LAT
+        LATCbits.LATC3 ^= 1; // toggle LED pin using LAT
         __delay_ms(500);
     }
 
