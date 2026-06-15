@@ -1,5 +1,8 @@
 {
     "mplab.clangd.compileCommandsDir": "${workspaceFolder}/_build/leakCounter_pic18/default",
     "mplab.clangd.path": "/Applications/microchip/xc8/v3.10/bin/xc8-clangd",
-    "C_Cpp.intelliSenseEngine": "disabled"
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "particle.targetPlatform": "boron",
+    "particle.firmwareVersion": "6.4.1",
+    "mplab.project.workspace.addNewSourceFiles": "Always"
 }
