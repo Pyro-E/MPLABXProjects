@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.24.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "PIC18F06Q40_Template_default_project",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "PIC18F06Q40_Template_default_default_XC8_compile::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PIC18F06Q40_Template_default_default_XC8_compile-Debug-e6997a8a83159cd5af27.json",
+					"name" : "PIC18F06Q40_Template_default_default_XC8_compile",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PIC18F06Q40_Template_default_image_4heCTPWE::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PIC18F06Q40_Template_default_image_4heCTPWE-Debug-5fbe0da8e63da4ab9e39.json",
+					"name" : "PIC18F06Q40_Template_default_image_4heCTPWE",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/build",
+		"source" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/cmake/PIC18F06Q40_Template/default"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 8
+	}
+}

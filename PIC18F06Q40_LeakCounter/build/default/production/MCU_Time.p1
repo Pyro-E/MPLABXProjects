@@ -1,0 +1,132 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"6 MCU_Time.c
+[; ;MCU_Time.c: 6: static volatile uint32_t unNowTime_ms = 0;
+[v _unNowTime_ms `Vul ~T0 @X0 1 s ]
+[i _unNowTime_ms
+-> -> -> 0 `i `l `ul
+]
+"9
+[; ;MCU_Time.c: 9: uint32_t getNowTime(void)
+[v _getNowTime `(ul ~T0 @X0 1 ef ]
+"10
+[; ;MCU_Time.c: 10: {
+{
+[e :U _getNowTime ]
+[f ]
+"11
+[; ;MCU_Time.c: 11:     return unNowTime_ms;
+[e ) _unNowTime_ms ]
+[e $UE 1  ]
+"12
+[; ;MCU_Time.c: 12: }
+[e :UE 1 ]
+}
+"17
+[; ;MCU_Time.c: 17: uint32_t timeSpan(uint32_t unOldTime_ms)
+[v _timeSpan `(ul ~T0 @X0 1 ef1`ul ]
+"18
+[; ;MCU_Time.c: 18: {
+{
+[e :U _timeSpan ]
+"17
+[; ;MCU_Time.c: 17: uint32_t timeSpan(uint32_t unOldTime_ms)
+[v _unOldTime_ms `ul ~T0 @X0 1 r1 ]
+"18
+[; ;MCU_Time.c: 18: {
+[f ]
+"19
+[; ;MCU_Time.c: 19:     uint32_t now = getNowTime();
+[v _now `ul ~T0 @X0 1 a ]
+[e = _now ( _getNowTime ..  ]
+"20
+[; ;MCU_Time.c: 20:     if (unOldTime_ms > now) {
+[e $ ! > _unOldTime_ms _now 3  ]
+{
+"21
+[; ;MCU_Time.c: 21:         return (0xFFFFFFFFUL - unOldTime_ms) + now + 1UL;
+[e ) + + - -> 4294967295 `ul _unOldTime_ms _now -> 1 `ul ]
+[e $UE 2  ]
+"22
+[; ;MCU_Time.c: 22:     }
+}
+[e :U 3 ]
+"23
+[; ;MCU_Time.c: 23:     return now - unOldTime_ms;
+[e ) - _now _unOldTime_ms ]
+[e $UE 2  ]
+"24
+[; ;MCU_Time.c: 24: }
+[e :UE 2 ]
+}
+"30
+[; ;MCU_Time.c: 30: void MCU_Time_Delay_Ms(uint32_t unMs)
+[v _MCU_Time_Delay_Ms `(v ~T0 @X0 1 ef1`ul ]
+"31
+[; ;MCU_Time.c: 31: {
+{
+[e :U _MCU_Time_Delay_Ms ]
+"30
+[; ;MCU_Time.c: 30: void MCU_Time_Delay_Ms(uint32_t unMs)
+[v _unMs `ul ~T0 @X0 1 r1 ]
+"31
+[; ;MCU_Time.c: 31: {
+[f ]
+"32
+[; ;MCU_Time.c: 32:     uint32_t start = getNowTime();
+[v _start `ul ~T0 @X0 1 a ]
+[e = _start ( _getNowTime ..  ]
+"33
+[; ;MCU_Time.c: 33:     while (timeSpan(start) <= unMs) {
+[e $U 5  ]
+[e :U 6 ]
+{
+"35
+[; ;MCU_Time.c: 35:     }
+}
+[e :U 5 ]
+"33
+[; ;MCU_Time.c: 33:     while (timeSpan(start) <= unMs) {
+[e $ <= ( _timeSpan (1 _start _unMs 6  ]
+[e :U 7 ]
+"36
+[; ;MCU_Time.c: 36: }
+[e :UE 4 ]
+}
+"39
+[; ;MCU_Time.c: 39: void MCU_Time_Increase_Unit(void)
+[v _MCU_Time_Increase_Unit `(v ~T0 @X0 1 ef ]
+"40
+[; ;MCU_Time.c: 40: {
+{
+[e :U _MCU_Time_Increase_Unit ]
+[f ]
+"41
+[; ;MCU_Time.c: 41:     unNowTime_ms++;
+[e ++ _unNowTime_ms -> -> 1 `i `Vul ]
+"42
+[; ;MCU_Time.c: 42: }
+[e :UE 8 ]
+}
+"45
+[; ;MCU_Time.c: 45: void MCU_Time_Init(unsigned char ucKHz)
+[v _MCU_Time_Init `(v ~T0 @X0 1 ef1`uc ]
+"46
+[; ;MCU_Time.c: 46: {
+{
+[e :U _MCU_Time_Init ]
+"45
+[; ;MCU_Time.c: 45: void MCU_Time_Init(unsigned char ucKHz)
+[v _ucKHz `uc ~T0 @X0 1 r1 ]
+"46
+[; ;MCU_Time.c: 46: {
+[f ]
+"47
+[; ;MCU_Time.c: 47:     (void)ucKHz;
+[e _ucKHz ]
+"48
+[; ;MCU_Time.c: 48:     unNowTime_ms = 0;
+[e = _unNowTime_ms -> -> -> 0 `i `l `ul ]
+"49
+[; ;MCU_Time.c: 49: }
+[e :UE 9 ]
+}
