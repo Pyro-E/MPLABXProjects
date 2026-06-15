@@ -1,0 +1,3 @@
+build/default/debug/Compress_Pack_10_10_4.p1:  \
+Compress_Pack_10_10_4.c  \
+App_Config.h 

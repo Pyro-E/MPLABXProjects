@@ -1,0 +1,339 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Compress_NoComp_2B_2B.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Compress_Pack_10_10_4.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Led.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Uart.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowLog.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowMeter.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowReport.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/MCU_Time.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/PulseCounter.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Sys_Time_MCU_Specific.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/led_fsm_sysstate.c.obj"
+		},
+		{
+			"path" : "CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/main.c.obj"
+		}
+	],
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"include",
+			"target_compile_options",
+			"PIC18F06Q40_Template_default_default_XC8_compile_rule",
+			"target_compile_definitions",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			".generated/main.cmake",
+			"CMakeLists.txt",
+			".generated/rule.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 15,
+				"parent" : 0
+			},
+			{
+				"file" : 0,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 24,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 95,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 96,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 100,
+				"parent" : 4
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-c"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mcpu=18F06Q40"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mdfp=/Users/kevinlu/.mchp_packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fno-short-double"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fno-short-float"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-memi=wordwrite"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-O0"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fasmfile"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-maddrqual=ignore"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mwarn=-3"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wa,-a"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-msummary=-psect,-class,+mem,-hex,-file"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-ginhx32"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wl,--data-init"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mno-keep-startup"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mno-download"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mno-default-config-bits"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-std=c99"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-gdwarf-3"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-mstack=compiled:auto:auto:auto"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "XPRJ_default=default"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "__18F06Q40__"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "__DEBUG=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/cmake/PIC18F06Q40_Template/default/../../.."
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11
+			]
+		}
+	],
+	"id" : "PIC18F06Q40_Template_default_default_XC8_compile::@6890427a1f51a3e7e1df",
+	"name" : "PIC18F06Q40_Template_default_default_XC8_compile",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Compress_NoComp_2B_2B.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Compress_Pack_10_10_4.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Led.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Uart.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowLog.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowMeter.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowReport.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/MCU_Time.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/PulseCounter.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Sys_Time_MCU_Specific.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/led_fsm_sysstate.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/main.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "OBJECT_LIBRARY"
+}

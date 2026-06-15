@@ -1,0 +1,734 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F06Q40 ]
+[d frameptr 1249 ]
+"30 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowReport.c
+[e E13317 . `uc
+ST_IDLE 0
+ST_WAKE_PULSE 1
+ST_WAKE_WAIT 2
+ST_SENDING 3
+]
+"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/led_fsm_sysstate.c
+[e E13103 . `uc
+LED_HEARTBEAT 0
+LED_BLINK 1
+]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/almod.c
+[v ___almod __almod `(l  1 e 4 0 ]
+"9 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+"9 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/atdiv.c
+[v ___atdiv __atdiv `(m  1 e 3 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/atmod.c
+[v ___atmod __atmod `(m  1 e 3 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"4 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"9 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lodiv.c
+[v ___lodiv __lodiv `(uo  1 e 8 0 ]
+"9 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lomod.c
+[v ___lomod __lomod `(uo  1 e 8 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ltdiv.c
+[v ___ltdiv __ltdiv `(um  1 e 3 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ltmod.c
+[v ___ltmod __ltmod `(um  1 e 3 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"10 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"15 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul24.c
+[v ___tmul __tmul `(um  1 e 3 0 ]
+"15 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"14 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Compress_NoComp_2B_2B.c
+[v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
+"22
+[v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
+"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Led.c
+[v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
+"32 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Uart.c
+[v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
+"40
+[v _UART_Init UART_Init `(v  1 e 1 0 ]
+"76
+[v _UART_ISR UART_ISR `(v  1 e 1 0 ]
+"102
+[v _print_char print_char `(a  1 e 1 0 ]
+"119
+[v _print_string print_string `(v  1 e 1 0 ]
+"126
+[v _print_uint print_uint `(v  1 e 1 0 ]
+"162
+[v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
+"23 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowLog.c
+[v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
+"33
+[v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
+"66
+[v _FlowLog_GetAt FlowLog_GetAt `(v  1 e 1 0 ]
+"78
+[v _FlowLog_BatchReady FlowLog_BatchReady `(a  1 e 1 0 ]
+"16 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowMeter.c
+[v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
+"23
+[v _flowmeter_refresh flowmeter_refresh `(v  1 s 1 flowmeter_refresh ]
+"37
+[v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
+"35 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowReport.c
+[v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
+"45
+[v _u16_to_buf u16_to_buf `(uc  1 s 1 u16_to_buf ]
+"107
+[v _build_report_line build_report_line `(uc  1 s 1 build_report_line ]
+"125
+[v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
+"21 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/led_fsm_sysstate.c
+[v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
+"30
+[v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
+"41
+[v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
+"45 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/main.c
+[v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
+"51
+[v _isr isr `IIH(v  1 e 1 0 ]
+"57
+[v _main main `(v  1 e 1 0 ]
+"9 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/MCU_Time.c
+[v _getNowTime getNowTime `(ul  1 e 4 0 ]
+"17
+[v _timeSpan timeSpan `(ul  1 e 4 0 ]
+"39
+[v _MCU_Time_Increase_Unit MCU_Time_Increase_Unit `(v  1 e 1 0 ]
+"45
+[v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
+"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/PulseCounter.c
+[v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
+"47
+[v _PulseCounter_Enable PulseCounter_Enable `(v  1 e 1 0 ]
+"57
+[v _PulseCounter_Clear PulseCounter_Clear `(v  1 e 1 0 ]
+"65
+[v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
+"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Sys_Time_MCU_Specific.c
+[v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
+"51
+[v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
+"70
+[v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
+"8538 /Users/kevinlu/.mchp_packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8/pic/include/proc/pic18f06q40.h
+[v _RC0PPS RC0PPS `VEuc  1 e 1 @529 ]
+"9126
+[v _T1CKIPPS T1CKIPPS `VEuc  1 e 1 @578 ]
+"11730
+[v _U1RXPPS U1RXPPS `VEuc  1 e 1 @626 ]
+"13636
+[v _U1RXB U1RXB `VEuc  1 e 1 @673 ]
+"13694
+[v _U1TXB U1TXB `VEuc  1 e 1 @675 ]
+[s S446 . 1 `uc 1 MODE0 1 0 :1:0 
+`uc 1 MODE1 1 0 :1:1 
+`uc 1 MODE2 1 0 :1:2 
+`uc 1 MODE3 1 0 :1:3 
+]
+"13926
+[s S451 . 1 `uc 1 U1MODE 1 0 :4:0 
+`uc 1 U1RXEN 1 0 :1:4 
+`uc 1 U1TXEN 1 0 :1:5 
+`uc 1 U1ABDEN 1 0 :1:6 
+`uc 1 U1BRGS 1 0 :1:7 
+]
+[s S457 . 1 `uc 1 U1MODE0 1 0 :1:0 
+`uc 1 U1MODE1 1 0 :1:1 
+`uc 1 U1MODE2 1 0 :1:2 
+`uc 1 U1MODE3 1 0 :1:3 
+]
+[s S462 . 1 `uc 1 MODE 1 0 :4:0 
+`uc 1 RXEN 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 ABDEN 1 0 :1:6 
+`uc 1 BRGS 1 0 :1:7 
+]
+[u S468 . 1 `S446 1 . 1 0 `S451 1 . 1 0 `S457 1 . 1 0 `S462 1 . 1 0 ]
+[v _U1CON0bits U1CON0bits `VES468  1 e 1 @683 ]
+[s S498 . 1 `uc 1 SENDB 1 0 :1:0 
+`uc 1 BRKOVR 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 RXBIMD 1 0 :1:3 
+`uc 1 WUE 1 0 :1:4 
+`uc 1 . 1 0 :2:5 
+`uc 1 ON 1 0 :1:7 
+]
+"14046
+[s S506 . 1 `uc 1 U1SENDB 1 0 :1:0 
+`uc 1 U1BRKOVR 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 U1RXBIMD 1 0 :1:3 
+`uc 1 U1WUE 1 0 :1:4 
+`uc 1 . 1 0 :2:5 
+`uc 1 U1ON 1 0 :1:7 
+]
+[u S514 . 1 `S498 1 . 1 0 `S506 1 . 1 0 ]
+[v _U1CON1bits U1CON1bits `VES514  1 e 1 @684 ]
+"14250
+[v _U1BRGL U1BRGL `VEuc  1 e 1 @686 ]
+"14270
+[v _U1BRGH U1BRGH `VEuc  1 e 1 @687 ]
+"17986
+[v _TMR1L TMR1L `VEuc  1 e 1 @786 ]
+"18106
+[v _TMR1H TMR1H `VEuc  1 e 1 @787 ]
+"18226
+[v _T1CON T1CON `VEuc  1 e 1 @788 ]
+[s S665 . 1 `uc 1 ON 1 0 :1:0 
+`uc 1 RD16 1 0 :1:1 
+`uc 1 NOT_SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 CKPS 1 0 :2:4 
+]
+"18268
+[s S671 . 1 `uc 1 TMR1ON 1 0 :1:0 
+`uc 1 T1RD16 1 0 :1:1 
+`uc 1 NOT_T1SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T1CKPS0 1 0 :1:4 
+`uc 1 T1CKPS1 1 0 :1:5 
+]
+[s S678 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nSYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 CKPS0 1 0 :1:4 
+`uc 1 CKPS1 1 0 :1:5 
+]
+[s S684 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 RD161 1 0 :1:1 
+]
+[s S687 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nT1SYNC 1 0 :1:2 
+]
+[u S690 . 1 `S665 1 . 1 0 `S671 1 . 1 0 `S678 1 . 1 0 `S684 1 . 1 0 `S687 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES690  1 e 1 @788 ]
+"18448
+[v _T1GCON T1GCON `VEuc  1 e 1 @789 ]
+"18900
+[v _T1CLK T1CLK `VEuc  1 e 1 @791 ]
+"19842
+[v _T2PR T2PR `VEuc  1 e 1 @797 ]
+"19880
+[v _T2CON T2CON `VEuc  1 e 1 @798 ]
+[s S288 . 1 `uc 1 OUTPS 1 0 :4:0 
+`uc 1 CKPS 1 0 :3:4 
+`uc 1 ON 1 0 :1:7 
+]
+"19916
+[s S292 . 1 `uc 1 T2OUTPS 1 0 :4:0 
+`uc 1 T2CKPS 1 0 :3:4 
+`uc 1 T2ON 1 0 :1:7 
+]
+[s S296 . 1 `uc 1 T2OUTPS0 1 0 :1:0 
+`uc 1 T2OUTPS1 1 0 :1:1 
+`uc 1 T2OUTPS2 1 0 :1:2 
+`uc 1 T2OUTPS3 1 0 :1:3 
+`uc 1 T2CKPS0 1 0 :1:4 
+`uc 1 T2CKPS1 1 0 :1:5 
+`uc 1 T2CKPS2 1 0 :1:6 
+]
+[s S304 . 1 `uc 1 OUTPS0 1 0 :1:0 
+`uc 1 OUTPS1 1 0 :1:1 
+`uc 1 OUTPS2 1 0 :1:2 
+`uc 1 OUTPS3 1 0 :1:3 
+`uc 1 CKPS0 1 0 :1:4 
+`uc 1 CKPS1 1 0 :1:5 
+`uc 1 CKPS2 1 0 :1:6 
+`uc 1 TMR2ON 1 0 :1:7 
+]
+[u S313 . 1 `S288 1 . 1 0 `S292 1 . 1 0 `S296 1 . 1 0 `S304 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES313  1 e 1 @798 ]
+"20026
+[v _T2HLT T2HLT `VEuc  1 e 1 @799 ]
+"20154
+[v _T2CLKCON T2CLKCON `VEuc  1 e 1 @800 ]
+[s S169 . 1 `uc 1 ANSELA0 1 0 :1:0 
+`uc 1 ANSELA1 1 0 :1:1 
+`uc 1 ANSELA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 ANSELA4 1 0 :1:4 
+`uc 1 ANSELA5 1 0 :1:5 
+]
+"31106
+[u S176 . 1 `S169 1 . 1 0 ]
+[v _ANSELAbits ANSELAbits `VES176  1 e 1 @1024 ]
+[s S135 . 1 `uc 1 ANSELC0 1 0 :1:0 
+`uc 1 ANSELC1 1 0 :1:1 
+`uc 1 ANSELC2 1 0 :1:2 
+`uc 1 ANSELC3 1 0 :1:3 
+`uc 1 ANSELC4 1 0 :1:4 
+`uc 1 ANSELC5 1 0 :1:5 
+]
+"31491
+[u S142 . 1 `S135 1 . 1 0 ]
+[v _ANSELCbits ANSELCbits `VES142  1 e 1 @1040 ]
+[s S369 . 1 `uc 1 SPI1RXIE 1 0 :1:0 
+`uc 1 SPI1TXIE 1 0 :1:1 
+`uc 1 SPI1IE 1 0 :1:2 
+`uc 1 TMR2IE 1 0 :1:3 
+`uc 1 TMR1IE 1 0 :1:4 
+`uc 1 TMR1GIE 1 0 :1:5 
+`uc 1 CCP1IE 1 0 :1:6 
+`uc 1 TMR0IE 1 0 :1:7 
+]
+"35080
+[u S378 . 1 `S369 1 . 1 0 ]
+"35080
+"35080
+[v _PIE3bits PIE3bits `VES378  1 e 1 @1195 ]
+[s S534 . 1 `uc 1 U1RXIE 1 0 :1:0 
+`uc 1 U1TXIE 1 0 :1:1 
+`uc 1 U1EIE 1 0 :1:2 
+`uc 1 U1IE 1 0 :1:3 
+`uc 1 TMR3IE 1 0 :1:4 
+`uc 1 TMR3GIE 1 0 :1:5 
+`uc 1 PWM1PIE 1 0 :1:6 
+`uc 1 PWM1IE 1 0 :1:7 
+]
+"35142
+[u S543 . 1 `S534 1 . 1 0 ]
+"35142
+"35142
+[v _PIE4bits PIE4bits `VES543  1 e 1 @1196 ]
+[s S348 . 1 `uc 1 SPI1RXIF 1 0 :1:0 
+`uc 1 SPI1TXIF 1 0 :1:1 
+`uc 1 SPI1IF 1 0 :1:2 
+`uc 1 TMR2IF 1 0 :1:3 
+`uc 1 TMR1IF 1 0 :1:4 
+`uc 1 TMR1GIF 1 0 :1:5 
+`uc 1 CCP1IF 1 0 :1:6 
+`uc 1 TMR0IF 1 0 :1:7 
+]
+"35727
+[u S357 . 1 `S348 1 . 1 0 ]
+"35727
+"35727
+[v _PIR3bits PIR3bits `VES357  1 e 1 @1206 ]
+[s S555 . 1 `uc 1 U1RXIF 1 0 :1:0 
+`uc 1 U1TXIF 1 0 :1:1 
+`uc 1 U1EIF 1 0 :1:2 
+`uc 1 U1IF 1 0 :1:3 
+`uc 1 TMR3IF 1 0 :1:4 
+`uc 1 TMR3GIF 1 0 :1:5 
+`uc 1 PWM1PIF 1 0 :1:6 
+`uc 1 PWM1IF 1 0 :1:7 
+]
+"35789
+[u S564 . 1 `S555 1 . 1 0 ]
+"35789
+"35789
+[v _PIR4bits PIR4bits `VES564  1 e 1 @1207 ]
+[s S220 . 1 `uc 1 LATA0 1 0 :1:0 
+`uc 1 LATA1 1 0 :1:1 
+`uc 1 LATA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 LATA4 1 0 :1:4 
+`uc 1 LATA5 1 0 :1:5 
+]
+"36194
+[u S227 . 1 `S220 1 . 1 0 ]
+"36194
+"36194
+[v _LATAbits LATAbits `VES227  1 e 1 @1214 ]
+[s S203 . 1 `uc 1 LATC0 1 0 :1:0 
+`uc 1 LATC1 1 0 :1:1 
+`uc 1 LATC2 1 0 :1:2 
+`uc 1 LATC3 1 0 :1:3 
+`uc 1 LATC4 1 0 :1:4 
+`uc 1 LATC5 1 0 :1:5 
+]
+"36239
+[u S210 . 1 `S203 1 . 1 0 ]
+"36239
+"36239
+[v _LATCbits LATCbits `VES210  1 e 1 @1216 ]
+[s S186 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+]
+"36289
+[u S193 . 1 `S186 1 . 1 0 ]
+"36289
+"36289
+[v _TRISAbits TRISAbits `VES193  1 e 1 @1222 ]
+[s S152 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+]
+"36339
+[u S159 . 1 `S152 1 . 1 0 ]
+"36339
+"36339
+[v _TRISCbits TRISCbits `VES159  1 e 1 @1224 ]
+[s S74 . 1 `uc 1 INT0EDG 1 0 :1:0 
+`uc 1 INT1EDG 1 0 :1:1 
+`uc 1 INT2EDG 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 IPEN 1 0 :1:5 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"36494
+[s S82 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 GIEH 1 0 :1:7 
+]
+"36494
+[u S85 . 1 `S74 1 . 1 0 `S82 1 . 1 0 ]
+"36494
+"36494
+[v _INTCON0bits INTCON0bits `VES85  1 e 1 @1238 ]
+"25 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Uart.c
+[v _s_tx_buf s_tx_buf `VE[128]uc  1 s 128 s_tx_buf ]
+"26
+[v _s_tx_head s_tx_head `VEuc  1 s 1 s_tx_head ]
+"27
+[v _s_tx_tail s_tx_tail `VEuc  1 s 1 s_tx_tail ]
+"28
+[v _s_tx_count s_tx_count `VEuc  1 s 1 s_tx_count ]
+"30
+[v _s_rx_cb s_rx_cb `*.37(v  1 s 2 s_rx_cb ]
+"11 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowLog.c
+[v _s_buf s_buf `[100]uc  1 s 100 s_buf ]
+"16
+[v _s_write s_write `us  1 s 2 s_write ]
+"17
+[v _s_group s_group `us  1 s 2 s_group ]
+"18
+[v _s_mark_ms s_mark_ms `ul  1 s 4 s_mark_ms ]
+"19
+[v _s_prev_total s_prev_total `ul  1 s 4 s_prev_total ]
+"20
+[v _s_captures s_captures `ul  1 s 4 s_captures ]
+"21
+[v _s_batch_ready s_batch_ready `a  1 s 1 s_batch_ready ]
+"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowMeter.c
+[v _s_prev_cnt s_prev_cnt `us  1 s 2 s_prev_cnt ]
+"14
+[v _s_total s_total `ul  1 s 4 s_total ]
+"30 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowReport.c
+[v _s_state s_state `E13317  1 s 1 s_state ]
+"31
+[v _s_read s_read `us  1 s 2 s_read ]
+"32
+[v _s_i s_i `us  1 s 2 s_i ]
+"33
+[v _s_wake_ms s_wake_ms `ul  1 s 4 s_wake_ms ]
+"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/led_fsm_sysstate.c
+[v _s_mode s_mode `E13103  1 s 1 s_mode ]
+"18
+[v _s_mark s_mark `ul  1 s 4 s_mark ]
+"19
+[v _s_toggles s_toggles `uc  1 s 1 s_toggles ]
+"6 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/MCU_Time.c
+[v _unNowTime_ms unNowTime_ms `VEul  1 s 4 unNowTime_ms ]
+"57 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"85
+} 0
+"32 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Uart.c
+[v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
+{
+[v UART_RX_SetCallback@cb cb `*.37(v  1 p 2 4 ]
+"35
+} 0
+"40
+[v _UART_Init UART_Init `(v  1 e 1 0 ]
+{
+"70
+} 0
+"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Sys_Time_MCU_Specific.c
+[v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
+{
+"45
+} 0
+"45 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/MCU_Time.c
+[v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
+{
+"49
+} 1
+"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/PulseCounter.c
+[v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
+{
+"45
+} 0
+"47
+[v _PulseCounter_Enable PulseCounter_Enable `(v  1 e 1 0 ]
+{
+"50
+} 0
+"70 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Sys_Time_MCU_Specific.c
+[v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
+{
+"78
+} 0
+"41 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/led_fsm_sysstate.c
+[v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
+{
+"65
+} 0
+"21
+[v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
+{
+"27
+} 0
+"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Led.c
+[v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
+{
+"36
+} 0
+"125 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowReport.c
+[v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
+{
+"168
+[v FlowReport_Process@rline rline `[24]uc  1 a 24 0 ]
+"160
+[v FlowReport_Process@need need `us  1 a 2 25 ]
+"169
+[v FlowReport_Process@rlen rlen `uc  1 a 1 24 ]
+"197
+} 0
+"119 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Uart.c
+[v _print_string print_string `(v  1 e 1 0 ]
+{
+[v print_string@s s `*.39Cuc  1 p 2 5 ]
+"124
+} 0
+"102
+[v _print_char print_char `(a  1 e 1 0 ]
+{
+[v print_char@c c `uc  1 p 1 wreg ]
+[v print_char@c c `uc  1 p 1 wreg ]
+"105
+[v print_char@c c `uc  1 p 1 4 ]
+"117
+} 1
+"107 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowReport.c
+[v _build_report_line build_report_line `(uc  1 s 1 build_report_line ]
+{
+[s S765 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
+"109
+[v build_report_line@e e `S765  1 a 4 28 ]
+"112
+[v build_report_line@p p `uc  1 a 1 32 ]
+"107
+[v build_report_line@line line `*.39uc  1 p 2 24 ]
+[v build_report_line@readIdx readIdx `us  1 p 2 26 ]
+"122
+} 0
+"45
+[v _u16_to_buf u16_to_buf `(uc  1 s 1 u16_to_buf ]
+{
+"50
+[v u16_to_buf@k k `uc  1 a 1 22 ]
+"47
+[v u16_to_buf@t t `[5]uc  1 a 5 17 ]
+"48
+[v u16_to_buf@n n `uc  1 a 1 23 ]
+"45
+[v u16_to_buf@p p `*.39uc  1 p 2 11 ]
+[v u16_to_buf@v v `us  1 p 2 13 ]
+"52
+} 0
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwdiv@quotient quotient `ui  1 a 2 9 ]
+"11
+[v ___lwdiv@counter counter `uc  1 a 1 8 ]
+"7
+[v ___lwdiv@dividend dividend `ui  1 p 2 4 ]
+[v ___lwdiv@divisor divisor `ui  1 p 2 6 ]
+"30
+} 0
+"66 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowLog.c
+[v _FlowLog_GetAt FlowLog_GetAt `(v  1 e 1 0 ]
+{
+"68
+[v FlowLog_GetAt@slot slot `us  1 a 2 19 ]
+"66
+[v FlowLog_GetAt@index index `us  1 p 2 13 ]
+[s S765 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
+[v FlowLog_GetAt@out out `*.39S765  1 p 2 15 ]
+"71
+} 0
+"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Compress_NoComp_2B_2B.c
+[v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
+{
+[v Compress_Unpack@src src `*.39Cuc  1 p 2 4 ]
+[v Compress_Unpack@time16 time16 `*.39us  1 p 2 6 ]
+[v Compress_Unpack@pulses pulses `*.39us  1 p 2 8 ]
+"26
+} 0
+"162 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Uart.c
+[v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
+{
+"165
+} 0
+"30 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/led_fsm_sysstate.c
+[v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
+{
+"39
+} 0
+"78 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowLog.c
+[v _FlowLog_BatchReady FlowLog_BatchReady `(a  1 e 1 0 ]
+{
+"85
+} 0
+"35 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowReport.c
+[v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
+{
+"41
+} 0
+"16 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowMeter.c
+[v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
+{
+"20
+} 0
+"33 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowLog.c
+[v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
+{
+"41
+[v FlowLog_Process@cur cur `ul  1 a 4 30 ]
+"48
+[v FlowLog_Process@slot slot `us  1 a 2 28 ]
+"42
+[v FlowLog_Process@delta delta `us  1 a 2 26 ]
+"59
+} 0
+"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/MCU_Time.c
+[v _timeSpan timeSpan `(ul  1 e 4 0 ]
+{
+"19
+[v timeSpan@now now `ul  1 a 4 20 ]
+"17
+[v timeSpan@unOldTime_ms unOldTime_ms `ul  1 p 4 8 ]
+"24
+} 0
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwmod@counter counter `uc  1 a 1 8 ]
+"7
+[v ___lwmod@dividend dividend `ui  1 p 2 4 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 6 ]
+"25
+} 0
+"14 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Compress_NoComp_2B_2B.c
+[v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
+{
+[v Compress_Pack@time16 time16 `us  1 p 2 4 ]
+[v Compress_Pack@pulses pulses `us  1 p 2 6 ]
+[v Compress_Pack@dst dst `*.39uc  1 p 2 8 ]
+"20
+} 0
+"23 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowLog.c
+[v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
+{
+"31
+} 0
+"9 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/MCU_Time.c
+[v _getNowTime getNowTime `(ul  1 e 4 0 ]
+{
+"12
+} 0
+"37 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/FlowMeter.c
+[v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
+{
+"41
+} 0
+"23
+[v _flowmeter_refresh flowmeter_refresh `(v  1 s 1 flowmeter_refresh ]
+{
+"25
+[v flowmeter_refresh@now now `us  1 a 2 12 ]
+"26
+[v flowmeter_refresh@inc inc `us  1 a 2 10 ]
+"29
+} 0
+"65 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/PulseCounter.c
+[v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
+{
+"70
+[v PulseCounter_Get@hi hi `uc  1 a 1 9 ]
+"69
+[v PulseCounter_Get@lo lo `uc  1 a 1 8 ]
+"72
+} 0
+"51 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/main.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+{
+"55
+} 0
+"76 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Dev_Uart.c
+[v _UART_ISR UART_ISR `(v  1 e 1 0 ]
+{
+"80
+[v UART_ISR@ch ch `uc  1 a 1 1 ]
+"97
+} 0
+"45 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/main.c
+[v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
+{
+[v on_uart_rx@ch ch `uc  1 p 1 0 ]
+"48
+} 0
+"51 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/Sys_Time_MCU_Specific.c
+[v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
+{
+"59
+} 0
+"39 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/MCU_Time.c
+[v _MCU_Time_Increase_Unit MCU_Time_Increase_Unit `(v  1 e 1 0 ]
+{
+"42
+} 0

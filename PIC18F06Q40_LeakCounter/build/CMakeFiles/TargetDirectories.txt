@@ -1,0 +1,4 @@
+/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/build/CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/build/CMakeFiles/PIC18F06Q40_Template_default_image_4heCTPWE.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/build/CMakeFiles/edit_cache.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_LeakCounter/build/CMakeFiles/rebuild_cache.dir

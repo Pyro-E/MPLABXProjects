@@ -1,0 +1,57 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"14 Compress_NoComp_2B_2B.c
+[; ;Compress_NoComp_2B_2B.c: 14: void Compress_Pack(uint16_t time16, uint16_t pulses, uint8_t *dst)
+[v _Compress_Pack `(v ~T0 @X0 1 ef3`us`us`*uc ]
+"15
+[; ;Compress_NoComp_2B_2B.c: 15: {
+{
+[e :U _Compress_Pack ]
+"14
+[; ;Compress_NoComp_2B_2B.c: 14: void Compress_Pack(uint16_t time16, uint16_t pulses, uint8_t *dst)
+[v _time16 `us ~T0 @X0 1 r1 ]
+[v _pulses `us ~T0 @X0 1 r2 ]
+[v _dst `*uc ~T0 @X0 1 r3 ]
+"15
+[; ;Compress_NoComp_2B_2B.c: 15: {
+[f ]
+"16
+[; ;Compress_NoComp_2B_2B.c: 16:     dst[0] = (uint8_t)(time16 >> 8);
+[e = *U + _dst * -> -> 0 `i `x -> -> # *U _dst `i `x -> >> -> _time16 `ui -> 8 `i `uc ]
+"17
+[; ;Compress_NoComp_2B_2B.c: 17:     dst[1] = (uint8_t)(time16 & 0xFF);
+[e = *U + _dst * -> -> 1 `i `x -> -> # *U _dst `i `x -> & -> _time16 `ui -> -> 255 `i `ui `uc ]
+"18
+[; ;Compress_NoComp_2B_2B.c: 18:     dst[2] = (uint8_t)(pulses >> 8);
+[e = *U + _dst * -> -> 2 `i `x -> -> # *U _dst `i `x -> >> -> _pulses `ui -> 8 `i `uc ]
+"19
+[; ;Compress_NoComp_2B_2B.c: 19:     dst[3] = (uint8_t)(pulses & 0xFF);
+[e = *U + _dst * -> -> 3 `i `x -> -> # *U _dst `i `x -> & -> _pulses `ui -> -> 255 `i `ui `uc ]
+"20
+[; ;Compress_NoComp_2B_2B.c: 20: }
+[e :UE 1 ]
+}
+"22
+[; ;Compress_NoComp_2B_2B.c: 22: void Compress_Unpack(const uint8_t *src, uint16_t *time16, uint16_t *pulses)
+[v _Compress_Unpack `(v ~T0 @X0 1 ef3`*Cuc`*us`*us ]
+"23
+[; ;Compress_NoComp_2B_2B.c: 23: {
+{
+[e :U _Compress_Unpack ]
+"22
+[; ;Compress_NoComp_2B_2B.c: 22: void Compress_Unpack(const uint8_t *src, uint16_t *time16, uint16_t *pulses)
+[v _src `*Cuc ~T0 @X0 1 r1 ]
+[v _time16 `*us ~T0 @X0 1 r2 ]
+[v _pulses `*us ~T0 @X0 1 r3 ]
+"23
+[; ;Compress_NoComp_2B_2B.c: 23: {
+[f ]
+"24
+[; ;Compress_NoComp_2B_2B.c: 24:     *time16 = (uint16_t)(((uint16_t)src[0] << 8) | src[1]);
+[e = *U _time16 -> | << -> -> *U + _src * -> -> 0 `i `x -> -> # *U _src `i `x `us `ui -> 8 `i -> *U + _src * -> -> 1 `i `x -> -> # *U _src `i `x `ui `us ]
+"25
+[; ;Compress_NoComp_2B_2B.c: 25:     *pulses = (uint16_t)(((uint16_t)src[2] << 8) | src[3]);
+[e = *U _pulses -> | << -> -> *U + _src * -> -> 2 `i `x -> -> # *U _src `i `x `us `ui -> 8 `i -> *U + _src * -> -> 3 `i `x -> -> # *U _src `i `x `ui `us ]
+"26
+[; ;Compress_NoComp_2B_2B.c: 26: }
+[e :UE 2 ]
+}
