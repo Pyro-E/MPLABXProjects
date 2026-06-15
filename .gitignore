@@ -2,3 +2,15 @@
 /Blinky.X/dist/
 /leakCounter_pic18.X/build/
 /leakCounter_pic18.X/dist/
+.generated_files/
+build/
+dist/
+nbproject/
+Makefile*
+Package-*
+private/
+_build/
+!cmake/**/user.cmake
+cmake/**/.generated/*
+cmake/**/CMake*
+out/

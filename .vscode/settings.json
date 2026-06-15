@@ -1,4 +1,5 @@
 {
-    "particle.targetPlatform": "p2",
-    "particle.firmwareVersion": "6.4.1"
+    "particle.targetPlatform": "boron",
+    "particle.firmwareVersion": "6.4.1",
+    "mplab.clangd.compileCommandsDir": "${workspaceFolder}/_build/PIC18F06Q40_Template/default"
 }

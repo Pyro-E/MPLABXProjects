@@ -54,17 +54,23 @@ void setup() {
 
 void loop() {
     while (Serial1.available() > 0) {
-        char c = Serial1.read();
+        int b = Serial1.read();
+        if (b < 0) break;
+        char c = (char)b;
+
+        // Print raw byte as hex and printable ASCII (dot for non-printable)
+        if (b < 16) Serial.print("0");
+        Serial.print(b, HEX);
+        Serial.print("  '");
+        if (b >= 32 && b <= 126) Serial.print(c);
+        else Serial.print('.');
+        Serial.println("'");
 
         if (c == '1') {
-            Serial.println("Received 1 from PIC");
-
-            // Example action:
-            // digitalWrite(D7, HIGH);
+            Serial.println("Action: Received 1 from PIC");
+            // Example action: toggle D7
+            // digitalWrite(D7, !digitalRead(D7));
             // Particle.publish("pic_msg", "1", PRIVATE);
-        } else {
-            Serial.print("Received other char: ");
-            Serial.println(c);
         }
     }
 }
