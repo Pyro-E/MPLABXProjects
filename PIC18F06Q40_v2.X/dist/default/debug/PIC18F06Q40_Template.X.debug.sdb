@@ -1,0 +1,733 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F06Q40 ]
+[d frameptr 1249 ]
+"52 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowReport.c
+[e E13321 . `uc
+WAKE_IDLE 0
+WAKE_HIGH 1
+]
+"53
+[e E13325 . `uc
+SEND_IDLE 0
+SEND_HEADER 1
+SEND_BODY 2
+]
+"17 D:\Work\pic\Code\PIC18F06Q40_Template.X\led_fsm_sysstate.c
+[e E13103 . `uc
+LED_HEARTBEAT 0
+LED_BLINK 1
+]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\almod.c
+[v ___almod __almod `(l  1 e 4 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\atdiv.c
+[v ___atdiv __atdiv `(m  1 e 3 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\atmod.c
+[v ___atmod __atmod `(m  1 e 3 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"4 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lodiv.c
+[v ___lodiv __lodiv `(uo  1 e 8 0 ]
+"9 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lomod.c
+[v ___lomod __lomod `(uo  1 e 8 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ltdiv.c
+[v ___ltdiv __ltdiv `(um  1 e 3 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\ltmod.c
+[v ___ltmod __ltmod `(um  1 e 3 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"10 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"15 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul24.c
+[v ___tmul __tmul `(um  1 e 3 0 ]
+"15 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"16 D:\Work\pic\Code\PIC18F06Q40_Template.X\Compress_Pack_10_10_4.c
+[v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
+"30
+[v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
+"13 D:\Work\pic\Code\PIC18F06Q40_Template.X\Dev_Led.c
+[v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
+"32 D:\Work\pic\Code\PIC18F06Q40_Template.X\Dev_Uart.c
+[v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
+"40
+[v _UART_Init UART_Init `(v  1 e 1 0 ]
+"76
+[v _UART_ISR UART_ISR `(v  1 e 1 0 ]
+"102
+[v _print_char print_char `(a  1 e 1 0 ]
+"126
+[v _print_uint print_uint `(v  1 e 1 0 ]
+"162
+[v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
+"23 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowLog.c
+[v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
+"33
+[v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
+"61
+[v _FlowLog_GetWriteIndex FlowLog_GetWriteIndex `(us  1 e 2 0 ]
+"66
+[v _FlowLog_GetAt FlowLog_GetAt `(v  1 e 1 0 ]
+"16 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowMeter.c
+[v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
+"23
+[v _flowmeter_refresh flowmeter_refresh `(v  1 s 1 flowmeter_refresh ]
+"37
+[v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
+"62 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowReport.c
+[v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
+"75
+[v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
+"158
+[v _send_raw send_raw `(v  1 s 1 send_raw ]
+"166
+[v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
+"21 D:\Work\pic\Code\PIC18F06Q40_Template.X\led_fsm_sysstate.c
+[v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
+"30
+[v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
+"41
+[v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
+"45 D:\Work\pic\Code\PIC18F06Q40_Template.X\main.c
+[v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
+"57
+[v _isr isr `IIH(v  1 e 1 0 ]
+"63
+[v _main main `(v  1 e 1 0 ]
+"9 D:\Work\pic\Code\PIC18F06Q40_Template.X\MCU_Time.c
+[v _getNowTime getNowTime `(ul  1 e 4 0 ]
+"17
+[v _timeSpan timeSpan `(ul  1 e 4 0 ]
+"39
+[v _MCU_Time_Increase_Unit MCU_Time_Increase_Unit `(v  1 e 1 0 ]
+"45
+[v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
+"22 D:\Work\pic\Code\PIC18F06Q40_Template.X\PulseCounter.c
+[v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
+"47
+[v _PulseCounter_Enable PulseCounter_Enable `(v  1 e 1 0 ]
+"57
+[v _PulseCounter_Clear PulseCounter_Clear `(v  1 e 1 0 ]
+"65
+[v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
+"22 D:\Work\pic\Code\PIC18F06Q40_Template.X\Sys_Time_MCU_Specific.c
+[v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
+"51
+[v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
+"70
+[v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
+"8538 C:/Program Files/Microchip/MPLABX/v6.30/packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8\pic\include\proc/pic18f06q40.h
+[v _RC0PPS RC0PPS `VEuc  1 e 1 @529 ]
+"9126
+[v _T1CKIPPS T1CKIPPS `VEuc  1 e 1 @578 ]
+"11730
+[v _U1RXPPS U1RXPPS `VEuc  1 e 1 @626 ]
+"13636
+[v _U1RXB U1RXB `VEuc  1 e 1 @673 ]
+"13694
+[v _U1TXB U1TXB `VEuc  1 e 1 @675 ]
+[s S460 . 1 `uc 1 MODE0 1 0 :1:0 
+`uc 1 MODE1 1 0 :1:1 
+`uc 1 MODE2 1 0 :1:2 
+`uc 1 MODE3 1 0 :1:3 
+]
+"13926
+[s S465 . 1 `uc 1 U1MODE 1 0 :4:0 
+`uc 1 U1RXEN 1 0 :1:4 
+`uc 1 U1TXEN 1 0 :1:5 
+`uc 1 U1ABDEN 1 0 :1:6 
+`uc 1 U1BRGS 1 0 :1:7 
+]
+[s S471 . 1 `uc 1 U1MODE0 1 0 :1:0 
+`uc 1 U1MODE1 1 0 :1:1 
+`uc 1 U1MODE2 1 0 :1:2 
+`uc 1 U1MODE3 1 0 :1:3 
+]
+[s S476 . 1 `uc 1 MODE 1 0 :4:0 
+`uc 1 RXEN 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 ABDEN 1 0 :1:6 
+`uc 1 BRGS 1 0 :1:7 
+]
+[u S482 . 1 `S460 1 . 1 0 `S465 1 . 1 0 `S471 1 . 1 0 `S476 1 . 1 0 ]
+[v _U1CON0bits U1CON0bits `VES482  1 e 1 @683 ]
+[s S512 . 1 `uc 1 SENDB 1 0 :1:0 
+`uc 1 BRKOVR 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 RXBIMD 1 0 :1:3 
+`uc 1 WUE 1 0 :1:4 
+`uc 1 . 1 0 :2:5 
+`uc 1 ON 1 0 :1:7 
+]
+"14046
+[s S520 . 1 `uc 1 U1SENDB 1 0 :1:0 
+`uc 1 U1BRKOVR 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 U1RXBIMD 1 0 :1:3 
+`uc 1 U1WUE 1 0 :1:4 
+`uc 1 . 1 0 :2:5 
+`uc 1 U1ON 1 0 :1:7 
+]
+[u S528 . 1 `S512 1 . 1 0 `S520 1 . 1 0 ]
+[v _U1CON1bits U1CON1bits `VES528  1 e 1 @684 ]
+"14250
+[v _U1BRGL U1BRGL `VEuc  1 e 1 @686 ]
+"14270
+[v _U1BRGH U1BRGH `VEuc  1 e 1 @687 ]
+"17986
+[v _TMR1L TMR1L `VEuc  1 e 1 @786 ]
+"18106
+[v _TMR1H TMR1H `VEuc  1 e 1 @787 ]
+"18226
+[v _T1CON T1CON `VEuc  1 e 1 @788 ]
+[s S679 . 1 `uc 1 ON 1 0 :1:0 
+`uc 1 RD16 1 0 :1:1 
+`uc 1 NOT_SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 CKPS 1 0 :2:4 
+]
+"18268
+[s S685 . 1 `uc 1 TMR1ON 1 0 :1:0 
+`uc 1 T1RD16 1 0 :1:1 
+`uc 1 NOT_T1SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T1CKPS0 1 0 :1:4 
+`uc 1 T1CKPS1 1 0 :1:5 
+]
+[s S692 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nSYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 CKPS0 1 0 :1:4 
+`uc 1 CKPS1 1 0 :1:5 
+]
+[s S698 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 RD161 1 0 :1:1 
+]
+[s S701 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nT1SYNC 1 0 :1:2 
+]
+[u S704 . 1 `S679 1 . 1 0 `S685 1 . 1 0 `S692 1 . 1 0 `S698 1 . 1 0 `S701 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES704  1 e 1 @788 ]
+"18448
+[v _T1GCON T1GCON `VEuc  1 e 1 @789 ]
+"18900
+[v _T1CLK T1CLK `VEuc  1 e 1 @791 ]
+"19842
+[v _T2PR T2PR `VEuc  1 e 1 @797 ]
+"19880
+[v _T2CON T2CON `VEuc  1 e 1 @798 ]
+[s S302 . 1 `uc 1 OUTPS 1 0 :4:0 
+`uc 1 CKPS 1 0 :3:4 
+`uc 1 ON 1 0 :1:7 
+]
+"19916
+[s S306 . 1 `uc 1 T2OUTPS 1 0 :4:0 
+`uc 1 T2CKPS 1 0 :3:4 
+`uc 1 T2ON 1 0 :1:7 
+]
+[s S310 . 1 `uc 1 T2OUTPS0 1 0 :1:0 
+`uc 1 T2OUTPS1 1 0 :1:1 
+`uc 1 T2OUTPS2 1 0 :1:2 
+`uc 1 T2OUTPS3 1 0 :1:3 
+`uc 1 T2CKPS0 1 0 :1:4 
+`uc 1 T2CKPS1 1 0 :1:5 
+`uc 1 T2CKPS2 1 0 :1:6 
+]
+[s S318 . 1 `uc 1 OUTPS0 1 0 :1:0 
+`uc 1 OUTPS1 1 0 :1:1 
+`uc 1 OUTPS2 1 0 :1:2 
+`uc 1 OUTPS3 1 0 :1:3 
+`uc 1 CKPS0 1 0 :1:4 
+`uc 1 CKPS1 1 0 :1:5 
+`uc 1 CKPS2 1 0 :1:6 
+`uc 1 TMR2ON 1 0 :1:7 
+]
+[u S327 . 1 `S302 1 . 1 0 `S306 1 . 1 0 `S310 1 . 1 0 `S318 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES327  1 e 1 @798 ]
+"20026
+[v _T2HLT T2HLT `VEuc  1 e 1 @799 ]
+"20154
+[v _T2CLKCON T2CLKCON `VEuc  1 e 1 @800 ]
+[s S196 . 1 `uc 1 ANSELA0 1 0 :1:0 
+`uc 1 ANSELA1 1 0 :1:1 
+`uc 1 ANSELA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 ANSELA4 1 0 :1:4 
+`uc 1 ANSELA5 1 0 :1:5 
+]
+"31106
+[u S203 . 1 `S196 1 . 1 0 ]
+[v _ANSELAbits ANSELAbits `VES203  1 e 1 @1024 ]
+[s S162 . 1 `uc 1 ANSELC0 1 0 :1:0 
+`uc 1 ANSELC1 1 0 :1:1 
+`uc 1 ANSELC2 1 0 :1:2 
+`uc 1 ANSELC3 1 0 :1:3 
+`uc 1 ANSELC4 1 0 :1:4 
+`uc 1 ANSELC5 1 0 :1:5 
+]
+"31491
+[u S169 . 1 `S162 1 . 1 0 ]
+[v _ANSELCbits ANSELCbits `VES169  1 e 1 @1040 ]
+[s S383 . 1 `uc 1 SPI1RXIE 1 0 :1:0 
+`uc 1 SPI1TXIE 1 0 :1:1 
+`uc 1 SPI1IE 1 0 :1:2 
+`uc 1 TMR2IE 1 0 :1:3 
+`uc 1 TMR1IE 1 0 :1:4 
+`uc 1 TMR1GIE 1 0 :1:5 
+`uc 1 CCP1IE 1 0 :1:6 
+`uc 1 TMR0IE 1 0 :1:7 
+]
+"35080
+[u S392 . 1 `S383 1 . 1 0 ]
+"35080
+"35080
+[v _PIE3bits PIE3bits `VES392  1 e 1 @1195 ]
+[s S548 . 1 `uc 1 U1RXIE 1 0 :1:0 
+`uc 1 U1TXIE 1 0 :1:1 
+`uc 1 U1EIE 1 0 :1:2 
+`uc 1 U1IE 1 0 :1:3 
+`uc 1 TMR3IE 1 0 :1:4 
+`uc 1 TMR3GIE 1 0 :1:5 
+`uc 1 PWM1PIE 1 0 :1:6 
+`uc 1 PWM1IE 1 0 :1:7 
+]
+"35142
+[u S557 . 1 `S548 1 . 1 0 ]
+"35142
+"35142
+[v _PIE4bits PIE4bits `VES557  1 e 1 @1196 ]
+[s S362 . 1 `uc 1 SPI1RXIF 1 0 :1:0 
+`uc 1 SPI1TXIF 1 0 :1:1 
+`uc 1 SPI1IF 1 0 :1:2 
+`uc 1 TMR2IF 1 0 :1:3 
+`uc 1 TMR1IF 1 0 :1:4 
+`uc 1 TMR1GIF 1 0 :1:5 
+`uc 1 CCP1IF 1 0 :1:6 
+`uc 1 TMR0IF 1 0 :1:7 
+]
+"35727
+[u S371 . 1 `S362 1 . 1 0 ]
+"35727
+"35727
+[v _PIR3bits PIR3bits `VES371  1 e 1 @1206 ]
+[s S569 . 1 `uc 1 U1RXIF 1 0 :1:0 
+`uc 1 U1TXIF 1 0 :1:1 
+`uc 1 U1EIF 1 0 :1:2 
+`uc 1 U1IF 1 0 :1:3 
+`uc 1 TMR3IF 1 0 :1:4 
+`uc 1 TMR3GIF 1 0 :1:5 
+`uc 1 PWM1PIF 1 0 :1:6 
+`uc 1 PWM1IF 1 0 :1:7 
+]
+"35789
+[u S578 . 1 `S569 1 . 1 0 ]
+"35789
+"35789
+[v _PIR4bits PIR4bits `VES578  1 e 1 @1207 ]
+[s S240 . 1 `uc 1 LATA0 1 0 :1:0 
+`uc 1 LATA1 1 0 :1:1 
+`uc 1 LATA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 LATA4 1 0 :1:4 
+`uc 1 LATA5 1 0 :1:5 
+]
+"36194
+[u S247 . 1 `S240 1 . 1 0 ]
+"36194
+"36194
+[v _LATAbits LATAbits `VES247  1 e 1 @1214 ]
+[s S24 . 1 `uc 1 LATC0 1 0 :1:0 
+`uc 1 LATC1 1 0 :1:1 
+`uc 1 LATC2 1 0 :1:2 
+`uc 1 LATC3 1 0 :1:3 
+`uc 1 LATC4 1 0 :1:4 
+`uc 1 LATC5 1 0 :1:5 
+]
+"36239
+[u S31 . 1 `S24 1 . 1 0 ]
+"36239
+"36239
+[v _LATCbits LATCbits `VES31  1 e 1 @1216 ]
+[s S213 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+]
+"36289
+[u S220 . 1 `S213 1 . 1 0 ]
+"36289
+"36289
+[v _TRISAbits TRISAbits `VES220  1 e 1 @1222 ]
+[s S179 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+]
+"36339
+[u S186 . 1 `S179 1 . 1 0 ]
+"36339
+"36339
+[v _TRISCbits TRISCbits `VES186  1 e 1 @1224 ]
+[s S95 . 1 `uc 1 INT0EDG 1 0 :1:0 
+`uc 1 INT1EDG 1 0 :1:1 
+`uc 1 INT2EDG 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 IPEN 1 0 :1:5 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"36494
+[s S103 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 GIEH 1 0 :1:7 
+]
+"36494
+[u S106 . 1 `S95 1 . 1 0 `S103 1 . 1 0 ]
+"36494
+"36494
+[v _INTCON0bits INTCON0bits `VES106  1 e 1 @1238 ]
+"25 D:\Work\pic\Code\PIC18F06Q40_Template.X\Dev_Uart.c
+[v _s_tx_buf s_tx_buf `VE[64]uc  1 s 64 s_tx_buf ]
+"26
+[v _s_tx_head s_tx_head `VEuc  1 s 1 s_tx_head ]
+"27
+[v _s_tx_tail s_tx_tail `VEuc  1 s 1 s_tx_tail ]
+"28
+[v _s_tx_count s_tx_count `VEuc  1 s 1 s_tx_count ]
+"30
+[v _s_rx_cb s_rx_cb `*.37(v  1 s 2 s_rx_cb ]
+"11 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowLog.c
+[v _s_buf s_buf `[75]uc  1 s 75 s_buf ]
+"16
+[v _s_write s_write `us  1 s 2 s_write ]
+"17
+[v _s_group s_group `us  1 s 2 s_group ]
+"18
+[v _s_mark_ms s_mark_ms `ul  1 s 4 s_mark_ms ]
+"19
+[v _s_prev_total s_prev_total `ul  1 s 4 s_prev_total ]
+"20
+[v _s_captures s_captures `ul  1 s 4 s_captures ]
+"21
+[v _s_batch_ready s_batch_ready `a  1 s 1 s_batch_ready ]
+"13 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowMeter.c
+[v _s_prev_cnt s_prev_cnt `us  1 s 2 s_prev_cnt ]
+"14
+[v _s_total s_total `ul  1 s 4 s_total ]
+"52 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowReport.c
+[v _s_wake_state s_wake_state `E13321  1 s 1 s_wake_state ]
+"53
+[v _s_send_state s_send_state `E13325  1 s 1 s_send_state ]
+"55
+[v _s_read s_read `us  1 s 2 s_read ]
+"56
+[v _s_end s_end `us  1 s 2 s_end ]
+"57
+[v _s_i s_i `us  1 s 2 s_i ]
+"58
+[v _s_wake_ms s_wake_ms `ul  1 s 4 s_wake_ms ]
+"59
+[v _s_wake_armed s_wake_armed `a  1 s 1 s_wake_armed ]
+"60
+[v _s_aa s_aa `VEa  1 s 1 s_aa ]
+"17 D:\Work\pic\Code\PIC18F06Q40_Template.X\led_fsm_sysstate.c
+[v _s_mode s_mode `E13103  1 s 1 s_mode ]
+"18
+[v _s_mark s_mark `ul  1 s 4 s_mark ]
+"19
+[v _s_toggles s_toggles `uc  1 s 1 s_toggles ]
+"6 D:\Work\pic\Code\PIC18F06Q40_Template.X\MCU_Time.c
+[v _unNowTime_ms unNowTime_ms `VEul  1 s 4 unNowTime_ms ]
+"63 D:\Work\pic\Code\PIC18F06Q40_Template.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"91
+} 0
+"32 D:\Work\pic\Code\PIC18F06Q40_Template.X\Dev_Uart.c
+[v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
+{
+[v UART_RX_SetCallback@cb cb `*.37(v  1 p 2 4 ]
+"35
+} 0
+"40
+[v _UART_Init UART_Init `(v  1 e 1 0 ]
+{
+"70
+} 0
+"22 D:\Work\pic\Code\PIC18F06Q40_Template.X\Sys_Time_MCU_Specific.c
+[v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
+{
+"45
+} 0
+"45 D:\Work\pic\Code\PIC18F06Q40_Template.X\MCU_Time.c
+[v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
+{
+"49
+} 1
+"22 D:\Work\pic\Code\PIC18F06Q40_Template.X\PulseCounter.c
+[v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
+{
+"45
+} 0
+"47
+[v _PulseCounter_Enable PulseCounter_Enable `(v  1 e 1 0 ]
+{
+"50
+} 0
+"70 D:\Work\pic\Code\PIC18F06Q40_Template.X\Sys_Time_MCU_Specific.c
+[v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
+{
+"78
+} 0
+"41 D:\Work\pic\Code\PIC18F06Q40_Template.X\led_fsm_sysstate.c
+[v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
+{
+"65
+} 0
+"21
+[v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
+{
+"27
+} 0
+"13 D:\Work\pic\Code\PIC18F06Q40_Template.X\Dev_Led.c
+[v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
+{
+"36
+} 0
+"166 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowReport.c
+[v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
+{
+[s S779 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
+"251
+[v FlowReport_Process@e e `S779  1 a 4 13 ]
+"255
+[v FlowReport_Process@raw raw `[3]uc  1 a 3 0 ]
+"258
+[v FlowReport_Process@need_875 need `us  1 a 2 11 ]
+"224
+[v FlowReport_Process@hdr hdr `[4]uc  1 a 4 3 ]
+"215
+[v FlowReport_Process@count count `ul  1 a 4 17 ]
+"216
+[v FlowReport_Process@need need `us  1 a 2 9 ]
+"169
+[v FlowReport_Process@unsent unsent `us  1 a 2 7 ]
+"286
+} 0
+"158
+[v _send_raw send_raw `(v  1 s 1 send_raw ]
+{
+"160
+[v send_raw@k k `uc  1 a 1 8 ]
+"158
+[v send_raw@b b `*.39Cuc  1 p 2 5 ]
+[v send_raw@n n `uc  1 p 1 7 ]
+"163
+} 0
+"102 D:\Work\pic\Code\PIC18F06Q40_Template.X\Dev_Uart.c
+[v _print_char print_char `(a  1 e 1 0 ]
+{
+[v print_char@c c `uc  1 p 1 wreg ]
+[v print_char@c c `uc  1 p 1 wreg ]
+"105
+[v print_char@c c `uc  1 p 1 4 ]
+"117
+} 1
+"162
+[v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
+{
+"165
+} 0
+"30 D:\Work\pic\Code\PIC18F06Q40_Template.X\led_fsm_sysstate.c
+[v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
+{
+"39
+} 0
+"61 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowLog.c
+[v _FlowLog_GetWriteIndex FlowLog_GetWriteIndex `(us  1 e 2 0 ]
+{
+"64
+} 0
+"66
+[v _FlowLog_GetAt FlowLog_GetAt `(v  1 e 1 0 ]
+{
+"68
+[v FlowLog_GetAt@slot slot `us  1 a 2 35 ]
+"66
+[v FlowLog_GetAt@index index `us  1 p 2 29 ]
+[s S779 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
+[v FlowLog_GetAt@out out `*.39S779  1 p 2 31 ]
+"71
+} 0
+"30 D:\Work\pic\Code\PIC18F06Q40_Template.X\Compress_Pack_10_10_4.c
+[v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
+{
+"32
+[v Compress_Unpack@v v `ul  1 a 4 25 ]
+"30
+[v Compress_Unpack@src src `*.39Cuc  1 p 2 4 ]
+[v Compress_Unpack@time16 time16 `*.39us  1 p 2 6 ]
+[v Compress_Unpack@pulses pulses `*.39us  1 p 2 8 ]
+"38
+} 0
+"62 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowReport.c
+[v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
+{
+"72
+} 0
+"16 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowMeter.c
+[v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
+{
+"20
+} 0
+"33 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowLog.c
+[v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
+{
+"41
+[v FlowLog_Process@cur cur `ul  1 a 4 32 ]
+"48
+[v FlowLog_Process@slot slot `us  1 a 2 30 ]
+"42
+[v FlowLog_Process@delta delta `us  1 a 2 28 ]
+"59
+} 0
+"17 D:\Work\pic\Code\PIC18F06Q40_Template.X\MCU_Time.c
+[v _timeSpan timeSpan `(ul  1 e 4 0 ]
+{
+"19
+[v timeSpan@now now `ul  1 a 4 20 ]
+"17
+[v timeSpan@unOldTime_ms unOldTime_ms `ul  1 p 4 8 ]
+"24
+} 0
+"7 C:\Program Files\Microchip\xc8\v3.10\pic\sources\c99\common\lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwmod@counter counter `uc  1 a 1 8 ]
+"7
+[v ___lwmod@dividend dividend `ui  1 p 2 4 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 6 ]
+"25
+} 0
+"16 D:\Work\pic\Code\PIC18F06Q40_Template.X\Compress_Pack_10_10_4.c
+[v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
+{
+"23
+[v Compress_Pack@v v `ul  1 a 4 22 ]
+"20
+[v Compress_Pack@p p `us  1 a 2 20 ]
+"19
+[v Compress_Pack@g g `us  1 a 2 18 ]
+"16
+[v Compress_Pack@time16 time16 `us  1 p 2 4 ]
+[v Compress_Pack@pulses pulses `us  1 p 2 6 ]
+[v Compress_Pack@dst dst `*.39uc  1 p 2 8 ]
+"28
+} 0
+"23 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowLog.c
+[v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
+{
+"31
+} 0
+"9 D:\Work\pic\Code\PIC18F06Q40_Template.X\MCU_Time.c
+[v _getNowTime getNowTime `(ul  1 e 4 0 ]
+{
+"12
+} 0
+"37 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowMeter.c
+[v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
+{
+"41
+} 0
+"23
+[v _flowmeter_refresh flowmeter_refresh `(v  1 s 1 flowmeter_refresh ]
+{
+"25
+[v flowmeter_refresh@now now `us  1 a 2 12 ]
+"26
+[v flowmeter_refresh@inc inc `us  1 a 2 10 ]
+"29
+} 0
+"65 D:\Work\pic\Code\PIC18F06Q40_Template.X\PulseCounter.c
+[v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
+{
+"70
+[v PulseCounter_Get@hi hi `uc  1 a 1 9 ]
+"69
+[v PulseCounter_Get@lo lo `uc  1 a 1 8 ]
+"72
+} 0
+"57 D:\Work\pic\Code\PIC18F06Q40_Template.X\main.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+{
+"61
+} 0
+"76 D:\Work\pic\Code\PIC18F06Q40_Template.X\Dev_Uart.c
+[v _UART_ISR UART_ISR `(v  1 e 1 0 ]
+{
+"80
+[v UART_ISR@ch ch `uc  1 a 1 1 ]
+"97
+} 0
+"45 D:\Work\pic\Code\PIC18F06Q40_Template.X\main.c
+[v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
+{
+[v on_uart_rx@ch ch `uc  1 p 1 0 ]
+"54
+} 0
+"75 D:\Work\pic\Code\PIC18F06Q40_Template.X\FlowReport.c
+[v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
+{
+"78
+} 0
+"51 D:\Work\pic\Code\PIC18F06Q40_Template.X\Sys_Time_MCU_Specific.c
+[v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
+{
+"59
+} 0
+"39 D:\Work\pic\Code\PIC18F06Q40_Template.X\MCU_Time.c
+[v _MCU_Time_Increase_Unit MCU_Time_Increase_Unit `(v  1 e 1 0 ]
+{
+"42
+} 0

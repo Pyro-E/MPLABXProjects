@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "XC8 PIC",
+            "includePath": [
+                "/Applications/microchip/xc8/v3.10/pic/include",
+                "/Applications/microchip/xc8/v3.10/pic/lib",
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "__XC8__",
+                "_PIC18"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/Applications/microchip/xc8/v3.10/bin/xc8",
+            "cStandard": "c11",
+            "cppStandard": "c++11"
+        }
+    ],
+    "version": 4
+}
