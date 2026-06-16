@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_v2.X/PIC18F06Q40_v2/_build/PIC18F06Q40_v2/default",
+  "command": "/Applications/microchip/xc8/v3.10/bin/xc8-cc -DXPRJ_default=default -D__18F06Q40__ -c -mcpu=18F06Q40 -mdfp=/Users/kevinlu/.mchp_packs/Microchip/PIC18F-Q_DFP/1.30.487/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles/PIC18F06Q40_v2_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_v2.X/PIC18F06Q40_v2/main.c.p1 -c /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_v2.X/PIC18F06Q40_v2/main.c",
+  "file": "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_v2.X/PIC18F06Q40_v2/main.c",
+  "output": "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_v2.X/PIC18F06Q40_v2/_build/PIC18F06Q40_v2/default/CMakeFiles/PIC18F06Q40_v2_default_default_XC8_compile.dir/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_v2.X/PIC18F06Q40_v2/main.c.p1"
+}
+]
