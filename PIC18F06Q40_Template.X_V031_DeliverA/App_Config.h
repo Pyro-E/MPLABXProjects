@@ -17,7 +17,7 @@
  * REPORT_CONFIG_DEBUG undefined -> production values (1 min, 360, 360).
  * Toggle the single line below to switch every related setting at once.
  * Default: debug. */
-//#define REPORT_CONFIG_DEBUG
+#define REPORT_CONFIG_DEBUG
 
 #ifdef REPORT_CONFIG_DEBUG
   #define APP_FLOW_SLOTS      1000          /* ring-buffer slots */
@@ -105,13 +105,13 @@
  * start LOW in LEDs_Init().
  *   Define   -> they run the power/control waveform (Dev_Valve).
  *   Undefine -> they are left permanently LOW (driven once, no toggle). */
-//#define VALVE_PWR_CTRL_ENABLE
+#define VALVE_PWR_CTRL_ENABLE
 
 /* ---- Deep-sleep wake (Timer0 + LFINTOSC) ---- */
 /* Define -> between captures the MCU enters full Sleep and is woken by
  * Timer0 every APP_FLOW_PERIOD_MS; Timer1 keeps counting pulses.
  * Undefine -> original always-awake super-loop (no power saving). */
-#define APP_SLEEP_ENABLE
+//#define APP_SLEEP_ENABLE
 
 /* ---- UART wake (WUE): let Photon2's 0xF0 wake the PIC from Sleep ----
  * Define -> while asleep the UART watches RX; a 0xF0 edge wakes the PIC,
