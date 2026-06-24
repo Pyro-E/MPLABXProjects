@@ -1,8 +1,0 @@
-build/default/debug/FlowLog.p1:  \
-FlowLog.c  \
-FlowLog.h  \
-App_Config.h  \
-Compress.h  \
-Compress_Pack_10_10_4.h  \
-FlowMeter.h  \
-MCU_Time.h 

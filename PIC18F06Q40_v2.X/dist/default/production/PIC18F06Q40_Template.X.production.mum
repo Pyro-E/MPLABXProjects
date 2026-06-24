@@ -1,8 +1,0 @@
-
-18F06Q40 Memory Summary:
-    Program space        used   BAFh (  2991) of 10000h bytes   (  4.6%)
-    Data space           used   114h (   276) of  1000h bytes   (  6.7%)
-    Configuration bits   used     2h (     2) of     9h words   ( 22.2%)
-    EEPROM space         used     0h (     0) of   200h bytes   (  0.0%)
-    ID Location space    used     0h (     0) of    40h bytes   (  0.0%)
-
