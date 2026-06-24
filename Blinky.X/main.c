@@ -112,7 +112,7 @@
 // CONFIG bits: set these in MPLAB X "Configuration Bits" window if preferred.
 // These are examples; adjust to your project.
 #pragma config FEXTOSC = OFF
-#pragma config RSTOSC  = HFINTOSC_1MHZ
+#pragma config RSTOSC  = HFINTOSC_4MHZ
 #pragma config CLKOUTEN = OFF
 #pragma config WDTE = OFF
 #pragma config MCLRE = EXTMCLR
@@ -204,7 +204,7 @@ void main(void) {
     UART1_Init_TX_RA5_9600();
 
     while (1) {
-        UART1_WriteString("1\n");
+        UART1_WriteString("1");
         __delay_ms(1000);
     }
 }
