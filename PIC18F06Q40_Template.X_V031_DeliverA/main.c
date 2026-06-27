@@ -108,7 +108,7 @@ void main(void)
         WDT_KICK();            // pet the watchdog each pass (no-op if WDT off)
         MCU_Time_Process();    // no-op in ISR tick mode
         LedFsm_Process();      // LED heartbeat / blink burst
-        Valve_Process();       // valve power/control waveform
+        // Valve_Process();       // valve power/control waveform
         FlowLog_Process();     // capture one sample per period
         FlowReport_Process();  // wake Photon2 + sequential UART report
 

@@ -29,16 +29,16 @@ endif()
 
 
 # Main target for this project
-add_executable(PIC18F06Q40_Template_default_image__V_wTlsZ ${PIC18F06Q40_Template_default_library_list})
+add_executable(PIC18F06Q40_Template_default_image_9NqfFnjt ${PIC18F06Q40_Template_default_library_list})
 
-set_target_properties(PIC18F06Q40_Template_default_image__V_wTlsZ PROPERTIES
+set_target_properties(PIC18F06Q40_Template_default_image_9NqfFnjt PROPERTIES
     OUTPUT_NAME "default"
     SUFFIX ".elf"
     ADDITIONAL_CLEAN_FILES "${output_extensions}"
     RUNTIME_OUTPUT_DIRECTORY "${PIC18F06Q40_Template_default_output_dir}")
-target_link_libraries(PIC18F06Q40_Template_default_image__V_wTlsZ PRIVATE ${PIC18F06Q40_Template_default_default_XC8_FILE_TYPE_link})
+target_link_libraries(PIC18F06Q40_Template_default_image_9NqfFnjt PRIVATE ${PIC18F06Q40_Template_default_default_XC8_FILE_TYPE_link})
 
 # Add the link options from the rule file.
-PIC18F06Q40_Template_default_link_rule( PIC18F06Q40_Template_default_image__V_wTlsZ)
+PIC18F06Q40_Template_default_link_rule( PIC18F06Q40_Template_default_image_9NqfFnjt)
 
 

@@ -11,6 +11,10 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
+$/tmp/xcxChSiNp/driver_tmp_9.o
+init CODE 0 1A 1A 4 1 2
+reset_vec CODE 0 0 0 4 1 2
+config CONFIG 4 300000 300000 5 1 1
 $dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 ivt0x8 CODE 0 8 8 12 1 2
 cinit CODE 0 1EC4 1EC4 42 1 2
@@ -59,10 +63,6 @@ bssBANK5 BANK5 1 560 560 8F 1 1
 smallconst SMALLCONST 0 1600 1600 2 1 2
 dataCOMRAM COMRAM 1 549 549 1 1 1
 bssCOMRAM COMRAM 1 528 528 1F 1 1
-config CONFIG 4 300000 300000 5 1 1
-$/tmp/xcf7oS9SB/driver_tmp_9.o
-init CODE 0 1A 1A 4 1 2
-reset_vec CODE 0 0 0 4 1 2
 config CONFIG 4 300000 300000 5 1 1
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
@@ -427,41 +427,41 @@ $dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 1E66 text0 CODE >87:/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X _V013_SemiOK_AA_V2/main.c
 1E6A text0 CODE >88:/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X _V013_SemiOK_AA_V2/main.c
 1E6E text0 CODE >89:/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X _V013_SemiOK_AA_V2/main.c
-1EC4 cinit CODE >12098:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EC4 cinit CODE >12100:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EC4 cinit CODE >12103:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EC4 cinit CODE >12163:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EC6 cinit CODE >12164:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EC8 cinit CODE >12165:/tmp/xcf7oS9SB/driver_tmp_1.s
-1ECA cinit CODE >12166:/tmp/xcf7oS9SB/driver_tmp_1.s
-1ECC cinit CODE >12167:/tmp/xcf7oS9SB/driver_tmp_1.s
-1ECE cinit CODE >12168:/tmp/xcf7oS9SB/driver_tmp_1.s
-1ED0 cinit CODE >12169:/tmp/xcf7oS9SB/driver_tmp_1.s
-1ED2 cinit CODE >12170:/tmp/xcf7oS9SB/driver_tmp_1.s
-1ED6 cinit CODE >12174:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EDA cinit CODE >12175:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EDC cinit CODE >12176:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EDC cinit CODE >12177:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EDE cinit CODE >12178:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EE0 cinit CODE >12179:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EE2 cinit CODE >12182:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EE6 cinit CODE >12183:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EE8 cinit CODE >12184:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EE8 cinit CODE >12185:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EEA cinit CODE >12186:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EEC cinit CODE >12187:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EEE cinit CODE >12195:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EF0 cinit CODE >12196:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EF2 cinit CODE >12197:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EF4 cinit CODE >12198:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EF6 cinit CODE >12199:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EF8 cinit CODE >12200:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EFA cinit CODE >12201:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EFC cinit CODE >12207:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EFC cinit CODE >12210:/tmp/xcf7oS9SB/driver_tmp_1.s
-1EFE cinit CODE >12211:/tmp/xcf7oS9SB/driver_tmp_1.s
-1F00 cinit CODE >12212:/tmp/xcf7oS9SB/driver_tmp_1.s
-1F02 cinit CODE >12213:/tmp/xcf7oS9SB/driver_tmp_1.s
+1EC4 cinit CODE >12098:/tmp/xcxChSiNp/driver_tmp_1.s
+1EC4 cinit CODE >12100:/tmp/xcxChSiNp/driver_tmp_1.s
+1EC4 cinit CODE >12103:/tmp/xcxChSiNp/driver_tmp_1.s
+1EC4 cinit CODE >12163:/tmp/xcxChSiNp/driver_tmp_1.s
+1EC6 cinit CODE >12164:/tmp/xcxChSiNp/driver_tmp_1.s
+1EC8 cinit CODE >12165:/tmp/xcxChSiNp/driver_tmp_1.s
+1ECA cinit CODE >12166:/tmp/xcxChSiNp/driver_tmp_1.s
+1ECC cinit CODE >12167:/tmp/xcxChSiNp/driver_tmp_1.s
+1ECE cinit CODE >12168:/tmp/xcxChSiNp/driver_tmp_1.s
+1ED0 cinit CODE >12169:/tmp/xcxChSiNp/driver_tmp_1.s
+1ED2 cinit CODE >12170:/tmp/xcxChSiNp/driver_tmp_1.s
+1ED6 cinit CODE >12174:/tmp/xcxChSiNp/driver_tmp_1.s
+1EDA cinit CODE >12175:/tmp/xcxChSiNp/driver_tmp_1.s
+1EDC cinit CODE >12176:/tmp/xcxChSiNp/driver_tmp_1.s
+1EDC cinit CODE >12177:/tmp/xcxChSiNp/driver_tmp_1.s
+1EDE cinit CODE >12178:/tmp/xcxChSiNp/driver_tmp_1.s
+1EE0 cinit CODE >12179:/tmp/xcxChSiNp/driver_tmp_1.s
+1EE2 cinit CODE >12182:/tmp/xcxChSiNp/driver_tmp_1.s
+1EE6 cinit CODE >12183:/tmp/xcxChSiNp/driver_tmp_1.s
+1EE8 cinit CODE >12184:/tmp/xcxChSiNp/driver_tmp_1.s
+1EE8 cinit CODE >12185:/tmp/xcxChSiNp/driver_tmp_1.s
+1EEA cinit CODE >12186:/tmp/xcxChSiNp/driver_tmp_1.s
+1EEC cinit CODE >12187:/tmp/xcxChSiNp/driver_tmp_1.s
+1EEE cinit CODE >12195:/tmp/xcxChSiNp/driver_tmp_1.s
+1EF0 cinit CODE >12196:/tmp/xcxChSiNp/driver_tmp_1.s
+1EF2 cinit CODE >12197:/tmp/xcxChSiNp/driver_tmp_1.s
+1EF4 cinit CODE >12198:/tmp/xcxChSiNp/driver_tmp_1.s
+1EF6 cinit CODE >12199:/tmp/xcxChSiNp/driver_tmp_1.s
+1EF8 cinit CODE >12200:/tmp/xcxChSiNp/driver_tmp_1.s
+1EFA cinit CODE >12201:/tmp/xcxChSiNp/driver_tmp_1.s
+1EFC cinit CODE >12207:/tmp/xcxChSiNp/driver_tmp_1.s
+1EFC cinit CODE >12210:/tmp/xcxChSiNp/driver_tmp_1.s
+1EFE cinit CODE >12211:/tmp/xcxChSiNp/driver_tmp_1.s
+1F00 cinit CODE >12212:/tmp/xcxChSiNp/driver_tmp_1.s
+1F02 cinit CODE >12213:/tmp/xcxChSiNp/driver_tmp_1.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -495,13 +495,13 @@ __L__absolute__ 0 0 ABS 0 __absolute__ dist/default/production/PIC18F06Q40_Templ
 _s_prev_cnt 5FB 0 BANK5 1 nvBANK5 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Lsmallconst 1600 0 SMALLCONST 0 smallconst dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _T2PR 31D 0 ABS 0 - dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-___sp 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
+___sp 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
 _main 1E2E 0 CODE 0 text0 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _s_aa 540 0 COMRAM 1 bssCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-___stack_hi 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
-___stack_lo 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
+___stack_hi 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
+___stack_lo 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
 _T1CKIPPS 242 0 ABS 0 - dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-start 1A 0 CODE 0 init /tmp/xcf7oS9SB/driver_tmp_9.o
+start 1A 0 CODE 0 init /tmp/xcxChSiNp/driver_tmp_9.o
 __end_of_FlowLog_Init 1EC4 0 CODE 0 text25 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __HbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 FlowLog_GetAt@out 520 0 COMRAM 1 cstackCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
@@ -516,11 +516,11 @@ _print_char 1F3E 0 CODE 0 text13 dist/default/production/PIC18F06Q40_Template.X_
 __end_of_on_uart_rx 20FE 0 CODE 0 text32 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __LnvCOMRAM 0 0 ABS 0 nvCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __HdataCOMRAM 0 0 ABS 0 dataCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-__accesstop 560 0 ABS 0 - /tmp/xcf7oS9SB/driver_tmp_9.o
-intlevel0 0 0 CODE 0 text /tmp/xcf7oS9SB/driver_tmp_9.o
-intlevel1 0 0 CODE 0 text /tmp/xcf7oS9SB/driver_tmp_9.o
-intlevel2 0 0 CODE 0 text /tmp/xcf7oS9SB/driver_tmp_9.o
-intlevel3 0 0 CODE 0 text /tmp/xcf7oS9SB/driver_tmp_9.o
+__accesstop 560 0 ABS 0 - /tmp/xcxChSiNp/driver_tmp_9.o
+intlevel0 0 0 CODE 0 text /tmp/xcxChSiNp/driver_tmp_9.o
+intlevel1 0 0 CODE 0 text /tmp/xcxChSiNp/driver_tmp_9.o
+intlevel2 0 0 CODE 0 text /tmp/xcxChSiNp/driver_tmp_9.o
+intlevel3 0 0 CODE 0 text /tmp/xcxChSiNp/driver_tmp_9.o
 __LbssCOMRAM 0 0 ABS 0 bssCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __LnvFARRAM 0 0 FARRAM 0 nvFARRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Hifardata 0 0 CODE 0 ifardata dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
@@ -532,8 +532,8 @@ Compress_Pack@dst 509 0 COMRAM 1 cstackCOMRAM dist/default/production/PIC18F06Q4
 __pidataCOMRAM 2184 0 CODE 0 idataCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 ivt0x8_base 8 0 CODE 0 ivt0x8 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _U1RXPPS 272 0 ABS 0 - dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-___inthi_sp 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
-___intlo_sp 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
+___inthi_sp 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
+___intlo_sp 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
 __LdataCOMRAM 0 0 ABS 0 dataCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Lintsave_regs 0 0 BIGRAM 1 intsave_regs dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 FlowReport_Process@hdr 603 0 BANK6 1 cstackBANK6 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
@@ -570,7 +570,7 @@ __end_of_PulseCounter_Enable 2176 0 CODE 0 text6 dist/default/production/PIC18F0
 _unNowTime_ms 530 0 COMRAM 1 bssCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _U1BRGH 2AF 0 ABS 0 - dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _U1BRGL 2AE 0 ABS 0 - dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-isa$xinst 0 0 ABS 0 - /tmp/xcf7oS9SB/driver_tmp_9.o
+isa$xinst 0 0 ABS 0 - /tmp/xcxChSiNp/driver_tmp_9.o
 _s_wake_armed 549 0 COMRAM 1 dataCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _s_wake_state 542 0 COMRAM 1 bssCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _LedFsm_NotifyDataCycle 2018 0 CODE 0 text15 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
@@ -792,13 +792,13 @@ _s_mark 5EF 0 BANK5 1 nvBANK5 dist/default/production/PIC18F06Q40_Template.X__V0
 _s_mode 53F 0 COMRAM 1 bssCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _s_read 538 0 COMRAM 1 bssCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Lfarbss 0 0 FARRAM 0 farbss dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-___inthi_stack_hi 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
-___inthi_stack_lo 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
+___inthi_stack_hi 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
+___inthi_stack_lo 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
 __Lfardata 0 0 FARRAM 0 fardata dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-isa$std 1 0 ABS 0 - /tmp/xcf7oS9SB/driver_tmp_9.o
+isa$std 1 0 ABS 0 - /tmp/xcxChSiNp/driver_tmp_9.o
 Compress_Unpack@src 505 0 COMRAM 1 cstackCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-stackhi 0 0 ABS 0 - /tmp/xcf7oS9SB/driver_tmp_9.o
-stacklo 0 0 ABS 0 - /tmp/xcf7oS9SB/driver_tmp_9.o
+stackhi 0 0 ABS 0 - /tmp/xcxChSiNp/driver_tmp_9.o
+stacklo 0 0 ABS 0 - /tmp/xcxChSiNp/driver_tmp_9.o
 __end_of_getNowTime 214E 0 CODE 0 text26 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Lirdata 0 0 CODE 0 irdata dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Livt0x8 8 0 CODE 0 ivt0x8 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
@@ -871,7 +871,7 @@ __Ltext33 0 0 ABS 0 text33 dist/default/production/PIC18F06Q40_Template.X__V013_
 __Ltext34 0 0 ABS 0 text34 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Ltext35 0 0 ABS 0 text35 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 timeSpan@unOldTime_ms 509 0 COMRAM 1 cstackCOMRAM dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-__ramtop 1600 0 RAM 0 ramtop /tmp/xcf7oS9SB/driver_tmp_9.o
+__ramtop 1600 0 RAM 0 ramtop /tmp/xcxChSiNp/driver_tmp_9.o
 __Lpowerup 0 0 CODE 0 powerup dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __end_of_LedFsm_Init 20AE 0 CODE 0 text9 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Leeprom_data 0 0 EEDATA 0 eeprom_data dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
@@ -882,12 +882,12 @@ Compress_Unpack@v 51A 0 COMRAM 1 cstackCOMRAM dist/default/production/PIC18F06Q4
 __Lreset_vec 0 0 CODE 0 reset_vec dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _timeSpan 1CE8 0 CODE 0 text22 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 _UART_Init 1F06 0 CODE 0 text2 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-___heap_hi 0 0 ABS 0 - /tmp/xcf7oS9SB/driver_tmp_9.o
-___heap_lo 0 0 ABS 0 - /tmp/xcf7oS9SB/driver_tmp_9.o
+___heap_hi 0 0 ABS 0 - /tmp/xcxChSiNp/driver_tmp_9.o
+___heap_lo 0 0 ABS 0 - /tmp/xcxChSiNp/driver_tmp_9.o
 FlowReport_Process@need 609 0 BANK6 1 cstackBANK6 dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 ___param_bank 0 0 ABS 0 - dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
-___intlo_stack_hi 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
-___intlo_stack_lo 0 0 STACK 2 stack /tmp/xcf7oS9SB/driver_tmp_9.o
+___intlo_stack_hi 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
+___intlo_stack_lo 0 0 STACK 2 stack /tmp/xcxChSiNp/driver_tmp_9.o
 __Hbigdata 0 0 BIGRAM 1 bigdata dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __end_of__initialization 1EFC 0 CODE 0 cinit dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o
 __Libigdata 0 0 CODE 0 ibigdata dist/default/production/PIC18F06Q40_Template.X__V013_SemiOK_AA_V2.production.o

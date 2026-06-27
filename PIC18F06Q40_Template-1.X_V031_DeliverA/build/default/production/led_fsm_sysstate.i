@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "led_fsm_sysstate.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 295 "<built-in>" 3
@@ -6,14 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "/Applications/microchip/xc8/v3.10/pic/include/language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
-# 21 "main.c"
-#pragma config FEXTOSC = OFF
-#pragma config RSTOSC = HFINTOSC_64MHZ
-#pragma config MVECEN = OFF
-#pragma config WDTE = OFF
-#pragma config MCLRE = EXTMCLR
-#pragma config LVP = ON
+# 1 "led_fsm_sysstate.c" 2
+
 
 # 1 "/Applications/microchip/xc8/v3.10/pic/include/xc.h" 1 3
 # 18 "/Applications/microchip/xc8/v3.10/pic/include/xc.h" 3
@@ -22538,14 +22532,14 @@ __attribute__((__unsupported__("The READTIMER" "0" "() macro is not available wi
 unsigned char __t1rd16on(void);
 unsigned char __t3rd16on(void);
 # 34 "/Applications/microchip/xc8/v3.10/pic/include/xc.h" 2 3
-# 29 "main.c" 2
-# 1 "./App_Config.h" 1
-# 30 "main.c" 2
-# 1 "./Dev_Led.h" 1
-# 42 "./Dev_Led.h"
-void LEDs_Init(void);
-# 31 "main.c" 2
+# 4 "led_fsm_sysstate.c" 2
+
 # 1 "./led_fsm_sysstate.h" 1
+
+
+
+# 1 "./App_Config.h" 1
+# 5 "./led_fsm_sysstate.h" 2
 # 21 "./led_fsm_sysstate.h"
 void LedFsm_Init(void);
 
@@ -22554,193 +22548,92 @@ void LedFsm_Process(void);
 
 
 void LedFsm_NotifyDataCycle(void);
-# 32 "main.c" 2
-# 1 "./Dev_Uart.h" 1
 
 
 
 
-# 1 "/Applications/microchip/xc8/v3.10/pic/include/c99/stdbool.h" 1 3
-# 6 "./Dev_Uart.h" 2
-# 27 "./Dev_Uart.h"
-typedef void (*uart_rx_cb_t)(uint8_t ch);
-
-void UART_Init(void);
-void UART_RX_SetCallback(uart_rx_cb_t cb);
-
-
-void UART_ISR(void);
-
-
-_Bool print_char(char c);
-void print_string(const char *s);
-void print_uint(uint32_t v);
-void print_int(int32_t v);
-
-
-_Bool UART_TX_IsEmpty(void);
-uint8_t UART_TX_Free(void);
-# 33 "main.c" 2
-# 1 "./Dev_Debug.h" 1
-# 34 "main.c" 2
+void LedFsm_NotifyWake(void);
+# 6 "led_fsm_sysstate.c" 2
+# 1 "./Dev_Led.h" 1
+# 55 "./Dev_Led.h"
+void LEDs_Init(void);
+# 7 "led_fsm_sysstate.c" 2
 # 1 "./MCU_Time.h" 1
 # 20 "./MCU_Time.h"
 void MCU_Time_Init(unsigned char ucKHz);
 void MCU_Time_Increase_Unit(void);
+void MCU_Time_Advance(uint32_t unMs);
 
 uint32_t getNowTime(void);
 uint32_t timeSpan(uint32_t unOldTime_ms);
 void MCU_Time_Delay_Ms(uint32_t unMs);
-# 35 "main.c" 2
-# 1 "./Sys_Time_MCU_Specific.h" 1
-# 30 "./Sys_Time_MCU_Specific.h"
-void Sys_Time_Init(void);
-
-
-
-void MCU_Time_Process(void);
-
-
-void Sys_Time_ISR(void);
-# 36 "main.c" 2
-# 1 "./PulseCounter.h" 1
-# 26 "./PulseCounter.h"
-void PulseCounter_Init(void);
-
-
-void PulseCounter_Enable(void);
-
-
-void PulseCounter_Pause(void);
-
-
-void PulseCounter_Clear(void);
-
-
-uint16_t PulseCounter_Get(void);
-
-
-
-uint16_t PulseCounter_GetAndClear(void);
-
-
-_Bool PulseCounter_IsEnabled(void);
-# 37 "main.c" 2
-# 1 "./FlowMeter.h" 1
-# 19 "./FlowMeter.h"
-void FlowMeter_Init(void);
-
-
-
-uint32_t FlowMeter_Update(void);
-
-
-uint32_t FlowMeter_GetTotal(void);
-
-
-
-void FlowMeter_ClearTotal(void);
-# 38 "main.c" 2
-# 1 "./FlowLog.h" 1
+# 8 "led_fsm_sysstate.c" 2
 
 
 
 
+typedef enum {
+    LED_HEARTBEAT = 0,
+    LED_BLINK
+} led_mode_t;
+
+static led_mode_t s_mode = LED_HEARTBEAT;
+static uint32_t s_mark = 0;
+static uint8_t s_toggles = 0;
+
+void LedFsm_Init(void)
+{
+    s_mode = LED_HEARTBEAT;
+    s_mark = getNowTime();
+    s_toggles = 0;
+    (LATCbits.LATC3 = 0);
+}
 
 
-# 1 "./Compress.h" 1
-# 23 "./Compress.h"
-# 1 "./Compress_Pack_10_10_4.h" 1
-# 24 "./Compress.h" 2
-
-
-
-
-
-void Compress_Pack(uint16_t time16, uint16_t pulses, uint8_t *dst);
-void Compress_Unpack(const uint8_t *src, uint16_t *time16, uint16_t *pulses);
-# 8 "./FlowLog.h" 2
-# 27 "./FlowLog.h"
-typedef struct {
-    uint16_t grp;
-    uint16_t pulses;
-} flowlog_entry_t;
-
-void FlowLog_Init(void);
-void FlowLog_Process(void);
-
-uint16_t FlowLog_GetWriteIndex(void);
-void FlowLog_GetAt(uint16_t index, flowlog_entry_t *out);
-void FlowLog_GetRawAt(uint16_t index, uint8_t *dst);
-
-uint32_t FlowLog_GetCaptureCount(void);
-
-
-
-
-_Bool FlowLog_BatchReady(void);
-# 39 "main.c" 2
-# 1 "./FlowReport.h" 1
-# 22 "./FlowReport.h"
-void FlowReport_Init(void);
-
-
-
-void FlowReport_NotifyAA(void);
-
-
-
-void FlowReport_Process(void);
-# 40 "main.c" 2
-
-
-
-
-
-static void on_uart_rx(uint8_t ch)
+void LedFsm_NotifyDataCycle(void)
 {
 
 
 
-    if (ch == 0xAAu) {
-        (LATCbits.LATC3 ^= 1);
-        FlowReport_NotifyAA();
+    s_mode = LED_BLINK;
+    (LATCbits.LATC3 = 1);
+    s_toggles = (uint8_t)(2u * 3u - 1u);
+    s_mark = getNowTime();
+}
+
+
+void LedFsm_NotifyWake(void)
+{
+
+
+    s_mode = LED_HEARTBEAT;
+    (LATCbits.LATC3 = 1);
+    s_mark = getNowTime();
+}
+
+void LedFsm_Process(void)
+{
+    if (s_mode == LED_HEARTBEAT) {
+        if (timeSpan(s_mark) >= 500UL) {
+            s_mark = getNowTime();
+            (LATCbits.LATC3 ^= 1);
+
+        }
+        return;
     }
-}
 
 
-void __attribute__((picinterrupt(("")))) isr(void)
-{
-    UART_ISR();
-    Sys_Time_ISR();
-}
+    if (timeSpan(s_mark) >= 100UL) {
+        s_mark = getNowTime();
+        (LATCbits.LATC3 ^= 1);
+        if (s_toggles > 0) {
+            s_toggles--;
+        }
+        if (s_toggles == 0) {
 
-void main(void)
-{
-
-    LEDs_Init();
-    UART_Init();
-    UART_RX_SetCallback(on_uart_rx);
-    Sys_Time_Init();
-
-    PulseCounter_Init();
-    PulseCounter_Enable();
-    FlowMeter_Init();
-    FlowLog_Init();
-    FlowReport_Init();
-    LedFsm_Init();
-
-
-    INTCON0bits.GIEL = 1;
-    INTCON0bits.GIE = 1;
-
-    ((void)0);
-
-
-    while (1) {
-        MCU_Time_Process();
-        LedFsm_Process();
-        FlowLog_Process();
-        FlowReport_Process();
+            (LATCbits.LATC3 = 0);
+            s_mode = LED_HEARTBEAT;
+            s_mark = getNowTime();
+        }
     }
 }

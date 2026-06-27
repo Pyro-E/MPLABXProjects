@@ -1,0 +1,4 @@
+/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V031_DeliverA/_build/PIC18F06Q40_Template/default/CMakeFiles/PIC18F06Q40_Template_default_default_XC8_compile.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V031_DeliverA/_build/PIC18F06Q40_Template/default/CMakeFiles/PIC18F06Q40_Template_default_image_9NqfFnjt.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V031_DeliverA/_build/PIC18F06Q40_Template/default/CMakeFiles/edit_cache.dir
+/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V031_DeliverA/_build/PIC18F06Q40_Template/default/CMakeFiles/rebuild_cache.dir

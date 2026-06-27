@@ -258,7 +258,7 @@ void setup(void) {
 
 void loop(void) {
     /* Drive the valve schedules every iteration (non-blocking). */
-    valvesService();
+    // valvesService();
 
     bool wokeByPic    = (digitalRead(PIC_WAKE) == HIGH);
     bool wokeByButton = (digitalRead(BTN) == LOW);

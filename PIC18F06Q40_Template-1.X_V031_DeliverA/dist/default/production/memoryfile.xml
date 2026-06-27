@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <executable name="dist/default/production/PIC18F06Q40_Template-1.X_V031_DeliverA.production.hex">
+    <memory name="program">
+      <units>bytes</units>
+      <length>65536</length>
+      <used>3618</used>
+      <free>61918</free>
+    </memory>
+    <memory name="data">
+      <units>bytes</units>
+      <length>4096</length>
+      <used>3179</used>
+      <free>917</free>
+    </memory>
+  </executable>
+</project>
