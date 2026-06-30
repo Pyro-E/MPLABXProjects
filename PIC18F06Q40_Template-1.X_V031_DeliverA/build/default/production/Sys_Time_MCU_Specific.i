@@ -22657,7 +22657,7 @@ wake_cause_t Sys_Time_EnterDeepSleep(void)
     T0CON0bits.T0EN = 0;
 
     T0CON1 = ((uint8_t)(0x90u | 14u));
-    TMR0H = ((uint8_t)(((1000 * 31UL) + (1UL << (14u - 1u))) / (1UL << 14u)));
+    TMR0H = ((uint8_t)(((60000UL * 31UL) + (1UL << (14u - 1u))) / (1UL << 14u)));
     TMR0L = 0x00u;
     PIR3bits.TMR0IF = 0;
     PIE3bits.TMR0IE = 1;
@@ -22687,7 +22687,7 @@ wake_cause_t Sys_Time_EnterDeepSleep(void)
 
 
     if (PIR3bits.TMR0IF) {
-        MCU_Time_Advance(1000);
+        MCU_Time_Advance(60000UL);
 
 
     }

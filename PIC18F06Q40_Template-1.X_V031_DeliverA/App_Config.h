@@ -17,7 +17,7 @@
  * REPORT_CONFIG_DEBUG undefined -> production values (1 min, 360, 360).
  * Toggle the single line below to switch every related setting at once.
  * Default: debug. */
-#define REPORT_CONFIG_DEBUG
+// #define REPORT_CONFIG_DEBUG
 
 #ifdef REPORT_CONFIG_DEBUG
   #define APP_FLOW_SLOTS      1000          /* ring-buffer slots */

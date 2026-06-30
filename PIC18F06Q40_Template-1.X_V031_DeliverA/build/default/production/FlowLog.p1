@@ -2064,8 +2064,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _FlowLog_Process ]
 [f ]
 "38
-[; ;FlowLog.c: 38:     if (timeSpan(s_mark_ms) < 1000) {
-[e $ ! < ( _timeSpan (1 _s_mark_ms -> -> -> 1000 `i `l `ul 1864  ]
+[; ;FlowLog.c: 38:     if (timeSpan(s_mark_ms) < 60000UL) {
+[e $ ! < ( _timeSpan (1 _s_mark_ms -> 60000 `ul 1864  ]
 {
 "39
 [; ;FlowLog.c: 39:         return;
@@ -2102,8 +2102,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;FlowLog.c: 55:     s_group++;
 [e ++ _s_group -> -> 1 `i `us ]
 "56
-[; ;FlowLog.c: 56:     if (s_group >= 5) {
-[e $ ! >= -> _s_group `ui -> -> 5 `i `ui 1865  ]
+[; ;FlowLog.c: 56:     if (s_group >= (60*12)) {
+[e $ ! >= -> _s_group `ui -> * -> 60 `i -> 12 `i `ui 1865  ]
 {
 "57
 [; ;FlowLog.c: 57:         s_group = 0;

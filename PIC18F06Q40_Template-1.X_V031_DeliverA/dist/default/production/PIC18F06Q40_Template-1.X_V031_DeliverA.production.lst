@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V3.10 build 20250813170317 
-                                                                                               Fri Jun 26 21:23:08 2026
+                                                                                               Sat Jun 27 12:23:17 2026
 
 Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1 
      1                           	processor	18F06Q40
@@ -7826,9 +7826,9 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
   7763   001EA0  0E9E               	movlw	158
   7764   001EA2  6F1B               	movwf	27,b	;volatile
   7765                           
-  7766                           ;Sys_Time_MCU_Specific.c: 83:     TMR0H = ((uint8_t)(((1000 * 31UL) + (1UL << (14u - 1u)
-      +                          )) / (1UL << 14u)));
-  7767   001EA4  0E02               	movlw	2
+  7766                           ;Sys_Time_MCU_Specific.c: 83:     TMR0H = ((uint8_t)(((60000UL * 31UL) + (1UL << (14u - 
+      +                          1u))) / (1UL << 14u)));
+  7767   001EA4  0E72               	movlw	114
   7768   001EA6  6F19               	movwf	25,b	;volatile
   7769   001EA8                     
   7770                           ; BSR set to: 3
@@ -7894,10 +7894,10 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
   7830   001EEC  EF82  F00F         	goto	l2980
   7831   001EF0                     u1620:
   7832   001EF0                     
-  7833                           ;Sys_Time_MCU_Specific.c: 113:         MCU_Time_Advance(1000);
-  7834   001EF0  0EE8               	movlw	232
+  7833                           ;Sys_Time_MCU_Specific.c: 113:         MCU_Time_Advance(60000UL);
+  7834   001EF0  0E60               	movlw	96
   7835   001EF2  6E05               	movwf	MCU_Time_Advance@unMs^(0+1280),c
-  7836   001EF4  0E03               	movlw	3
+  7836   001EF4  0EEA               	movlw	234
   7837   001EF6  6E06               	movwf	(MCU_Time_Advance@unMs+1)^(0+1280),c
   7838   001EF8  0E00               	movlw	0
   7839   001EFA  6E07               	movwf	(MCU_Time_Advance@unMs+2)^(0+1280),c
@@ -10189,7 +10189,7 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
   9984   0018F0                     _FlowLog_Process:
   9985                           	callstack 120
   9986   0018F0                     
-  9987                           ;FlowLog.c: 38:     if (timeSpan(s_mark_ms) < 1000) {
+  9987                           ;FlowLog.c: 38:     if (timeSpan(s_mark_ms) < 60000UL) {
   9988   0018F0  C5AC  F509         	movff	_s_mark_ms,timeSpan@unOldTime_ms
   9989   0018F4  C5AD  F50A         	movff	_s_mark_ms+1,timeSpan@unOldTime_ms+1
   9990   0018F8  C5AE  F50B         	movff	_s_mark_ms+2,timeSpan@unOldTime_ms+2
@@ -10198,9 +10198,9 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
   9993   001904  500C               	movf	(?_timeSpan+3)^(0+1280),w,c
   9994   001906  100B               	iorwf	(?_timeSpan+2)^(0+1280),w,c
   9995   001908  E109               	bnz	u1401
-  9996   00190A  0EE8               	movlw	232
+  9996   00190A  0E60               	movlw	96
   9997   00190C  5C09               	subwf	?_timeSpan^(0+1280),w,c
-  9998   00190E  0E03               	movlw	3
+  9998   00190E  0EEA               	movlw	234
   9999   001910  580A               	subwfb	(?_timeSpan+1)^(0+1280),w,c
  10000   001912  B0D8               	btfsc	status,0,c
  10001   001914  EF8E  F00C         	goto	u1401
@@ -10285,11 +10285,11 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  10080   0019C4  4A4D               	infsnz	_s_group^(0+1280),f,c
  10081   0019C6  2A4E               	incf	(_s_group+1)^(0+1280),f,c
  10082   0019C8                     
- 10083                           ;FlowLog.c: 56:     if (s_group >= 5) {
- 10084   0019C8  504E               	movf	(_s_group+1)^(0+1280),w,c
- 10085   0019CA  E109               	bnz	u1410
- 10086   0019CC  0E05               	movlw	5
- 10087   0019CE  5C4D               	subwf	_s_group^(0+1280),w,c
+ 10083                           ;FlowLog.c: 56:     if (s_group >= (60*12)) {
+ 10084   0019C8  0ED0               	movlw	208
+ 10085   0019CA  5C4D               	subwf	_s_group^(0+1280),w,c
+ 10086   0019CC  0E02               	movlw	2
+ 10087   0019CE  584E               	subwfb	(_s_group+1)^(0+1280),w,c
  10088   0019D0  A0D8               	btfss	status,0,c
  10089   0019D2  EFED  F00C         	goto	u1411
  10090   0019D6  EFEF  F00C         	goto	u1410
@@ -12173,7 +12173,7 @@ DATA                 0      0    3179      0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V3.10 build 20250813170317 
-Symbol Table                                                                                   Fri Jun 26 21:23:08 2026
+Symbol Table                                                                                   Sat Jun 27 12:23:17 2026
 
                   ?_UART_TX_IsEmpty 0501                                  l78 1A5A  
                                 l98 21FA                 FlowReport_Process@e 0533  

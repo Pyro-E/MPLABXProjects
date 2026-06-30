@@ -22630,7 +22630,7 @@ void FlowLog_Init(void)
 
 void FlowLog_Process(void)
 {
-    if (timeSpan(s_mark_ms) < 1000) {
+    if (timeSpan(s_mark_ms) < 60000UL) {
         return;
     }
     s_mark_ms = getNowTime();
@@ -22648,7 +22648,7 @@ void FlowLog_Process(void)
                   &s_buf[(uint16_t)(slot * 3u)]);
 
     s_group++;
-    if (s_group >= 5) {
+    if (s_group >= (60*12)) {
         s_group = 0;
         s_batch_ready = 1;
     }
