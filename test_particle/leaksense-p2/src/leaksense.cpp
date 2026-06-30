@@ -757,11 +757,11 @@ int shutoffSwitch(String cmd) {
   restartSleepTimer("shutoffSwitch");             // Any cloud action resets the awake window so we don't sleep mid-task.
   cmd.trim(); cmd.toLowerCase();                  // Clean up the command: remove spaces, make lowercase.
   if (cmd == "close") {                           // "close" = drive the valve shut.
-    digitalWrite(LED1_PIN, HIGH); digitalWrite(SHUTOFF_SWITCH_PIN, HIGH); digitalWrite(SHUTOFF_SSR_PIN, HIGH);   // LED on, direction=close, power on.
+    digitalWrite(LED1_PIN, HIGH); digitalWrite(SHUTOFF_SWITCH_PIN, LOW); digitalWrite(SHUTOFF_SSR_PIN, HIGH);   // LED on, direction=close, power on.
     if (!imu_data.shutoff) shutoffEventCount++;   // Count a new shutoff event (only on the transition).
     imu_data.shutoff = true; triggerPublish = true; shutoffTimer.start(); return 2;   // Mark shut, publish, start 10 s timer, return 2.
   } else if (cmd == "open") {                     // "open" = drive the valve open.
-    digitalWrite(LED1_PIN, HIGH); digitalWrite(SHUTOFF_SWITCH_PIN, LOW); digitalWrite(SHUTOFF_SSR_PIN, HIGH);    // LED on, direction=open, power on.
+    digitalWrite(LED1_PIN, HIGH); digitalWrite(SHUTOFF_SWITCH_PIN, HIGH); digitalWrite(SHUTOFF_SSR_PIN, HIGH);    // LED on, direction=open, power on.
     imu_data.shutoff = false; triggerPublish = true; shutoffTimer.start(); return 1;   // Mark open, publish, start timer, return 1.
   } else if (cmd == "off") {                      // "off" = remove power from the valve (idle/safe).
     digitalWrite(LED1_PIN, LOW); digitalWrite(SHUTOFF_SWITCH_PIN, LOW); digitalWrite(SHUTOFF_SSR_PIN, LOW);      // LED off, direction low, power off.
@@ -1228,8 +1228,11 @@ void setup() {
 #if USE_LOCAL_METER
   pinMode(METER_PIN, INPUT_PULLUP);                // If using the local sensor, set its pin as a pulled-up input.
 #endif
+  shutoffSwitch("close"); delay(1000);   // Startup self-test: close the valve for 1 s...
+  shutoffSwitch("open");  delay(2000);   //   ...then open it for 2 s...
   shutoffSwitch("off");          // known-safe valve power state
-                                 //   Start with the valve power OFF (a safe, defined state).
+                                 //   ...then leave the valve power OFF (a safe, defined state).
+  Log.info("Shutoff sequence complete");   // Announce boot and which board we are.
 
   picLink.begin(38400);          // Serial1 + WAKE pin
                                  //   Initialize the serial link and WAKE pin used to talk to the PIC.
