@@ -19,26 +19,28 @@ SYSTEM_THREAD(ENABLED);
 // View logs with CLI using 'particle serial monitor --follow'
 SerialLogHandler logHandler(LOG_LEVEL_INFO);
 
-// Button and LED pins
-// const int btn = BUTTON; // user button
-const int powPin = D3; // target LED pin to toggle
-const int ledPin = D4; // target LED pin to toggle
+const pin_t powPin = D3;
+const pin_t pulsePin = D6;
+const unsigned long pulseOnMs = 5UL * 1000UL;
+const unsigned long pulseOffMs = 20UL * 60UL * 1000UL;
 
 
 // Button state tracking for edge detection + debounce
-bool ledState = false;
 int btnState = HIGH;
 int lastBtnState = HIGH;
 unsigned long lastDebounceTime = 0;
 const unsigned long debounceDelay = 50;
 
+bool pulseOn = true;
+unsigned long pulsePhaseStartMs = 0;
+
 // setup() runs once, when the device is first turned on
 void setup() {
-  // Put initialization like pinMode and begin functions here
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW);
   pinMode(powPin, OUTPUT);
   digitalWrite(powPin, HIGH);
+  pinMode(pulsePin, OUTPUT);
+  digitalWrite(pulsePin, HIGH);
+  pulsePhaseStartMs = millis();
 
   // The on-board `BUTTON` is already configured by Device OS; don't reconfigure it here.
   // Initialize button state tracking from the actual pin state.
@@ -48,7 +50,19 @@ void setup() {
 
 // loop() runs over and over again, as quickly as it can execute.
 void loop() {
-  // The core of your code will likely live here.
+  unsigned long now = millis();
+
+  if (pulseOn && (now - pulsePhaseStartMs >= pulseOnMs)) {
+    pulseOn = false;
+    pulsePhaseStartMs = now;
+    digitalWrite(pulsePin, LOW);
+    Log.info("D6 LOW for 20 minutes");
+  } else if (!pulseOn && (now - pulsePhaseStartMs >= pulseOffMs)) {
+    pulseOn = true;
+    pulsePhaseStartMs = now;
+    digitalWrite(pulsePin, HIGH);
+    Log.info("D6 HIGH for 5 seconds (periodic)");
+  }
 
   int reading = System.buttonPushed() > 0 ? LOW : HIGH; // active-low button
 
@@ -64,14 +78,13 @@ void loop() {
 
       // Button is active-low (INPUT_PULLUP): press -> LOW
       if (btnState == LOW) {
-        ledState = !ledState;
-        digitalWrite(ledPin, ledState ? HIGH : LOW);
-        Log.info("D4 toggled %s", ledState ? "HIGH" : "LOW");
+        pulseOn = true;
+        pulsePhaseStartMs = now;
+        digitalWrite(pulsePin, HIGH);
+        Log.info("D6 HIGH for 5 seconds (button)");
       }
     }
   }
 
   lastBtnState = reading;
-
-  delay(10);
 }

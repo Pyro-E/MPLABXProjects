@@ -1,0 +1,1592 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F06Q40 ]
+[d frameptr 1249 ]
+"60 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[e E13434 . `uc
+WAKE_IDLE 0
+WAKE_HIGH 1
+WAKE_WAIT 2
+]
+"62
+[e E13439 . `uc
+SEND_IDLE 0
+SEND_PKT_HDR 1
+SEND_HEADER 2
+SEND_BODY 3
+SEND_PKT_CRC 4
+]
+"261
+[e E13341 . `uc
+PKT_REQ_DATA 1
+PKT_REQ_GET_PARAM 2
+PKT_REQ_SET_PARAM 3
+PKT_REQ_GET_VALVE 4
+PKT_REQ_VALVE_UNLOCK 5
+PKT_SYS_RESET 6
+PKT_RSP_DATA 129
+PKT_RSP_PARAM 130
+PKT_RSP_VALVE 132
+PKT_RSP_ACK 142
+PKT_RSP_NAK 143
+]
+"270
+[e E13396 . `uc
+VALVE_MOTION_UNKNOWN 0
+VALVE_MOTION_OPEN 1
+VALVE_MOTION_CLOSED 2
+VALVE_MOTION_OPENING 3
+VALVE_MOTION_CLOSING 4
+VALVE_MOTION_OPEN_INTERRUPTED 5
+VALVE_MOTION_CLOSE_INTERRUPTED 6
+]
+"11 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+[e E13091 . `uc
+VALVE_MOTION_UNKNOWN 0
+VALVE_MOTION_OPEN 1
+VALVE_MOTION_CLOSED 2
+VALVE_MOTION_OPENING 3
+VALVE_MOTION_CLOSING 4
+VALVE_MOTION_OPEN_INTERRUPTED 5
+VALVE_MOTION_CLOSE_INTERRUPTED 6
+]
+"39 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+[e E62 . `uc
+PKT_ST_MARKER0 0
+PKT_ST_MARKER1 1
+PKT_ST_FUNC 2
+PKT_ST_LEN_HI 3
+PKT_ST_LEN_LO 4
+PKT_ST_DATA 5
+PKT_ST_CRC_HI 6
+PKT_ST_CRC_LO 7
+]
+"69 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+[e E13093 . `uc
+WAKE_BY_TIMER0 0
+WAKE_BY_UART 1
+]
+"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+[e E13106 . `uc
+LED_HEARTBEAT 0
+LED_BLINK 1
+]
+"91 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+[e E13254 . `uc
+PKT_ST_MARKER0 0
+PKT_ST_MARKER1 1
+PKT_ST_FUNC 2
+PKT_ST_LEN_HI 3
+PKT_ST_LEN_LO 4
+PKT_ST_DATA 5
+PKT_ST_CRC_HI 6
+PKT_ST_CRC_LO 7
+]
+"123
+[e E13228 . `uc
+PKT_REQ_DATA 1
+PKT_REQ_GET_PARAM 2
+PKT_REQ_SET_PARAM 3
+PKT_REQ_GET_VALVE 4
+PKT_REQ_VALVE_UNLOCK 5
+PKT_SYS_RESET 6
+PKT_RSP_DATA 129
+PKT_RSP_PARAM 130
+PKT_RSP_VALVE 132
+PKT_RSP_ACK 142
+PKT_RSP_NAK 143
+]
+"125
+[e E13241 . `uc
+NAK_BAD_CRC 1
+NAK_BAD_LEN 2
+NAK_BAD_FUNC 3
+NAK_BUSY 4
+]
+"239
+[e E13136 . `uc
+WAKE_BY_TIMER0 0
+WAKE_BY_UART 1
+]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/almod.c
+[v ___almod __almod `(l  1 e 4 0 ]
+"9 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+"9 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/atdiv.c
+[v ___atdiv __atdiv `(m  1 e 3 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/atmod.c
+[v ___atmod __atmod `(m  1 e 3 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+"4 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"9 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lodiv.c
+[v ___lodiv __lodiv `(uo  1 e 8 0 ]
+"9 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lomod.c
+[v ___lomod __lomod `(uo  1 e 8 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ltdiv.c
+[v ___ltdiv __ltdiv `(um  1 e 3 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/ltmod.c
+[v ___ltmod __ltmod `(um  1 e 3 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"10 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"15 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul24.c
+[v ___tmul __tmul `(um  1 e 3 0 ]
+"15 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c
+[v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
+"36
+[v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
+"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Led.c
+[v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
+"41 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
+"47
+[v _UART_RX_Push UART_RX_Push `(v  1 e 1 0 ]
+"58
+[v _UART_RX_Pop UART_RX_Pop `(a  1 e 1 0 ]
+"88
+[v _UART_WakeArm UART_WakeArm `(v  1 e 1 0 ]
+"98
+[v _UART_WakeDisarm UART_WakeDisarm `(v  1 e 1 0 ]
+"105
+[v _UART_WokeByEdge UART_WokeByEdge `(a  1 e 1 0 ]
+"113
+[v _UART_Init UART_Init `(v  1 e 1 0 ]
+"153
+[v _UART_ISR UART_ISR `(v  1 e 1 0 ]
+"182
+[v _print_char print_char `(a  1 e 1 0 ]
+"206
+[v _print_uint print_uint `(v  1 e 1 0 ]
+"237
+[v _UART_TX_IsEmpty UART_TX_IsEmpty `(a  1 e 1 0 ]
+"249
+[v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
+"70 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _quantize_window quantize_window `(us  1 s 2 quantize_window ]
+"81
+[v _FlowControl_RecalcDerived FlowControl_RecalcDerived `(v  1 e 1 0 ]
+"91
+[v _sliding_sum sliding_sum `(ul  1 s 4 sliding_sum ]
+"120
+[v _FlowControl_Init FlowControl_Init `(v  1 e 1 0 ]
+"131
+[v _apply_valve apply_valve `(v  1 s 1 apply_valve ]
+"155
+[v _evaluate_alerts evaluate_alerts `(v  1 s 1 evaluate_alerts ]
+"178
+[v _FlowControl_OnCapture FlowControl_OnCapture `(v  1 e 1 0 ]
+"187
+[v _FlowControl_Process FlowControl_Process `(v  1 e 1 0 ]
+"199
+[v _FlowControl_GetParams FlowControl_GetParams `(v  1 e 1 0 ]
+"204
+[v _FlowControl_SetParams FlowControl_SetParams `(v  1 e 1 0 ]
+"227
+[v _FlowControl_GetLockFlags FlowControl_GetLockFlags `(uc  1 e 1 0 ]
+"235
+[v _FlowControl_GetTempLockCount FlowControl_GetTempLockCount `(ul  1 e 4 0 ]
+"241
+[v _FlowControl_Unlock FlowControl_Unlock `(v  1 e 1 0 ]
+"27 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+[v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
+"37
+[v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
+"71
+[v _FlowLog_GetWriteIndex FlowLog_GetWriteIndex `(us  1 e 2 0 ]
+"76
+[v _FlowLog_GetAt FlowLog_GetAt `(v  1 e 1 0 ]
+"94
+[v _FlowLog_GetCaptureCount FlowLog_GetCaptureCount `(ul  1 e 4 0 ]
+"99
+[v _FlowLog_BatchReady FlowLog_BatchReady `(a  1 e 1 0 ]
+"16 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
+[v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
+"23
+[v _flowmeter_refresh flowmeter_refresh `(v  1 s 1 flowmeter_refresh ]
+"37
+[v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
+"74 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
+"88
+[v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
+"95
+[v _FlowReport_RequestReport FlowReport_RequestReport `(v  1 e 1 0 ]
+"101
+[v _FlowReport_IsBusy FlowReport_IsBusy `(a  1 e 1 0 ]
+"111
+[v _FlowReport_IsSending FlowReport_IsSending `(a  1 e 1 0 ]
+"118
+[v _FlowReport_WakeDuePending FlowReport_WakeDuePending `(a  1 e 1 0 ]
+"205
+[v _send_raw send_raw `(v  1 s 1 send_raw ]
+"221
+[v _send_small_packet send_small_packet `(v  1 s 1 send_small_packet ]
+"252
+[v _FlowReport_SendParam FlowReport_SendParam `(v  1 e 1 0 ]
+"264
+[v _FlowReport_SendValve FlowReport_SendValve `(v  1 e 1 0 ]
+"279
+[v _FlowReport_SendAck FlowReport_SendAck `(v  1 e 1 0 ]
+"285
+[v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
+"292
+[v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
+"21 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+[v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
+"30
+[v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
+"42
+[v _LedFsm_NotifyWake LedFsm_NotifyWake `(v  1 e 1 0 ]
+"51
+[v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
+"66 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+[v _Wake_Raise Wake_Raise `(v  1 s 1 Wake_Raise ]
+"73
+[v _Wake_Process Wake_Process `(v  1 s 1 Wake_Process ]
+"95
+[v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
+"103
+[v _dispatch_packet dispatch_packet `(v  1 s 1 dispatch_packet ]
+"152
+[v _packet_rx_pump packet_rx_pump `(v  1 s 1 packet_rx_pump ]
+"166
+[v _isr isr `IIH(v  1 e 1 0 ]
+"172
+[v _main main `(v  1 e 1 0 ]
+"9 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[v _getNowTime getNowTime `(ul  1 e 4 0 ]
+[v i2_getNowTime getNowTime `(ul  1 e 4 0 ]
+"17
+[v _timeSpan timeSpan `(ul  1 e 4 0 ]
+"39
+[v _MCU_Time_Increase_Unit MCU_Time_Increase_Unit `(v  1 e 1 0 ]
+"49
+[v _MCU_Time_Advance MCU_Time_Advance `(v  1 e 1 0 ]
+"55
+[v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
+"21 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+[v _valve_pins_idle valve_pins_idle `(v  1 s 1 valve_pins_idle ]
+"30
+[v _MValve_OP3_Init MValve_OP3_Init `(v  1 e 1 0 ]
+"54
+[v _MValve_OP3_CmdOpen MValve_OP3_CmdOpen `(v  1 e 1 0 ]
+"66
+[v _MValve_OP3_CmdClose MValve_OP3_CmdClose `(v  1 e 1 0 ]
+"78
+[v _MValve_OP3_Process MValve_OP3_Process `(v  1 e 1 0 ]
+"109
+[v _MValve_OP3_IsBusy MValve_OP3_IsBusy `(a  1 e 1 0 ]
+"114
+[v _MValve_OP3_GetMotion MValve_OP3_GetMotion `(E13396  1 e 1 0 ]
+"119
+[v _MValve_OP3_GetPwrPin MValve_OP3_GetPwrPin `(uc  1 e 1 0 ]
+"124
+[v _MValve_OP3_GetCtrlPin MValve_OP3_GetCtrlPin `(uc  1 e 1 0 ]
+"12 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+[v _Packet_CRC16_Init Packet_CRC16_Init `(us  1 e 2 0 ]
+"17
+[v _Packet_CRC16_Update Packet_CRC16_Update `(us  1 e 2 0 ]
+"27
+[v _Packet_CRC16 Packet_CRC16 `(us  1 e 2 0 ]
+"39
+[v _Packet_ParserReset Packet_ParserReset `(v  1 e 1 0 ]
+"50
+[v _Packet_ParserTimeoutCheck Packet_ParserTimeoutCheck `(v  1 e 1 0 ]
+"60
+[v _Packet_ParseByte Packet_ParseByte `(a  1 e 1 0 ]
+"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
+[v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
+"47
+[v _PulseCounter_Enable PulseCounter_Enable `(v  1 e 1 0 ]
+"57
+[v _PulseCounter_Clear PulseCounter_Clear `(v  1 e 1 0 ]
+"65
+[v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
+"24 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+[v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
+"38
+[v _Sys_Time_ResumeTick Sys_Time_ResumeTick `(v  1 e 1 0 ]
+"69
+[v _Sys_Time_EnterDeepSleep Sys_Time_EnterDeepSleep `(E13093  1 e 1 0 ]
+"136
+[v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
+"157
+[v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
+[s S1377 . 1 `uc 1 SEN 1 0 :1:0 
+`uc 1 PS 1 0 :5:1 
+]
+"2405 /Users/kevinm1/.mchp_packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8/pic/include/proc/pic18f06q40.h
+[s S1380 . 1 `uc 1 SWDTEN 1 0 :1:0 
+`uc 1 WDTPS 1 0 :5:1 
+]
+[s S1383 . 1 `uc 1 WDTSEN 1 0 :1:0 
+`uc 1 PS0 1 0 :1:1 
+`uc 1 PS1 1 0 :1:2 
+`uc 1 PS2 1 0 :1:3 
+`uc 1 PS3 1 0 :1:4 
+`uc 1 PS4 1 0 :1:5 
+]
+[s S1390 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 WDTPS0 1 0 :1:1 
+`uc 1 WDTPS1 1 0 :1:2 
+`uc 1 WDTPS2 1 0 :1:3 
+`uc 1 WDTPS3 1 0 :1:4 
+`uc 1 WDTPS4 1 0 :1:5 
+]
+[u S1397 . 1 `S1377 1 . 1 0 `S1380 1 . 1 0 `S1383 1 . 1 0 `S1390 1 . 1 0 ]
+[v _WDTCON0bits WDTCON0bits `VES1397  1 e 1 @120 ]
+"8538
+[v _RC0PPS RC0PPS `VEuc  1 e 1 @529 ]
+"9126
+[v _T1CKIPPS T1CKIPPS `VEuc  1 e 1 @578 ]
+"11730
+[v _U1RXPPS U1RXPPS `VEuc  1 e 1 @626 ]
+"13636
+[v _U1RXB U1RXB `VEuc  1 e 1 @673 ]
+"13694
+[v _U1TXB U1TXB `VEuc  1 e 1 @675 ]
+[s S383 . 1 `uc 1 MODE0 1 0 :1:0 
+`uc 1 MODE1 1 0 :1:1 
+`uc 1 MODE2 1 0 :1:2 
+`uc 1 MODE3 1 0 :1:3 
+]
+"13926
+[s S388 . 1 `uc 1 U1MODE 1 0 :4:0 
+`uc 1 U1RXEN 1 0 :1:4 
+`uc 1 U1TXEN 1 0 :1:5 
+`uc 1 U1ABDEN 1 0 :1:6 
+`uc 1 U1BRGS 1 0 :1:7 
+]
+[s S394 . 1 `uc 1 U1MODE0 1 0 :1:0 
+`uc 1 U1MODE1 1 0 :1:1 
+`uc 1 U1MODE2 1 0 :1:2 
+`uc 1 U1MODE3 1 0 :1:3 
+]
+[s S399 . 1 `uc 1 MODE 1 0 :4:0 
+`uc 1 RXEN 1 0 :1:4 
+`uc 1 TXEN 1 0 :1:5 
+`uc 1 ABDEN 1 0 :1:6 
+`uc 1 BRGS 1 0 :1:7 
+]
+[u S405 . 1 `S383 1 . 1 0 `S388 1 . 1 0 `S394 1 . 1 0 `S399 1 . 1 0 ]
+[v _U1CON0bits U1CON0bits `VES405  1 e 1 @683 ]
+[s S308 . 1 `uc 1 SENDB 1 0 :1:0 
+`uc 1 BRKOVR 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 RXBIMD 1 0 :1:3 
+`uc 1 WUE 1 0 :1:4 
+`uc 1 . 1 0 :2:5 
+`uc 1 ON 1 0 :1:7 
+]
+"14046
+[s S316 . 1 `uc 1 U1SENDB 1 0 :1:0 
+`uc 1 U1BRKOVR 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 U1RXBIMD 1 0 :1:3 
+`uc 1 U1WUE 1 0 :1:4 
+`uc 1 . 1 0 :2:5 
+`uc 1 U1ON 1 0 :1:7 
+]
+[u S324 . 1 `S308 1 . 1 0 `S316 1 . 1 0 ]
+[v _U1CON1bits U1CON1bits `VES324  1 e 1 @684 ]
+"14250
+[v _U1BRGL U1BRGL `VEuc  1 e 1 @686 ]
+"14270
+[v _U1BRGH U1BRGH `VEuc  1 e 1 @687 ]
+[s S205 . 1 `uc 1 RXBF 1 0 :1:0 
+`uc 1 RXBE 1 0 :1:1 
+`uc 1 XON 1 0 :1:2 
+`uc 1 RXIDL 1 0 :1:3 
+`uc 1 TXBF 1 0 :1:4 
+`uc 1 TXBE 1 0 :1:5 
+`uc 1 STPMD 1 0 :1:6 
+`uc 1 TXWRE 1 0 :1:7 
+]
+"14325
+[s S214 . 1 `uc 1 U1RXBF 1 0 :1:0 
+`uc 1 U1RXBE 1 0 :1:1 
+`uc 1 U1XON 1 0 :1:2 
+`uc 1 U1RXIDL 1 0 :1:3 
+`uc 1 U1TXBF 1 0 :1:4 
+`uc 1 U1TXBE 1 0 :1:5 
+`uc 1 U1STPMD 1 0 :1:6 
+`uc 1 U1TXWRE 1 0 :1:7 
+]
+[s S223 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 U1RCIDL 1 0 :1:3 
+]
+[s S226 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 RCIDL 1 0 :1:3 
+]
+[u S229 . 1 `S205 1 . 1 0 `S214 1 . 1 0 `S223 1 . 1 0 `S226 1 . 1 0 ]
+[v _U1FIFObits U1FIFObits `VES229  1 e 1 @688 ]
+[s S259 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 ABDIE 1 0 :1:2 
+`uc 1 . 1 0 :3:3 
+`uc 1 ABDIF 1 0 :1:6 
+`uc 1 WUIF 1 0 :1:7 
+]
+"14441
+[s S265 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 U1ABDIE 1 0 :1:2 
+`uc 1 . 1 0 :3:3 
+`uc 1 U1ABDIF 1 0 :1:6 
+`uc 1 U1WUIF 1 0 :1:7 
+]
+[u S271 . 1 `S259 1 . 1 0 `S265 1 . 1 0 ]
+[v _U1UIRbits U1UIRbits `VES271  1 e 1 @689 ]
+[s S459 . 1 `uc 1 TXCIF 1 0 :1:0 
+`uc 1 RXFOIF 1 0 :1:1 
+`uc 1 RXBKIF 1 0 :1:2 
+`uc 1 FERIF 1 0 :1:3 
+`uc 1 CERIF 1 0 :1:4 
+`uc 1 ABDOVF 1 0 :1:5 
+`uc 1 PERIF 1 0 :1:6 
+`uc 1 TXMTIF 1 0 :1:7 
+]
+"14503
+[s S468 . 1 `uc 1 U1TXCIF 1 0 :1:0 
+`uc 1 U1RXFOIF 1 0 :1:1 
+`uc 1 U1RXBKIF 1 0 :1:2 
+`uc 1 U1FERIF 1 0 :1:3 
+`uc 1 U1CERIF 1 0 :1:4 
+`uc 1 U1ABDOVF 1 0 :1:5 
+`uc 1 U1PERIF 1 0 :1:6 
+`uc 1 U1TXMTIF 1 0 :1:7 
+]
+[u S477 . 1 `S459 1 . 1 0 `S468 1 . 1 0 ]
+[v _U1ERRIRbits U1ERRIRbits `VES477  1 e 1 @690 ]
+"17986
+[v _TMR1L TMR1L `VEuc  1 e 1 @786 ]
+"18106
+[v _TMR1H TMR1H `VEuc  1 e 1 @787 ]
+"18226
+[v _T1CON T1CON `VEuc  1 e 1 @788 ]
+[s S1091 . 1 `uc 1 ON 1 0 :1:0 
+`uc 1 RD16 1 0 :1:1 
+`uc 1 NOT_SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 CKPS 1 0 :2:4 
+]
+"18268
+[s S1097 . 1 `uc 1 TMR1ON 1 0 :1:0 
+`uc 1 T1RD16 1 0 :1:1 
+`uc 1 NOT_T1SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T1CKPS0 1 0 :1:4 
+`uc 1 T1CKPS1 1 0 :1:5 
+]
+[s S1104 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nSYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 CKPS0 1 0 :1:4 
+`uc 1 CKPS1 1 0 :1:5 
+]
+[s S1110 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 RD161 1 0 :1:1 
+]
+[s S1113 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 nT1SYNC 1 0 :1:2 
+]
+[u S1116 . 1 `S1091 1 . 1 0 `S1097 1 . 1 0 `S1104 1 . 1 0 `S1110 1 . 1 0 `S1113 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES1116  1 e 1 @788 ]
+"18448
+[v _T1GCON T1GCON `VEuc  1 e 1 @789 ]
+"18900
+[v _T1CLK T1CLK `VEuc  1 e 1 @791 ]
+"19146
+[v _TMR0L TMR0L `VEuc  1 e 1 @792 ]
+"19284
+[v _TMR0H TMR0H `VEuc  1 e 1 @793 ]
+"19538
+[v _T0CON0 T0CON0 `VEuc  1 e 1 @794 ]
+[s S1279 . 1 `uc 1 OUTPS 1 0 :4:0 
+`uc 1 MD16 1 0 :1:4 
+`uc 1 OUT 1 0 :1:5 
+`uc 1 . 1 0 :1:6 
+`uc 1 EN 1 0 :1:7 
+]
+"19572
+[s S1285 . 1 `uc 1 T0OUTPS 1 0 :4:0 
+`uc 1 T0MD16 1 0 :1:4 
+`uc 1 T0OUT 1 0 :1:5 
+`uc 1 . 1 0 :1:6 
+`uc 1 T0EN 1 0 :1:7 
+]
+[s S1291 . 1 `uc 1 OUTPS0 1 0 :1:0 
+`uc 1 OUTPS1 1 0 :1:1 
+`uc 1 OUTPS2 1 0 :1:2 
+`uc 1 OUTPS3 1 0 :1:3 
+`uc 1 T016BIT 1 0 :1:4 
+]
+[s S1297 . 1 `uc 1 T0OUTPS0 1 0 :1:0 
+`uc 1 T0OUTPS1 1 0 :1:1 
+`uc 1 T0OUTPS2 1 0 :1:2 
+`uc 1 T0OUTPS3 1 0 :1:3 
+]
+[u S1302 . 1 `S1279 1 . 1 0 `S1285 1 . 1 0 `S1291 1 . 1 0 `S1297 1 . 1 0 ]
+[v _T0CON0bits T0CON0bits `VES1302  1 e 1 @794 ]
+"19662
+[v _T0CON1 T0CON1 `VEuc  1 e 1 @795 ]
+"19842
+[v _T2PR T2PR `VEuc  1 e 1 @797 ]
+"19880
+[v _T2CON T2CON `VEuc  1 e 1 @798 ]
+[s S1174 . 1 `uc 1 OUTPS 1 0 :4:0 
+`uc 1 CKPS 1 0 :3:4 
+`uc 1 ON 1 0 :1:7 
+]
+"19916
+[s S1178 . 1 `uc 1 T2OUTPS 1 0 :4:0 
+`uc 1 T2CKPS 1 0 :3:4 
+`uc 1 T2ON 1 0 :1:7 
+]
+[s S1182 . 1 `uc 1 T2OUTPS0 1 0 :1:0 
+`uc 1 T2OUTPS1 1 0 :1:1 
+`uc 1 T2OUTPS2 1 0 :1:2 
+`uc 1 T2OUTPS3 1 0 :1:3 
+`uc 1 T2CKPS0 1 0 :1:4 
+`uc 1 T2CKPS1 1 0 :1:5 
+`uc 1 T2CKPS2 1 0 :1:6 
+]
+[s S1190 . 1 `uc 1 OUTPS0 1 0 :1:0 
+`uc 1 OUTPS1 1 0 :1:1 
+`uc 1 OUTPS2 1 0 :1:2 
+`uc 1 OUTPS3 1 0 :1:3 
+`uc 1 CKPS0 1 0 :1:4 
+`uc 1 CKPS1 1 0 :1:5 
+`uc 1 CKPS2 1 0 :1:6 
+`uc 1 TMR2ON 1 0 :1:7 
+]
+[u S1199 . 1 `S1174 1 . 1 0 `S1178 1 . 1 0 `S1182 1 . 1 0 `S1190 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES1199  1 e 1 @798 ]
+"20026
+[v _T2HLT T2HLT `VEuc  1 e 1 @799 ]
+"20154
+[v _T2CLKCON T2CLKCON `VEuc  1 e 1 @800 ]
+[s S70 . 1 `uc 1 ANSELA0 1 0 :1:0 
+`uc 1 ANSELA1 1 0 :1:1 
+`uc 1 ANSELA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 ANSELA4 1 0 :1:4 
+`uc 1 ANSELA5 1 0 :1:5 
+]
+"31106
+[u S77 . 1 `S70 1 . 1 0 ]
+[v _ANSELAbits ANSELAbits `VES77  1 e 1 @1024 ]
+[s S36 . 1 `uc 1 ANSELC0 1 0 :1:0 
+`uc 1 ANSELC1 1 0 :1:1 
+`uc 1 ANSELC2 1 0 :1:2 
+`uc 1 ANSELC3 1 0 :1:3 
+`uc 1 ANSELC4 1 0 :1:4 
+`uc 1 ANSELC5 1 0 :1:5 
+]
+"31491
+[u S43 . 1 `S36 1 . 1 0 ]
+[v _ANSELCbits ANSELCbits `VES43  1 e 1 @1040 ]
+[s S365 . 1 `uc 1 WPUC0 1 0 :1:0 
+`uc 1 WPUC1 1 0 :1:1 
+`uc 1 WPUC2 1 0 :1:2 
+`uc 1 WPUC3 1 0 :1:3 
+`uc 1 WPUC4 1 0 :1:4 
+`uc 1 WPUC5 1 0 :1:5 
+]
+"31541
+[u S372 . 1 `S365 1 . 1 0 ]
+[v _WPUCbits WPUCbits `VES372  1 e 1 @1041 ]
+[s S1255 . 1 `uc 1 SPI1RXIE 1 0 :1:0 
+`uc 1 SPI1TXIE 1 0 :1:1 
+`uc 1 SPI1IE 1 0 :1:2 
+`uc 1 TMR2IE 1 0 :1:3 
+`uc 1 TMR1IE 1 0 :1:4 
+`uc 1 TMR1GIE 1 0 :1:5 
+`uc 1 CCP1IE 1 0 :1:6 
+`uc 1 TMR0IE 1 0 :1:7 
+]
+"35080
+[u S1264 . 1 `S1255 1 . 1 0 ]
+"35080
+"35080
+[v _PIE3bits PIE3bits `VES1264  1 e 1 @1195 ]
+[s S287 . 1 `uc 1 U1RXIE 1 0 :1:0 
+`uc 1 U1TXIE 1 0 :1:1 
+`uc 1 U1EIE 1 0 :1:2 
+`uc 1 U1IE 1 0 :1:3 
+`uc 1 TMR3IE 1 0 :1:4 
+`uc 1 TMR3GIE 1 0 :1:5 
+`uc 1 PWM1PIE 1 0 :1:6 
+`uc 1 PWM1IE 1 0 :1:7 
+]
+"35142
+[u S296 . 1 `S287 1 . 1 0 ]
+"35142
+"35142
+[v _PIE4bits PIE4bits `VES296  1 e 1 @1196 ]
+[s S1234 . 1 `uc 1 SPI1RXIF 1 0 :1:0 
+`uc 1 SPI1TXIF 1 0 :1:1 
+`uc 1 SPI1IF 1 0 :1:2 
+`uc 1 TMR2IF 1 0 :1:3 
+`uc 1 TMR1IF 1 0 :1:4 
+`uc 1 TMR1GIF 1 0 :1:5 
+`uc 1 CCP1IF 1 0 :1:6 
+`uc 1 TMR0IF 1 0 :1:7 
+]
+"35727
+[u S1243 . 1 `S1234 1 . 1 0 ]
+"35727
+"35727
+[v _PIR3bits PIR3bits `VES1243  1 e 1 @1206 ]
+[s S435 . 1 `uc 1 U1RXIF 1 0 :1:0 
+`uc 1 U1TXIF 1 0 :1:1 
+`uc 1 U1EIF 1 0 :1:2 
+`uc 1 U1IF 1 0 :1:3 
+`uc 1 TMR3IF 1 0 :1:4 
+`uc 1 TMR3GIF 1 0 :1:5 
+`uc 1 PWM1PIF 1 0 :1:6 
+`uc 1 PWM1IF 1 0 :1:7 
+]
+"35789
+[u S444 . 1 `S435 1 . 1 0 ]
+"35789
+"35789
+[v _PIR4bits PIR4bits `VES444  1 e 1 @1207 ]
+[s S121 . 1 `uc 1 LATA0 1 0 :1:0 
+`uc 1 LATA1 1 0 :1:1 
+`uc 1 LATA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 LATA4 1 0 :1:4 
+`uc 1 LATA5 1 0 :1:5 
+]
+"36194
+[u S128 . 1 `S121 1 . 1 0 ]
+"36194
+"36194
+[v _LATAbits LATAbits `VES128  1 e 1 @1214 ]
+[s S104 . 1 `uc 1 LATC0 1 0 :1:0 
+`uc 1 LATC1 1 0 :1:1 
+`uc 1 LATC2 1 0 :1:2 
+`uc 1 LATC3 1 0 :1:3 
+`uc 1 LATC4 1 0 :1:4 
+`uc 1 LATC5 1 0 :1:5 
+]
+"36239
+[u S111 . 1 `S104 1 . 1 0 ]
+"36239
+"36239
+[v _LATCbits LATCbits `VES111  1 e 1 @1216 ]
+[s S87 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+]
+"36289
+[u S94 . 1 `S87 1 . 1 0 ]
+"36289
+"36289
+[v _TRISAbits TRISAbits `VES94  1 e 1 @1222 ]
+[s S53 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+]
+"36339
+[u S60 . 1 `S53 1 . 1 0 ]
+"36339
+"36339
+[v _TRISCbits TRISCbits `VES60  1 e 1 @1224 ]
+[s S179 . 1 `uc 1 INT0EDG 1 0 :1:0 
+`uc 1 INT1EDG 1 0 :1:1 
+`uc 1 INT2EDG 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 IPEN 1 0 :1:5 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"36494
+[s S187 . 1 `uc 1 . 1 0 :7:0 
+`uc 1 GIEH 1 0 :1:7 
+]
+"36494
+[u S190 . 1 `S179 1 . 1 0 `S187 1 . 1 0 ]
+"36494
+"36494
+[v _INTCON0bits INTCON0bits `VES190  1 e 1 @1238 ]
+"37145
+[v _PCON0 PCON0 `VEuc  1 e 1 @1264 ]
+[s S1572 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+]
+"37193
+[s S1574 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 NOT_POR 1 0 :1:1 
+]
+"37193
+[s S1577 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 NOT_RI 1 0 :1:2 
+]
+"37193
+[s S1580 . 1 `uc 1 . 1 0 :3:0 
+`uc 1 NOT_RMCLR 1 0 :1:3 
+]
+"37193
+[s S1583 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 NOT_RWDT 1 0 :1:4 
+]
+"37193
+[s S1586 . 1 `uc 1 . 1 0 :5:0 
+`uc 1 NOT_WDTWV 1 0 :1:5 
+]
+"37193
+[s S1589 . 1 `uc 1 nBOR 1 0 :1:0 
+`uc 1 nPOR 1 0 :1:1 
+`uc 1 nRI 1 0 :1:2 
+`uc 1 nRMCLR 1 0 :1:3 
+`uc 1 nRWDT 1 0 :1:4 
+`uc 1 nWDTWV 1 0 :1:5 
+`uc 1 STKUNF 1 0 :1:6 
+`uc 1 STKOVF 1 0 :1:7 
+]
+"37193
+[s S1598 . 1 `uc 1 BOR 1 0 :1:0 
+`uc 1 POR 1 0 :1:1 
+`uc 1 RI 1 0 :1:2 
+`uc 1 RMCLR 1 0 :1:3 
+`uc 1 RWDT 1 0 :1:4 
+`uc 1 WDTWV 1 0 :1:5 
+]
+"37193
+[u S1605 . 1 `S1572 1 . 1 0 `S1574 1 . 1 0 `S1577 1 . 1 0 `S1580 1 . 1 0 `S1583 1 . 1 0 `S1586 1 . 1 0 `S1589 1 . 1 0 `S1598 1 . 1 0 ]
+"37193
+"37193
+[v _PCON0bits PCON0bits `VES1605  1 e 1 @1264 ]
+[s S1351 . 1 `uc 1 DOZE 1 0 :3:0 
+`uc 1 . 1 0 :1:3 
+`uc 1 DOE 1 0 :1:4 
+`uc 1 ROI 1 0 :1:5 
+`uc 1 DOZEN 1 0 :1:6 
+`uc 1 IDLEN 1 0 :1:7 
+]
+"37385
+[s S1358 . 1 `uc 1 DOZE0 1 0 :1:0 
+`uc 1 DOZE1 1 0 :1:1 
+`uc 1 DOZE2 1 0 :1:2 
+]
+"37385
+[u S1362 . 1 `S1351 1 . 1 0 `S1358 1 . 1 0 ]
+"37385
+"37385
+[v _CPUDOZEbits CPUDOZEbits `VES1362  1 e 1 @1266 ]
+"25 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _s_tx_buf s_tx_buf `VE[64]uc  1 s 64 s_tx_buf ]
+"26
+[v _s_tx_head s_tx_head `VEuc  1 s 1 s_tx_head ]
+"27
+[v _s_tx_tail s_tx_tail `VEuc  1 s 1 s_tx_tail ]
+"28
+[v _s_tx_count s_tx_count `VEuc  1 s 1 s_tx_count ]
+"34
+[v _s_rx_buf s_rx_buf `VE[32]uc  1 s 32 s_rx_buf ]
+"35
+[v _s_rx_head s_rx_head `VEuc  1 s 1 s_rx_head ]
+"36
+[v _s_rx_tail s_rx_tail `VEuc  1 s 1 s_rx_tail ]
+"37
+[v _s_rx_count s_rx_count `VEuc  1 s 1 s_rx_count ]
+"39
+[v _s_rx_cb s_rx_cb `*.37(v  1 s 2 s_rx_cb ]
+"20 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Valve.c
+[v _s_phase0 s_phase0 `ul  1 s 4 s_phase0 ]
+[s S722 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+"47 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _s_param s_param `S722  1 s 8 s_param ]
+"55
+[v _s_leak1_window_n s_leak1_window_n `us  1 s 2 s_leak1_window_n ]
+"56
+[v _s_leak2_window_n s_leak2_window_n `us  1 s 2 s_leak2_window_n ]
+"59
+[v _s_temp_locked s_temp_locked `a  1 s 1 s_temp_locked ]
+"60
+[v _s_temp_unlock_ms s_temp_unlock_ms `ul  1 s 4 s_temp_unlock_ms ]
+"61
+[v _s_perm_locked s_perm_locked `a  1 s 1 s_perm_locked ]
+"62
+[v _s_temp_lock_count s_temp_lock_count `ul  1 s 4 s_temp_lock_count ]
+"65
+[v _s_valve_should_close s_valve_should_close `a  1 s 1 s_valve_should_close ]
+"66
+[v _s_valve_cmd_valid s_valve_cmd_valid `a  1 s 1 s_valve_cmd_valid ]
+"12 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+[v _s_buf s_buf `[3000]uc  1 s 3000 s_buf ]
+"20
+[v _s_write s_write `us  1 s 2 s_write ]
+"21
+[v _s_group s_group `us  1 s 2 s_group ]
+"22
+[v _s_mark_ms s_mark_ms `ul  1 s 4 s_mark_ms ]
+"23
+[v _s_prev_total s_prev_total `ul  1 s 4 s_prev_total ]
+"24
+[v _s_captures s_captures `ul  1 s 4 s_captures ]
+"25
+[v _s_batch_ready s_batch_ready `a  1 s 1 s_batch_ready ]
+"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
+[v _s_prev_cnt s_prev_cnt `us  1 s 2 s_prev_cnt ]
+"14
+[v _s_total s_total `ul  1 s 4 s_total ]
+"60 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _s_wake_state s_wake_state `E13434  1 s 1 s_wake_state ]
+"61
+[v _s_wake_due s_wake_due `VEa  1 s 1 s_wake_due ]
+"62
+[v _s_send_state s_send_state `E13439  1 s 1 s_send_state ]
+"64
+[v _s_read s_read `us  1 s 2 s_read ]
+"65
+[v _s_end s_end `us  1 s 2 s_end ]
+"66
+[v _s_i s_i `us  1 s 2 s_i ]
+"67
+[v _s_rsp_crc s_rsp_crc `us  1 s 2 s_rsp_crc ]
+"68
+[v _s_wake_ms s_wake_ms `ul  1 s 4 s_wake_ms ]
+"69
+[v _s_tx_delay_active s_tx_delay_active `a  1 s 1 s_tx_delay_active ]
+"70
+[v _s_tx_delay_ms s_tx_delay_ms `ul  1 s 4 s_tx_delay_ms ]
+"71
+[v _s_report_req s_report_req `VEa  1 s 1 s_report_req ]
+"72
+[v _s_aa s_aa `VEa  1 s 1 s_aa ]
+"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+[v _s_mode s_mode `E13106  1 s 1 s_mode ]
+"18
+[v _s_mark s_mark `ul  1 s 4 s_mark ]
+"19
+[v _s_toggles s_toggles `uc  1 s 1 s_toggles ]
+"63 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+[v _s_wake_active s_wake_active `VEa  1 s 1 s_wake_active ]
+"64
+[v _s_wake_mark_ms s_wake_mark_ms `VEul  1 s 4 s_wake_mark_ms ]
+[s S1009 . 24 `E62 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+"91
+[v _s_parser s_parser `S1009  1 s 24 s_parser ]
+"6 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[v _unNowTime_ms unNowTime_ms `VEul  1 s 4 unNowTime_ms ]
+"11 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+[v _s_motion s_motion `E13091  1 s 1 s_motion ]
+"12
+[v _s_drive_ms s_drive_ms `ul  1 s 4 s_drive_ms ]
+"13
+[v _s_driving s_driving `a  1 s 1 s_driving ]
+"14
+[v _s_drive_open s_drive_open `a  1 s 1 s_drive_open ]
+"172 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"239
+[v main@cause cause `E13136  1 a 1 8 ]
+"176
+[v main@wdt_reset wdt_reset `a  1 a 1 9 ]
+"251
+} 0
+"152
+[v _packet_rx_pump packet_rx_pump `(v  1 s 1 packet_rx_pump ]
+{
+"154
+[v packet_rx_pump@b b `uc  1 a 1 0 ]
+"163
+} 0
+"103
+[v _dispatch_packet dispatch_packet `(v  1 s 1 dispatch_packet ]
+{
+[s S722 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+"117
+[v dispatch_packet@np np `S722  1 a 8 71 ]
+[s S1009 . 24 `E62 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+"103
+[v dispatch_packet@p p `*.39CS1009  1 p 2 66 ]
+"150
+} 0
+"264 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_SendValve FlowReport_SendValve `(v  1 e 1 0 ]
+{
+"266
+[v FlowReport_SendValve@d d `[8]uc  1 a 8 50 ]
+"267
+[v FlowReport_SendValve@tc tc `ul  1 a 4 58 ]
+"277
+} 0
+"119 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+[v _MValve_OP3_GetPwrPin MValve_OP3_GetPwrPin `(uc  1 e 1 0 ]
+{
+"122
+} 0
+"114
+[v _MValve_OP3_GetMotion MValve_OP3_GetMotion `(E13396  1 e 1 0 ]
+{
+"117
+} 0
+"124
+[v _MValve_OP3_GetCtrlPin MValve_OP3_GetCtrlPin `(uc  1 e 1 0 ]
+{
+"127
+} 0
+"235 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _FlowControl_GetTempLockCount FlowControl_GetTempLockCount `(ul  1 e 4 0 ]
+{
+"238
+} 0
+"227
+[v _FlowControl_GetLockFlags FlowControl_GetLockFlags `(uc  1 e 1 0 ]
+{
+"229
+[v FlowControl_GetLockFlags@f f `uc  1 a 1 8 ]
+"233
+} 0
+"252 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_SendParam FlowReport_SendParam `(v  1 e 1 0 ]
+{
+"255
+[v FlowReport_SendParam@d d `[8]uc  1 a 8 50 ]
+[s S722 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+"254
+[v FlowReport_SendParam@pr pr `S722  1 a 8 58 ]
+"262
+} 0
+"199 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _FlowControl_GetParams FlowControl_GetParams `(v  1 e 1 0 ]
+{
+[s S722 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+[v FlowControl_GetParams@out out `*.39S722  1 p 2 8 ]
+"202
+} 0
+"285 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
+{
+[v FlowReport_SendNak@reason reason `uc  1 p 1 wreg ]
+"287
+[v FlowReport_SendNak@d d `uc  1 a 1 51 ]
+"285
+[v FlowReport_SendNak@reason reason `uc  1 p 1 wreg ]
+"287
+[v FlowReport_SendNak@reason reason `uc  1 p 1 50 ]
+"289
+} 1
+"279
+[v _FlowReport_SendAck FlowReport_SendAck `(v  1 e 1 0 ]
+{
+[v FlowReport_SendAck@echoed_func echoed_func `uc  1 p 1 wreg ]
+"281
+[v FlowReport_SendAck@d d `uc  1 a 1 51 ]
+"279
+[v FlowReport_SendAck@echoed_func echoed_func `uc  1 p 1 wreg ]
+"281
+[v FlowReport_SendAck@echoed_func echoed_func `uc  1 p 1 50 ]
+"283
+} 1
+"221
+[v _send_small_packet send_small_packet `(v  1 s 1 send_small_packet ]
+{
+[v send_small_packet@func func `uc  1 p 1 wreg ]
+"246
+[v send_small_packet@k_827 k `us  1 a 2 46 ]
+"236
+[v send_small_packet@k k `us  1 a 2 44 ]
+"223
+[v send_small_packet@frame frame `[15]uc  1 a 15 26 ]
+"224
+[v send_small_packet@i i `us  1 a 2 48 ]
+"225
+[v send_small_packet@crc crc `us  1 a 2 42 ]
+"221
+[v send_small_packet@func func `uc  1 p 1 wreg ]
+[v send_small_packet@data data `*.39Cuc  1 p 2 20 ]
+[v send_small_packet@len len `us  1 p 2 22 ]
+"224
+[v send_small_packet@func func `uc  1 p 1 41 ]
+"250
+} 1
+"27 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+[v _Packet_CRC16 Packet_CRC16 `(us  1 e 2 0 ]
+{
+"29
+[v Packet_CRC16@crc crc `us  1 a 2 18 ]
+"27
+[v Packet_CRC16@data data `*.39Cuc  1 p 2 14 ]
+[v Packet_CRC16@len len `us  1 p 2 16 ]
+"34
+} 0
+"88 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
+{
+"91
+} 0
+"241 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _FlowControl_Unlock FlowControl_Unlock `(v  1 e 1 0 ]
+{
+[v FlowControl_Unlock@flags flags `uc  1 p 1 wreg ]
+[v FlowControl_Unlock@flags flags `uc  1 p 1 wreg ]
+"243
+[v FlowControl_Unlock@flags flags `uc  1 p 1 14 ]
+"246
+} 1
+"204
+[v _FlowControl_SetParams FlowControl_SetParams `(v  1 e 1 0 ]
+{
+[s S722 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+[v FlowControl_SetParams@in in `*.39CS722  1 p 2 8 ]
+"224
+} 0
+"58 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _UART_RX_Pop UART_RX_Pop `(a  1 e 1 0 ]
+{
+"60
+[v UART_RX_Pop@ok ok `a  1 a 1 10 ]
+"58
+[v UART_RX_Pop@b b `*.39uc  1 p 2 8 ]
+"70
+} 0
+"50 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+[v _Packet_ParserTimeoutCheck Packet_ParserTimeoutCheck `(v  1 e 1 0 ]
+{
+[s S1009 . 24 `E62 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+[v Packet_ParserTimeoutCheck@p p `*.39S1009  1 p 2 28 ]
+"58
+} 0
+"60
+[v _Packet_ParseByte Packet_ParseByte `(a  1 e 1 0 ]
+{
+[s S1009 . 24 `E62 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+[v Packet_ParseByte@p p `*.39S1009  1 p 2 14 ]
+[v Packet_ParseByte@b b `uc  1 p 1 16 ]
+"137
+} 0
+"39
+[v _Packet_ParserReset Packet_ParserReset `(v  1 e 1 0 ]
+{
+[s S1009 . 24 `E62 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+[v Packet_ParserReset@p p `*.39S1009  1 p 2 8 ]
+"48
+} 0
+"111 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_IsSending FlowReport_IsSending `(a  1 e 1 0 ]
+{
+"114
+} 0
+"66 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+[v _Wake_Raise Wake_Raise `(v  1 s 1 Wake_Raise ]
+{
+"71
+} 0
+"73
+[v _Wake_Process Wake_Process `(v  1 s 1 Wake_Process ]
+{
+"86
+} 0
+"237 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _UART_TX_IsEmpty UART_TX_IsEmpty `(a  1 e 1 0 ]
+{
+"247
+} 0
+"101 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_IsBusy FlowReport_IsBusy `(a  1 e 1 0 ]
+{
+"106
+} 0
+"41 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
+{
+[v UART_RX_SetCallback@cb cb `*.37(v  1 p 2 8 ]
+"44
+} 0
+"113
+[v _UART_Init UART_Init `(v  1 e 1 0 ]
+{
+"147
+} 0
+"24 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+[v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
+{
+"31
+} 0
+"55 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
+{
+"59
+} 1
+"69 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+[v _Sys_Time_EnterDeepSleep Sys_Time_EnterDeepSleep `(E13093  1 e 1 0 ]
+{
+"71
+[v Sys_Time_EnterDeepSleep@cause cause `E13093  1 a 1 12 ]
+"127
+} 0
+"105 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _UART_WokeByEdge UART_WokeByEdge `(a  1 e 1 0 ]
+{
+"108
+} 0
+"98
+[v _UART_WakeDisarm UART_WakeDisarm `(v  1 e 1 0 ]
+{
+"103
+} 0
+"88
+[v _UART_WakeArm UART_WakeArm `(v  1 e 1 0 ]
+{
+"96
+} 0
+"38 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+[v _Sys_Time_ResumeTick Sys_Time_ResumeTick `(v  1 e 1 0 ]
+{
+"58
+} 0
+"49 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[v _MCU_Time_Advance MCU_Time_Advance `(v  1 e 1 0 ]
+{
+[v MCU_Time_Advance@unMs unMs `ul  1 p 4 8 ]
+"52
+} 0
+"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
+[v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
+{
+"45
+} 0
+"47
+[v _PulseCounter_Enable PulseCounter_Enable `(v  1 e 1 0 ]
+{
+"50
+} 0
+"78 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+[v _MValve_OP3_Process MValve_OP3_Process `(v  1 e 1 0 ]
+{
+"107
+} 0
+"109
+[v _MValve_OP3_IsBusy MValve_OP3_IsBusy `(a  1 e 1 0 ]
+{
+"112
+} 0
+"30
+[v _MValve_OP3_Init MValve_OP3_Init `(v  1 e 1 0 ]
+{
+"52
+} 1
+"21
+[v _valve_pins_idle valve_pins_idle `(v  1 s 1 valve_pins_idle ]
+{
+"26
+} 0
+"157 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+[v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
+{
+"165
+} 0
+"51 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+[v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
+{
+"76
+} 0
+"42
+[v _LedFsm_NotifyWake LedFsm_NotifyWake `(v  1 e 1 0 ]
+{
+"49
+} 0
+"21
+[v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
+{
+"27
+} 0
+"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Led.c
+[v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
+{
+"46
+} 0
+"118 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_WakeDuePending FlowReport_WakeDuePending `(a  1 e 1 0 ]
+{
+"125
+} 0
+"95
+[v _FlowReport_RequestReport FlowReport_RequestReport `(v  1 e 1 0 ]
+{
+"98
+} 0
+"292
+[v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
+{
+"454
+[v FlowReport_Process@k_860 k `uc  1 a 1 68 ]
+"424
+[v FlowReport_Process@k k `uc  1 a 1 67 ]
+"464
+[v FlowReport_Process@crc crc `[2]uc  1 a 2 47 ]
+[s S657 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
+"438
+[v FlowReport_Process@e e `S657  1 a 4 63 ]
+"441
+[v FlowReport_Process@raw raw `[3]uc  1 a 3 49 ]
+"409
+[v FlowReport_Process@hdr_853 hdr `[4]uc  1 a 4 52 ]
+"407
+[v FlowReport_Process@count_852 count `ul  1 a 4 69 ]
+"385
+[v FlowReport_Process@hdr hdr `[5]uc  1 a 5 56 ]
+"382
+[v FlowReport_Process@count count `ul  1 a 4 43 ]
+"384
+[v FlowReport_Process@plen plen `us  1 a 2 61 ]
+"477
+} 0
+"205
+[v _send_raw send_raw `(v  1 s 1 send_raw ]
+{
+"207
+[v send_raw@k k `uc  1 a 1 12 ]
+"205
+[v send_raw@b b `*.39Cuc  1 p 2 9 ]
+[v send_raw@n n `uc  1 p 1 11 ]
+"210
+} 0
+"182 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _print_char print_char `(a  1 e 1 0 ]
+{
+[v print_char@c c `uc  1 p 1 wreg ]
+[v print_char@c c `uc  1 p 1 wreg ]
+"185
+[v print_char@c c `uc  1 p 1 8 ]
+"197
+} 1
+"249
+[v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
+{
+"252
+} 0
+"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+[v _Packet_CRC16_Update Packet_CRC16_Update `(us  1 e 2 0 ]
+{
+"20
+[v Packet_CRC16_Update@i i `uc  1 a 1 13 ]
+"17
+[v Packet_CRC16_Update@crc crc `us  1 p 2 8 ]
+[v Packet_CRC16_Update@b b `uc  1 p 1 10 ]
+"25
+} 0
+"12
+[v _Packet_CRC16_Init Packet_CRC16_Init `(us  1 e 2 0 ]
+{
+"15
+} 0
+"30 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+[v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
+{
+"39
+} 0
+"99 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+[v _FlowLog_BatchReady FlowLog_BatchReady `(a  1 e 1 0 ]
+{
+"106
+} 0
+"74 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
+{
+"85
+} 0
+"16 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
+[v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
+{
+"20
+} 0
+"37 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+[v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
+{
+"45
+[v FlowLog_Process@cur cur `ul  1 a 4 2 ]
+"46
+[v FlowLog_Process@delta delta `us  1 a 2 6 ]
+"52
+[v FlowLog_Process@slot slot `us  1 a 2 0 ]
+"69
+} 0
+"178 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _FlowControl_OnCapture FlowControl_OnCapture `(v  1 e 1 0 ]
+{
+[v FlowControl_OnCapture@delta delta `us  1 p 2 73 ]
+"185
+} 0
+"155
+[v _evaluate_alerts evaluate_alerts `(v  1 s 1 evaluate_alerts ]
+{
+"169
+[v evaluate_alerts@sum2 sum2 `ul  1 a 4 4 ]
+"159
+[v evaluate_alerts@sum1 sum1 `ul  1 a 4 0 ]
+"176
+} 0
+"91
+[v _sliding_sum sliding_sum `(ul  1 s 4 sliding_sum ]
+{
+[s S657 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
+"110
+[v sliding_sum@e e `S657  1 a 4 65 ]
+"109
+[v sliding_sum@idx idx `us  1 a 2 51 ]
+"108
+[v sliding_sum@k k `us  1 a 2 59 ]
+"93
+[v sliding_sum@already already `ul  1 a 4 61 ]
+"107
+[v sliding_sum@sum sum `ul  1 a 4 53 ]
+"99
+[v sliding_sum@limit limit `us  1 a 2 57 ]
+"106
+[v sliding_sum@w w `us  1 a 2 49 ]
+"91
+[v sliding_sum@window_n window_n `us  1 p 2 41 ]
+"118
+} 0
+"71 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+[v _FlowLog_GetWriteIndex FlowLog_GetWriteIndex `(us  1 e 2 0 ]
+{
+"74
+} 0
+"94
+[v _FlowLog_GetCaptureCount FlowLog_GetCaptureCount `(ul  1 e 4 0 ]
+{
+"97
+} 0
+"76
+[v _FlowLog_GetAt FlowLog_GetAt `(v  1 e 1 0 ]
+{
+"78
+[v FlowLog_GetAt@slot slot `us  1 a 2 39 ]
+"76
+[v FlowLog_GetAt@index index `us  1 p 2 33 ]
+[s S657 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
+[v FlowLog_GetAt@out out `*.39S657  1 p 2 35 ]
+"81
+} 0
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwmod@counter counter `uc  1 a 1 12 ]
+"7
+[v ___lwmod@dividend dividend `ui  1 p 2 8 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 10 ]
+"25
+} 0
+"36 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c
+[v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
+{
+"38
+[v Compress_Unpack@v v `ul  1 a 4 29 ]
+"36
+[v Compress_Unpack@src src `*.39Cuc  1 p 2 8 ]
+[v Compress_Unpack@time16 time16 `*.39us  1 p 2 10 ]
+[v Compress_Unpack@pulses pulses `*.39us  1 p 2 12 ]
+"44
+} 0
+"22
+[v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
+{
+"29
+[v Compress_Pack@v v `ul  1 a 4 22 ]
+"26
+[v Compress_Pack@p p `us  1 a 2 20 ]
+"25
+[v Compress_Pack@g g `us  1 a 2 18 ]
+"22
+[v Compress_Pack@time16 time16 `us  1 p 2 8 ]
+[v Compress_Pack@pulses pulses `us  1 p 2 10 ]
+[v Compress_Pack@dst dst `*.39uc  1 p 2 12 ]
+"34
+} 0
+"27 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+[v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
+{
+"35
+} 0
+"37 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
+[v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
+{
+"41
+} 0
+"23
+[v _flowmeter_refresh flowmeter_refresh `(v  1 s 1 flowmeter_refresh ]
+{
+"25
+[v flowmeter_refresh@now now `us  1 a 2 16 ]
+"26
+[v flowmeter_refresh@inc inc `us  1 a 2 14 ]
+"29
+} 0
+"65 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
+[v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
+{
+"70
+[v PulseCounter_Get@hi hi `uc  1 a 1 13 ]
+"69
+[v PulseCounter_Get@lo lo `uc  1 a 1 12 ]
+"72
+} 0
+"187 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _FlowControl_Process FlowControl_Process `(v  1 e 1 0 ]
+{
+"196
+} 0
+"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[v _timeSpan timeSpan `(ul  1 e 4 0 ]
+{
+"19
+[v timeSpan@now now `ul  1 a 4 24 ]
+"17
+[v timeSpan@unOldTime_ms unOldTime_ms `ul  1 p 4 12 ]
+"24
+} 0
+"131 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _apply_valve apply_valve `(v  1 s 1 apply_valve ]
+{
+"133
+[v apply_valve@want_close want_close `a  1 a 1 13 ]
+"152
+} 0
+"54 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+[v _MValve_OP3_CmdOpen MValve_OP3_CmdOpen `(v  1 e 1 0 ]
+{
+"64
+} 0
+"66
+[v _MValve_OP3_CmdClose MValve_OP3_CmdClose `(v  1 e 1 0 ]
+{
+"76
+} 0
+"9 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[v _getNowTime getNowTime `(ul  1 e 4 0 ]
+{
+"12
+} 0
+"120 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _FlowControl_Init FlowControl_Init `(v  1 e 1 0 ]
+{
+"128
+} 0
+"81
+[v _FlowControl_RecalcDerived FlowControl_RecalcDerived `(v  1 e 1 0 ]
+{
+"85
+} 0
+"70
+[v _quantize_window quantize_window `(us  1 s 2 quantize_window ]
+{
+"75
+[v quantize_window@n n `ul  1 a 4 35 ]
+"70
+[v quantize_window@window_s window_s `us  1 p 2 33 ]
+"79
+} 0
+"15 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+{
+"17
+[v ___lmul@product product `ul  1 a 4 16 ]
+"15
+[v ___lmul@multiplier multiplier `ul  1 p 4 8 ]
+[v ___lmul@multiplicand multiplicand `ul  1 p 4 12 ]
+"129
+} 0
+"7 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+{
+"10
+[v ___lldiv@quotient quotient `ul  1 a 4 28 ]
+"11
+[v ___lldiv@counter counter `uc  1 a 1 32 ]
+"7
+[v ___lldiv@dividend dividend `ul  1 p 4 20 ]
+[v ___lldiv@divisor divisor `ul  1 p 4 24 ]
+"30
+} 0
+"166 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+{
+"170
+} 0
+"153 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _UART_ISR UART_ISR `(v  1 e 1 0 ]
+{
+"157
+[v UART_ISR@ch ch `uc  1 a 1 5 ]
+"177
+} 0
+"95 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+[v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
+{
+[v on_uart_rx@ch ch `uc  1 p 1 4 ]
+"101
+} 0
+"9 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[v i2_getNowTime getNowTime `(ul  1 e 4 0 ]
+{
+"12
+} 0
+"47 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+[v _UART_RX_Push UART_RX_Push `(v  1 e 1 0 ]
+{
+[v UART_RX_Push@b b `uc  1 p 1 wreg ]
+[v UART_RX_Push@b b `uc  1 p 1 wreg ]
+"49
+[v UART_RX_Push@b b `uc  1 p 1 0 ]
+"55
+} 1
+"136 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+[v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
+{
+"146
+} 0
+"39 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[v _MCU_Time_Increase_Unit MCU_Time_Increase_Unit `(v  1 e 1 0 ]
+{
+"42
+} 0

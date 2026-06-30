@@ -45,11 +45,12 @@
 #define VALVE_PWR_OFF       (LATCbits.LATC2 = 0)
 #define VALVE_PWR_TOGGLE    (LATCbits.LATC2 ^= 1)
 
-/* ---- Photon2 WAKE : RC4 (GPIO output, active-high) ----
+/* ---- Photon2 WAKE : RC4 (GPIO output, active-LOW) ----
+ * LOW = comms-ready / asserted.  HIGH = idle / deasserted.
  * From the PIC's view this is just an output, so it's defined
  * here like an LED. No toggle: WAKE is driven explicitly ON/OFF. */
-#define PHOTON2_WAKE_ON   (LATCbits.LATC4 = 1)
-#define PHOTON2_WAKE_OFF  (LATCbits.LATC4 = 0)
+#define PHOTON2_WAKE_ON   (LATCbits.LATC4 = 0)
+#define PHOTON2_WAKE_OFF  (LATCbits.LATC4 = 1)
 
 /* ---- Init: set all managed pins digital + output, then OFF ---- */
 void LEDs_Init(void);

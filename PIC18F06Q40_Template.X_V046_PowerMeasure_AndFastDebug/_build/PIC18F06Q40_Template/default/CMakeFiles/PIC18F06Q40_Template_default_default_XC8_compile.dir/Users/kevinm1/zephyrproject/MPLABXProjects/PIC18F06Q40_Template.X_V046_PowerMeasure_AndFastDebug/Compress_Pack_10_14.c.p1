@@ -1,0 +1,70 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 22: void Compress_Pack(uint16_t time16, uint16_t pulses, uint8_t *dst)
+[v _Compress_Pack `(v ~T0 @X0 1 ef3`us`us`*uc ]
+"23
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 23: {
+{
+[e :U _Compress_Pack ]
+"22
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 22: void Compress_Pack(uint16_t time16, uint16_t pulses, uint8_t *dst)
+[v _time16 `us ~T0 @X0 1 r1 ]
+[v _pulses `us ~T0 @X0 1 r2 ]
+[v _dst `*uc ~T0 @X0 1 r3 ]
+"23
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 23: {
+[f ]
+"25
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 25:     uint16_t g = (time16 > 1023u) ? 1023u : time16;
+[v _g `us ~T0 @X0 1 a ]
+[e = _g -> ? > -> _time16 `ui -> 1023 `ui : -> 1023 `ui -> _time16 `ui `us ]
+"26
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 26:     uint16_t p = (pulses > 16383u) ? 16383u : pulses;
+[v _p `us ~T0 @X0 1 a ]
+[e = _p -> ? > -> _pulses `ui -> 16383 `ui : -> 16383 `ui -> _pulses `ui `us ]
+"29
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 29:     uint32_t v = ((uint32_t)g << 14) | (uint32_t)p;
+[v _v `ul ~T0 @X0 1 a ]
+[e = _v | << -> _g `ul -> 14 `i -> _p `ul ]
+"31
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 31:     dst[0] = (uint8_t)(v >> 16);
+[e = *U + _dst * -> -> 0 `i `x -> -> # *U _dst `i `x -> >> _v -> 16 `i `uc ]
+"32
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 32:     dst[1] = (uint8_t)(v >> 8);
+[e = *U + _dst * -> -> 1 `i `x -> -> # *U _dst `i `x -> >> _v -> 8 `i `uc ]
+"33
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 33:     dst[2] = (uint8_t)(v);
+[e = *U + _dst * -> -> 2 `i `x -> -> # *U _dst `i `x -> _v `uc ]
+"34
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 34: }
+[e :UE 1 ]
+}
+"36
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 36: void Compress_Unpack(const uint8_t *src, uint16_t *time16, uint16_t *pulses)
+[v _Compress_Unpack `(v ~T0 @X0 1 ef3`*Cuc`*us`*us ]
+"37
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 37: {
+{
+[e :U _Compress_Unpack ]
+"36
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 36: void Compress_Unpack(const uint8_t *src, uint16_t *time16, uint16_t *pulses)
+[v _src `*Cuc ~T0 @X0 1 r1 ]
+[v _time16 `*us ~T0 @X0 1 r2 ]
+[v _pulses `*us ~T0 @X0 1 r3 ]
+"37
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 37: {
+[f ]
+"38
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 38:     uint32_t v = ((uint32_t)src[0] << 16) |
+[v _v `ul ~T0 @X0 1 a ]
+[e = _v | | << -> *U + _src * -> -> 0 `i `x -> -> # *U _src `i `x `ul -> 16 `i << -> *U + _src * -> -> 1 `i `x -> -> # *U _src `i `x `ul -> 8 `i -> *U + _src * -> -> 2 `i `x -> -> # *U _src `i `x `ul ]
+"42
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 42:     *time16 = (uint16_t)((v >> 14) & 0x03FFu);
+[e = *U _time16 -> & >> _v -> 14 `i -> -> 1023 `ui `ul `us ]
+"43
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 43:     *pulses = (uint16_t)( v & 0x3FFFu);
+[e = *U _pulses -> & _v -> -> 16383 `ui `ul `us ]
+"44
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c: 44: }
+[e :UE 2 ]
+}

@@ -1,0 +1,438 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"39 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 39: void Packet_ParserReset(pkt_parser_t *p)
+[c E62 0 1 2 3 4 5 6 7 .. ]
+[n E62 . PKT_ST_MARKER0 PKT_ST_MARKER1 PKT_ST_FUNC PKT_ST_LEN_HI PKT_ST_LEN_LO PKT_ST_DATA PKT_ST_CRC_HI PKT_ST_CRC_LO  ]
+"87 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.h
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.h: 87: typedef struct {
+[s S1 `E62 1 `uc 1 `us 1 `us 1 `uc -> 8 `i `us 1 `us 1 `ul 1 `a 1 `a 1 ]
+[n S1 . state func len idx data crc_calc crc_rx last_byte_ms bad_len bad_crc ]
+"25 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.h
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.h: 25: uint32_t timeSpan(uint32_t unOldTime_ms);
+[v _timeSpan `(ul ~T0 @X0 0 ef1`ul ]
+"24
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.h: 24: uint32_t getNowTime(void);
+[v _getNowTime `(ul ~T0 @X0 0 ef ]
+"12 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 12: uint16_t Packet_CRC16_Init(void)
+[v _Packet_CRC16_Init `(us ~T0 @X0 1 ef ]
+"13
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 13: {
+{
+[e :U _Packet_CRC16_Init ]
+[f ]
+"14
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 14:     return 0xFFFFu;
+[e ) -> -> 65535 `ui `us ]
+[e $UE 2  ]
+"15
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 15: }
+[e :UE 2 ]
+}
+"17
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 17: uint16_t Packet_CRC16_Update(uint16_t crc, uint8_t b)
+[v _Packet_CRC16_Update `(us ~T0 @X0 1 ef2`us`uc ]
+"18
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 18: {
+{
+[e :U _Packet_CRC16_Update ]
+"17
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 17: uint16_t Packet_CRC16_Update(uint16_t crc, uint8_t b)
+[v _crc `us ~T0 @X0 1 r1 ]
+[v _b `uc ~T0 @X0 1 r2 ]
+"18
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 18: {
+[f ]
+"19
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 19:     crc ^= (uint16_t)b;
+[e =^ _crc -> -> _b `us `us ]
+"20
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 20:     for (uint8_t i = 0u; i < 8u; i++) {
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `ui `uc ]
+[e $ < -> _i `ui -> 8 `ui 4  ]
+[e $U 5  ]
+[e :U 4 ]
+{
+"21
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 21:         if (crc & 0x0001u) crc = (uint16_t)((crc >> 1) ^ 0xA001u);
+[e $ ! != & -> _crc `ui -> 1 `ui -> -> 0 `i `ui 7  ]
+[e = _crc -> ^ >> -> _crc `ui -> 1 `i -> 40961 `ui `us ]
+[e $U 8  ]
+"22
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 22:         else crc = (uint16_t)(crc >> 1);
+[e :U 7 ]
+[e = _crc -> >> -> _crc `ui -> 1 `i `us ]
+[e :U 8 ]
+"23
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 23:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `ui -> 8 `ui 4  ]
+[e :U 5 ]
+}
+"24
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 24:     return crc;
+[e ) _crc ]
+[e $UE 3  ]
+"25
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 25: }
+[e :UE 3 ]
+}
+"27
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 27: uint16_t Packet_CRC16(const uint8_t *data, uint16_t len)
+[v _Packet_CRC16 `(us ~T0 @X0 1 ef2`*Cuc`us ]
+"28
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 28: {
+{
+[e :U _Packet_CRC16 ]
+"27
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 27: uint16_t Packet_CRC16(const uint8_t *data, uint16_t len)
+[v _data `*Cuc ~T0 @X0 1 r1 ]
+[v _len `us ~T0 @X0 1 r2 ]
+"28
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 28: {
+[f ]
+"29
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 29:     uint16_t crc = Packet_CRC16_Init();
+[v _crc `us ~T0 @X0 1 a ]
+[e = _crc ( _Packet_CRC16_Init ..  ]
+"30
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 30:     while (len--) {
+[e $U 10  ]
+[e :U 11 ]
+{
+"31
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 31:         crc = Packet_CRC16_Update(crc, *data++);
+[e = _crc ( _Packet_CRC16_Update (2 , _crc *U ++ _data * -> -> 1 `i `x -> -> # *U _data `i `x ]
+"32
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 32:     }
+}
+[e :U 10 ]
+"30
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 30:     while (len--) {
+[e $ != -> -- _len -> -> 1 `i `us `ui -> -> 0 `i `ui 11  ]
+[e :U 12 ]
+"33
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 33:     return crc;
+[e ) _crc ]
+[e $UE 9  ]
+"34
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 34: }
+[e :UE 9 ]
+}
+"39
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 39: void Packet_ParserReset(pkt_parser_t *p)
+[v _Packet_ParserReset `(v ~T0 @X0 1 ef1`*S1 ]
+"40
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 40: {
+{
+[e :U _Packet_ParserReset ]
+"39
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 39: void Packet_ParserReset(pkt_parser_t *p)
+[v _p `*S1 ~T0 @X0 1 r1 ]
+"40
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 40: {
+[f ]
+"41
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 41:     p->state = PKT_ST_MARKER0;
+[e = . *U _p 0 . `E62 0 ]
+"42
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 42:     p->func = 0u;
+[e = . *U _p 1 -> -> 0 `ui `uc ]
+"43
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 43:     p->len = 0u;
+[e = . *U _p 2 -> -> 0 `ui `us ]
+"44
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 44:     p->idx = 0u;
+[e = . *U _p 3 -> -> 0 `ui `us ]
+"45
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 45:     p->crc_calc= 0u;
+[e = . *U _p 5 -> -> 0 `ui `us ]
+"46
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 46:     p->crc_rx = 0u;
+[e = . *U _p 6 -> -> 0 `ui `us ]
+"48
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 48: }
+[e :UE 13 ]
+}
+"50
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 50: void Packet_ParserTimeoutCheck(pkt_parser_t *p)
+[v _Packet_ParserTimeoutCheck `(v ~T0 @X0 1 ef1`*S1 ]
+"51
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 51: {
+{
+[e :U _Packet_ParserTimeoutCheck ]
+"50
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 50: void Packet_ParserTimeoutCheck(pkt_parser_t *p)
+[v _p `*S1 ~T0 @X0 1 r1 ]
+"51
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 51: {
+[f ]
+"53
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 53:     if (p->state != PKT_ST_MARKER0) {
+[e $ ! != -> . *U _p 0 `ui -> . `E62 0 `ui 15  ]
+{
+"54
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 54:         if (timeSpan(p->last_byte_ms) >= 1000UL) {
+[e $ ! >= ( _timeSpan (1 . *U _p 7 -> 1000 `ul 16  ]
+{
+"55
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 55:             Packet_ParserReset(p);
+[e ( _Packet_ParserReset (1 _p ]
+"56
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 56:         }
+}
+[e :U 16 ]
+"57
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 57:     }
+}
+[e :U 15 ]
+"58
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 58: }
+[e :UE 14 ]
+}
+"60
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 60: _Bool Packet_ParseByte(pkt_parser_t *p, uint8_t b)
+[v _Packet_ParseByte `(a ~T0 @X0 1 ef2`*S1`uc ]
+"61
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 61: {
+{
+[e :U _Packet_ParseByte ]
+"60
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 60: _Bool Packet_ParseByte(pkt_parser_t *p, uint8_t b)
+[v _p `*S1 ~T0 @X0 1 r1 ]
+[v _b `uc ~T0 @X0 1 r2 ]
+"61
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 61: {
+[f ]
+"62
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 62:     p->last_byte_ms = getNowTime();
+[e = . *U _p 7 ( _getNowTime ..  ]
+"64
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 64:     switch (p->state) {
+[e $U 19  ]
+{
+"66
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 66:     case PKT_ST_MARKER0:
+[e :U 20 ]
+"67
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 67:         if (b == 0xAAu) {
+[e $ ! == -> _b `ui -> 170 `ui 21  ]
+{
+"68
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 68:             p->bad_len = 0;
+[e = . *U _p 8 -> -> 0 `i `a ]
+"69
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 69:             p->bad_crc = 0;
+[e = . *U _p 9 -> -> 0 `i `a ]
+"70
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 70:             p->state = PKT_ST_MARKER1;
+[e = . *U _p 0 . `E62 1 ]
+"71
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 71:         }
+}
+[e :U 21 ]
+"72
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 72:         break;
+[e $U 18  ]
+"74
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 74:     case PKT_ST_MARKER1:
+[e :U 22 ]
+"75
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 75:         if (b == 0x55u) {
+[e $ ! == -> _b `ui -> 85 `ui 23  ]
+{
+"76
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 76:             p->state = PKT_ST_FUNC;
+[e = . *U _p 0 . `E62 2 ]
+"77
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 77:         } else if (b == 0xAAu) {
+}
+[e $U 24  ]
+[e :U 23 ]
+[e $ ! == -> _b `ui -> 170 `ui 25  ]
+{
+"78
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 78:             p->state = PKT_ST_MARKER1;
+[e = . *U _p 0 . `E62 1 ]
+"79
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 79:         } else {
+}
+[e $U 26  ]
+[e :U 25 ]
+{
+"80
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 80:             p->state = PKT_ST_MARKER0;
+[e = . *U _p 0 . `E62 0 ]
+"81
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 81:         }
+}
+[e :U 26 ]
+[e :U 24 ]
+"82
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 82:         break;
+[e $U 18  ]
+"84
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 84:     case PKT_ST_FUNC:
+[e :U 27 ]
+"85
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 85:         p->func = b;
+[e = . *U _p 1 _b ]
+"86
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 86:         p->crc_calc = Packet_CRC16_Init();
+[e = . *U _p 5 ( _Packet_CRC16_Init ..  ]
+"87
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 87:         p->crc_calc = Packet_CRC16_Update(p->crc_calc, b);
+[e = . *U _p 5 ( _Packet_CRC16_Update (2 , . *U _p 5 _b ]
+"88
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 88:         p->state = PKT_ST_LEN_HI;
+[e = . *U _p 0 . `E62 3 ]
+"89
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 89:         break;
+[e $U 18  ]
+"91
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 91:     case PKT_ST_LEN_HI:
+[e :U 28 ]
+"92
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 92:         p->len = (uint16_t)((uint16_t)b << 8);
+[e = . *U _p 2 -> << -> -> _b `us `ui -> 8 `i `us ]
+"93
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 93:         p->crc_calc = Packet_CRC16_Update(p->crc_calc, b);
+[e = . *U _p 5 ( _Packet_CRC16_Update (2 , . *U _p 5 _b ]
+"94
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 94:         p->state = PKT_ST_LEN_LO;
+[e = . *U _p 0 . `E62 4 ]
+"95
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 95:         break;
+[e $U 18  ]
+"97
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 97:     case PKT_ST_LEN_LO:
+[e :U 29 ]
+"98
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 98:         p->len |= (uint16_t)b;
+[e =| . *U _p 2 -> -> _b `us `us ]
+"99
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 99:         p->crc_calc = Packet_CRC16_Update(p->crc_calc, b);
+[e = . *U _p 5 ( _Packet_CRC16_Update (2 , . *U _p 5 _b ]
+"100
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 100:         p->idx = 0u;
+[e = . *U _p 3 -> -> 0 `ui `us ]
+"102
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 102:         if (p->len > 8u) {
+[e $ ! > -> . *U _p 2 `ui -> 8 `ui 30  ]
+{
+"103
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 103:             p->bad_len = 1;
+[e = . *U _p 8 -> -> 1 `i `a ]
+"104
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 104:             Packet_ParserReset(p);
+[e ( _Packet_ParserReset (1 _p ]
+"105
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 105:             break;
+[e $U 18  ]
+"106
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 106:         }
+}
+[e :U 30 ]
+"107
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 107:         p->state = (p->len == 0u) ? PKT_ST_CRC_HI : PKT_ST_DATA;
+[e = . *U _p 0 -> ? == -> . *U _p 2 `ui -> 0 `ui : . `E62 6 . `E62 5 `E62 ]
+"108
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 108:         break;
+[e $U 18  ]
+"110
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 110:     case PKT_ST_DATA:
+[e :U 31 ]
+"111
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 111:         p->data[p->idx++] = b;
+[e = *U + &U . *U _p 4 * -> ++ . *U _p 3 -> -> 1 `i `us `ux -> -> # *U &U . *U _p 4 `ui `ux _b ]
+"112
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 112:         p->crc_calc = Packet_CRC16_Update(p->crc_calc, b);
+[e = . *U _p 5 ( _Packet_CRC16_Update (2 , . *U _p 5 _b ]
+"113
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 113:         if (p->idx >= p->len) {
+[e $ ! >= -> . *U _p 3 `ui -> . *U _p 2 `ui 32  ]
+{
+"114
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 114:             p->state = PKT_ST_CRC_HI;
+[e = . *U _p 0 . `E62 6 ]
+"115
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 115:         }
+}
+[e :U 32 ]
+"116
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 116:         break;
+[e $U 18  ]
+"118
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 118:     case PKT_ST_CRC_HI:
+[e :U 33 ]
+"119
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 119:         p->crc_rx = (uint16_t)((uint16_t)b << 8);
+[e = . *U _p 6 -> << -> -> _b `us `ui -> 8 `i `us ]
+"120
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 120:         p->state = PKT_ST_CRC_LO;
+[e = . *U _p 0 . `E62 7 ]
+"121
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 121:         break;
+[e $U 18  ]
+"123
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 123:     case PKT_ST_CRC_LO:
+[e :U 34 ]
+"124
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 124:         p->crc_rx |= (uint16_t)b;
+[e =| . *U _p 6 -> -> _b `us `us ]
+"125
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 125:         p->state = PKT_ST_MARKER0;
+[e = . *U _p 0 . `E62 0 ]
+"126
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 126:         if (p->crc_rx == p->crc_calc) {
+[e $ ! == -> . *U _p 6 `ui -> . *U _p 5 `ui 35  ]
+{
+"127
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 127:             return 1;
+[e ) -> -> 1 `i `a ]
+[e $UE 17  ]
+"128
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 128:         }
+}
+[e :U 35 ]
+"129
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 129:         p->bad_crc = 1;
+[e = . *U _p 9 -> -> 1 `i `a ]
+"130
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 130:         break;
+[e $U 18  ]
+"132
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 132:     default:
+[e :U 36 ]
+"133
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 133:         Packet_ParserReset(p);
+[e ( _Packet_ParserReset (1 _p ]
+"134
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 134:         break;
+[e $U 18  ]
+"135
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 135:     }
+}
+[e $U 18  ]
+[e :U 19 ]
+[e [\ -> . *U _p 0 `ui , $ -> . `E62 0 `ui 20
+ , $ -> . `E62 1 `ui 22
+ , $ -> . `E62 2 `ui 27
+ , $ -> . `E62 3 `ui 28
+ , $ -> . `E62 4 `ui 29
+ , $ -> . `E62 5 `ui 31
+ , $ -> . `E62 6 `ui 33
+ , $ -> . `E62 7 `ui 34
+ 36 ]
+[e :U 18 ]
+"136
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 136:     return 0;
+[e ) -> -> 0 `i `a ]
+[e $UE 17  ]
+"137
+[; ;/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c: 137: }
+[e :UE 17 ]
+}

@@ -85,8 +85,8 @@
 
 #ifdef REPORT_CONFIG_DEBUG
   #define APP_FLOW_SLOTS      1000          /* ring-buffer slots */
-  #define APP_FLOW_PERIOD_MS  3000       /* fast test: ~2 s capture */
-  #define APP_FLOW_BATCH      40          /* report every 5 captures */
+  #define APP_FLOW_PERIOD_MS  1000       /* fast test: ~2 s capture */
+  #define APP_FLOW_BATCH      (1*720)          /* report every 5 captures */
 #else
   #define APP_FLOW_SLOTS      1000         /* <=1024 (10-14 sample# limit) */
   #define APP_FLOW_PERIOD_MS  60000UL      /* production: 60 s capture */
@@ -211,12 +211,12 @@
   #define TIME_VALVE_TEMP_LOCK_MS  600000UL /* temp lock holds 10 min        */
 #endif
 
-/* ---- WAKE line as "comms-ready" signal -------------------------------
- * WAKE (RC4) goes HIGH on: report-period due, a 0xF0 wake, OR any received
- * UART byte. It goes LOW once max(last RX byte time, TX buffer empty time)
- * is older than CLOSE_WAKE_AFTER_UART_MS. The decision variable (not the
- * pin) is what the sleep guard consults; sleep also needs all other guards
- * (report idle, TX shift-register empty, valve idle, dwell). */
+/* ---- WAKE line as "comms-ready" signal (active-LOW) ------------------
+ * WAKE (RC4) goes LOW on: report-period due, a 0xF0 wake, OR any received
+ * UART byte. It goes HIGH (idle) once max(last RX byte time, TX buffer
+ * empty time) is older than CLOSE_WAKE_AFTER_UART_MS. The decision variable
+ * (not the pin) is what the sleep guard consults; sleep also needs all other
+ * guards (report idle, TX shift-register empty, valve idle, dwell). */
 #define CLOSE_WAKE_AFTER_UART_MS  500UL
 
 /* ---- Deep-sleep wake (Timer0 + LFINTOSC) ---- */
@@ -275,8 +275,15 @@
  * report waveform with no Photon2 connected). Undefine for normal operation
  * (wait for a real REQ_DATA packet). TEMPORARY / bench use only. */
 /* APP_DEBUG_AUTO_DATA_REPORT_WITHOUT_REQ is set in QUICK TEST SETTINGS (top). */
+#define WAIT_PHOTON_UART_RESPONSE_MS  3000UL  // wait up to 3 s for REQ_DATA after WAKE asserted
 
-#define WAIT_PHOTON_UART_RESPONSE_MS  3000UL
+/* ---- WAKE-to-TX delay ------------------------------------------------
+ * After WAKE is asserted LOW (report due), the PIC holds off accepting a
+ * REQ_DATA and starting the data transmission for this long. Gives the
+ * Photon2 time to connect to the Particle cloud before the upload begins.
+ * The WAKE_WAIT state timeout is extended by this value automatically.
+ * Set to 0 to transmit as soon as REQ_DATA arrives (original behaviour). */
+#define WAKE_TO_TX_DELAY_MS  (1UL * 60UL * 1000UL)   /* 1 minute */
 
 /* ---- UART ---- */
 #define APP_UART_BAUD         38400UL      /* terminal must match */
@@ -298,8 +305,9 @@
 
 /* ---- Photon2 WAKE signal (comms-ready model) ----
  * WAKE (RC4, defined in Dev_Led.h) is NOT a fixed pulse anymore. It is a
- * "comms-ready" level: it goes HIGH on a report-period being due, on the 0xF0
- * wake byte, or on ANY received UART byte, and it goes LOW only once the last
+ * "comms-ready" level: it goes LOW (asserted) on a report-period being due,
+ * on the 0xF0 wake byte, or on ANY received UART byte, and it goes HIGH
+ * (deasserted/idle) only once the last
  * UART activity (last RX byte / TX buffer empty) is older than
  * CLOSE_WAKE_AFTER_UART_MS (defined above, near the top of this file).
  * The old APP_WAKE_PULSE_MS / APP_WAKE_TO_REPORT_MS pulse parameters were

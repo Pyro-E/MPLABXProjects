@@ -4,13 +4,15 @@
  *  Adds to the V032 baseline:
  *    - framed UART packet protocol (Packet.*) replacing raw 0xAA/0xF0 data
  *    - leak detection + OP3 valve auto-shutoff (Flow_Control + MValve_OP3)
- *    - WAKE (RC4) as a "comms-ready" signal: high on report-due / 0xF0 /
- *      any RX byte; low CLOSE_WAKE_AFTER_UART_MS after the last UART activity
+ *    - WAKE (RC4) as a "comms-ready" signal: LOW on report-due / 0xF0 /
+ *      any RX byte; HIGH (idle) CLOSE_WAKE_AFTER_UART_MS after the last UART activity
  *    - reset-cause aware startup (PCON0): non-WDT reset may force valve open
  *
  *  Pins:
- *    RC0 = UART TX     RC1 = UART RX
- *    RC3 = TEST LED    RC4 = Photon2 WAKE (out)
+ *    RC0 = UART TX     
+ *    RC1 = UART RX
+ *    RC3 = TEST LED   
+ *    RC4 = Photon2 WAKE (out)
  *    RC5 = flow pulse input (Timer1 T1CKI via PPS)
  *    RA2 = valve CTRL  RC2 = valve PWR
  * ============================================================ */
@@ -54,7 +56,7 @@
  *  code rather than in a separate file.
  *
  *  s_wake_active is the decision variable the sleep guard reads
- *  (NOT the pin). True while WAKE should be high. Set by report-due
+ *  (NOT the pin). True while WAKE should be LOW (asserted). Set by report-due
  *  / 0xF0 / any RX byte; cleared once the last UART activity (last
  *  RX byte, or TX buffer empty) is older than CLOSE_WAKE_AFTER_UART_MS.
  * ============================================================ */
@@ -71,8 +73,9 @@ static void Wake_Raise(void)
 static void Wake_Process(void)
 {
     if (s_wake_active) {
-        /* keep WAKE up while the TX buffer still has bytes to send */
-        if (!UART_TX_IsEmpty()) {
+        /* keep WAKE asserted while TX is draining OR while FlowReport is
+         * busy (covers the WAKE_TO_TX_DELAY_MS cloud-connect hold-off) */
+        if (!UART_TX_IsEmpty() || FlowReport_IsBusy()) {
             s_wake_mark_ms = getNowTime();
         }
         if (timeSpan(s_wake_mark_ms) >= CLOSE_WAKE_AFTER_UART_MS) {

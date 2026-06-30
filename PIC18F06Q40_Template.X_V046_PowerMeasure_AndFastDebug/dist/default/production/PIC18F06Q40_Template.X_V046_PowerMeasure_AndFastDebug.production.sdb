@@ -1,9 +1,9 @@
-[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK ]
 [d version 1.1 ]
 [d edition pro ]
 [d chip 18F06Q40 ]
 [d frameptr 1249 ]
-"88 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+"91 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
 [e E13254 . `uc
 PKT_ST_MARKER0 0
 PKT_ST_MARKER1 1
@@ -14,7 +14,7 @@ PKT_ST_DATA 5
 PKT_ST_CRC_HI 6
 PKT_ST_CRC_LO 7
 ]
-"120
+"123
 [e E13228 . `uc
 PKT_REQ_DATA 1
 PKT_REQ_GET_PARAM 2
@@ -28,24 +28,24 @@ PKT_RSP_VALVE 132
 PKT_RSP_ACK 142
 PKT_RSP_NAK 143
 ]
-"122
+"125
 [e E13241 . `uc
 NAK_BAD_CRC 1
 NAK_BAD_LEN 2
 NAK_BAD_FUNC 3
 NAK_BUSY 4
 ]
-"236
+"239
 [e E13136 . `uc
 WAKE_BY_TIMER0 0
 WAKE_BY_UART 1
 ]
-"69 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+"69 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
 [e E13093 . `uc
 WAKE_BY_TIMER0 0
 WAKE_BY_UART 1
 ]
-"60 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"60 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [e E13434 . `uc
 WAKE_IDLE 0
 WAKE_HIGH 1
@@ -59,7 +59,7 @@ SEND_HEADER 2
 SEND_BODY 3
 SEND_PKT_CRC 4
 ]
-"257
+"261
 [e E13341 . `uc
 PKT_REQ_DATA 1
 PKT_REQ_GET_PARAM 2
@@ -73,7 +73,7 @@ PKT_RSP_VALVE 132
 PKT_RSP_ACK 142
 PKT_RSP_NAK 143
 ]
-"266
+"270
 [e E13396 . `uc
 VALVE_MOTION_UNKNOWN 0
 VALVE_MOTION_OPEN 1
@@ -83,12 +83,12 @@ VALVE_MOTION_CLOSING 4
 VALVE_MOTION_OPEN_INTERRUPTED 5
 VALVE_MOTION_CLOSE_INTERRUPTED 6
 ]
-"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
 [e E13106 . `uc
 LED_HEARTBEAT 0
 LED_BLINK 1
 ]
-"11 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+"11 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
 [e E13091 . `uc
 VALVE_MOTION_UNKNOWN 0
 VALVE_MOTION_OPEN 1
@@ -98,7 +98,7 @@ VALVE_MOTION_CLOSING 4
 VALVE_MOTION_OPEN_INTERRUPTED 5
 VALVE_MOTION_CLOSE_INTERRUPTED 6
 ]
-"39 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+"39 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
 [e E62 . `uc
 PKT_ST_MARKER0 0
 PKT_ST_MARKER1 1
@@ -169,13 +169,13 @@ PKT_ST_CRC_LO 7
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c
+"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c
 [v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
 "36
 [v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
-"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Led.c
+"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Led.c
 [v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
-"41 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+"41 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
 "47
 [v _UART_RX_Push UART_RX_Push `(v  1 e 1 0 ]
@@ -199,7 +199,7 @@ PKT_ST_CRC_LO 7
 [v _UART_TX_IsEmpty UART_TX_IsEmpty `(a  1 e 1 0 ]
 "249
 [v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
-"70 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+"70 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
 [v _quantize_window quantize_window `(us  1 s 2 quantize_window ]
 "81
 [v _FlowControl_RecalcDerived FlowControl_RecalcDerived `(v  1 e 1 0 ]
@@ -225,7 +225,7 @@ PKT_ST_CRC_LO 7
 [v _FlowControl_GetTempLockCount FlowControl_GetTempLockCount `(ul  1 e 4 0 ]
 "241
 [v _FlowControl_Unlock FlowControl_Unlock `(v  1 e 1 0 ]
-"27 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+"27 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
 [v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
 "37
 [v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
@@ -237,39 +237,39 @@ PKT_ST_CRC_LO 7
 [v _FlowLog_GetCaptureCount FlowLog_GetCaptureCount `(ul  1 e 4 0 ]
 "99
 [v _FlowLog_BatchReady FlowLog_BatchReady `(a  1 e 1 0 ]
-"16 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
+"16 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
 [v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
 "23
 [v _flowmeter_refresh flowmeter_refresh `(v  1 s 1 flowmeter_refresh ]
 "37
 [v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
-"72 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"74 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
-"84
+"88
 [v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
-"91
+"95
 [v _FlowReport_RequestReport FlowReport_RequestReport `(v  1 e 1 0 ]
-"97
+"101
 [v _FlowReport_IsBusy FlowReport_IsBusy `(a  1 e 1 0 ]
-"107
+"111
 [v _FlowReport_IsSending FlowReport_IsSending `(a  1 e 1 0 ]
-"114
+"118
 [v _FlowReport_WakeDuePending FlowReport_WakeDuePending `(a  1 e 1 0 ]
-"201
+"205
 [v _send_raw send_raw `(v  1 s 1 send_raw ]
-"217
+"221
 [v _send_small_packet send_small_packet `(v  1 s 1 send_small_packet ]
-"248
+"252
 [v _FlowReport_SendParam FlowReport_SendParam `(v  1 e 1 0 ]
-"260
+"264
 [v _FlowReport_SendValve FlowReport_SendValve `(v  1 e 1 0 ]
-"275
+"279
 [v _FlowReport_SendAck FlowReport_SendAck `(v  1 e 1 0 ]
-"281
+"285
 [v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
-"288
+"292
 [v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
-"21 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+"21 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
 [v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
 "30
 [v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
@@ -277,21 +277,21 @@ PKT_ST_CRC_LO 7
 [v _LedFsm_NotifyWake LedFsm_NotifyWake `(v  1 e 1 0 ]
 "51
 [v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
-"64 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+"66 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
 [v _Wake_Raise Wake_Raise `(v  1 s 1 Wake_Raise ]
-"71
+"73
 [v _Wake_Process Wake_Process `(v  1 s 1 Wake_Process ]
-"92
+"95
 [v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
-"100
+"103
 [v _dispatch_packet dispatch_packet `(v  1 s 1 dispatch_packet ]
-"149
+"152
 [v _packet_rx_pump packet_rx_pump `(v  1 s 1 packet_rx_pump ]
-"163
+"166
 [v _isr isr `IIH(v  1 e 1 0 ]
-"169
+"172
 [v _main main `(v  1 e 1 0 ]
-"9 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+"9 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
 [v _getNowTime getNowTime `(ul  1 e 4 0 ]
 [v i2_getNowTime getNowTime `(ul  1 e 4 0 ]
 "17
@@ -302,7 +302,7 @@ PKT_ST_CRC_LO 7
 [v _MCU_Time_Advance MCU_Time_Advance `(v  1 e 1 0 ]
 "55
 [v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
-"21 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+"21 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
 [v _valve_pins_idle valve_pins_idle `(v  1 s 1 valve_pins_idle ]
 "30
 [v _MValve_OP3_Init MValve_OP3_Init `(v  1 e 1 0 ]
@@ -320,7 +320,7 @@ PKT_ST_CRC_LO 7
 [v _MValve_OP3_GetPwrPin MValve_OP3_GetPwrPin `(uc  1 e 1 0 ]
 "124
 [v _MValve_OP3_GetCtrlPin MValve_OP3_GetCtrlPin `(uc  1 e 1 0 ]
-"12 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+"12 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
 [v _Packet_CRC16_Init Packet_CRC16_Init `(us  1 e 2 0 ]
 "17
 [v _Packet_CRC16_Update Packet_CRC16_Update `(us  1 e 2 0 ]
@@ -332,7 +332,7 @@ PKT_ST_CRC_LO 7
 [v _Packet_ParserTimeoutCheck Packet_ParserTimeoutCheck `(v  1 e 1 0 ]
 "60
 [v _Packet_ParseByte Packet_ParseByte `(a  1 e 1 0 ]
-"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
+"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
 [v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
 "47
 [v _PulseCounter_Enable PulseCounter_Enable `(v  1 e 1 0 ]
@@ -340,7 +340,7 @@ PKT_ST_CRC_LO 7
 [v _PulseCounter_Clear PulseCounter_Clear `(v  1 e 1 0 ]
 "65
 [v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
-"24 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+"24 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
 [v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
 "38
 [v _Sys_Time_ResumeTick Sys_Time_ResumeTick `(v  1 e 1 0 ]
@@ -350,29 +350,29 @@ PKT_ST_CRC_LO 7
 [v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
 "157
 [v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
-[s S324 . 1 `uc 1 SEN 1 0 :1:0 
+[s S328 . 1 `uc 1 SEN 1 0 :1:0 
 `uc 1 PS 1 0 :5:1 
 ]
-"2405 /Users/kevinlu/.mchp_packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8/pic/include/proc/pic18f06q40.h
-[s S327 . 1 `uc 1 SWDTEN 1 0 :1:0 
+"2405 /Applications/microchip/mplabx/v6.30/packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8/pic/include/proc/pic18f06q40.h
+[s S331 . 1 `uc 1 SWDTEN 1 0 :1:0 
 `uc 1 WDTPS 1 0 :5:1 
 ]
-[s S330 . 1 `uc 1 WDTSEN 1 0 :1:0 
+[s S334 . 1 `uc 1 WDTSEN 1 0 :1:0 
 `uc 1 PS0 1 0 :1:1 
 `uc 1 PS1 1 0 :1:2 
 `uc 1 PS2 1 0 :1:3 
 `uc 1 PS3 1 0 :1:4 
 `uc 1 PS4 1 0 :1:5 
 ]
-[s S337 . 1 `uc 1 . 1 0 :1:0 
+[s S341 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 WDTPS0 1 0 :1:1 
 `uc 1 WDTPS1 1 0 :1:2 
 `uc 1 WDTPS2 1 0 :1:3 
 `uc 1 WDTPS3 1 0 :1:4 
 `uc 1 WDTPS4 1 0 :1:5 
 ]
-[u S344 . 1 `S324 1 . 1 0 `S327 1 . 1 0 `S330 1 . 1 0 `S337 1 . 1 0 ]
-[v _WDTCON0bits WDTCON0bits `VES344  1 e 1 @120 ]
+[u S348 . 1 `S328 1 . 1 0 `S331 1 . 1 0 `S334 1 . 1 0 `S341 1 . 1 0 ]
+[v _WDTCON0bits WDTCON0bits `VES348  1 e 1 @120 ]
 "8538
 [v _RC0PPS RC0PPS `VEuc  1 e 1 @529 ]
 "9126
@@ -736,7 +736,7 @@ PKT_ST_CRC_LO 7
 "36339
 "36339
 [v _TRISCbits TRISCbits `VES519  1 e 1 @1224 ]
-[s S298 . 1 `uc 1 INT0EDG 1 0 :1:0 
+[s S302 . 1 `uc 1 INT0EDG 1 0 :1:0 
 `uc 1 INT1EDG 1 0 :1:1 
 `uc 1 INT2EDG 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
@@ -745,40 +745,40 @@ PKT_ST_CRC_LO 7
 `uc 1 GIE 1 0 :1:7 
 ]
 "36494
-[s S306 . 1 `uc 1 . 1 0 :7:0 
+[s S310 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 GIEH 1 0 :1:7 
 ]
 "36494
-[u S309 . 1 `S298 1 . 1 0 `S306 1 . 1 0 ]
+[u S313 . 1 `S302 1 . 1 0 `S310 1 . 1 0 ]
 "36494
 "36494
-[v _INTCON0bits INTCON0bits `VES309  1 e 1 @1238 ]
+[v _INTCON0bits INTCON0bits `VES313  1 e 1 @1238 ]
 "37145
 [v _PCON0 PCON0 `VEuc  1 e 1 @1264 ]
-[s S161 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+[s S165 . 1 `uc 1 NOT_BOR 1 0 :1:0 
 ]
 "37193
-[s S163 . 1 `uc 1 . 1 0 :1:0 
+[s S167 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_POR 1 0 :1:1 
 ]
 "37193
-[s S166 . 1 `uc 1 . 1 0 :2:0 
+[s S170 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 NOT_RI 1 0 :1:2 
 ]
 "37193
-[s S169 . 1 `uc 1 . 1 0 :3:0 
+[s S173 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_RMCLR 1 0 :1:3 
 ]
 "37193
-[s S172 . 1 `uc 1 . 1 0 :4:0 
+[s S176 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 NOT_RWDT 1 0 :1:4 
 ]
 "37193
-[s S175 . 1 `uc 1 . 1 0 :5:0 
+[s S179 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 NOT_WDTWV 1 0 :1:5 
 ]
 "37193
-[s S178 . 1 `uc 1 nBOR 1 0 :1:0 
+[s S182 . 1 `uc 1 nBOR 1 0 :1:0 
 `uc 1 nPOR 1 0 :1:1 
 `uc 1 nRI 1 0 :1:2 
 `uc 1 nRMCLR 1 0 :1:3 
@@ -788,7 +788,7 @@ PKT_ST_CRC_LO 7
 `uc 1 STKOVF 1 0 :1:7 
 ]
 "37193
-[s S187 . 1 `uc 1 BOR 1 0 :1:0 
+[s S191 . 1 `uc 1 BOR 1 0 :1:0 
 `uc 1 POR 1 0 :1:1 
 `uc 1 RI 1 0 :1:2 
 `uc 1 RMCLR 1 0 :1:3 
@@ -796,10 +796,10 @@ PKT_ST_CRC_LO 7
 `uc 1 WDTWV 1 0 :1:5 
 ]
 "37193
-[u S194 . 1 `S161 1 . 1 0 `S163 1 . 1 0 `S166 1 . 1 0 `S169 1 . 1 0 `S172 1 . 1 0 `S175 1 . 1 0 `S178 1 . 1 0 `S187 1 . 1 0 ]
+[u S198 . 1 `S165 1 . 1 0 `S167 1 . 1 0 `S170 1 . 1 0 `S173 1 . 1 0 `S176 1 . 1 0 `S179 1 . 1 0 `S182 1 . 1 0 `S191 1 . 1 0 ]
 "37193
 "37193
-[v _PCON0bits PCON0bits `VES194  1 e 1 @1264 ]
+[v _PCON0bits PCON0bits `VES198  1 e 1 @1264 ]
 [s S819 . 1 `uc 1 DOZE 1 0 :3:0 
 `uc 1 . 1 0 :1:3 
 `uc 1 DOE 1 0 :1:4 
@@ -817,7 +817,7 @@ PKT_ST_CRC_LO 7
 "37385
 "37385
 [v _CPUDOZEbits CPUDOZEbits `VES830  1 e 1 @1266 ]
-"25 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+"25 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _s_tx_buf s_tx_buf `VE[64]uc  1 s 64 s_tx_buf ]
 "26
 [v _s_tx_head s_tx_head `VEuc  1 s 1 s_tx_head ]
@@ -835,11 +835,11 @@ PKT_ST_CRC_LO 7
 [v _s_rx_count s_rx_count `VEuc  1 s 1 s_rx_count ]
 "39
 [v _s_rx_cb s_rx_cb `*.37(v  1 s 2 s_rx_cb ]
-"20 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Valve.c
+"20 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Valve.c
 [v _s_phase0 s_phase0 `ul  1 s 4 s_phase0 ]
-[s S87 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
-"47 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
-[v _s_param s_param `S87  1 s 8 s_param ]
+[s S91 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+"47 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+[v _s_param s_param `S91  1 s 8 s_param ]
 "55
 [v _s_leak1_window_n s_leak1_window_n `us  1 s 2 s_leak1_window_n ]
 "56
@@ -856,7 +856,7 @@ PKT_ST_CRC_LO 7
 [v _s_valve_should_close s_valve_should_close `a  1 s 1 s_valve_should_close ]
 "66
 [v _s_valve_cmd_valid s_valve_cmd_valid `a  1 s 1 s_valve_cmd_valid ]
-"12 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+"12 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
 [v _s_buf s_buf `[3000]uc  1 s 3000 s_buf ]
 "20
 [v _s_write s_write `us  1 s 2 s_write ]
@@ -870,11 +870,11 @@ PKT_ST_CRC_LO 7
 [v _s_captures s_captures `ul  1 s 4 s_captures ]
 "25
 [v _s_batch_ready s_batch_ready `a  1 s 1 s_batch_ready ]
-"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
+"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
 [v _s_prev_cnt s_prev_cnt `us  1 s 2 s_prev_cnt ]
 "14
 [v _s_total s_total `ul  1 s 4 s_total ]
-"60 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"60 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _s_wake_state s_wake_state `E13434  1 s 1 s_wake_state ]
 "61
 [v _s_wake_due s_wake_due `VEa  1 s 1 s_wake_due ]
@@ -891,25 +891,29 @@ PKT_ST_CRC_LO 7
 "68
 [v _s_wake_ms s_wake_ms `ul  1 s 4 s_wake_ms ]
 "69
-[v _s_report_req s_report_req `VEa  1 s 1 s_report_req ]
+[v _s_tx_delay_active s_tx_delay_active `a  1 s 1 s_tx_delay_active ]
 "70
+[v _s_tx_delay_ms s_tx_delay_ms `ul  1 s 4 s_tx_delay_ms ]
+"71
+[v _s_report_req s_report_req `VEa  1 s 1 s_report_req ]
+"72
 [v _s_aa s_aa `VEa  1 s 1 s_aa ]
-"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
 [v _s_mode s_mode `E13106  1 s 1 s_mode ]
 "18
 [v _s_mark s_mark `ul  1 s 4 s_mark ]
 "19
 [v _s_toggles s_toggles `uc  1 s 1 s_toggles ]
-"61 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+"63 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
 [v _s_wake_active s_wake_active `VEa  1 s 1 s_wake_active ]
-"62
+"64
 [v _s_wake_mark_ms s_wake_mark_ms `VEul  1 s 4 s_wake_mark_ms ]
-[s S63 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
-"88
-[v _s_parser s_parser `S63  1 s 24 s_parser ]
-"6 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+[s S67 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+"91
+[v _s_parser s_parser `S67  1 s 24 s_parser ]
+"6 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
 [v _unNowTime_ms unNowTime_ms `VEul  1 s 4 unNowTime_ms ]
-"11 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+"11 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
 [v _s_motion s_motion `E13091  1 s 1 s_motion ]
 "12
 [v _s_drive_ms s_drive_ms `ul  1 s 4 s_drive_ms ]
@@ -917,43 +921,43 @@ PKT_ST_CRC_LO 7
 [v _s_driving s_driving `a  1 s 1 s_driving ]
 "14
 [v _s_drive_open s_drive_open `a  1 s 1 s_drive_open ]
-"169 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+"172 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"236
+"239
 [v main@cause cause `E13136  1 a 1 8 ]
-"173
+"176
 [v main@wdt_reset wdt_reset `a  1 a 1 9 ]
-"248
+"251
 } 0
-"149
+"152
 [v _packet_rx_pump packet_rx_pump `(v  1 s 1 packet_rx_pump ]
 {
-"151
+"154
 [v packet_rx_pump@b b `uc  1 a 1 0 ]
-"160
+"163
 } 0
-"100
+"103
 [v _dispatch_packet dispatch_packet `(v  1 s 1 dispatch_packet ]
 {
-[s S87 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
-"114
-[v dispatch_packet@np np `S87  1 a 8 71 ]
-[s S63 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
-"100
-[v dispatch_packet@p p `*.39CS63  1 p 2 66 ]
-"147
+[s S91 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+"117
+[v dispatch_packet@np np `S91  1 a 8 71 ]
+[s S67 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+"103
+[v dispatch_packet@p p `*.39CS67  1 p 2 66 ]
+"150
 } 0
-"260 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"264 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _FlowReport_SendValve FlowReport_SendValve `(v  1 e 1 0 ]
 {
-"262
+"266
 [v FlowReport_SendValve@d d `[8]uc  1 a 8 50 ]
-"263
+"267
 [v FlowReport_SendValve@tc tc `ul  1 a 4 58 ]
-"273
+"277
 } 0
-"119 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+"119 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
 [v _MValve_OP3_GetPwrPin MValve_OP3_GetPwrPin `(uc  1 e 1 0 ]
 {
 "122
@@ -968,7 +972,7 @@ PKT_ST_CRC_LO 7
 {
 "127
 } 0
-"235 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+"235 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
 [v _FlowControl_GetTempLockCount FlowControl_GetTempLockCount `(ul  1 e 4 0 ]
 {
 "238
@@ -980,70 +984,70 @@ PKT_ST_CRC_LO 7
 [v FlowControl_GetLockFlags@f f `uc  1 a 1 8 ]
 "233
 } 0
-"248 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"252 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _FlowReport_SendParam FlowReport_SendParam `(v  1 e 1 0 ]
 {
-"251
+"255
 [v FlowReport_SendParam@d d `[8]uc  1 a 8 50 ]
-[s S87 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
-"250
-[v FlowReport_SendParam@pr pr `S87  1 a 8 58 ]
-"258
+[s S91 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+"254
+[v FlowReport_SendParam@pr pr `S91  1 a 8 58 ]
+"262
 } 0
-"199 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+"199 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
 [v _FlowControl_GetParams FlowControl_GetParams `(v  1 e 1 0 ]
 {
-[s S87 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
-[v FlowControl_GetParams@out out `*.39S87  1 p 2 8 ]
+[s S91 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+[v FlowControl_GetParams@out out `*.39S91  1 p 2 8 ]
 "202
 } 0
-"281 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"285 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
 {
 [v FlowReport_SendNak@reason reason `uc  1 p 1 wreg ]
-"283
+"287
 [v FlowReport_SendNak@d d `uc  1 a 1 51 ]
-"281
-[v FlowReport_SendNak@reason reason `uc  1 p 1 wreg ]
-"283
-[v FlowReport_SendNak@reason reason `uc  1 p 1 50 ]
 "285
+[v FlowReport_SendNak@reason reason `uc  1 p 1 wreg ]
+"287
+[v FlowReport_SendNak@reason reason `uc  1 p 1 50 ]
+"289
 } 1
-"275
+"279
 [v _FlowReport_SendAck FlowReport_SendAck `(v  1 e 1 0 ]
 {
 [v FlowReport_SendAck@echoed_func echoed_func `uc  1 p 1 wreg ]
-"277
+"281
 [v FlowReport_SendAck@d d `uc  1 a 1 51 ]
-"275
-[v FlowReport_SendAck@echoed_func echoed_func `uc  1 p 1 wreg ]
-"277
-[v FlowReport_SendAck@echoed_func echoed_func `uc  1 p 1 50 ]
 "279
+[v FlowReport_SendAck@echoed_func echoed_func `uc  1 p 1 wreg ]
+"281
+[v FlowReport_SendAck@echoed_func echoed_func `uc  1 p 1 50 ]
+"283
 } 1
-"217
+"221
 [v _send_small_packet send_small_packet `(v  1 s 1 send_small_packet ]
 {
 [v send_small_packet@func func `uc  1 p 1 wreg ]
-"242
-[v send_small_packet@k_1632 k `us  1 a 2 46 ]
-"232
+"246
+[v send_small_packet@k_1634 k `us  1 a 2 46 ]
+"236
 [v send_small_packet@k k `us  1 a 2 44 ]
-"219
+"223
 [v send_small_packet@frame frame `[15]uc  1 a 15 26 ]
-"220
+"224
 [v send_small_packet@i i `us  1 a 2 48 ]
-"221
+"225
 [v send_small_packet@crc crc `us  1 a 2 42 ]
-"217
+"221
 [v send_small_packet@func func `uc  1 p 1 wreg ]
 [v send_small_packet@data data `*.39Cuc  1 p 2 20 ]
 [v send_small_packet@len len `us  1 p 2 22 ]
-"220
+"224
 [v send_small_packet@func func `uc  1 p 1 41 ]
-"246
+"250
 } 1
-"27 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+"27 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
 [v _Packet_CRC16 Packet_CRC16 `(us  1 e 2 0 ]
 {
 "29
@@ -1053,12 +1057,12 @@ PKT_ST_CRC_LO 7
 [v Packet_CRC16@len len `us  1 p 2 16 ]
 "34
 } 0
-"84 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"88 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
 {
-"87
+"91
 } 0
-"241 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+"241 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
 [v _FlowControl_Unlock FlowControl_Unlock `(v  1 e 1 0 ]
 {
 [v FlowControl_Unlock@flags flags `uc  1 p 1 wreg ]
@@ -1070,11 +1074,11 @@ PKT_ST_CRC_LO 7
 "204
 [v _FlowControl_SetParams FlowControl_SetParams `(v  1 e 1 0 ]
 {
-[s S87 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
-[v FlowControl_SetParams@in in `*.39CS87  1 p 2 8 ]
+[s S91 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
+[v FlowControl_SetParams@in in `*.39CS91  1 p 2 8 ]
 "224
 } 0
-"58 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+"58 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _UART_RX_Pop UART_RX_Pop `(a  1 e 1 0 ]
 {
 "60
@@ -1083,49 +1087,54 @@ PKT_ST_CRC_LO 7
 [v UART_RX_Pop@b b `*.39uc  1 p 2 8 ]
 "70
 } 0
-"50 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+"50 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
 [v _Packet_ParserTimeoutCheck Packet_ParserTimeoutCheck `(v  1 e 1 0 ]
 {
-[s S63 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
-[v Packet_ParserTimeoutCheck@p p `*.39S63  1 p 2 28 ]
+[s S67 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+[v Packet_ParserTimeoutCheck@p p `*.39S67  1 p 2 28 ]
 "58
 } 0
 "60
 [v _Packet_ParseByte Packet_ParseByte `(a  1 e 1 0 ]
 {
-[s S63 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
-[v Packet_ParseByte@p p `*.39S63  1 p 2 14 ]
+[s S67 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+[v Packet_ParseByte@p p `*.39S67  1 p 2 14 ]
 [v Packet_ParseByte@b b `uc  1 p 1 16 ]
 "137
 } 0
 "39
 [v _Packet_ParserReset Packet_ParserReset `(v  1 e 1 0 ]
 {
-[s S63 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
-[v Packet_ParserReset@p p `*.39S63  1 p 2 8 ]
+[s S67 . 24 `E13254 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
+[v Packet_ParserReset@p p `*.39S67  1 p 2 8 ]
 "48
 } 0
-"107 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"111 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _FlowReport_IsSending FlowReport_IsSending `(a  1 e 1 0 ]
 {
-"110
+"114
 } 0
-"64 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+"66 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
 [v _Wake_Raise Wake_Raise `(v  1 s 1 Wake_Raise ]
 {
-"69
-} 0
 "71
+} 0
+"73
 [v _Wake_Process Wake_Process `(v  1 s 1 Wake_Process ]
 {
-"83
+"86
 } 0
-"237 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+"237 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _UART_TX_IsEmpty UART_TX_IsEmpty `(a  1 e 1 0 ]
 {
 "247
 } 0
-"41
+"101 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+[v _FlowReport_IsBusy FlowReport_IsBusy `(a  1 e 1 0 ]
+{
+"106
+} 0
+"41 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
 {
 [v UART_RX_SetCallback@cb cb `*.37(v  1 p 2 8 ]
@@ -1136,24 +1145,24 @@ PKT_ST_CRC_LO 7
 {
 "147
 } 0
-"24 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+"24 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
 [v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
 {
 "31
 } 0
-"55 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+"55 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
 [v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
 {
 "59
 } 1
-"69 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+"69 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
 [v _Sys_Time_EnterDeepSleep Sys_Time_EnterDeepSleep `(E13136  1 e 1 0 ]
 {
 "71
 [v Sys_Time_EnterDeepSleep@cause cause `E13093  1 a 1 12 ]
 "127
 } 0
-"105 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+"105 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _UART_WokeByEdge UART_WokeByEdge `(a  1 e 1 0 ]
 {
 "108
@@ -1168,18 +1177,18 @@ PKT_ST_CRC_LO 7
 {
 "96
 } 0
-"38 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+"38 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
 [v _Sys_Time_ResumeTick Sys_Time_ResumeTick `(v  1 e 1 0 ]
 {
 "58
 } 0
-"49 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+"49 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
 [v _MCU_Time_Advance MCU_Time_Advance `(v  1 e 1 0 ]
 {
 [v MCU_Time_Advance@unMs unMs `ul  1 p 4 8 ]
 "52
 } 0
-"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
+"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
 [v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
 {
 "45
@@ -1189,7 +1198,7 @@ PKT_ST_CRC_LO 7
 {
 "50
 } 0
-"78 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+"78 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
 [v _MValve_OP3_Process MValve_OP3_Process `(v  1 e 1 0 ]
 {
 "107
@@ -1209,12 +1218,12 @@ PKT_ST_CRC_LO 7
 {
 "26
 } 0
-"157 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+"157 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
 [v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
 {
 "165
 } 0
-"51 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+"51 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
 [v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
 {
 "76
@@ -1229,58 +1238,58 @@ PKT_ST_CRC_LO 7
 {
 "27
 } 0
-"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Led.c
+"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Led.c
 [v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
 {
 "46
 } 0
-"114 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
+"118 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _FlowReport_WakeDuePending FlowReport_WakeDuePending `(a  1 e 1 0 ]
 {
-"121
+"125
 } 0
-"91
+"95
 [v _FlowReport_RequestReport FlowReport_RequestReport `(v  1 e 1 0 ]
 {
-"94
+"98
 } 0
-"288
+"292
 [v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
 {
-"432
-[v FlowReport_Process@k_1665 k `uc  1 a 1 68 ]
-"402
+"454
+[v FlowReport_Process@k_1667 k `uc  1 a 1 68 ]
+"424
 [v FlowReport_Process@k k `uc  1 a 1 67 ]
-"442
+"464
 [v FlowReport_Process@crc crc `[2]uc  1 a 2 47 ]
 [s S1473 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
-"416
+"438
 [v FlowReport_Process@e e `S1473  1 a 4 63 ]
-"419
+"441
 [v FlowReport_Process@raw raw `[3]uc  1 a 3 49 ]
-"387
-[v FlowReport_Process@hdr_1658 hdr `[4]uc  1 a 4 52 ]
+"409
+[v FlowReport_Process@hdr_1660 hdr `[4]uc  1 a 4 52 ]
+"407
+[v FlowReport_Process@count_1659 count `ul  1 a 4 69 ]
 "385
-[v FlowReport_Process@count_1657 count `ul  1 a 4 69 ]
-"363
 [v FlowReport_Process@hdr hdr `[5]uc  1 a 5 56 ]
-"360
+"382
 [v FlowReport_Process@count count `ul  1 a 4 43 ]
-"362
+"384
 [v FlowReport_Process@plen plen `us  1 a 2 61 ]
-"455
+"477
 } 0
-"201
+"205
 [v _send_raw send_raw `(v  1 s 1 send_raw ]
 {
-"203
+"207
 [v send_raw@k k `uc  1 a 1 12 ]
-"201
+"205
 [v send_raw@b b `*.39Cuc  1 p 2 9 ]
 [v send_raw@n n `uc  1 p 1 11 ]
-"206
+"210
 } 0
-"182 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+"182 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _print_char print_char `(a  1 e 1 0 ]
 {
 [v print_char@c c `uc  1 p 1 wreg ]
@@ -1294,7 +1303,7 @@ PKT_ST_CRC_LO 7
 {
 "252
 } 0
-"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
+"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Packet.c
 [v _Packet_CRC16_Update Packet_CRC16_Update `(us  1 e 2 0 ]
 {
 "20
@@ -1309,32 +1318,27 @@ PKT_ST_CRC_LO 7
 {
 "15
 } 0
-"30 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
+"30 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/led_fsm_sysstate.c
 [v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
 {
 "39
 } 0
-"99 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+"99 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
 [v _FlowLog_BatchReady FlowLog_BatchReady `(a  1 e 1 0 ]
 {
 "106
 } 0
-"97 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
-[v _FlowReport_IsBusy FlowReport_IsBusy `(a  1 e 1 0 ]
-{
-"102
-} 0
-"72
+"74 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowReport.c
 [v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
 {
-"81
+"85
 } 0
-"16 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
+"16 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
 [v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
 {
 "20
 } 0
-"37 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+"37 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
 [v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
 {
 "45
@@ -1345,7 +1349,7 @@ PKT_ST_CRC_LO 7
 [v FlowLog_Process@slot slot `us  1 a 2 0 ]
 "69
 } 0
-"178 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+"178 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
 [v _FlowControl_OnCapture FlowControl_OnCapture `(v  1 e 1 0 ]
 {
 [v FlowControl_OnCapture@delta delta `us  1 p 2 73 ]
@@ -1382,7 +1386,7 @@ PKT_ST_CRC_LO 7
 [v sliding_sum@window_n window_n `us  1 p 2 41 ]
 "118
 } 0
-"71 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+"71 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
 [v _FlowLog_GetWriteIndex FlowLog_GetWriteIndex `(us  1 e 2 0 ]
 {
 "74
@@ -1413,7 +1417,7 @@ PKT_ST_CRC_LO 7
 [v ___lwmod@divisor divisor `ui  1 p 2 10 ]
 "25
 } 0
-"36 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c
+"36 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Compress_Pack_10_14.c
 [v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
 {
 "38
@@ -1439,12 +1443,12 @@ PKT_ST_CRC_LO 7
 [v Compress_Pack@dst dst `*.39uc  1 p 2 12 ]
 "34
 } 0
-"27 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
+"27 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowLog.c
 [v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
 {
 "35
 } 0
-"37 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
+"37 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/FlowMeter.c
 [v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
 {
 "41
@@ -1458,7 +1462,7 @@ PKT_ST_CRC_LO 7
 [v flowmeter_refresh@inc inc `us  1 a 2 14 ]
 "29
 } 0
-"65 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
+"65 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/PulseCounter.c
 [v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
 {
 "70
@@ -1467,12 +1471,12 @@ PKT_ST_CRC_LO 7
 [v PulseCounter_Get@lo lo `uc  1 a 1 12 ]
 "72
 } 0
-"187 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+"187 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
 [v _FlowControl_Process FlowControl_Process `(v  1 e 1 0 ]
 {
 "196
 } 0
-"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
 [v _timeSpan timeSpan `(ul  1 e 4 0 ]
 {
 "19
@@ -1481,14 +1485,14 @@ PKT_ST_CRC_LO 7
 [v timeSpan@unOldTime_ms unOldTime_ms `ul  1 p 4 12 ]
 "24
 } 0
-"131 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+"131 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
 [v _apply_valve apply_valve `(v  1 s 1 apply_valve ]
 {
 "133
 [v apply_valve@want_close want_close `a  1 a 1 13 ]
 "152
 } 0
-"54 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
+"54 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MValve_OP3.c
 [v _MValve_OP3_CmdOpen MValve_OP3_CmdOpen `(v  1 e 1 0 ]
 {
 "64
@@ -1498,12 +1502,12 @@ PKT_ST_CRC_LO 7
 {
 "76
 } 0
-"9 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+"9 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
 [v _getNowTime getNowTime `(ul  1 e 4 0 ]
 {
 "12
 } 0
-"120 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
+"120 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Flow_Control.c
 [v _FlowControl_Init FlowControl_Init `(v  1 e 1 0 ]
 {
 "128
@@ -1544,30 +1548,30 @@ PKT_ST_CRC_LO 7
 [v ___lldiv@divisor divisor `ul  1 p 4 24 ]
 "30
 } 0
-"163 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+"166 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
 [v _isr isr `IIH(v  1 e 1 0 ]
 {
-"167
+"170
 } 0
-"153 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+"153 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _UART_ISR UART_ISR `(v  1 e 1 0 ]
 {
 "157
 [v UART_ISR@ch ch `uc  1 a 1 5 ]
 "177
 } 0
-"92 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
+"95 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/main.c
 [v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
 {
 [v on_uart_rx@ch ch `uc  1 p 1 4 ]
-"98
+"101
 } 0
-"9 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+"9 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
 [v i2_getNowTime getNowTime `(ul  1 e 4 0 ]
 {
 "12
 } 0
-"47 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
+"47 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Dev_Uart.c
 [v _UART_RX_Push UART_RX_Push `(v  1 e 1 0 ]
 {
 [v UART_RX_Push@b b `uc  1 p 1 wreg ]
@@ -1576,12 +1580,12 @@ PKT_ST_CRC_LO 7
 [v UART_RX_Push@b b `uc  1 p 1 0 ]
 "55
 } 1
-"136 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
+"136 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/Sys_Time_MCU_Specific.c
 [v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
 {
 "146
 } 0
-"39 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
+"39 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/MCU_Time.c
 [v _MCU_Time_Increase_Unit MCU_Time_Increase_Unit `(v  1 e 1 0 ]
 {
 "42

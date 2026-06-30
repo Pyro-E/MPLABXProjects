@@ -42,5 +42,5 @@ void LEDs_Init(void)
     LED_TP2_OFF;
     VALVE_CTRL_OFF;         /* valve control idles LOW */
     VALVE_PWR_OFF;          /* valve power   idles LOW */
-    PHOTON2_WAKE_OFF;       /* WAKE idles LOW */
+    PHOTON2_WAKE_OFF;       /* WAKE idles HIGH (active-low; deasserted) */
 }

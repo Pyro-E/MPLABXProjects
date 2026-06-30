@@ -66,18 +66,22 @@ static uint16_t       s_end        = 0;   /* snapshot end mark for a report*/
 static uint16_t       s_i          = 0;   /* per-report sample index (0..) */
 static uint16_t       s_rsp_crc    = 0;   /* streaming CRC for RSP_DATA    */
 static uint32_t       s_wake_ms    = 0;   /* timestamp WAKE went high      */
+static bool           s_tx_delay_active = false; /* TX held off after WAKE  */
+static uint32_t       s_tx_delay_ms     = 0;     /* time WAKE was asserted   */
 static volatile bool  s_report_req = false;/* explicit report request (0xF0)*/
 static volatile bool  s_aa         = false; /* set by RX ISR on 0xAA       */
 
 void FlowReport_Init(void)
 {
     /* WAKE pin is configured by LEDs_Init() and idles LOW. */
-    s_wake_state = WAKE_IDLE;
-    s_send_state = SEND_IDLE;
-    s_read       = 0;
-    s_end        = 0;
-    s_i          = 0;
-    s_aa         = false;
+    s_wake_state      = WAKE_IDLE;
+    s_send_state      = SEND_IDLE;
+    s_read            = 0;
+    s_end             = 0;
+    s_i               = 0;
+    s_aa              = false;
+    s_tx_delay_active = false;
+    s_tx_delay_ms     = 0;
 }
 
 /* Called from the UART RX path when 0xAA arrives (ISR context). */
@@ -308,10 +312,12 @@ void FlowReport_Process(void)
 
     case WAKE_IDLE:
         if (FlowLog_BatchReady() || s_report_req) {
-            s_report_req = false;
-            s_wake_due   = true;           /* tell main to raise WAKE     */
-            s_wake_ms    = getNowTime();
-            s_wake_state = WAKE_WAIT;
+            s_report_req      = false;
+            s_wake_due        = true;      /* tell main to raise WAKE     */
+            s_wake_ms         = getNowTime();
+            s_tx_delay_active = true;      /* hold TX for WAKE_TO_TX_DELAY_MS */
+            s_tx_delay_ms     = s_wake_ms;
+            s_wake_state      = WAKE_WAIT;
 #ifdef APP_DEBUG_AUTO_DATA_REPORT_WITHOUT_REQ
             s_aa = true;                   /* DEBUG: self-trigger a report
                                             * with no REQ_DATA packet      */
@@ -325,13 +331,22 @@ void FlowReport_Process(void)
         break;
 
     case WAKE_WAIT:
-        /* Stay "busy" (so main() will not sleep) while waiting for Photon2
-         * to send its request. If the SEND machine has started, the wait is
-         * over. If Photon2 never answers, give up after the timeout. */
-        if (s_aa || (s_send_state != SEND_IDLE)) {
-            s_wake_state = WAKE_IDLE;
-        } else if (timeSpan(s_wake_ms) >= WAIT_PHOTON_UART_RESPONSE_MS) {
-            s_wake_state = WAKE_IDLE;
+        /* Stay "busy" (so main() will not sleep) while:
+         *   1. WAKE_TO_TX_DELAY_MS has not yet elapsed (cloud connect time), and
+         *   2. waiting up to WAIT_PHOTON_UART_RESPONSE_MS after the delay for
+         *      Photon2 to send its REQ_DATA request.
+         * Once the SEND machine starts, return to IDLE. If Photon2 never
+         * answers within the full window, give up. */
+        if (s_send_state != SEND_IDLE) {
+            /* SEND machine has taken over */
+            s_tx_delay_active = false;
+            s_wake_state      = WAKE_IDLE;
+        } else if (timeSpan(s_wake_ms) >=
+                   (WAKE_TO_TX_DELAY_MS + WAIT_PHOTON_UART_RESPONSE_MS)) {
+            /* full window expired with no response */
+            s_tx_delay_active = false;
+            s_aa              = false;     /* discard any stale request   */
+            s_wake_state      = WAKE_IDLE;
         }
         break;
 
@@ -345,6 +360,13 @@ void FlowReport_Process(void)
 
     case SEND_IDLE:
         if (s_aa) {
+            /* If a WAKE-triggered TX delay is active, hold off until it
+             * expires so the Photon2 has time to reach the cloud first. */
+            if (s_tx_delay_active &&
+                timeSpan(s_tx_delay_ms) < WAKE_TO_TX_DELAY_MS) {
+                break;                     /* too soon: retry next turn  */
+            }
+            s_tx_delay_active = false;
             s_aa  = false;                 /* consume the request        */
             s_end = FlowLog_GetWriteIndex(); /* snapshot the end mark    */
             s_i   = 0;                      /* index restarts at 0        */
