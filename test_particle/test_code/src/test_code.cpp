@@ -21,8 +21,8 @@ SerialLogHandler logHandler(LOG_LEVEL_INFO);
 
 const pin_t powPin = D3;
 const pin_t pulsePin = D6;
-const unsigned long pulseOnMs = 5UL * 1000UL;
-const unsigned long pulseOffMs = 20UL * 60UL * 1000UL;
+const unsigned long pulseOnMs = 30UL * 1000UL;
+const unsigned long pulseOffMs = 5UL * 60UL * 1000UL;
 
 
 // Button state tracking for edge detection + debounce

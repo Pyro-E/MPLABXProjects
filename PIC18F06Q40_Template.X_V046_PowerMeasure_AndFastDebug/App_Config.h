@@ -279,11 +279,19 @@
 
 /* ---- WAKE-to-TX delay ------------------------------------------------
  * After WAKE is asserted LOW (report due), the PIC holds off accepting a
- * REQ_DATA and starting the data transmission for this long. Gives the
- * Photon2 time to connect to the Particle cloud before the upload begins.
+ * REQ_DATA and starting the data transmission for this long. This existed
+ * to give the Photon2 time to cold-boot (via the D10 power-enable pulse)
+ * and connect to the Particle cloud before a large upload began.
  * The WAKE_WAIT state timeout is extended by this value automatically.
- * Set to 0 to transmit as soon as REQ_DATA arrives (original behaviour). */
-#define WAKE_TO_TX_DELAY_MS  (1UL * 60UL * 1000UL)   /* 1 minute */
+ *
+ * D10/WAKE is no longer read by the Photon as a "data ready" GPIO signal
+ * (it now only powers the Photon2 on). The Photon2 runs continuously and
+ * polls the PIC for data on its own fixed timer, so it is already awake
+ * and cloud-connected by the time it sends REQ_DATA -- this hold-off no
+ * longer serves a purpose and instead makes the PIC miss the Photon2's
+ * (much shorter) reply timeout. Set to 0 to transmit as soon as REQ_DATA
+ * arrives. */
+#define WAKE_TO_TX_DELAY_MS  0UL
 
 /* ---- UART ---- */
 #define APP_UART_BAUD         38400UL      /* terminal must match */

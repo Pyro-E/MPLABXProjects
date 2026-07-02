@@ -20,15 +20,20 @@ static uint8_t    s_toggles = 0;   /* remaining toggles in a blink burst */
 
 void LedFsm_Init(void)
 {
+#ifdef REPORT_CONFIG_DEBUG
     s_mode    = LED_HEARTBEAT;
     s_mark    = getNowTime();
     s_toggles = 0;
     LED_TEST_OFF;
+#else
+    LED_TEST_OFF;
+#endif
 }
 
 /* ---- called by the report FSM when a data cycle starts ---- */
 void LedFsm_NotifyDataCycle(void)
 {
+#ifdef REPORT_CONFIG_DEBUG
     /* start the blink burst: LED on now, then toggle the rest.
      * COUNT blinks need (2*COUNT - 1) more toggles after this ON,
      * ending in the OFF state. */
@@ -36,20 +41,31 @@ void LedFsm_NotifyDataCycle(void)
     LED_TEST_ON;
     s_toggles = (uint8_t)(2u * APP_LED_BLINK_COUNT - 1u);
     s_mark    = getNowTime();
+#else
+    LED_TEST_OFF;
+#endif
 }
 
 /* ---- called right after waking from deep sleep ---- */
 void LedFsm_NotifyWake(void)
 {
+#ifdef REPORT_CONFIG_DEBUG
     /* LED on immediately and restart the heartbeat phase so it stays on
      * for a full half-period; the awake dwell makes this visible. */
     s_mode = LED_HEARTBEAT;
     LED_TEST_ON;
     s_mark = getNowTime();
+#else
+    LED_TEST_OFF;
+#endif
 }
 
 void LedFsm_Process(void)
 {
+#ifndef REPORT_CONFIG_DEBUG
+    LED_TEST_OFF;
+    return;
+#else
     if (s_mode == LED_HEARTBEAT) {
         if (timeSpan(s_mark) >= APP_LED_HEARTBEAT_MS) {
             s_mark = getNowTime();
@@ -73,4 +89,5 @@ void LedFsm_Process(void)
             s_mark = getNowTime();
         }
     }
+#endif
 }

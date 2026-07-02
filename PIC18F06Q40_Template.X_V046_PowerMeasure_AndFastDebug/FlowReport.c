@@ -331,12 +331,13 @@ void FlowReport_Process(void)
         break;
 
     case WAKE_WAIT:
-        /* Stay "busy" (so main() will not sleep) while:
-         *   1. WAKE_TO_TX_DELAY_MS has not yet elapsed (cloud connect time), and
-         *   2. waiting up to WAIT_PHOTON_UART_RESPONSE_MS after the delay for
-         *      Photon2 to send its REQ_DATA request.
-         * Once the SEND machine starts, return to IDLE. If Photon2 never
-         * answers within the full window, give up. */
+        /* Stay "busy" (so main() will not sleep) while waiting up to
+         * WAIT_PHOTON_UART_RESPONSE_MS (WAKE_TO_TX_DELAY_MS is 0, so it adds
+         * nothing) for Photon2 to send its REQ_DATA request. Once the SEND
+         * machine starts, return to IDLE. If Photon2 never answers within
+         * the window, give up -- this is harmless: the Photon2 polls
+         * independently on its own timer and a later REQ_DATA is still
+         * accepted by SEND_IDLE regardless of WAKE state. */
         if (s_send_state != SEND_IDLE) {
             /* SEND machine has taken over */
             s_tx_delay_active = false;
@@ -360,8 +361,13 @@ void FlowReport_Process(void)
 
     case SEND_IDLE:
         if (s_aa) {
-            /* If a WAKE-triggered TX delay is active, hold off until it
-             * expires so the Photon2 has time to reach the cloud first. */
+            /* Historically held off here for WAKE_TO_TX_DELAY_MS so a
+             * cold-booted Photon2 had time to reach the cloud before the
+             * upload began. The Photon2 now runs continuously and polls
+             * for data on its own timer (it no longer reacts to WAKE/D10
+             * at all), so it is already up by the time REQ_DATA arrives.
+             * WAKE_TO_TX_DELAY_MS is 0 -- this check no longer blocks --
+             * kept only so a non-zero value still works if ever needed. */
             if (s_tx_delay_active &&
                 timeSpan(s_tx_delay_ms) < WAKE_TO_TX_DELAY_MS) {
                 break;                     /* too soon: retry next turn  */

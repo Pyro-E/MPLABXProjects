@@ -1347,103 +1347,103 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _LedFsm_Init ]
 [f ]
-"23
-[e = _s_mode . `E13106 0 ]
 "24
-[e = _s_mark ( _getNowTime ..  ]
+[e = _s_mode . `E13106 0 ]
 "25
-[e = _s_toggles -> -> 0 `i `uc ]
+[e = _s_mark ( _getNowTime ..  ]
 "26
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
+[e = _s_toggles -> -> 0 `i `uc ]
 "27
+[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
+"31
 [e :UE 1861 ]
 }
-"30
+"34
 [v _LedFsm_NotifyDataCycle `(v ~T0 @X0 1 ef ]
-"31
+"35
 {
 [e :U _LedFsm_NotifyDataCycle ]
 [f ]
-"35
+"40
 [e = _s_mode . `E13106 1 ]
-"36
+"41
 [e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
-"37
+"42
 [e = _s_toggles -> - * -> 2 `ui -> 3 `ui -> 1 `ui `uc ]
-"38
+"43
 [e = _s_mark ( _getNowTime ..  ]
-"39
+"47
 [e :UE 1862 ]
 }
-"42
+"50
 [v _LedFsm_NotifyWake `(v ~T0 @X0 1 ef ]
-"43
+"51
 {
 [e :U _LedFsm_NotifyWake ]
 [f ]
-"46
+"55
 [e = _s_mode . `E13106 0 ]
-"47
+"56
 [e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
-"48
+"57
 [e = _s_mark ( _getNowTime ..  ]
-"49
+"61
 [e :UE 1863 ]
 }
-"51
+"63
 [v _LedFsm_Process `(v ~T0 @X0 1 ef ]
-"52
+"64
 {
 [e :U _LedFsm_Process ]
 [f ]
-"53
+"69
 [e $ ! == -> _s_mode `ui -> . `E13106 0 `ui 1865  ]
 {
-"54
+"70
 [e $ ! >= ( _timeSpan (1 _s_mark -> 500 `ul 1866  ]
 {
-"55
-[e = _s_mark ( _getNowTime ..  ]
-"56
-[e =^ . . _LATCbits 0 3 -> -> 1 `i `Vuc ]
-"58
-}
-[e :U 1866 ]
-"59
-[e $UE 1864  ]
-"60
-}
-[e :U 1865 ]
-"63
-[e $ ! >= ( _timeSpan (1 _s_mark -> 100 `ul 1867  ]
-{
-"64
-[e = _s_mark ( _getNowTime ..  ]
-"65
-[e =^ . . _LATCbits 0 3 -> -> 1 `i `Vuc ]
-"66
-[e $ ! > -> _s_toggles `i -> 0 `i 1868  ]
-{
-"67
-[e -- _s_toggles -> -> 1 `i `uc ]
-"68
-}
-[e :U 1868 ]
-"69
-[e $ ! == -> _s_toggles `i -> 0 `i 1869  ]
-{
 "71
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
-"72
-[e = _s_mode . `E13106 0 ]
-"73
 [e = _s_mark ( _getNowTime ..  ]
+"72
+[e =^ . . _LATCbits 0 3 -> -> 1 `i `Vuc ]
 "74
 }
-[e :U 1869 ]
+[e :U 1866 ]
 "75
+[e $UE 1864  ]
+"76
+}
+[e :U 1865 ]
+"79
+[e $ ! >= ( _timeSpan (1 _s_mark -> 100 `ul 1867  ]
+{
+"80
+[e = _s_mark ( _getNowTime ..  ]
+"81
+[e =^ . . _LATCbits 0 3 -> -> 1 `i `Vuc ]
+"82
+[e $ ! > -> _s_toggles `i -> 0 `i 1868  ]
+{
+"83
+[e -- _s_toggles -> -> 1 `i `uc ]
+"84
+}
+[e :U 1868 ]
+"85
+[e $ ! == -> _s_toggles `i -> 0 `i 1869  ]
+{
+"87
+[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
+"88
+[e = _s_mode . `E13106 0 ]
+"89
+[e = _s_mark ( _getNowTime ..  ]
+"90
+}
+[e :U 1869 ]
+"91
 }
 [e :U 1867 ]
-"76
+"93
 [e :UE 1864 ]
 }

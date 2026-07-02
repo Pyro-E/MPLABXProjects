@@ -1765,39 +1765,39 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 1893  ]
 "333
 [e :U 1898 ]
-"340
+"341
 [e $ ! != -> _s_send_state `ui -> . `E13439 0 `ui 1899  ]
 {
-"342
-[e = _s_tx_delay_active -> -> 0 `i `a ]
 "343
-[e = _s_wake_state . `E13434 0 ]
+[e = _s_tx_delay_active -> -> 0 `i `a ]
 "344
+[e = _s_wake_state . `E13434 0 ]
+"345
 }
 [e $U 1900  ]
 [e :U 1899 ]
-[e $ ! >= ( _timeSpan (1 _s_wake_ms + * * -> 3 `ul -> 60 `ul -> 1000 `ul -> 3000 `ul 1901  ]
-"345
+[e $ ! >= ( _timeSpan (1 _s_wake_ms + -> 0 `ul -> 3000 `ul 1901  ]
+"346
 {
-"347
-[e = _s_tx_delay_active -> -> 0 `i `a ]
 "348
-[e = _s_aa -> -> 0 `i `a ]
+[e = _s_tx_delay_active -> -> 0 `i `a ]
 "349
-[e = _s_wake_state . `E13434 0 ]
+[e = _s_aa -> -> 0 `i `a ]
 "350
+[e = _s_wake_state . `E13434 0 ]
+"351
 }
 [e :U 1901 ]
 [e :U 1900 ]
-"351
+"352
 [e $U 1893  ]
-"353
-[e :U 1902 ]
 "354
-[e = _s_wake_state . `E13434 0 ]
+[e :U 1902 ]
 "355
-[e $U 1893  ]
+[e = _s_wake_state . `E13434 0 ]
 "356
+[e $U 1893  ]
+"357
 }
 [e $U 1893  ]
 [e :U 1894 ]
@@ -1806,106 +1806,106 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> . `E13434 2 `ui 1898
  1902 ]
 [e :U 1893 ]
-"359
+"360
 [e $U 1904  ]
 {
-"361
-[e :U 1905 ]
 "362
+[e :U 1905 ]
+"363
 [e $ ! != -> _s_aa `i -> 0 `i 1906  ]
 {
-"365
-[e $ ! && != -> _s_tx_delay_active `i -> 0 `i < ( _timeSpan (1 _s_tx_delay_ms * * -> 3 `ul -> 60 `ul -> 1000 `ul 1907  ]
-"366
+"371
+[e $ ! && != -> _s_tx_delay_active `i -> 0 `i < ( _timeSpan (1 _s_tx_delay_ms -> 0 `ul 1907  ]
+"372
 {
-"367
+"373
 [e $U 1903  ]
-"368
+"374
 }
 [e :U 1907 ]
-"369
-[e = _s_tx_delay_active -> -> 0 `i `a ]
-"370
-[e = _s_aa -> -> 0 `i `a ]
-"371
-[e = _s_end ( _FlowLog_GetWriteIndex ..  ]
-"372
-[e = _s_i -> -> 0 `i `us ]
-"373
-[e ( _LedFsm_NotifyDataCycle ..  ]
-"374
-[e = _s_send_state . `E13439 1 ]
 "375
+[e = _s_tx_delay_active -> -> 0 `i `a ]
+"376
+[e = _s_aa -> -> 0 `i `a ]
+"377
+[e = _s_end ( _FlowLog_GetWriteIndex ..  ]
+"378
+[e = _s_i -> -> 0 `i `us ]
+"379
+[e ( _LedFsm_NotifyDataCycle ..  ]
+"380
+[e = _s_send_state . `E13439 1 ]
+"381
 }
 [e :U 1906 ]
-"376
+"382
 [e $U 1903  ]
-"378
+"384
 [e :U 1908 ]
 {
-"382
+"388
 [v _count `ul ~T0 @X0 1 a ]
 [e = _count -> -> % + - -> _s_end `ui -> _s_read `ui -> -> 1000 `i `ui -> -> 1000 `i `ui `us `ul ]
-"384
+"390
 [v _plen `us ~T0 @X0 1 a ]
 [e = _plen -> + -> -> 4 `ui `ul * _count -> -> 3 `ui `ul `us ]
-"385
+"391
 [v _hdr `uc ~T0 @X0 -> 5 `i a ]
-"386
-[e = *U + &U _hdr * -> -> -> 0 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> -> 170 `ui `uc ]
-"387
-[e = *U + &U _hdr * -> -> -> 1 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> -> 85 `ui `uc ]
-"388
-[e = *U + &U _hdr * -> -> -> 2 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> . `E13341 6 `uc ]
-"389
-[e = *U + &U _hdr * -> -> -> 3 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> & >> -> _plen `ui -> 8 `i -> 255 `ui `uc ]
-"390
-[e = *U + &U _hdr * -> -> -> 4 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> & -> _plen `ui -> 255 `ui `uc ]
 "392
+[e = *U + &U _hdr * -> -> -> 0 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> -> 170 `ui `uc ]
+"393
+[e = *U + &U _hdr * -> -> -> 1 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> -> 85 `ui `uc ]
+"394
+[e = *U + &U _hdr * -> -> -> 2 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> . `E13341 6 `uc ]
+"395
+[e = *U + &U _hdr * -> -> -> 3 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> & >> -> _plen `ui -> 8 `i -> 255 `ui `uc ]
+"396
+[e = *U + &U _hdr * -> -> -> 4 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> & -> _plen `ui -> 255 `ui `uc ]
+"398
 [e $ ! < -> ( _UART_TX_Free ..  `ui -> 5 `ui 1909  ]
 {
-"393
+"399
 [e $U 1903  ]
-"394
+"400
 }
 [e :U 1909 ]
-"396
-[e = _s_rsp_crc ( _Packet_CRC16_Init ..  ]
-"397
-[e = _s_rsp_crc ( _Packet_CRC16_Update (2 , _s_rsp_crc *U + &U _hdr * -> -> -> 2 `i `ui `ux -> -> # *U &U _hdr `ui `ux ]
-"398
-[e = _s_rsp_crc ( _Packet_CRC16_Update (2 , _s_rsp_crc *U + &U _hdr * -> -> -> 3 `i `ui `ux -> -> # *U &U _hdr `ui `ux ]
-"399
-[e = _s_rsp_crc ( _Packet_CRC16_Update (2 , _s_rsp_crc *U + &U _hdr * -> -> -> 4 `i `ui `ux -> -> # *U &U _hdr `ui `ux ]
-"400
-[e ( _send_raw (2 , -> &U _hdr `*Cuc -> -> 5 `ui `uc ]
-"401
-[e = _s_send_state . `E13439 2 ]
 "402
-[e $U 1903  ]
+[e = _s_rsp_crc ( _Packet_CRC16_Init ..  ]
 "403
-}
+[e = _s_rsp_crc ( _Packet_CRC16_Update (2 , _s_rsp_crc *U + &U _hdr * -> -> -> 2 `i `ui `ux -> -> # *U &U _hdr `ui `ux ]
+"404
+[e = _s_rsp_crc ( _Packet_CRC16_Update (2 , _s_rsp_crc *U + &U _hdr * -> -> -> 3 `i `ui `ux -> -> # *U &U _hdr `ui `ux ]
 "405
+[e = _s_rsp_crc ( _Packet_CRC16_Update (2 , _s_rsp_crc *U + &U _hdr * -> -> -> 4 `i `ui `ux -> -> # *U &U _hdr `ui `ux ]
+"406
+[e ( _send_raw (2 , -> &U _hdr `*Cuc -> -> 5 `ui `uc ]
+"407
+[e = _s_send_state . `E13439 2 ]
+"408
+[e $U 1903  ]
+"409
+}
+"411
 [e :U 1910 ]
 {
-"407
+"413
 [v _count `ul ~T0 @X0 1 a ]
 [e = _count -> -> % + - -> _s_end `ui -> _s_read `ui -> -> 1000 `i `ui -> -> 1000 `i `ui `us `ul ]
-"409
+"415
 [v _hdr `uc ~T0 @X0 -> 4 `i a ]
-"410
+"416
 [e = *U + &U _hdr * -> -> -> 0 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> & >> _count -> 24 `i -> -> 255 `ui `ul `uc ]
-"411
+"417
 [e = *U + &U _hdr * -> -> -> 1 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> & >> _count -> 16 `i -> -> 255 `ui `ul `uc ]
-"412
+"418
 [e = *U + &U _hdr * -> -> -> 2 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> & >> _count -> 8 `i -> -> 255 `ui `ul `uc ]
-"413
+"419
 [e = *U + &U _hdr * -> -> -> 3 `i `ui `ux -> -> # *U &U _hdr `ui `ux -> & _count -> -> 255 `ui `ul `uc ]
-"422
+"428
 [e $ ! < -> ( _UART_TX_Free ..  `ui -> 4 `ui 1911  ]
 [e $U 1903  ]
 [e :U 1911 ]
-"424
+"430
 {
 [v _k `uc ~T0 @X0 1 a ]
 [e = _k -> -> 0 `i `uc ]
@@ -1913,48 +1913,48 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 1913  ]
 [e :U 1912 ]
 {
-"425
+"431
 [e = _s_rsp_crc ( _Packet_CRC16_Update (2 , _s_rsp_crc *U + &U _hdr * -> _k `ux -> -> # *U &U _hdr `ui `ux ]
-"426
+"432
 }
 [e ++ _k -> -> 1 `i `uc ]
 [e $ < -> _k `ui -> 4 `ui 1912  ]
 [e :U 1913 ]
 }
-"427
-[e ( _send_raw (2 , -> &U _hdr `*Cuc -> -> 4 `ui `uc ]
-"428
-[e = _s_send_state -> ? == _count -> -> 0 `ui `ul : . `E13439 4 . `E13439 3 `E13439 ]
-"429
-[e $U 1903  ]
-"430
-}
-"432
-[e :U 1915 ]
-{
 "433
-[e $ ! == -> _s_read `ui -> _s_end `ui 1916  ]
-{
+[e ( _send_raw (2 , -> &U _hdr `*Cuc -> -> 4 `ui `uc ]
 "434
-[e = _s_send_state . `E13439 4 ]
+[e = _s_send_state -> ? == _count -> -> 0 `ui `ul : . `E13439 4 . `E13439 3 `E13439 ]
 "435
 [e $U 1903  ]
 "436
 }
-[e :U 1916 ]
 "438
-[v _e `S1862 ~T0 @X0 1 a ]
+[e :U 1915 ]
+{
 "439
-[e ( _FlowLog_GetAt (2 , _s_read &U _e ]
+[e $ ! == -> _s_read `ui -> _s_end `ui 1916  ]
+{
+"440
+[e = _s_send_state . `E13439 4 ]
 "441
-[v _raw `uc ~T0 @X0 -> 3 `i a ]
+[e $U 1903  ]
 "442
+}
+[e :U 1916 ]
+"444
+[v _e `S1862 ~T0 @X0 1 a ]
+"445
+[e ( _FlowLog_GetAt (2 , _s_read &U _e ]
+"447
+[v _raw `uc ~T0 @X0 -> 3 `i a ]
+"448
 [e ( _Compress_Pack (3 , , _s_i . _e 1 &U _raw ]
-"452
+"458
 [e $ ! < -> ( _UART_TX_Free ..  `ui -> 3 `ui 1917  ]
 [e $U 1903  ]
 [e :U 1917 ]
-"454
+"460
 {
 [v _k `uc ~T0 @X0 1 a ]
 [e = _k -> -> 0 `i `uc ]
@@ -1962,52 +1962,52 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $U 1919  ]
 [e :U 1918 ]
 {
-"455
+"461
 [e = _s_rsp_crc ( _Packet_CRC16_Update (2 , _s_rsp_crc *U + &U _raw * -> _k `ux -> -> # *U &U _raw `ui `ux ]
-"456
+"462
 }
 [e ++ _k -> -> 1 `i `uc ]
 [e $ < -> _k `ui -> 3 `ui 1918  ]
 [e :U 1919 ]
 }
-"457
-[e ( _send_raw (2 , -> &U _raw `*Cuc -> -> 3 `ui `uc ]
-"458
-[e = _s_read -> % + -> _s_read `ui -> 1 `ui -> -> 1000 `i `ui `us ]
-"459
-[e ++ _s_i -> -> 1 `i `us ]
-"460
-[e $U 1903  ]
-"461
-}
 "463
+[e ( _send_raw (2 , -> &U _raw `*Cuc -> -> 3 `ui `uc ]
+"464
+[e = _s_read -> % + -> _s_read `ui -> 1 `ui -> -> 1000 `i `ui `us ]
+"465
+[e ++ _s_i -> -> 1 `i `us ]
+"466
+[e $U 1903  ]
+"467
+}
+"469
 [e :U 1921 ]
 {
-"464
+"470
 [v _crc `uc ~T0 @X0 -> 2 `i a ]
-"465
+"471
 [e = *U + &U _crc * -> -> -> 0 `i `ui `ux -> -> # *U &U _crc `ui `ux -> & >> -> _s_rsp_crc `ui -> 8 `i -> 255 `ui `uc ]
-"466
+"472
 [e = *U + &U _crc * -> -> -> 1 `i `ui `ux -> -> # *U &U _crc `ui `ux -> & -> _s_rsp_crc `ui -> 255 `ui `uc ]
-"467
+"473
 [e $ ! < -> ( _UART_TX_Free ..  `ui -> 2 `ui 1922  ]
 [e $U 1903  ]
 [e :U 1922 ]
-"468
-[e ( _send_raw (2 , -> &U _crc `*Cuc -> -> 2 `ui `uc ]
-"469
-[e = _s_send_state . `E13439 0 ]
-"470
-[e $U 1903  ]
-"471
-}
-"473
-[e :U 1923 ]
 "474
-[e = _s_send_state . `E13439 0 ]
+[e ( _send_raw (2 , -> &U _crc `*Cuc -> -> 2 `ui `uc ]
 "475
-[e $U 1903  ]
+[e = _s_send_state . `E13439 0 ]
 "476
+[e $U 1903  ]
+"477
+}
+"479
+[e :U 1923 ]
+"480
+[e = _s_send_state . `E13439 0 ]
+"481
+[e $U 1903  ]
+"482
 }
 [e $U 1903  ]
 [e :U 1904 ]
@@ -2018,6 +2018,6 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> . `E13439 4 `ui 1921
  1923 ]
 [e :U 1903 ]
-"477
+"483
 [e :UE 1892 ]
 }

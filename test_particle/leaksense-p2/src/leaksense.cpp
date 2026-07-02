@@ -192,7 +192,7 @@ void syncBackupRam();                            // Flush retained RAM to flash 
 
 static float freqToGpm(float freq);              // Convert a flow-sensor frequency (Hz) into gallons-per-minute.
 void ingestPicBatch(const PicSample *s, int n);  // Process a batch of n decoded PIC samples.
-void serviceMeterFromPic(bool picInitiated);     // Pull and process data from the PIC.
+void serviceMeterFromPic();                      // Pull and process data from the PIC (sends TR/TX).
 void accumulateHourly(int hr, int day, float gallons);   // Add gallons into the right hourly bucket.
 void appendIntervalSample(float gpm);            // Store one reading in the interval logger.
 bool senseLeak(uint32_t tsUtc, float gpm);       // Decide whether the current reading indicates a leak.
@@ -243,6 +243,72 @@ static float freqToGpm(float freq) {
   float g  = g0 - (FLOW_C1 * g0 * g0 + FLOW_C2 * g0 + FLOW_C3);   // Apply the calibration polynomial to refine it.
   g *= flowCalScale;                             // Multiply by the user's calibration scale.
   return (g < 0.0f) ? 0.0f : g;                  // Never return a negative flow; clamp to 0.
+}
+
+// =============================================================== DST handling
+// Particle's Time.zone(-8) only sets a FIXED standard-time offset; it does not
+// know about Daylight Saving. Time.hour()/day()/etc. apply zone + whatever DST
+// offset is currently toggled via Time.beginDST()/Time.endDST() -- neither is
+// automatic, so without this the logged "local hour" drifts exactly 1 hour off
+// for the ~8 months/year the US observes DST (this is what caused hour 18 to
+// be logged when the real local hour was 19).
+//
+// All the day-count math below is done on a STANDARD-TIME-shifted timestamp
+// (raw UTC minus 8 h, i.e. never itself DST-adjusted), so the calendar
+// formulas are valid for any year without needing a table.
+static const long STD_ZONE_OFFSET_S = -8L * 3600L;   // must match Time.zone(-8) in setup()
+
+// Howard Hinnant's days-from-civil-date algorithm (public domain): converts a
+// proleptic-Gregorian y/m/d into a day count relative to 1970-01-01.
+static long daysFromCivil(int y, unsigned m, unsigned d) {
+  y -= (m <= 2) ? 1 : 0;
+  long era = (y >= 0 ? y : y - 399) / 400;
+  unsigned yoe = (unsigned)(y - era * 400);                         // [0, 399]
+  unsigned doy = (153 * (m + (m > 2 ? (unsigned)-3 : 9)) + 2) / 5 + d - 1;  // [0, 365]
+  unsigned doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;              // [0, 146096]
+  return era * 146097L + (long)doe - 719468L;
+}
+
+// Recover the calendar year for a given day count (inverse of the above,
+// found by bracketing -- avoids a full day->y/m/d decomposition).
+static int yearFromDays(long days) {
+  int y = 1970 + (int)(days / 365);
+  while (daysFromCivil(y, 1, 1) > days)     y--;
+  while (daysFromCivil(y + 1, 1, 1) <= days) y++;
+  return y;
+}
+
+// US DST rule (since 2007): starts 2nd Sunday of March 02:00 local standard
+// time, ends 1st Sunday of November 02:00 local standard time.
+static bool isUsDstActive(uint32_t utcNow) {
+  long stdShifted = (long)utcNow + STD_ZONE_OFFSET_S;   // never itself DST-shifted
+  long days  = stdShifted / 86400L;
+  int  year  = yearFromDays(days);
+
+  long mar1         = daysFromCivil(year, 3, 1);
+  long dowMar1      = ((mar1 + 4) % 7 + 7) % 7;         // 0 = Sunday (epoch day 0 = Thursday)
+  long secondSunMar = mar1 + ((7 - dowMar1) % 7) + 7;
+  long dstStart     = secondSunMar * 86400L + 2L * 3600L;   // 2:00 AM
+
+  long nov1        = daysFromCivil(year, 11, 1);
+  long dowNov1     = ((nov1 + 4) % 7 + 7) % 7;          // 0 = Sunday
+  long firstSunNov = nov1 + ((7 - dowNov1) % 7);
+  long dstEnd      = firstSunNov * 86400L + 2L * 3600L;     // 2:00 AM
+
+  return (stdShifted >= dstStart) && (stdShifted < dstEnd);
+}
+
+// Toggle Time's DST state to match reality right now, if it isn't already.
+// Cheap (pure integer math) -- safe to call periodically, not just at boot,
+// so the device self-corrects across the spring/fall transitions with no
+// firmware update. Requires Time.isValid() (a valid, cloud-synced clock).
+static void updateDst() {
+  if (!Time.isValid()) return;
+  bool active = isUsDstActive(Time.now());
+  if (active != (bool)Time.isDST()) {
+    if (active) Time.beginDST(); else Time.endDST();
+    Log.info("DST %s (local now UTC%s)", active ? "started" : "ended", active ? "-7" : "-8");
+  }
 }
 
 // =============================================================== Persistence
@@ -732,7 +798,7 @@ void imuPublish() {
 
   Particle.publish("sensorData", jw.getBuffer()); // Send the finished JSON as a "sensorData" cloud event.
   Log.info("Published: %s", jw.getBuffer());      // Also log exactly what we published.
-  publishIntervalDataChunks();                    // Then publish the detailed interval logger in chunks.
+  // publishIntervalDataChunks();                    // Then publish the detailed interval logger in chunks.
 
   // Roll to a fresh UTC-day window after a full-day buffer was sent.
   if (gMeter.count >= MAX_SAMPLES) {              // If the logger filled a whole day...
@@ -964,26 +1030,26 @@ int setWiFi(String cmd) {
 int clearWiFi(String cmd) { restartSleepTimer("clearWiFi"); (void)cmd; WiFi.clearCredentials(); WiFi.disconnect(); return 1; }
 #endif                                            // End Wi-Fi-only functions.
 
-// === PIC service gating (fixes the REQ_GET_VALVE polling storm) ===
-// WAKE HIGH means "you MAY send", not "poll forever". Once the PIC reports an
-// empty batch we stop for this session; we re-arm only after WAKE goes LOW.
-static bool     wakeSessionDrained = false;       // true once the PIC says "no more data" this wake session.
-static uint32_t lastPicPoll        = 0;           // When we last polled the PIC (for rate-limiting).
-constexpr uint32_t PIC_POLL_MIN_MS = 1000;        // at most once/sec while awake
-                                                  //   Don't poll the PIC more often than once per second.
+// === PIC service polling ===
+// D10 no longer signals "PIC has data" -- it is now only a one-time hardware
+// power-enable line for the Photon. Since there is no more WAKE edge to react
+// to, we proactively ask the PIC for data (TR/TX = REQ_DATA) on a fixed timer
+// instead (see PIC_POLL_INTERVAL_MS, used from setup() and handleMonitoring()).
+static uint32_t lastPicPoll = 0;                  // When we last polled the PIC (for rate-limiting).
+constexpr uint32_t PIC_POLL_INTERVAL_MS = 60UL * 1000UL;   // how often to send TR/TX while awake
 
-// Pull and process any data the PIC has. 'picInitiated' = the PIC woke us with new data.
-void serviceMeterFromPic(bool picInitiated) {
-  if (picInitiated && !picLink.wakeIsHigh()) return;   // nothing to do
-                                                  //   If the PIC supposedly initiated but WAKE is LOW, there's nothing.
+// Re-check DST (see updateDst() above) on this cadence so the device
+// self-corrects across the spring/fall transitions without a reflash.
+static uint32_t lastDstCheck = 0;
+constexpr uint32_t DST_CHECK_INTERVAL_MS = 15UL * 60UL * 1000UL;   // 15 min
 
+// Pull and process any data the PIC has (sends TR/TX = REQ_DATA).
+void serviceMeterFromPic() {
   int n = picLink.requestData(picBuf, PIC_MAX_SAMPLES);   // Ask the PIC for data; n = sample count or an error.
   if (n > 0) {                                    // Got real samples...
     ingestPicBatch(picBuf, n);                    // ...process them...
     persistAll();                                 // ...and save to flash.
-  } else if (n == 0) {                            // PIC has nothing new...
-    wakeSessionDrained = true;          // PIC has nothing new -> stop this session
-  } else {                                        // n < 0 means an error occurred.
+  } else if (n < 0) {                             // n < 0 means an error occurred.
     Log.warn("PIC REQ_DATA err %d", n);           // Log the error code.
   }
 
@@ -1081,8 +1147,10 @@ void runSleep() {
   cfg.mode(SystemSleepMode::ULTRA_LOW_POWER)      // Use the deep low-power mode that preserves RAM.
      .gpio(MODE_PIN, FALLING)        // button
                                      //   Wake if the button pin goes from HIGH to LOW (a press).
-     .gpio(PIC_WAKE_PIN, RISING)     // PIC says "I have data"
-                                     //   Wake if the PIC raises its WAKE line (new data available).
+     // NOTE: PIC_WAKE_PIN (D10) no longer carries a "PIC has data" edge (it is
+     // now only a one-time power-enable line), so this GPIO wake source is
+     // stale. This whole function is currently disabled (early `return;`
+     // above); revisit this wake source if/when sleep is re-enabled.
      .duration(sleepSecs * 1000UL);  // capped to the P2 max
                                      //   Also wake after this many milliseconds at the latest.
 
@@ -1095,12 +1163,7 @@ void runSleep() {
 
   SystemSleepWakeupReason reason = r.wakeupReason();   // Find out WHY we woke (button, PIC, timer, etc.).
 
-  if (reason == SystemSleepWakeupReason::BY_GPIO && r.wakeupPin() == PIC_WAKE_PIN) {   // Woke because the PIC has data...
-    // PIC-initiated: pull data, DO NOT connect to cloud (TODO #4).
-    Log.info("WAKE: PIC -> offload only");        // Log the reason.
-    serviceMeterFromPic(true);                    // Pull the PIC's data (no cloud connection).
-    triggerPublish = false;                       // Do NOT publish (we only publish every 24 h).
-  } else if (reason == SystemSleepWakeupReason::BY_GPIO && r.wakeupPin() == MODE_PIN) {   // Woke from the button...
+  if (reason == SystemSleepWakeupReason::BY_GPIO && r.wakeupPin() == MODE_PIN) {   // Woke from the button...
     Log.info("WAKE: button -> publish");          // Log it.
     triggerPublish = true;                        // A button press DOES request an immediate publish.
   } else if (reason == SystemSleepWakeupReason::BY_RTC) {   // Woke because the sleep timer (RTC) expired...
@@ -1110,7 +1173,7 @@ void runSleep() {
     // connect + publish (it only does so at the real 24 h mark). This keeps the
     // "cloud only every 24 h" rule (#4) intact across the sleep chunks.
     Log.info("WAKE: timer chunk -> offload only (publish gated by 24h epoch)");   // Log it.
-    serviceMeterFromPic(false);     // grab anything the PIC still holds
+    serviceMeterFromPic();          // grab anything the PIC still holds (TR/TX)
                                     //   Drain any pending PIC data without connecting.
     triggerPublish = false;                       // Let the 24 h gate decide about publishing later.
   } else {
@@ -1154,16 +1217,18 @@ void handleMonitoring() {
   }
   lastButtonState = btn;                          // Remember the button state for next loop's edge detection.
 
-  // PIC data while awake. Stop once the session is drained (COUNT=0), and
-  // rate-limit any residual polling to PIC_POLL_MIN_MS. Re-arm when WAKE drops.
-  if (picLink.wakeIsHigh()) {                     // If the PIC's WAKE line is HIGH (it may have data)...
-    if (!wakeSessionDrained && (millis() - lastPicPoll >= PIC_POLL_MIN_MS)) {   // ...and we haven't drained it and enough time passed...
-      lastPicPoll = millis();                     // ...record this poll time...
-      serviceMeterFromPic(true);                  // ...and pull data from the PIC.
-    }
-  } else {
-    wakeSessionDrained = false;        // WAKE LOW -> next HIGH is a new session
-                                       //   When WAKE drops, reset so the next HIGH is treated as fresh data.
+  // DST re-check: cheap, catches the spring/fall transitions automatically.
+  if (millis() - lastDstCheck >= DST_CHECK_INTERVAL_MS) {
+    lastDstCheck = millis();
+    updateDst();
+  }
+
+  // PIC data (TR/TX). D10 no longer indicates "data ready" (it now only
+  // powers the Photon on), so poll the PIC on a fixed timer instead of
+  // waiting for a WAKE edge.
+  if (millis() - lastPicPoll >= PIC_POLL_INTERVAL_MS) {   // Time for another poll?
+    lastPicPoll = millis();                       // Record this poll time...
+    serviceMeterFromPic();                         // ...and pull data from the PIC.
   }
 
 #if USE_LOCAL_METER
@@ -1212,13 +1277,15 @@ void setup() {
   waitFor(Serial.isConnected, SERIAL_CONNECT_MS); // Wait up to 8 s for a serial monitor to attach.
   Time.zone(-8);                 // PST display; logger math stays in UTC
                                  //   Show local time as UTC-8 (Pacific); internal math still uses UTC.
-  Log.info("LeakSense P2 boot on %s", PLATFORM_STR);   // Announce boot and which board we are.
+  Log.info("LeakSense boot on %s", PLATFORM_STR);   // Announce boot and which board we are.
 
   loadFlowCal();                                  // Load the saved flow calibration from EEPROM.
   loadConfig();                                   // Load the saved host config from EEPROM.
   loadPicParams();                                // Load the saved PIC params from EEPROM.
 
   pinMode(LED1_PIN, OUTPUT);                       // Configure the status LED pin as an output.
+  pinMode(D7, OUTPUT);                             // Configure onboard D7 LED pin as an output.
+  digitalWrite(D7, LOW);                           // Drive onboard D7 LED LOW (off).
   pinMode(SHUTOFF_SWITCH_PIN, OUTPUT);             // Configure the valve direction pin as an output.
   pinMode(SHUTOFF_SSR_PIN, OUTPUT);                // Configure the valve power (SSR) pin as an output.
   pinMode(MODE_PIN, INPUT_PULLUP);                 // Configure the button pin as an input with a pull-up resistor.
@@ -1228,11 +1295,6 @@ void setup() {
 #if USE_LOCAL_METER
   pinMode(METER_PIN, INPUT_PULLUP);                // If using the local sensor, set its pin as a pulled-up input.
 #endif
-  shutoffSwitch("close"); delay(1000);   // Startup self-test: close the valve for 1 s...
-  shutoffSwitch("open");  delay(2000);   //   ...then open it for 2 s...
-  shutoffSwitch("off");          // known-safe valve power state
-                                 //   ...then leave the valve power OFF (a safe, defined state).
-  Log.info("Shutoff sequence complete");   // Announce boot and which board we are.
 
   picLink.begin(38400);          // Serial1 + WAKE pin
                                  //   Initialize the serial link and WAKE pin used to talk to the PIC.
@@ -1276,12 +1338,20 @@ void setup() {
 #endif
 
   waitUntil(Time.isValid);                        // Wait until the device has a valid clock (synced from the cloud).
+  updateDst();                    // apply DST now so Time.hour()/day() are correct
+  lastDstCheck = millis();
   restorePersisted();            // load gMeter + leak model from LittleFS
                                  //   Restore the logger buffer and leak model from flash.
 
   uint32_t now = Time.now();                      // Current UTC time.
   if (nextSampleAtUtc == 0 || nextSampleAtUtc <= now)   // If the next-sample time is unset or in the past...
     nextSampleAtUtc = ((now / METER_INTERVAL_SEC) + 1) * METER_INTERVAL_SEC;   // ...set it to the next 60 s boundary.
+
+  // D10 no longer signals PIC readiness; it now only powers the Photon on.
+  // Send an initial TR/TX (REQ_DATA) right away so boot-time data isn't
+  // missed, then handleMonitoring() keeps polling every PIC_POLL_INTERVAL_MS.
+  serviceMeterFromPic();
+  lastPicPoll = millis();
 
   triggerPublish = true;                          // Request an initial publish after boot.
   sleepStart = millis(); lastWakeTime = millis(); // Start the awake-window timers.

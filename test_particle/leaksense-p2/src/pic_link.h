@@ -11,12 +11,18 @@
  *   Endianness  : every multi-byte field is big-endian / MSB-first.
  *   CRC         : CRC-16/MODBUS (poly 0xA001, init 0xFFFF, no final XOR),
  *                 over func+len+data (AA 55 excluded), sent big-endian.
- *   WAKE line   : PIC_WAKE_PIN (D10). HIGH = "PIC ready to receive packets now".
- *   Wake byte   : 0xF0 (host -> PIC) to wake the PIC when WAKE is LOW.
+ *   WAKE line   : PIC_WAKE_PIN (D10) is NO LONGER read by firmware. D10 is now
+ *                 wired as a one-time hardware power-enable line that the PIC
+ *                 drives LOW to turn the Photon on; it carries no protocol
+ *                 meaning once the Photon is running.
+ *   Wake byte   : 0xF0 (host -> PIC) sent before every frame, to make sure a
+ *                 PIC that is idle/asleep on the UART wakes its receiver up.
  *
- * Send rule (spec 5.3): WAKE HIGH -> send immediately; WAKE LOW -> send 0xF0,
- * wait for WAKE HIGH (resend 0xF0 on timeout), then send. One REQ at a time:
- * wait for its RSP before sending anything else; resend on timeout/bad CRC.
+ * Send rule (post-D10-repurpose): every send unconditionally writes 0xF0 then
+ * the frame -- there is no GPIO handshake to wait on anymore. One REQ at a
+ * time: wait for its RSP before sending anything else; resend on timeout/bad
+ * CRC. Since D10 no longer signals "PIC has data", the host now asks for data
+ * (REQ_DATA, i.e. "TR/TX") on its own timer instead of reacting to a WAKE edge.
  *
  * BEGINNER NOTE:
  *   This header DECLARES (announces) a class called PicLink and the data
@@ -120,12 +126,11 @@ enum {
 // our object that knows how to talk to the PIC chip.
 class PicLink {
 public:                                              // "public" = usable from outside the class.
-  void begin(unsigned long baud = 38400);            // Set up the serial port + WAKE pin. Default speed 38400.
-  bool wakeIsHigh();                                 // Returns true if the PIC's WAKE line is currently HIGH.
+  void begin(unsigned long baud = 38400);            // Set up the serial port. Default speed 38400. (D10/WAKE is no longer touched here.)
 
-  // REQ_DATA -> RSP_DATA. Decodes samples into out[]. Returns sample count
-  // (>=0) or a PIC_ERR_* code (<0). Works for both host-initiated and
-  // PIC-initiated uploads (the WAKE handshake no-ops when WAKE is already HIGH).
+  // REQ_DATA -> RSP_DATA ("TR/TX"). Decodes samples into out[]. Returns sample
+  // count (>=0) or a PIC_ERR_* code (<0). Always host-initiated now (called on
+  // a timer) since D10 no longer signals "PIC has data".
   int requestData(PicSample *out, uint16_t maxSamples);  // Ask for flow data; fill the out[] array.
 
   // REQ_GET_PARAM -> RSP_PARAM. true on success (out populated).
@@ -149,7 +154,7 @@ private:                                             // "private" = internal-onl
   // --- low level ---
   static uint16_t crc16(const uint8_t *p, uint16_t n);   // Compute the CRC-16 checksum over n bytes at p.
                                                          //   "static" = belongs to the class, not one object.
-  bool ensureWake();                                   // spec 5.3 send rule : make sure the PIC is awake first.
+  bool ensureWake();                                   // sends the UART wake byte before every frame (no GPIO wait; see .cpp).
   bool sendFrame(uint8_t func, const uint8_t *data, uint16_t len);  // Build + transmit one framed packet.
   // Read one framed packet; resynchronises on AA 55. Returns PIC_OK or PIC_ERR_*.
   int  readFrame(uint8_t *func, uint8_t *data, uint16_t cap,
@@ -161,7 +166,6 @@ private:                                             // "private" = internal-onl
                 uint16_t *rspLen, uint32_t timeoutMs);   // Send a request and wait for its reply, with retries.
 
   bool readByte(uint8_t *out, uint32_t timeoutMs);   // Read exactly one byte (or time out).
-  bool waitWakeHigh(uint32_t timeoutMs);             // Wait until WAKE goes HIGH (or time out).
   void flushRx();                                    // Throw away any leftover bytes in the receive buffer.
 
   uint8_t _lastNak = 0;                              // Stores the most recent NAK reason (0 = none yet).

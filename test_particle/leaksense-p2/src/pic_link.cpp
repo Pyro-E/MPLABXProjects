@@ -33,25 +33,14 @@ hal_usart_buffer_config_t acquireSerial1Buffer(void) {
 // PicLink::begin -> one-time setup for the link. "PicLink::" means "this function
 // belongs to the PicLink class".
 void PicLink::begin(unsigned long baud) {
-  pinMode(PIC_WAKE_PIN, INPUT_PULLDOWN);   // Make the WAKE pin an input; pull it DOWN so it reads LOW when idle.
+  // D10/PIC_WAKE_PIN is no longer configured or read here: it is now a
+  // one-time hardware power-enable line the PIC drives to turn the Photon on,
+  // not a GPIO the firmware needs to monitor.
   Serial1.begin(baud, SERIAL_8N1);         // Start the hardware serial port: 'baud' speed, 8 data bits, No parity, 1 stop bit.
 }
 
-// Return true if the PIC is currently signaling "I'm awake / ready" on the WAKE pin.
-bool PicLink::wakeIsHigh() { return digitalRead(PIC_WAKE_PIN) == HIGH; }   // Read the pin; HIGH means ready.
-
 // Empty the receive buffer by reading and discarding every waiting byte.
 void PicLink::flushRx() { while (Serial1.available()) Serial1.read(); }    // Keep reading until none are left.
-
-// Wait up to 'timeoutMs' for the WAKE line to become HIGH. Returns true if it did.
-bool PicLink::waitWakeHigh(uint32_t timeoutMs) {
-  uint32_t t = millis();                          // Remember the start time (millis() = ms since boot).
-  while (millis() - t < timeoutMs) {              // Loop until 'timeoutMs' milliseconds have passed.
-    if (digitalRead(PIC_WAKE_PIN) == HIGH) return true;   // If WAKE went HIGH, succeed immediately.
-    delay(1);                                     // Otherwise pause 1 ms so we don't spin too hard.
-  }
-  return digitalRead(PIC_WAKE_PIN) == HIGH;       // Final check after timeout: maybe it just went HIGH.
-}
 
 // Read exactly one byte into *out, waiting up to 'timeoutMs'. Returns false on timeout.
 bool PicLink::readByte(uint8_t *out, uint32_t timeoutMs) {
@@ -78,16 +67,14 @@ uint16_t PicLink::crc16(const uint8_t *p, uint16_t n) {
   return crc;                                     // Return the finished 16-bit fingerprint.
 }
 
-// Spec 5.3: make sure WAKE is HIGH before sending a packet. If LOW, send 0xF0
-// and wait for HIGH, resending 0xF0 a few times. Never send a frame while LOW.
+// D10 no longer indicates PIC readiness -- it is now used only as a one-time
+// hardware power-enable line for the Photon. We still send the UART wake byte
+// (0xF0) before every frame in case the PIC's serial receiver is idle/asleep,
+// but we no longer wait on or require a GPIO acknowledgement before sending.
 bool PicLink::ensureWake() {
-  if (wakeIsHigh()) return true;                  // Already awake? Nothing to do.
-  for (uint8_t attempt = 0; attempt < PHOTON_WAKE_RETRIES; attempt++) {  // Try a few times...
-    Serial1.write(PIC_WAKE_BYTE);                 // Send the single wake-up byte (0xF0).
-    Serial1.flush();                              // Block until that byte has fully left the serial port.
-    if (waitWakeHigh(PHOTON_WAKE_WAIT_MS)) return true;  // Did the PIC raise WAKE? If yes, success.
-  }
-  return wakeIsHigh();                            // Out of retries: report whatever the line is now.
+  Serial1.write(PIC_WAKE_BYTE);                   // Kick the PIC's UART wake-byte listener.
+  Serial1.flush();                                // Block until that byte has fully left the serial port.
+  return true;                                    // No GPIO to wait on anymore.
 }
 
 // Build "AA 55 func len_hi len_lo data crc_hi crc_lo" and put it on the wire.
@@ -135,7 +122,7 @@ int PicLink::readFrame(uint8_t *func, uint8_t *data, uint16_t cap,
   uint32_t left = (int32_t)(deadline - millis()) > 0 ? deadline - millis() : 1;
                                                   // How much time remains for the rest of the frame (at least 1 ms).
 
-  uint8_t hdr[3];                                  // func, len_hi, len_lo
+  uint8_t hdr[3];                                  // func, len_hi, len_lo 
                                                   //   Small array to hold the 3 header bytes after the marker.
   for (uint8_t k = 0; k < 3; k++)                  // Read those 3 header bytes...
     if (!readByte(&hdr[k], left)) return PIC_ERR_TIMEOUT;   // ...failing with timeout if any is missing.

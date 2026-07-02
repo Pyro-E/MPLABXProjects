@@ -58,8 +58,10 @@
 #define SHUTOFF_SSR_PIN     D3     // Controls the solid-state relay that powers the valve, on pin D3.
 #define METER_PIN           A2     // local hall sensor (only if USE_LOCAL_METER)
                                    //   A "hall sensor" counts water-flow pulses; only used if enabled.
-#define PIC_WAKE_PIN        D10    // PIC drives HIGH = "ready / ACK"
-                                   //   The PIC chip raises this pin to say "I'm awake / I have data".
+#define PIC_WAKE_PIN        D10    // Hardware power-enable line the PIC drives LOW to turn the Photon on.
+                                   //   No longer read as a "PIC ready / has data" GPIO by firmware; the
+                                   //   host now polls the PIC for data on a timer (see PIC_POLL_INTERVAL_MS
+                                   //   in leaksense.cpp) instead of reacting to a WAKE edge on this pin.
 
 // The battery-measuring pin differs by board, so we pick it per platform.
 #if PLATFORM_ID == PLATFORM_P2
@@ -126,7 +128,7 @@ constexpr uint16_t MAX_SAMPLES     = SAMPLES_PER_DAY;                   // 1440
 // Identical to doc 1. Hz -> GPM polynomial + trickle correction.
 // These constants tune the math that turns a sensor frequency (Hz) into a real
 // water-flow value (gallons per minute). They come from physical testing.
-constexpr float FLOW_C0 = 0.023f;          // Coefficient 0 of the calibration formula.
+constexpr float FLOW_C0 = 0.012f;          // Coefficient 0 of the calibration formula.
 constexpr float FLOW_C1 = 0.35f;           // Coefficient 1.
 constexpr float FLOW_C2 = -0.46f;          // Coefficient 2 (negative).
 constexpr float FLOW_C3 = -0.034f;         // Coefficient 3 (negative).
@@ -200,10 +202,8 @@ constexpr uint32_t PHOTON_TIMEOUT_DATA_MS = 4000;  // waiting for RSP_DATA (big)
                                                    //   Wait up to 4000 ms for a big data reply.
 constexpr uint32_t PHOTON_TIMEOUT_READ_MS = 1000;  // small reply (PARAM/VALVE/ACK)
                                                    //   Wait up to 1000 ms for a small reply.
-constexpr uint8_t  PHOTON_WAKE_RETRIES    = 5;     // 0xF0 resends before giving up
-                                                   //   Send the "wake up" byte up to 5 times.
-constexpr uint32_t PHOTON_WAKE_WAIT_MS    = 100;   // wait for WAKE HIGH per 0xF0
-                                                   //   After each wake byte, wait 100 ms for the PIC to respond.
+// PHOTON_WAKE_RETRIES / PHOTON_WAKE_WAIT_MS removed: D10 no longer signals PIC
+// readiness, so ensureWake() no longer retries/waits on a GPIO (see pic_link.cpp).
 
 // ============================================================================
 //  The FOUR PIC leak parameters (Kevin's TODO #2: cloud -> P2 -> PIC).
