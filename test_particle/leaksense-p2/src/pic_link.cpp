@@ -71,9 +71,21 @@ uint16_t PicLink::crc16(const uint8_t *p, uint16_t n) {
 // hardware power-enable line for the Photon. We still send the UART wake byte
 // (0xF0) before every frame in case the PIC's serial receiver is idle/asleep,
 // but we no longer wait on or require a GPIO acknowledgement before sending.
+//
+// The PIC's UART auto-wake (WUE) hardware NECESSARILY loses the byte that
+// causes the wake edge (its Fosc is still starting when that byte arrives) --
+// by the PIC firmware's own design, the real frame is expected to follow only
+// after the PIC has had time to actually finish waking (oscillator restart,
+// return from Sys_Time_EnterDeepSleep(), one lap of its main loop back to
+// packet_rx_pump()). Sending the real frame with no gap after the wake byte
+// (as before) reaches the PIC before it is ready, so the frame is missed and
+// the request times out -- this was harmless while the PIC stayed awake in
+// setup()'s first request, but fails on every later poll once the PIC is
+// actually asleep between captures. PIC_WAKE_SETTLE_MS gives it that time.
 bool PicLink::ensureWake() {
   Serial1.write(PIC_WAKE_BYTE);                   // Kick the PIC's UART wake-byte listener.
   Serial1.flush();                                // Block until that byte has fully left the serial port.
+  delay(PIC_WAKE_SETTLE_MS);                      // Let the PIC actually finish waking before the real frame arrives.
   return true;                                    // No GPIO to wait on anymore.
 }
 
