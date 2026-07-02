@@ -204,7 +204,7 @@ constexpr uint32_t PHOTON_TIMEOUT_READ_MS = 1000;  // small reply (PARAM/VALVE/A
                                                    //   Wait up to 1000 ms for a small reply.
 // PHOTON_WAKE_RETRIES / PHOTON_WAKE_WAIT_MS removed: D10 no longer signals PIC
 // readiness, so ensureWake() no longer retries/waits on a GPIO (see pic_link.cpp).
-constexpr uint32_t PIC_WAKE_SETTLE_MS     = 50;    // gap after the 0xF0 wake byte
+constexpr uint32_t PIC_WAKE_SETTLE_MS     = 25;    // gap after the 0xF0 wake byte
                                                    //   The PIC's UART wake hardware LOSES the byte that wakes it
                                                    //   (its clock is still starting), so the real frame must not
                                                    //   follow immediately -- give the PIC this long to finish
