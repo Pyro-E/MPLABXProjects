@@ -204,11 +204,11 @@
   #define TIME_VALVE_TEMP_LOCK_MS  30000UL  /* temp lock holds 30 s in debug */
 #else
   /* production values */
-  #define APP_LEAK1_COUNTS_DEF     100u     /* alert1 threshold counts       */
+  #define APP_LEAK1_COUNTS_DEF     1600u    /* alert1 threshold counts       */
   #define APP_LEAK1_WINDOW_S_DEF   480u     /* alert1 window  (8 min)        */
   #define APP_LEAK2_COUNTS_DEF     400u     /* alert2 threshold counts       */
-  #define APP_LEAK2_WINDOW_S_DEF   180u     /* alert2 window  (3 min)        */
-  #define TIME_VALVE_TEMP_LOCK_MS  600000UL /* temp lock holds 10 min        */
+  #define APP_LEAK2_WINDOW_S_DEF   3600u    /* alert2 window  (60 min)        */
+  #define TIME_VALVE_TEMP_LOCK_MS  300000UL /* temp lock holds 5 min        */
 #endif
 
 /* ---- WAKE line as "comms-ready" signal (active-LOW) ------------------

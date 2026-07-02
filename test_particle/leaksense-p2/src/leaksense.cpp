@@ -777,7 +777,11 @@ void imuPublish() {
       jw.insertKeyValue("valveTempLocks",(int)lastValve.temp_lock_count);// Cumulative temp-lock count.
     }
     jw.insertKeyArray("hourlyGallons");           // Begin an array "hourlyGallons": [ ... ].
-    for (int i = 0; i < 24; i++) jw.insertArrayValue(roundTenth(hourlyData[i]));   // Add each hour's gallons (1 decimal).
+    for (int i = 0; i < 24; i++) {
+      jw.insertArrayValue(roundTenth(hourlyData[i]));   // Add each hour's gallons (1 decimal).
+      jw.insertChar('\n');                        // Raw newline after each value (valid JSON whitespace;
+                                                    //   makes the array human-readable in the raw event payload).
+    }
     jw.finishObjectOrArray();                     // Close the hourlyGallons array.
 #if USE_WIFI
     jw.insertKeyValue("rssi", (int)WiFi.RSSI().getStrength());          // Wi-Fi signal strength.
