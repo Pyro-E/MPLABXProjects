@@ -20,10 +20,10 @@ events:
     names:
       - "uname"
     candidate_directories:
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -36,11 +36,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Applications/microchip/xc8/v3.10/bin/"
     searched_directories:
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/uname"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/uname"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/uname"
-      - "/Users/kevinm1/bin/uname"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/uname"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/uname"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/uname"
+      - "/Users/kevinlu/bin/uname"
       - "/opt/homebrew/opt/python/libexec/bin/uname"
       - "/opt/homebrew/bin/uname"
       - "/opt/homebrew/sbin/uname"
@@ -49,10 +50,10 @@ events:
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -65,6 +66,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -94,10 +97,10 @@ events:
       - "ninja"
       - "samu"
     candidate_directories:
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -110,15 +113,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Applications/microchip/xc8/v3.10/bin/"
     searched_directories:
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build"
-    found: "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/ninja"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build"
+    found: "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/ninja"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -131,6 +135,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -158,10 +164,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -174,6 +180,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -219,10 +227,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -235,6 +243,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -280,10 +290,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -296,6 +306,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -341,10 +353,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -357,6 +369,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -402,10 +416,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -418,6 +432,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -463,10 +479,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -479,6 +495,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -524,10 +542,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -540,6 +558,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -585,10 +605,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -601,6 +621,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -646,10 +668,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -662,6 +684,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -707,10 +731,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -723,6 +747,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -768,10 +794,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -784,6 +810,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -829,10 +857,10 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -845,6 +873,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:
@@ -904,10 +934,10 @@ events:
       - "strip"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -922,10 +952,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/strip"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/strip"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/strip"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/strip"
-      - "/Users/kevinm1/bin/strip"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/strip"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/strip"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/strip"
+      - "/Users/kevinlu/bin/strip"
       - "/opt/homebrew/opt/python/libexec/bin/strip"
       - "/opt/homebrew/bin/strip"
       - "/opt/homebrew/sbin/strip"
@@ -934,10 +964,10 @@ events:
     found: "/usr/bin/strip"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -950,6 +980,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -971,10 +1003,10 @@ events:
       - "ld"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -989,10 +1021,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/ld"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/ld"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/ld"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/ld"
-      - "/Users/kevinm1/bin/ld"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/ld"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/ld"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/ld"
+      - "/Users/kevinlu/bin/ld"
       - "/opt/homebrew/opt/python/libexec/bin/ld"
       - "/opt/homebrew/bin/ld"
       - "/opt/homebrew/sbin/ld"
@@ -1001,10 +1033,10 @@ events:
     found: "/usr/bin/ld"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -1017,6 +1049,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1038,10 +1072,10 @@ events:
       - "nm"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -1056,10 +1090,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/nm"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/nm"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/nm"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/nm"
-      - "/Users/kevinm1/bin/nm"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/nm"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/nm"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/nm"
+      - "/Users/kevinlu/bin/nm"
       - "/opt/homebrew/opt/python/libexec/bin/nm"
       - "/opt/homebrew/bin/nm"
       - "/opt/homebrew/sbin/nm"
@@ -1068,10 +1102,10 @@ events:
     found: "/usr/bin/nm"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -1084,6 +1118,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1105,10 +1141,10 @@ events:
       - "objdump"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -1123,10 +1159,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/objdump"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/objdump"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/objdump"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/objdump"
-      - "/Users/kevinm1/bin/objdump"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/objdump"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/objdump"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/objdump"
+      - "/Users/kevinlu/bin/objdump"
       - "/opt/homebrew/opt/python/libexec/bin/objdump"
       - "/opt/homebrew/bin/objdump"
       - "/opt/homebrew/sbin/objdump"
@@ -1135,10 +1171,10 @@ events:
     found: "/usr/bin/objdump"
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -1151,6 +1187,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1172,10 +1210,10 @@ events:
       - "objcopy"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -1190,10 +1228,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/objcopy"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/objcopy"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/objcopy"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/objcopy"
-      - "/Users/kevinm1/bin/objcopy"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/objcopy"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/objcopy"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/objcopy"
+      - "/Users/kevinlu/bin/objcopy"
       - "/opt/homebrew/opt/python/libexec/bin/objcopy"
       - "/opt/homebrew/bin/objcopy"
       - "/opt/homebrew/sbin/objcopy"
@@ -1209,10 +1247,10 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -1225,6 +1263,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1246,10 +1286,10 @@ events:
       - "readelf"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -1264,10 +1304,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/readelf"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/readelf"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/readelf"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/readelf"
-      - "/Users/kevinm1/bin/readelf"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/readelf"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/readelf"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/readelf"
+      - "/Users/kevinlu/bin/readelf"
       - "/opt/homebrew/opt/python/libexec/bin/readelf"
       - "/opt/homebrew/bin/readelf"
       - "/opt/homebrew/sbin/readelf"
@@ -1283,10 +1323,10 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -1299,6 +1339,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1320,10 +1362,10 @@ events:
       - "dlltool"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -1338,10 +1380,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/dlltool"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/dlltool"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/dlltool"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/dlltool"
-      - "/Users/kevinm1/bin/dlltool"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/dlltool"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/dlltool"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/dlltool"
+      - "/Users/kevinlu/bin/dlltool"
       - "/opt/homebrew/opt/python/libexec/bin/dlltool"
       - "/opt/homebrew/bin/dlltool"
       - "/opt/homebrew/sbin/dlltool"
@@ -1357,10 +1399,10 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -1373,6 +1415,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1394,10 +1438,10 @@ events:
       - "addr2line"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -1412,10 +1456,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/addr2line"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/addr2line"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/addr2line"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/addr2line"
-      - "/Users/kevinm1/bin/addr2line"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/addr2line"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/addr2line"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/addr2line"
+      - "/Users/kevinlu/bin/addr2line"
       - "/opt/homebrew/opt/python/libexec/bin/addr2line"
       - "/opt/homebrew/bin/addr2line"
       - "/opt/homebrew/sbin/addr2line"
@@ -1431,10 +1475,10 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -1447,6 +1491,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "find-v1"
     backtrace:
@@ -1468,10 +1514,10 @@ events:
       - "tapi"
     candidate_directories:
       - "/Applications/microchip/xc8/v3.10/bin/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
-      - "/Users/kevinm1/bin/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/"
+      - "/Users/kevinlu/bin/"
       - "/opt/homebrew/opt/python/libexec/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
@@ -1486,10 +1532,10 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
     searched_directories:
       - "/Applications/microchip/xc8/v3.10/bin/tapi"
-      - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/tapi"
-      - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac/tapi"
-      - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/tapi"
-      - "/Users/kevinm1/bin/tapi"
+      - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/tapi"
+      - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac/tapi"
+      - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin/tapi"
+      - "/Users/kevinlu/bin/tapi"
       - "/opt/homebrew/opt/python/libexec/bin/tapi"
       - "/opt/homebrew/bin/tapi"
       - "/opt/homebrew/sbin/tapi"
@@ -1505,10 +1551,10 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2"
-        - "/Users/kevinm1/.mplab/app-finder/apps/make/v4.4.1/mac"
-        - "/Users/kevinm1/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
-        - "/Users/kevinm1/bin"
+        - "/Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2"
+        - "/Users/kevinlu/.mplab/app-finder/apps/make/v4.4.1/mac"
+        - "/Users/kevinlu/.mplab/app-finder/apps/hexmate/v3.00/dist/osx/bin"
+        - "/Users/kevinlu/bin"
         - "/opt/homebrew/opt/python/libexec/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
@@ -1521,6 +1567,8 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
+        - "/Applications/microchip/xc8/v3.10/bin"
   -
     kind: "message-v1"
     backtrace:

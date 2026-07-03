@@ -1,4 +1,4 @@
-# Install script for directory: /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/cmake/PIC18F06Q40_Template/default
+# Install script for directory: /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/cmake/PIC18F06Q40_Template/default
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,7 +40,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/_build/PIC18F06Q40_Template/default/install_local_manifest.txt"
+  file(WRITE "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/_build/PIC18F06Q40_Template/default/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -56,6 +56,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/_build/PIC18F06Q40_Template/default/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V046_PowerMeasure_AndFastDebug/_build/PIC18F06Q40_Template/default/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

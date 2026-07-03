@@ -63,7 +63,7 @@ static const unsigned long PIC_BAUD         = 38400;  /* Must match PIC UART bau
 static const uint32_t      MAX_RECORDS      = 4096;   /* Sanity cap (PIC ring ~360) */
 static const uint32_t      READ_TIMEOUT_MS  = 200;    /* Per-byte receive timeout */
 static const uint32_t      WAKE_LOW_WAIT_MS = 500;    /* Max wait for PIC to drop WAKE */
-static const uint32_t      MIN_CYCLE_MS     = 1000;   /* Minimum time per exchange (1 s) */
+static const uint32_t      MIN_CYCLE_MS     = 600000;   /* Minimum time per exchange (10 min) */
 
 /* Whole-upload receive buffer (worst case MAX_RECORDS * 4 B = 16 KB).
  * Filled in phase 1, drained in phase 2, so printf can never stall reception. */
@@ -271,17 +271,17 @@ void loop(void) {
         uint32_t cycleStart = millis();
 
         delay(10);
-        readAndPrintWindow();  /* sends 0xAA, then receives and prints */
-        Serial.flush();
+        // readAndPrintWindow();  /* sends 0xAA, then receives and prints */
+        // Serial.flush();
 
-        /* Wait for the PIC to release WAKE before sleeping (bounded). */
-        {
-            unsigned long t = millis();
-            while (digitalRead(PIC_WAKE) && millis() - t < WAKE_LOW_WAIT_MS) {
-                valvesService();
-                delay(1);
-            }
-        }
+        // /* Wait for the PIC to release WAKE before sleeping (bounded). */
+        // {
+        //     unsigned long t = millis();
+        //     while (digitalRead(PIC_WAKE) && millis() - t < WAKE_LOW_WAIT_MS) {
+        //         valvesService();
+        //         delay(1);
+        //     }
+        // }
 
         /* Enforce a minimum 1-second cycle (millis() only, no RTC). */
         while (millis() - cycleStart < MIN_CYCLE_MS) {
@@ -295,9 +295,9 @@ void loop(void) {
      * WARNING: while hibernating, millis() stops and the valve timers do
      * NOT advance; setup() restarts both valves in the ON state on wake.
      * Keep this disabled if the valves must follow a continuous schedule. */
-    // SystemSleepConfiguration cfg;
-    // cfg.mode(SystemSleepMode::HIBERNATE)
-    //    .gpio(PIC_WAKE, RISING)
-    //    .gpio(BTN, FALLING);
-    // System.sleep(cfg);
+    SystemSleepConfiguration cfg;
+    cfg.mode(SystemSleepMode::HIBERNATE)
+       .gpio(PIC_WAKE, RISING)
+       .gpio(BTN, FALLING);
+    System.sleep(cfg);
 }

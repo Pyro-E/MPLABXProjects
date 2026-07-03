@@ -56,32 +56,24 @@
  *  code rather than in a separate file.
  *
  *  s_wake_active is the decision variable the sleep guard reads
- *  (NOT the pin). True while WAKE should be LOW (asserted). Set by report-due
- *  / 0xF0 / any RX byte; cleared once the last UART activity (last
- *  RX byte, or TX buffer empty) is older than CLOSE_WAKE_AFTER_UART_MS.
+ *  (NOT the pin). True while WAKE should be LOW (asserted). Set by
+ *  report-due / 0xF0 / any RX byte. Cleared (and pin driven HIGH)
+ *  as soon as TX shift-register is empty AND FlowReport is idle.
+ *  The PIC will not sleep while s_wake_active is true.
  * ============================================================ */
-static volatile bool     s_wake_active  = false;
-static volatile uint32_t s_wake_mark_ms = 0;
+static volatile bool s_wake_active = false;
 
 static void Wake_Raise(void)
 {
-    s_wake_active  = true;
-    s_wake_mark_ms = getNowTime();
+    s_wake_active = true;
     PHOTON2_WAKE_ON;
 }
 
 static void Wake_Process(void)
 {
-    if (s_wake_active) {
-        /* keep WAKE asserted while TX is draining OR while FlowReport is
-         * busy (covers the WAKE_TO_TX_DELAY_MS cloud-connect hold-off) */
-        if (!UART_TX_IsEmpty() || FlowReport_IsBusy()) {
-            s_wake_mark_ms = getNowTime();
-        }
-        if (timeSpan(s_wake_mark_ms) >= CLOSE_WAKE_AFTER_UART_MS) {
-            s_wake_active = false;
-            PHOTON2_WAKE_OFF;
-        }
+    if (s_wake_active && UART_TX_IsEmpty() && !FlowReport_IsBusy()) {
+        s_wake_active = false;
+        PHOTON2_WAKE_OFF;
     }
 }
 
@@ -95,8 +87,7 @@ static pkt_parser_t s_parser;
 static void on_uart_rx(uint8_t ch)
 {
     UART_RX_Push(ch);
-    s_wake_active  = true;       /* any byte -> Photon is talking */
-    s_wake_mark_ms = getNowTime();
+    s_wake_active = true;        /* any byte -> Photon is talking */
     PHOTON2_WAKE_ON;
 }
 
@@ -234,8 +225,6 @@ void main(void)
            ) {
 
             LED_TEST_OFF;
-            PHOTON2_WAKE_OFF;
-
             wake_cause_t cause = Sys_Time_EnterDeepSleep();
 
             LedFsm_NotifyWake();
