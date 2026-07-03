@@ -125,6 +125,7 @@ retained PicParams    picParams          = {PIC_LEAK1_COUNTS_DFLT, PIC_LEAK1_WIN
 retained bool         picParamsDirty     = true;   // SET_PARAM to PIC on next contact
                                                    //   true = we still owe the PIC a fresh write of these params.
 retained float        dailyGallons       = 0.0f;   // Total gallons used so far today.
+retained float        totalGallons       = 0.0f;   // Cumulative all-time gallons (reset via cloud function).
 retained float        hourlyData[24]     = {0.0f}; // Gallons used in each of the 24 hours of the current day.
 retained int          lastHourIngested   = -1;     // The hour of the last sample we processed (-1 = none yet).
 retained int          lastDayIngested    = -1;     // The day of the last sample we processed (-1 = none yet).
@@ -211,6 +212,7 @@ int  setLeakParams(String cmd); int getLeakParams(String cmd);  // Cloud functio
 int  getValve(String cmd);    int unlockValve(String cmd);  // Cloud functions: read valve / clear valve lock.
 int  picReset(String cmd);                       // Cloud function: reset the PIC.
 int  syncPic(String cmd);                        // Cloud function: force-push cached PIC params now.
+int  resetTotalGallons(String cmd);              // Cloud function: zero the cumulative gallon counter.
 bool pushPicParams();                            // Send the cached PIC params to the PIC; return true on ACK.
 void readValveStatus();                          // Read and remember the PIC valve status.
 void publishIntervalDataChunks();                // Publish the interval logger to the cloud in chunks.
@@ -492,6 +494,7 @@ void ingestPicBatch(const PicSample *s, int n) {
     int day = Time.day(tsEnd);                    // Which day-of-month this sample ends in.
     accumulateHourly(hr, day, gallons);           // Add the gallons into the correct hourly bucket.
     dailyGallons += gallons;                      // Add to the running daily total.
+    totalGallons += gallons;                      // Add to the cumulative all-time total.
 
     if (senseLeak(tsEnd, gpm)) onLeakDetected();  // Run the leak detector; react if it says "leak".
 
@@ -593,6 +596,7 @@ void serviceLocalMeter() {
     float gallons = gpm * ((nowMs - lastCalc) / 60000.0f) / FLOW_C4;   // Gallons over the elapsed minutes (ms/60000).
     accumulateHourly(Time.hour(now), Time.day(now), gallons);   // Add into the right hourly bucket.
     dailyGallons += gallons;                      // Add to the daily total.
+    totalGallons += gallons;                      // Add to the cumulative all-time total.
     if (senseLeak(now, gpm)) onLeakDetected();    // Run the leak detector and react if needed.
   }
   lastCalc = nowMs;                               // Remember this time for the next gallons calculation.
@@ -725,32 +729,32 @@ void imuPublish() {
   JsonWriterStatic<512> jw;                       // A 512-byte JSON builder for the status message.
   {                                               // Inner scope so the JSON object auto-finishes.
     JsonWriterAutoObject obj(&jw);                // Begin the JSON object.
-    jw.insertKeyValue("platform", PLATFORM_STR);  // Board name.
-    jw.insertKeyValue("sensor", imu_data.sensor); // IMU address (0 if none).
-    jw.insertKeyValue("leaking", (int)leakingEventCount);    // Number of leak events this cycle.
-    jw.insertKeyValue("shutoff", (int)shutoffEventCount);    // Number of shutoff events this cycle.
-    jw.insertKeyValue("overflow", (int)overflowEventCount);  // Number of overflow events this cycle.
-    jw.insertKeyValue("temp", imu_data.temperature);         // Current temperature.
-    jw.insertKeyValue("flowCal", flowCalScale);              // Current flow calibration scale.
+    jw.insertKeyValue("pf", PLATFORM_STR);  // Board name.
+    // jw.insertKeyValue("sensor", imu_data.sensor); // IMU address (0 if none).
+    jw.insertKeyValue("a1Events", (int)leakingEventCount);    // Number of leak events this cycle.
+    jw.insertKeyValue("a2Events", (int)overflowEventCount);  // Number of overflow events this cycle.
+    jw.insertKeyValue("shutoffs", (int)shutoffEventCount);    // Number of shutoff events this cycle.
+    // jw.insertKeyValue("temp", imu_data.temperature);         // Current temperature.
+    jw.insertKeyValue("Cal", flowCalScale);              // Current flow calibration scale.
     // Echo the active host config back so the dashboard can confirm it.
-    jw.insertKeyValue("cfgLeakGpm", appConfig.leakThreshGpm);        // Host leak threshold (GPM).
-    jw.insertKeyValue("cfgShutoffVol", appConfig.shutoffVolGal);     // Host 30-min shutoff volume.
-    jw.insertKeyValue("cfgAutoShutoff", (int)appConfig.autoShutoff); // Host auto-shutoff on/off.
-    jw.insertKeyValue("cfgAlertMode", (int)appConfig.alertMode);     // Host alert mode.
-    // PIC leak parameters (REQ_GET/SET_PARAM) + delivery state.
-    jw.insertKeyValue("picLeak1Counts", (int)picParams.leak1_counts);   // PIC alert-1 counts.
-    jw.insertKeyValue("picLeak1WinS",  (int)picParams.leak1_window_s);  // PIC alert-1 window seconds.
-    jw.insertKeyValue("picLeak2Counts", (int)picParams.leak2_counts);   // PIC alert-2 counts.
-    jw.insertKeyValue("picLeak2WinS",  (int)picParams.leak2_window_s);  // PIC alert-2 window seconds.
+    // jw.insertKeyValue("cfgLeakGpm", appConfig.leakThreshGpm);        // Host leak threshold (GPM).
+    // jw.insertKeyValue("cfgShutoffVol", appConfig.shutoffVolGal);     // Host 30-min shutoff volume.
+    // jw.insertKeyValue("cfgAutoShutoff", (int)appConfig.autoShutoff); // Host auto-shutoff on/off.
+    // jw.insertKeyValue("cfgAlertMode", (int)appConfig.alertMode);     // Host alert mode.
+    //// PIC leak parameters (REQ_GET/SET_PARAM) + delivery state.
+    jw.insertKeyValue("a1Count", (int)picParams.leak1_counts);   // PIC alert-1 counts.
+    jw.insertKeyValue("a1Win",  (int)picParams.leak1_window_s);  // PIC alert-1 window seconds.
+    jw.insertKeyValue("a2Count", (int)picParams.leak2_counts);   // PIC alert-2 counts.
+    jw.insertKeyValue("a2Win",  (int)picParams.leak2_window_s);  // PIC alert-2 window seconds.
     jw.insertKeyValue("picParamsDirty", (int)picParamsDirty);   // 1 = a write to the PIC is still pending.
     // PIC valve subsystem status (REQ_GET_VALVE), if we have read it.
-    if (haveValve) {                              // Only include valve fields if we've read them at least once.
-      jw.insertKeyValue("valveMotion",   (int)lastValve.motion);         // Valve motion state (0..6).
-      jw.insertKeyValue("valveLockFlags",(int)lastValve.lock_flags);     // Which locks are active.
-      jw.insertKeyValue("valvePwr",      (int)lastValve.pwr_pin);        // Valve power pin level.
-      jw.insertKeyValue("valveCtrl",     (int)lastValve.ctrl_pin);       // Valve control pin level.
-      jw.insertKeyValue("valveTempLocks",(int)lastValve.temp_lock_count);// Cumulative temp-lock count.
-    }
+    // if (haveValve) {                              // Only include valve fields if we've read them at least once.
+    //   jw.insertKeyValue("valveMotion",   (int)lastValve.motion);         // Valve motion state (0..6).
+    //   jw.insertKeyValue("valveLockFlags",(int)lastValve.lock_flags);     // Which locks are active.
+    //   jw.insertKeyValue("valvePwr",      (int)lastValve.pwr_pin);        // Valve power pin level.
+    //   jw.insertKeyValue("valveCtrl",     (int)lastValve.ctrl_pin);       // Valve control pin level.
+    //   jw.insertKeyValue("valveTempLocks",(int)lastValve.temp_lock_count);// Cumulative temp-lock count.
+    // }
     jw.insertKeyArray("hourlyGallons");           // Begin an array "hourlyGallons": [ ... ].
     for (int i = 0; i < 24; i++) jw.insertArrayValue(roundTenth(hourlyData[i]));   // Add each hour's gallons (1 decimal).
     jw.finishObjectOrArray();                     // Close the hourlyGallons array.
@@ -767,13 +771,62 @@ void imuPublish() {
     jw.insertKeyValue("battery", analogRead(BATTERY_PIN) / 819.2f);  // P2 ADC divider
                                                   //   On P2, read the analog pin and scale it to a voltage.
 #endif
-    jw.insertKeyValue("freeMem", (int)System.freeMemory());   // Free RAM (helps debug memory issues).
+    jw.insertKeyValue("totalGallons", totalGallons);          // Cumulative all-time gallons.
+    // jw.insertKeyValue("freeMem", (int)System.freeMemory());   // Free RAM (helps debug memory issues).
     jw.insertKeyValue("uptime", (int)System.uptime());        // Seconds since boot.
   }
 
-  Particle.publish("sensorData", jw.getBuffer()); // Send the finished JSON as a "sensorData" cloud event.
-  Log.info("Published: %s", jw.getBuffer());      // Also log exactly what we published.
-  publishIntervalDataChunks();                    // Then publish the detailed interval logger in chunks.
+  // Insert a newline after every ", " so each field appears on its own line.
+  char pretty[622];
+  strncpy(pretty, jw.getBuffer(), sizeof(pretty) - 1);
+  pretty[sizeof(pretty) - 1] = '\0';
+  for (char *p = pretty + 1; *p && p[1]; p++) {
+    if (p[0] == ',' && p[1] == ' ' && p[2] == '"') {
+      // Replace ", " with ",\n" (same length, no memmove needed)
+      p[1] = '\n';
+    }
+  }
+  Particle.publish("sensorData", pretty); // Send the finished JSON as a "sensorData" cloud event.
+  Log.info("Published sensorData:");
+  Log.info("  platform       : %s",   PLATFORM_STR);
+  Log.info("  sensor         : %u",   imu_data.sensor);
+  Log.info("  leaking        : %lu",  (unsigned long)leakingEventCount);
+  Log.info("  shutoff        : %lu",  (unsigned long)shutoffEventCount);
+  Log.info("  overflow       : %lu",  (unsigned long)overflowEventCount);
+  Log.info("  temp           : %.2f", imu_data.temperature);
+  Log.info("  flowCal        : %.4f", flowCalScale);
+  Log.info("  cfgLeakGpm     : %.4f", appConfig.leakThreshGpm);
+  Log.info("  cfgShutoffVol  : %.4f", appConfig.shutoffVolGal);
+  Log.info("  cfgAutoShutoff : %u",   appConfig.autoShutoff);
+  Log.info("  cfgAlertMode   : %u",   appConfig.alertMode);
+  Log.info("  picLeak1Counts : %u",   picParams.leak1_counts);
+  Log.info("  picLeak1WinS   : %u",   picParams.leak1_window_s);
+  Log.info("  picLeak2Counts : %u",   picParams.leak2_counts);
+  Log.info("  picLeak2WinS   : %u",   picParams.leak2_window_s);
+  Log.info("  picParamsDirty : %d",   (int)picParamsDirty);
+  if (haveValve) {
+    Log.info("  valveMotion    : %u",  lastValve.motion);
+    Log.info("  valveLockFlags : %u",  lastValve.lock_flags);
+    Log.info("  valvePwr       : %u",  lastValve.pwr_pin);
+    Log.info("  valveCtrl      : %u",  lastValve.ctrl_pin);
+    Log.info("  valveTempLocks : %u",  lastValve.temp_lock_count);
+  }
+  for (int _i = 0; _i < 24; _i++)
+    Log.info("  hourlyGallons[%02d]: %.1f", _i, roundTenth(hourlyData[_i]));
+#if USE_WIFI
+  Log.info("  rssi           : %d",   (int)WiFi.RSSI().getStrength());
+#elif USE_CELLULAR
+  Log.info("  rssi           : %d",   (int)Cellular.RSSI().getStrength());
+#endif
+#if HAS_FUEL_GAUGE
+  { FuelGauge _f; Log.info("  battery        : %.1f", _f.getSoC()); }
+#else
+  Log.info("  battery        : %.1f", analogRead(BATTERY_PIN) / 819.2f);
+#endif
+  Log.info("  totalGallons   : %.2f", totalGallons);
+  Log.info("  freeMem        : %d",   (int)System.freeMemory());
+  Log.info("  uptime         : %d",   (int)System.uptime());
+  // publishIntervalDataChunks();                    // Then publish the detailed interval logger in chunks.
 
   // Roll to a fresh UTC-day window after a full-day buffer was sent.
   if (gMeter.count >= MAX_SAMPLES) {              // If the logger filled a whole day...
@@ -798,11 +851,11 @@ int shutoffSwitch(String cmd) {
   restartSleepTimer("shutoffSwitch");             // Any cloud action resets the awake window so we don't sleep mid-task.
   cmd.trim(); cmd.toLowerCase();                  // Clean up the command: remove spaces, make lowercase.
   if (cmd == "close") {                           // "close" = drive the valve shut.
-    digitalWrite(LED1_PIN, HIGH); digitalWrite(SHUTOFF_SWITCH_PIN, HIGH); digitalWrite(SHUTOFF_SSR_PIN, HIGH);   // LED on, direction=close, power on.
+    digitalWrite(LED1_PIN, HIGH); digitalWrite(SHUTOFF_SWITCH_PIN, LOW); digitalWrite(SHUTOFF_SSR_PIN, HIGH);   // LED on, direction=close, power on.
     if (!imu_data.shutoff) shutoffEventCount++;   // Count a new shutoff event (only on the transition).
     imu_data.shutoff = true; triggerPublish = true; shutoffTimer.start(); return 2;   // Mark shut, publish, start 10 s timer, return 2.
   } else if (cmd == "open") {                     // "open" = drive the valve open.
-    digitalWrite(LED1_PIN, HIGH); digitalWrite(SHUTOFF_SWITCH_PIN, LOW); digitalWrite(SHUTOFF_SSR_PIN, HIGH);    // LED on, direction=open, power on.
+    digitalWrite(LED1_PIN, HIGH); digitalWrite(SHUTOFF_SWITCH_PIN, HIGH); digitalWrite(SHUTOFF_SSR_PIN, HIGH);    // LED on, direction=open, power on.
     imu_data.shutoff = false; triggerPublish = true; shutoffTimer.start(); return 1;   // Mark open, publish, start timer, return 1.
   } else if (cmd == "off") {                      // "off" = remove power from the valve (idle/safe).
     digitalWrite(LED1_PIN, LOW); digitalWrite(SHUTOFF_SWITCH_PIN, LOW); digitalWrite(SHUTOFF_SSR_PIN, LOW);      // LED off, direction low, power off.
@@ -981,6 +1034,16 @@ int picReset(String cmd) {
   picLink.sysReset();                             // Send the reset command to the PIC.
   Log.info("PIC: SYS_RESET sent");                // Log that we sent it.
   return 1;                                        // Success (we don't wait for a reply).
+}
+
+// Cloud function: zero the cumulative all-time gallon counter.
+int resetTotalGallons(String cmd) {
+  (void)cmd;
+  totalGallons = 0.0f;
+  syncBackupRam();
+  triggerPublish = true;
+  Log.info("totalGallons reset to 0");
+  return 1;
 }
 
 // Force-push the cached PIC leak parameters now (REQ_SET_PARAM).
@@ -1215,6 +1278,8 @@ void setup() {
   Particle.function("unlockValve", unlockValve);// clear PIC valve lock     // Clear a PIC valve lock.
   Particle.function("picReset", picReset);      // PKT_SYS_RESET            // Reset the PIC.
   Particle.function("syncPic", syncPic);                                    // Force-push cached PIC params.
+  Particle.function("resetTotalGallons", resetTotalGallons);                // Zero the cumulative gallon counter.
+
 #if USE_WIFI
   Particle.function("setWiFi", setWiFi);          // (Wi-Fi only) set credentials.
   Particle.function("clearWiFi", clearWiFi);      // (Wi-Fi only) clear credentials.
