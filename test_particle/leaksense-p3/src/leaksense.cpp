@@ -1248,7 +1248,8 @@ void setup() {
   loadConfig();                                   // Load the saved host config from EEPROM.
   loadPicParams();                                // Load the saved PIC params from EEPROM.
 
-  pinMode(LED1_PIN, OUTPUT);                       // Configure the status LED pin as an output.
+  RGB.control(true); RGB.color(0, 0, 0);           // Take over the RGB status LED and turn it off.
+  pinMode(LED1_PIN, OUTPUT); digitalWrite(LED1_PIN, LOW);   // Configure D7 LED and ensure it is off.
   pinMode(SHUTOFF_SWITCH_PIN, OUTPUT);             // Configure the valve direction pin as an output.
   pinMode(SHUTOFF_SSR_PIN, OUTPUT);                // Configure the valve power (SSR) pin as an output.
   pinMode(MODE_PIN, INPUT_PULLUP);                 // Configure the button pin as an input with a pull-up resistor.
