@@ -159,7 +159,7 @@ constexpr float FLOW_C6 = 0.065f;          // Coefficient 6.
 // Limits and default for the user-adjustable calibration scale.
 constexpr float    FLOW_CAL_MIN   = 0.500f;  // The smallest calibration scale we will accept.
 constexpr float    FLOW_CAL_MAX   = 2.000f;  // The largest calibration scale we will accept.
-constexpr float    FLOW_CAL_DFLT  = 1.000f;  // The default scale used if none is saved yet.
+constexpr float    FLOW_CAL_DFLT  = 1.255f;  // The default scale used if none is saved yet.
 
 // ------------------------------------------------------------------ Leak model
 // This block tunes the statistical "is this a leak?" detector.

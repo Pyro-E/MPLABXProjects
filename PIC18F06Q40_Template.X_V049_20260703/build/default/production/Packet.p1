@@ -1,0 +1,318 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"39 Packet.c
+[c E67 0 1 2 3 4 5 6 7 .. ]
+[n E67 . PKT_ST_MARKER0 PKT_ST_MARKER1 PKT_ST_FUNC PKT_ST_LEN_HI PKT_ST_LEN_LO PKT_ST_DATA PKT_ST_CRC_HI PKT_ST_CRC_LO  ]
+"98 ./Packet.h
+[s S1 `E67 1 `uc 1 `us 1 `us 1 `uc -> 8 `i `us 1 `us 1 `ul 1 `a 1 `a 1 ]
+[n S1 . state func len idx data crc_calc crc_rx last_byte_ms bad_len bad_crc ]
+"25 ./MCU_Time.h
+[v _timeSpan `(ul ~T0 @X0 0 ef1`ul ]
+"24
+[v _getNowTime `(ul ~T0 @X0 0 ef ]
+"12 Packet.c
+[v _Packet_CRC16_Init `(us ~T0 @X0 1 ef ]
+"13
+{
+[e :U _Packet_CRC16_Init ]
+[f ]
+"14
+[e ) -> -> 65535 `ui `us ]
+[e $UE 2  ]
+"15
+[e :UE 2 ]
+}
+"17
+[v _Packet_CRC16_Update `(us ~T0 @X0 1 ef2`us`uc ]
+"18
+{
+[e :U _Packet_CRC16_Update ]
+"17
+[v _crc `us ~T0 @X0 1 r1 ]
+[v _b `uc ~T0 @X0 1 r2 ]
+"18
+[f ]
+"19
+[e =^ _crc -> -> _b `us `us ]
+"20
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `ui `uc ]
+[e $ < -> _i `ui -> 8 `ui 4  ]
+[e $U 5  ]
+[e :U 4 ]
+{
+"21
+[e $ ! != & -> _crc `ui -> 1 `ui -> -> 0 `i `ui 7  ]
+[e = _crc -> ^ >> -> _crc `ui -> 1 `i -> 40961 `ui `us ]
+[e $U 8  ]
+"22
+[e :U 7 ]
+[e = _crc -> >> -> _crc `ui -> 1 `i `us ]
+[e :U 8 ]
+"23
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `ui -> 8 `ui 4  ]
+[e :U 5 ]
+}
+"24
+[e ) _crc ]
+[e $UE 3  ]
+"25
+[e :UE 3 ]
+}
+"27
+[v _Packet_CRC16 `(us ~T0 @X0 1 ef2`*Cuc`us ]
+"28
+{
+[e :U _Packet_CRC16 ]
+"27
+[v _data `*Cuc ~T0 @X0 1 r1 ]
+[v _len `us ~T0 @X0 1 r2 ]
+"28
+[f ]
+"29
+[v _crc `us ~T0 @X0 1 a ]
+[e = _crc ( _Packet_CRC16_Init ..  ]
+"30
+[e $U 10  ]
+[e :U 11 ]
+{
+"31
+[e = _crc ( _Packet_CRC16_Update (2 , _crc *U ++ _data * -> -> 1 `i `x -> -> # *U _data `i `x ]
+"32
+}
+[e :U 10 ]
+"30
+[e $ != -> -- _len -> -> 1 `i `us `ui -> -> 0 `i `ui 11  ]
+[e :U 12 ]
+"33
+[e ) _crc ]
+[e $UE 9  ]
+"34
+[e :UE 9 ]
+}
+"39
+[v _Packet_ParserReset `(v ~T0 @X0 1 ef1`*S1 ]
+"40
+{
+[e :U _Packet_ParserReset ]
+"39
+[v _p `*S1 ~T0 @X0 1 r1 ]
+"40
+[f ]
+"41
+[e = . *U _p 0 . `E67 0 ]
+"42
+[e = . *U _p 1 -> -> 0 `ui `uc ]
+"43
+[e = . *U _p 2 -> -> 0 `ui `us ]
+"44
+[e = . *U _p 3 -> -> 0 `ui `us ]
+"45
+[e = . *U _p 5 -> -> 0 `ui `us ]
+"46
+[e = . *U _p 6 -> -> 0 `ui `us ]
+"48
+[e :UE 13 ]
+}
+"50
+[v _Packet_ParserTimeoutCheck `(v ~T0 @X0 1 ef1`*S1 ]
+"51
+{
+[e :U _Packet_ParserTimeoutCheck ]
+"50
+[v _p `*S1 ~T0 @X0 1 r1 ]
+"51
+[f ]
+"53
+[e $ ! != -> . *U _p 0 `ui -> . `E67 0 `ui 15  ]
+{
+"54
+[e $ ! >= ( _timeSpan (1 . *U _p 7 -> 1000 `ul 16  ]
+{
+"55
+[e ( _Packet_ParserReset (1 _p ]
+"56
+}
+[e :U 16 ]
+"57
+}
+[e :U 15 ]
+"58
+[e :UE 14 ]
+}
+"60
+[v _Packet_ParseByte `(a ~T0 @X0 1 ef2`*S1`uc ]
+"61
+{
+[e :U _Packet_ParseByte ]
+"60
+[v _p `*S1 ~T0 @X0 1 r1 ]
+[v _b `uc ~T0 @X0 1 r2 ]
+"61
+[f ]
+"62
+[e = . *U _p 7 ( _getNowTime ..  ]
+"64
+[e $U 19  ]
+{
+"66
+[e :U 20 ]
+"67
+[e $ ! == -> _b `ui -> 170 `ui 21  ]
+{
+"68
+[e = . *U _p 8 -> -> 0 `i `a ]
+"69
+[e = . *U _p 9 -> -> 0 `i `a ]
+"70
+[e = . *U _p 0 . `E67 1 ]
+"71
+}
+[e :U 21 ]
+"72
+[e $U 18  ]
+"74
+[e :U 22 ]
+"75
+[e $ ! == -> _b `ui -> 85 `ui 23  ]
+{
+"76
+[e = . *U _p 0 . `E67 2 ]
+"77
+}
+[e $U 24  ]
+[e :U 23 ]
+[e $ ! == -> _b `ui -> 170 `ui 25  ]
+{
+"78
+[e = . *U _p 0 . `E67 1 ]
+"79
+}
+[e $U 26  ]
+[e :U 25 ]
+{
+"80
+[e = . *U _p 0 . `E67 0 ]
+"81
+}
+[e :U 26 ]
+[e :U 24 ]
+"82
+[e $U 18  ]
+"84
+[e :U 27 ]
+"85
+[e = . *U _p 1 _b ]
+"86
+[e = . *U _p 5 ( _Packet_CRC16_Init ..  ]
+"87
+[e = . *U _p 5 ( _Packet_CRC16_Update (2 , . *U _p 5 _b ]
+"88
+[e = . *U _p 0 . `E67 3 ]
+"89
+[e $U 18  ]
+"91
+[e :U 28 ]
+"92
+[e = . *U _p 2 -> << -> -> _b `us `ui -> 8 `i `us ]
+"93
+[e = . *U _p 5 ( _Packet_CRC16_Update (2 , . *U _p 5 _b ]
+"94
+[e = . *U _p 0 . `E67 4 ]
+"95
+[e $U 18  ]
+"97
+[e :U 29 ]
+"98
+[e =| . *U _p 2 -> -> _b `us `us ]
+"99
+[e = . *U _p 5 ( _Packet_CRC16_Update (2 , . *U _p 5 _b ]
+"100
+[e = . *U _p 3 -> -> 0 `ui `us ]
+"102
+[e $ ! > -> . *U _p 2 `ui -> 8 `ui 30  ]
+{
+"103
+[e = . *U _p 8 -> -> 1 `i `a ]
+"104
+[e ( _Packet_ParserReset (1 _p ]
+"105
+[e $U 18  ]
+"106
+}
+[e :U 30 ]
+"107
+[e = . *U _p 0 -> ? == -> . *U _p 2 `ui -> 0 `ui : . `E67 6 . `E67 5 `E67 ]
+"108
+[e $U 18  ]
+"110
+[e :U 31 ]
+"111
+[e = *U + &U . *U _p 4 * -> ++ . *U _p 3 -> -> 1 `i `us `ux -> -> # *U &U . *U _p 4 `ui `ux _b ]
+"112
+[e = . *U _p 5 ( _Packet_CRC16_Update (2 , . *U _p 5 _b ]
+"113
+[e $ ! >= -> . *U _p 3 `ui -> . *U _p 2 `ui 32  ]
+{
+"114
+[e = . *U _p 0 . `E67 6 ]
+"115
+}
+[e :U 32 ]
+"116
+[e $U 18  ]
+"118
+[e :U 33 ]
+"119
+[e = . *U _p 6 -> << -> -> _b `us `ui -> 8 `i `us ]
+"120
+[e = . *U _p 0 . `E67 7 ]
+"121
+[e $U 18  ]
+"123
+[e :U 34 ]
+"124
+[e =| . *U _p 6 -> -> _b `us `us ]
+"125
+[e = . *U _p 0 . `E67 0 ]
+"126
+[e $ ! == -> . *U _p 6 `ui -> . *U _p 5 `ui 35  ]
+{
+"127
+[e ) -> -> 1 `i `a ]
+[e $UE 17  ]
+"128
+}
+[e :U 35 ]
+"129
+[e = . *U _p 9 -> -> 1 `i `a ]
+"130
+[e $U 18  ]
+"132
+[e :U 36 ]
+"133
+[e ( _Packet_ParserReset (1 _p ]
+"134
+[e $U 18  ]
+"135
+}
+[e $U 18  ]
+[e :U 19 ]
+[e [\ -> . *U _p 0 `ui , $ -> . `E67 0 `ui 20
+ , $ -> . `E67 1 `ui 22
+ , $ -> . `E67 2 `ui 27
+ , $ -> . `E67 3 `ui 28
+ , $ -> . `E67 4 `ui 29
+ , $ -> . `E67 5 `ui 31
+ , $ -> . `E67 6 `ui 33
+ , $ -> . `E67 7 `ui 34
+ 36 ]
+[e :U 18 ]
+"136
+[e ) -> -> 0 `i `a ]
+[e $UE 17  ]
+"137
+[e :UE 17 ]
+}

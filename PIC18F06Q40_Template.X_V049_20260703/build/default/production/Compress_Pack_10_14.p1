@@ -1,0 +1,51 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"22 Compress_Pack_10_14.c
+[v _Compress_Pack `(v ~T0 @X0 1 ef3`us`us`*uc ]
+"23
+{
+[e :U _Compress_Pack ]
+"22
+[v _time16 `us ~T0 @X0 1 r1 ]
+[v _pulses `us ~T0 @X0 1 r2 ]
+[v _dst `*uc ~T0 @X0 1 r3 ]
+"23
+[f ]
+"25
+[v _g `us ~T0 @X0 1 a ]
+[e = _g -> ? > -> _time16 `ui -> 1023 `ui : -> 1023 `ui -> _time16 `ui `us ]
+"26
+[v _p `us ~T0 @X0 1 a ]
+[e = _p -> ? > -> _pulses `ui -> 16383 `ui : -> 16383 `ui -> _pulses `ui `us ]
+"29
+[v _v `ul ~T0 @X0 1 a ]
+[e = _v | << -> _g `ul -> 14 `i -> _p `ul ]
+"31
+[e = *U + _dst * -> -> 0 `i `x -> -> # *U _dst `i `x -> >> _v -> 16 `i `uc ]
+"32
+[e = *U + _dst * -> -> 1 `i `x -> -> # *U _dst `i `x -> >> _v -> 8 `i `uc ]
+"33
+[e = *U + _dst * -> -> 2 `i `x -> -> # *U _dst `i `x -> _v `uc ]
+"34
+[e :UE 1 ]
+}
+"36
+[v _Compress_Unpack `(v ~T0 @X0 1 ef3`*Cuc`*us`*us ]
+"37
+{
+[e :U _Compress_Unpack ]
+"36
+[v _src `*Cuc ~T0 @X0 1 r1 ]
+[v _time16 `*us ~T0 @X0 1 r2 ]
+[v _pulses `*us ~T0 @X0 1 r3 ]
+"37
+[f ]
+"38
+[v _v `ul ~T0 @X0 1 a ]
+[e = _v | | << -> *U + _src * -> -> 0 `i `x -> -> # *U _src `i `x `ul -> 16 `i << -> *U + _src * -> -> 1 `i `x -> -> # *U _src `i `x `ul -> 8 `i -> *U + _src * -> -> 2 `i `x -> -> # *U _src `i `x `ul ]
+"42
+[e = *U _time16 -> & >> _v -> 14 `i -> -> 1023 `ui `ul `us ]
+"43
+[e = *U _pulses -> & _v -> -> 16383 `ui `ul `us ]
+"44
+[e :UE 2 ]
+}

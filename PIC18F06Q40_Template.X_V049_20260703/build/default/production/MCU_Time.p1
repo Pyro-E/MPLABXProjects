@@ -1,0 +1,111 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"6 MCU_Time.c
+[v _unNowTime_ms `Vul ~T0 @X0 1 s ]
+[i _unNowTime_ms
+-> -> -> 0 `i `l `ul
+]
+"9
+[v _getNowTime `(ul ~T0 @X0 1 ef ]
+"10
+{
+[e :U _getNowTime ]
+[f ]
+"11
+[e ) _unNowTime_ms ]
+[e $UE 1  ]
+"12
+[e :UE 1 ]
+}
+"17
+[v _timeSpan `(ul ~T0 @X0 1 ef1`ul ]
+"18
+{
+[e :U _timeSpan ]
+"17
+[v _unOldTime_ms `ul ~T0 @X0 1 r1 ]
+"18
+[f ]
+"19
+[v _now `ul ~T0 @X0 1 a ]
+[e = _now ( _getNowTime ..  ]
+"20
+[e $ ! > _unOldTime_ms _now 3  ]
+{
+"21
+[e ) + + - -> 4294967295 `ul _unOldTime_ms _now -> 1 `ul ]
+[e $UE 2  ]
+"22
+}
+[e :U 3 ]
+"23
+[e ) - _now _unOldTime_ms ]
+[e $UE 2  ]
+"24
+[e :UE 2 ]
+}
+"30
+[v _MCU_Time_Delay_Ms `(v ~T0 @X0 1 ef1`ul ]
+"31
+{
+[e :U _MCU_Time_Delay_Ms ]
+"30
+[v _unMs `ul ~T0 @X0 1 r1 ]
+"31
+[f ]
+"32
+[v _start `ul ~T0 @X0 1 a ]
+[e = _start ( _getNowTime ..  ]
+"33
+[e $U 5  ]
+[e :U 6 ]
+{
+"35
+}
+[e :U 5 ]
+"33
+[e $ <= ( _timeSpan (1 _start _unMs 6  ]
+[e :U 7 ]
+"36
+[e :UE 4 ]
+}
+"39
+[v _MCU_Time_Increase_Unit `(v ~T0 @X0 1 ef ]
+"40
+{
+[e :U _MCU_Time_Increase_Unit ]
+[f ]
+"41
+[e ++ _unNowTime_ms -> -> 1 `i `Vul ]
+"42
+[e :UE 8 ]
+}
+"49
+[v _MCU_Time_Advance `(v ~T0 @X0 1 ef1`ul ]
+"50
+{
+[e :U _MCU_Time_Advance ]
+"49
+[v _unMs `ul ~T0 @X0 1 r1 ]
+"50
+[f ]
+"51
+[e =+ _unNowTime_ms -> _unMs `Vul ]
+"52
+[e :UE 9 ]
+}
+"55
+[v _MCU_Time_Init `(v ~T0 @X0 1 ef1`uc ]
+"56
+{
+[e :U _MCU_Time_Init ]
+"55
+[v _ucKHz `uc ~T0 @X0 1 r1 ]
+"56
+[f ]
+"57
+[e _ucKHz ]
+"58
+[e = _unNowTime_ms -> -> -> 0 `i `l `ul ]
+"59
+[e :UE 10 ]
+}
