@@ -871,13 +871,8 @@ bssBANK6 600 65F BANK6 600 1
 bssBIGRAM 660 1217 BIGRAM 660 1
 text48 1602 3863 CODE 1602 0
 %locals
-dist/default/production/startup.o
-dist/default/production/startup.s
-57 0 0 CODE 0
-dist/default/production/startup.s
-92 1A 0 CODE 0
 dist/default/production/PIC18F06Q40_Template.X_V049_20260703.production.o
-dist/default/production/PIC18F06Q40_Template.X_V049_20260703.production.s
+/tmp/xc4Dsavjq/driver_tmp_1.s
 16179 2DDE 0 CODE 0
 16181 2DDE 0 CODE 0
 16184 2DDE 0 CODE 0
