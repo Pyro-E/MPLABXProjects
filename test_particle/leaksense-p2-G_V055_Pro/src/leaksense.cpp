@@ -791,7 +791,7 @@ void publishIntervalDataChunks() {
       jw.insertKeyValue("sampleCount", (int)cnt);           // "sampleCount": how many samples in this chunk.
       jw.insertKeyValue("data", packed);                    // "data": the packed 3-digit sample string.
     }
-    cloudEmit("meterIntervals", jw.getBuffer());  // Cloud: publish; bench: log the exact chunk payload.
+    // cloudEmit("meterIntervals", jw.getBuffer());  // Cloud: publish; bench: log the exact chunk payload.
     if (!g_cfg.fastBench) delay(1100);            // (cloud) Wait 1.1 s between publishes (cloud rate-limits ~1/sec).
   }
 }
