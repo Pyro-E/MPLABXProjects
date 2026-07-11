@@ -26,6 +26,8 @@
  *              leak windows, 10 min temp-lock).
  * This single switch flips EVERY related value at once. */
 //#define REPORT_CONFIG_DEBUG   /* DEFAULT = PRODUCTION. Define this for fast bench test. */
+#define APP_REPORT_INTERVAL 24 /* 24 = 24 h, 48 = 48 h. The actual capture/report timing is built from this. */
+// #define APP_REPORT_INTERVAL 48   /* 24 = 24 h, 48 = 48 h. The actual capture/report timing is built from this. */
 
 /* ---- 2. SLEEP (power saving) -----------------------------------------
  * Defined   -> between captures the MCU enters deep Sleep (low power).
@@ -135,10 +137,18 @@
   #define APP_WAKES_PER_SAMPLE   4u       /* capture = 4 wakes (24 x 0.5285) = 12.68 s */
   #define APP_SAMPLES_PER_REPORT 10u      /* report  = 10 captures = 126.8 s         */
 #else
-  #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
-  #define APP_WAKE_COUNTS        114u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
-  #define APP_WAKES_PER_SAMPLE   4u       /* capture = 4 wakes (456 x 0.5285) = 241.0 s (~4 min) */
-  #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
+  #if (APP_REPORT_INTERVAL == 24)
+    #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
+    #define APP_WAKE_COUNTS        114u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
+    #define APP_WAKES_PER_SAMPLE   2u       /* capture = 2 wakes (228 x 0.5285) = 120.3 s (~2 min) */
+    #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~24 hours       */
+  #endif
+  #if (APP_REPORT_INTERVAL == 48)
+    // #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
+    // #define APP_WAKE_COUNTS        114u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
+    // #define APP_WAKES_PER_SAMPLE   4u       /* capture = 4 wakes (456 x 0.5285) = 241.0 s (~4 min) */
+    // #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
+  #endif
 #endif
 
 /* Derived: capture period (ring-buffer sample interval) and report batch.
@@ -252,9 +262,9 @@
 #else
   /* production values */
   #define APP_LEAK1_COUNTS_DEF     100u     /* alert1 threshold counts       */
-  #define APP_LEAK1_WINDOW_S_DEF   300u     /* alert1 window  (8 min)        */
+  #define APP_LEAK1_WINDOW_S_DEF   480u     /* alert1 window  (8 min)        */
   #define APP_LEAK2_COUNTS_DEF     1200u     /* alert2 threshold counts       */
-  #define APP_LEAK2_WINDOW_S_DEF   180u     /* alert2 window  (3 min)        */
+  #define APP_LEAK2_WINDOW_S_DEF   10080u     /* alert2 window  (3 min)        */
   #define TIME_VALVE_TEMP_LOCK_MS  600000UL /* temp lock holds 10 min        */
 #endif
 

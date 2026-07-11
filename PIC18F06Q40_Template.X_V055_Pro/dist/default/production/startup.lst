@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V3.10 build 20250813170317 
-                                                                                                           Fri Jul 10 11:41:40 2026
+                                                                                                           Sat Jul 11 15:24:07 2026
 
 
      1                           	processor	18F06Q40
@@ -185,7 +185,7 @@ Microchip MPLAB XC8 Assembler V3.10 build 20250813170317
    179                           	psect	init
    180   00001A                     start:
    181                           	callstack 0
-   182   00001A  EFAB  F01A         	goto	start_initialization	;jump to C runtime clear & initialization
+   182   00001A  EFAF  F01A         	goto	start_initialization	;jump to C runtime clear & initialization
    183                           
    184                           	psect	text
    185   000000                     intlevel0:
@@ -266,12 +266,12 @@ Microchip MPLAB XC8 Assembler V3.10 build 20250813170317
 
 
 Microchip Technology PIC18 Macro Assembler V3.10 build 20250813170317 
-Symbol Table                                                                                               Fri Jul 10 11:41:40 2026
+Symbol Table                                                                                               Sat Jul 11 15:24:07 2026
 
                 __S1 1335                 ___sp 0000                 _main 20C4                 start 001A  
               __HRAM 0000                __LRAM 0001               isa$std 0001     ___inthi_stack_hi 0000  
    ___inthi_stack_lo 0000               stackhi 0000               stacklo 0000           __accesstop 0560  
          ___inthi_sp 0000           ___intlo_sp 0000           ___stack_hi 0000           ___stack_lo 0000  
-   ___intlo_stack_hi 0000     ___intlo_stack_lo 0000              __ramtop 1600  start_initialization 3556  
+   ___intlo_stack_hi 0000     ___intlo_stack_lo 0000              __ramtop 1600  start_initialization 355E  
           ___heap_hi 0000            ___heap_lo 0000             isa$xinst 0000             intlevel0 0000  
            intlevel1 0000             intlevel2 0000             intlevel3 0000             reset_vec 0000  

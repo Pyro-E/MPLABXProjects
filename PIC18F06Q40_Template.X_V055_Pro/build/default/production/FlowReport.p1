@@ -1806,13 +1806,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 "341
 [e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> -> 1 `ui `uc ]
 "344
-[e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & >> * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 4 `ui `ul -> 24 `i -> -> 255 `ui `ul `uc ]
+[e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & >> * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul -> 24 `i -> -> 255 `ui `ul `uc ]
 "345
-[e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & >> * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 4 `ui `ul -> 16 `i -> -> 255 `ui `ul `uc ]
+[e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & >> * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul -> 16 `i -> -> 255 `ui `ul `uc ]
 "346
-[e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & >> * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 4 `ui `ul -> 8 `i -> -> 255 `ui `ul `uc ]
+[e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & >> * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul -> 8 `i -> -> 255 `ui `ul `uc ]
 "347
-[e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 4 `ui `ul -> -> 255 `ui `ul `uc ]
+[e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul -> -> 255 `ui `ul `uc ]
 "348
 [e = *U + &U _d * -> ++ _i -> -> 1 `i `us `ux -> -> # *U &U _d `ui `ux -> & >> -> -> -> 720 `ui `us `ui -> 8 `i -> 255 `ui `uc ]
 "349

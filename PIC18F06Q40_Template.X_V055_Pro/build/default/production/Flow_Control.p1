@@ -17,7 +17,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _MValve_OP3_CmdOpen `(v ~T0 @X0 0 ef ]
 "24 ./MCU_Time.h
 [v _getNowTime `(ul ~T0 @X0 0 ef ]
-"25
+"32 ./FlowReport.h
+[v _FlowReport_RequestReport `(v ~T0 @X0 0 ef ]
+"25 ./MCU_Time.h
 [v _timeSpan `(ul ~T0 @X0 0 ef1`ul ]
 "211 /Applications/microchip/mplabx/v6.30/packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8/pic/include/proc/pic18f06q40.h
 [; <" CLKRCON equ 039h ;# ">
@@ -1331,440 +1333,444 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSH equ 04FEh ;# ">
 "37803
 [; <" TOSU equ 04FFh ;# ">
-"47 Flow_Control.c
+"48 Flow_Control.c
 [v _s_param `S1861 ~T0 @X0 1 s ]
 [i _s_param
 :U ..
 :U ..
 -> -> 100 `ui `us
--> -> 300 `ui `us
+-> -> 480 `ui `us
 -> -> 1200 `ui `us
 -> -> 180 `ui `us
 ..
 ..
 ]
-"55
+"56
 [v _s_leak1_window_n `us ~T0 @X0 1 s ]
 [i _s_leak1_window_n
 -> -> 0 `i `us
 ]
-"56
+"57
 [v _s_leak2_window_n `us ~T0 @X0 1 s ]
 [i _s_leak2_window_n
 -> -> 0 `i `us
 ]
-"59
+"60
 [v _s_temp_locked `a ~T0 @X0 1 s ]
 [i _s_temp_locked
 -> -> 0 `i `a
 ]
-"60
+"61
 [v _s_temp_unlock_ms `ul ~T0 @X0 1 s ]
 [i _s_temp_unlock_ms
 -> -> -> 0 `i `l `ul
 ]
-"61
+"62
 [v _s_perm_locked `a ~T0 @X0 1 s ]
 [i _s_perm_locked
 -> -> 0 `i `a
 ]
-"62
+"63
 [v _s_temp_lock_count `ul ~T0 @X0 1 s ]
 [i _s_temp_lock_count
 -> -> -> 0 `i `l `ul
 ]
-"65
+"66
 [v _s_valve_should_close `a ~T0 @X0 1 s ]
 [i _s_valve_should_close
 -> -> 0 `i `a
 ]
-"66
+"67
 [v _s_valve_cmd_valid `a ~T0 @X0 1 s ]
 [i _s_valve_cmd_valid
 -> -> 0 `i `a
 ]
-"70
-[v _quantize_window `(us ~T0 @X0 1 sf1`us ]
 "71
+[v _quantize_window `(us ~T0 @X0 1 sf1`us ]
+"72
 {
 [e :U _quantize_window ]
-"70
-[v _window_s `us ~T0 @X0 1 r1 ]
 "71
+[v _window_s `us ~T0 @X0 1 r1 ]
+"72
 [f ]
-"75
-[v _n `ul ~T0 @X0 1 a ]
-[e = _n / * -> _window_s `ul -> 1000 `ul * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 4 `ui `ul ]
 "76
+[v _n `ul ~T0 @X0 1 a ]
+[e = _n / * -> _window_s `ul -> 1000 `ul * / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul ]
+"77
 [e $ ! > _n -> -> 1000 `i `ul 1864  ]
 [e = _n -> -> 1000 `i `ul ]
 [e :U 1864 ]
-"77
+"78
 [e $ ! == _n -> -> 0 `ui `ul 1865  ]
 [e = _n -> -> 1 `ui `ul ]
 [e :U 1865 ]
-"78
+"79
 [e ) -> _n `us ]
 [e $UE 1863  ]
-"79
+"80
 [e :UE 1863 ]
 }
-"81
-[v _FlowControl_RecalcDerived `(v ~T0 @X0 1 ef ]
 "82
+[v _FlowControl_RecalcDerived `(v ~T0 @X0 1 ef ]
+"83
 {
 [e :U _FlowControl_RecalcDerived ]
 [f ]
-"83
-[e = _s_leak1_window_n ( _quantize_window (1 . _s_param 1 ]
 "84
-[e = _s_leak2_window_n ( _quantize_window (1 . _s_param 3 ]
+[e = _s_leak1_window_n ( _quantize_window (1 . _s_param 1 ]
 "85
+[e = _s_leak2_window_n ( _quantize_window (1 . _s_param 3 ]
+"86
 [e :UE 1866 ]
 }
-"98
-[v _sliding_sum `(ul ~T0 @X0 1 sf2`us`*us ]
 "99
+[v _sliding_sum `(ul ~T0 @X0 1 sf2`us`*us ]
+"100
 {
 [e :U _sliding_sum ]
-"98
+"99
 [v _window_n `us ~T0 @X0 1 r1 ]
 [v _out_n `*us ~T0 @X0 1 r2 ]
-"99
-[f ]
 "100
+[f ]
+"101
 [v _counted `us ~T0 @X0 1 a ]
 [e = _counted -> -> 0 `ui `us ]
-"101
+"102
 [v _already `ul ~T0 @X0 1 a ]
 [e = _already ( _FlowLog_GetCaptureCount ..  ]
-"102
+"103
 [e $ ! == _already -> -> 0 `ui `ul 1868  ]
 {
-"103
+"104
 [e $ ! != _out_n -> -> 0 `i `*us 1869  ]
 [e = *U _out_n -> -> 0 `ui `us ]
 [e :U 1869 ]
-"104
+"105
 [e ) -> -> 0 `ui `ul ]
 [e $UE 1867  ]
-"105
+"106
 }
 [e :U 1868 ]
-"108
+"109
 [v _limit `us ~T0 @X0 1 a ]
 [e = _limit _window_n ]
-"109
+"110
 [e $ ! > -> _limit `ul _already 1870  ]
 {
-"110
-[e = _limit -> _already `us ]
 "111
+[e = _limit -> _already `us ]
+"112
 }
 [e :U 1870 ]
-"115
+"116
 [v _w `us ~T0 @X0 1 a ]
 [e = _w ( _FlowLog_GetWriteIndex ..  ]
-"116
+"117
 [v _sum `ul ~T0 @X0 1 a ]
 [e = _sum -> -> 0 `ui `ul ]
-"117
+"118
 {
 [v _k `us ~T0 @X0 1 a ]
 [e = _k -> -> 0 `i `us ]
 [e $U 1874  ]
 [e :U 1871 ]
 {
-"118
+"119
 [v _idx `us ~T0 @X0 1 a ]
 [e = _idx -> % - - + -> _w `ui -> -> 1000 `i `ui -> 1 `ui -> _k `ui -> -> 1000 `i `ui `us ]
-"119
-[v _e `S1862 ~T0 @X0 1 a ]
 "120
-[e ( _FlowLog_GetAt (2 , _idx &U _e ]
+[v _e `S1862 ~T0 @X0 1 a ]
 "121
+[e ( _FlowLog_GetAt (2 , _idx &U _e ]
+"122
 [e $ ! == -> . _e 1 `ui -> 0 `ui 1875  ]
 {
-"122
-[e $U 1872  ]
 "123
+[e $U 1872  ]
+"124
 }
 [e :U 1875 ]
-"124
-[e =+ _sum -> . _e 1 `ul ]
 "125
-[e ++ _counted -> -> 1 `i `us ]
+[e =+ _sum -> . _e 1 `ul ]
 "126
+[e ++ _counted -> -> 1 `i `us ]
+"127
 }
 [e ++ _k -> -> 1 `i `us ]
 [e :U 1874 ]
 [e $ < -> _k `ui -> _limit `ui 1871  ]
 [e :U 1872 ]
 }
-"127
+"128
 [e $ ! != _out_n -> -> 0 `i `*us 1876  ]
 [e = *U _out_n _counted ]
 [e :U 1876 ]
-"128
+"129
 [e ) _sum ]
 [e $UE 1867  ]
-"129
+"130
 [e :UE 1867 ]
 }
-"131
-[v _FlowControl_Init `(v ~T0 @X0 1 ef ]
 "132
+[v _FlowControl_Init `(v ~T0 @X0 1 ef ]
+"133
 {
 [e :U _FlowControl_Init ]
 [f ]
-"133
-[e ( _FlowControl_RecalcDerived ..  ]
 "134
-[e = _s_temp_locked -> -> 0 `i `a ]
+[e ( _FlowControl_RecalcDerived ..  ]
 "135
-[e = _s_perm_locked -> -> 0 `i `a ]
+[e = _s_temp_locked -> -> 0 `i `a ]
 "136
-[e = _s_temp_lock_count -> -> -> 0 `i `l `ul ]
+[e = _s_perm_locked -> -> 0 `i `a ]
 "137
-[e = _s_valve_should_close -> -> 0 `i `a ]
+[e = _s_temp_lock_count -> -> -> 0 `i `l `ul ]
 "138
-[e = _s_valve_cmd_valid -> -> 0 `i `a ]
+[e = _s_valve_should_close -> -> 0 `i `a ]
 "139
+[e = _s_valve_cmd_valid -> -> 0 `i `a ]
+"140
 [e :UE 1877 ]
 }
-"142
-[v _apply_valve `(v ~T0 @X0 1 sf ]
 "143
+[v _apply_valve `(v ~T0 @X0 1 sf ]
+"144
 {
 [e :U _apply_valve ]
 [f ]
-"144
+"145
 [v _want_close `a ~T0 @X0 1 a ]
 [e = _want_close -> -> || != -> _s_temp_locked `i -> 0 `i != -> _s_perm_locked `i -> 0 `i `i `a ]
-"146
+"147
 [e $ ! ! != -> _s_valve_cmd_valid `i -> 0 `i 1879  ]
 {
-"150
-[e = _s_valve_should_close _want_close ]
 "151
-[e = _s_valve_cmd_valid -> -> 1 `i `a ]
+[e = _s_valve_should_close _want_close ]
 "152
+[e = _s_valve_cmd_valid -> -> 1 `i `a ]
+"153
 [e $ ! != -> _want_close `i -> 0 `i 1880  ]
 {
-"153
-[e ( _MValve_OP3_CmdClose ..  ]
 "154
+[e ( _MValve_OP3_CmdClose ..  ]
+"155
 }
 [e :U 1880 ]
-"155
-[e $UE 1878  ]
 "156
+[e $UE 1878  ]
+"157
 }
 [e :U 1879 ]
-"158
+"159
 [e $ ! != -> _want_close `i -> _s_valve_should_close `i 1881  ]
 {
-"159
+"160
 [e $ ! != -> _want_close `i -> 0 `i 1882  ]
 [e ( _MValve_OP3_CmdClose ..  ]
 [e $U 1883  ]
-"160
+"161
 [e :U 1882 ]
 [e ( _MValve_OP3_CmdOpen ..  ]
 [e :U 1883 ]
-"161
-[e = _s_valve_should_close _want_close ]
 "162
+[e = _s_valve_should_close _want_close ]
+"163
 }
 [e :U 1881 ]
-"163
+"164
 [e :UE 1878 ]
 }
-"166
-[v _evaluate_alerts `(v ~T0 @X0 1 sf ]
 "167
+[v _evaluate_alerts `(v ~T0 @X0 1 sf ]
+"168
 {
 [e :U _evaluate_alerts ]
 [f ]
-"172
+"173
 [e $ ! ! != -> _s_temp_locked `i -> 0 `i 1885  ]
 {
-"173
+"174
 [v _n1 `us ~T0 @X0 1 a ]
 [e = _n1 -> -> 0 `ui `us ]
-"174
+"175
 [v _sum1 `ul ~T0 @X0 1 a ]
 [e = _sum1 ( _sliding_sum (2 , _s_leak1_window_n &U _n1 ]
-"175
-[e $ ! && >= -> _n1 `ui -> _s_leak1_window_n `ui >= _sum1 -> . _s_param 0 `ul 1886  ]
 "176
-{
+[e $ ! && >= -> _n1 `ui -> _s_leak1_window_n `ui >= _sum1 -> . _s_param 0 `ul 1886  ]
 "177
-[e = _s_temp_locked -> -> 1 `i `a ]
+{
 "178
-[e = _s_temp_unlock_ms ( _getNowTime ..  ]
+[e = _s_temp_locked -> -> 1 `i `a ]
 "179
-[e ++ _s_temp_lock_count -> -> -> 1 `i `l `ul ]
+[e = _s_temp_unlock_ms ( _getNowTime ..  ]
 "180
+[e ++ _s_temp_lock_count -> -> -> 1 `i `l `ul ]
+"184
+[e ( _FlowReport_RequestReport ..  ]
+"185
 }
 [e :U 1886 ]
-"181
+"186
 }
 [e :U 1885 ]
-"185
+"190
 [e $ ! ! != -> _s_perm_locked `i -> 0 `i 1887  ]
 {
-"186
+"191
 [v _n2 `us ~T0 @X0 1 a ]
 [e = _n2 -> -> 0 `ui `us ]
-"187
+"192
 [v _sum2 `ul ~T0 @X0 1 a ]
 [e = _sum2 ( _sliding_sum (2 , _s_leak2_window_n &U _n2 ]
-"188
+"193
 [e $ ! && >= -> _n2 `ui -> _s_leak2_window_n `ui >= _sum2 -> . _s_param 2 `ul 1888  ]
-"189
+"194
 {
-"190
+"195
 [e = _s_perm_locked -> -> 1 `i `a ]
-"191
+"198
+[e ( _FlowReport_RequestReport ..  ]
+"199
 }
 [e :U 1888 ]
-"192
+"200
 }
 [e :U 1887 ]
-"194
+"202
 [e ( _apply_valve ..  ]
-"195
+"203
 [e :UE 1884 ]
 }
-"197
+"205
 [v _FlowControl_OnCapture `(v ~T0 @X0 1 ef1`us ]
-"198
+"206
 {
 [e :U _FlowControl_OnCapture ]
-"197
+"205
 [v _delta `us ~T0 @X0 1 r1 ]
-"198
+"206
 [f ]
-"202
+"210
 [e _delta ]
-"203
+"211
 [e ( _evaluate_alerts ..  ]
-"204
+"212
 [e :UE 1889 ]
 }
-"206
+"214
 [v _FlowControl_Process `(v ~T0 @X0 1 ef ]
-"207
+"215
 {
 [e :U _FlowControl_Process ]
 [f ]
-"210
+"218
 [e $ ! && != -> _s_temp_locked `i -> 0 `i >= ( _timeSpan (1 _s_temp_unlock_ms -> 600000 `ul 1891  ]
-"211
+"219
 {
-"212
+"220
 [e = _s_temp_locked -> -> 0 `i `a ]
-"213
+"221
 [e ( _apply_valve ..  ]
-"214
+"222
 }
 [e :U 1891 ]
-"215
+"223
 [e :UE 1890 ]
 }
-"218
+"226
 [v _FlowControl_GetParams `(v ~T0 @X0 1 ef1`*S1861 ]
-"219
+"227
 {
 [e :U _FlowControl_GetParams ]
-"218
+"226
 [v _out `*S1861 ~T0 @X0 1 r1 ]
-"219
+"227
 [f ]
-"220
+"228
 [e $ ! != _out -> -> 0 `i `*S1861 1893  ]
 [e = *U _out _s_param ]
 [e :U 1893 ]
-"221
+"229
 [e :UE 1892 ]
 }
-"223
+"231
 [v _FlowControl_SetParams `(v ~T0 @X0 1 ef1`*CS1861 ]
-"224
+"232
 {
 [e :U _FlowControl_SetParams ]
-"223
+"231
 [v _in `*CS1861 ~T0 @X0 1 r1 ]
-"224
+"232
 [f ]
-"225
+"233
 [e $ ! ! != _in -> -> 0 `i `*CS1861 1895  ]
 [e $UE 1894  ]
 [e :U 1895 ]
-"237
+"245
 [e = _s_param *U _in ]
-"238
+"246
 [e ( _FlowControl_RecalcDerived ..  ]
-"241
+"249
 [e ( _evaluate_alerts ..  ]
-"243
+"251
 [e :UE 1894 ]
 }
-"246
+"254
 [v _FlowControl_GetLockFlags `(uc ~T0 @X0 1 ef ]
-"247
+"255
 {
 [e :U _FlowControl_GetLockFlags ]
 [f ]
-"248
+"256
 [v _f `uc ~T0 @X0 1 a ]
 [e = _f -> -> 0 `ui `uc ]
-"249
+"257
 [e $ ! != -> _s_temp_locked `i -> 0 `i 1897  ]
 [e =| _f -> -> 1 `ui `uc ]
 [e :U 1897 ]
-"250
+"258
 [e $ ! != -> _s_perm_locked `i -> 0 `i 1898  ]
 [e =| _f -> -> 2 `ui `uc ]
 [e :U 1898 ]
-"251
+"259
 [e ) _f ]
 [e $UE 1896  ]
-"252
+"260
 [e :UE 1896 ]
 }
-"254
+"262
 [v _FlowControl_GetTempLockCount `(ul ~T0 @X0 1 ef ]
-"255
+"263
 {
 [e :U _FlowControl_GetTempLockCount ]
 [f ]
-"256
+"264
 [e ) _s_temp_lock_count ]
 [e $UE 1899  ]
-"257
+"265
 [e :UE 1899 ]
 }
-"260
+"268
 [v _FlowControl_Unlock `(v ~T0 @X0 1 ef1`uc ]
-"261
+"269
 {
 [e :U _FlowControl_Unlock ]
-"260
+"268
 [v _flags `uc ~T0 @X0 1 r1 ]
-"261
+"269
 [f ]
-"262
+"270
 [e $ ! != & -> _flags `ui -> 1 `ui -> -> 0 `i `ui 1901  ]
 [e = _s_temp_locked -> -> 0 `i `a ]
 [e :U 1901 ]
-"263
+"271
 [e $ ! != & -> _flags `ui -> 2 `ui -> -> 0 `i `ui 1902  ]
 [e = _s_perm_locked -> -> 0 `i `a ]
 [e :U 1902 ]
-"264
+"272
 [e ( _apply_valve ..  ]
-"265
+"273
 [e :UE 1900 ]
 }

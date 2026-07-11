@@ -42,6 +42,7 @@
 #include "MValve_OP3.h"
 #include "MCU_Time.h"
 #include "FlowLog.h"        /* reuse the capture ring buffer for the window */
+#include "FlowReport.h"     /* FlowReport_RequestReport() - force an immediate report */
 
 /* ---- parameters (defaults; overwritten by Photon SET_PARAM) ---- */
 static leak_param_t s_param = {
@@ -177,6 +178,10 @@ static void evaluate_alerts(void)
             s_temp_locked    = true;
             s_temp_unlock_ms = getNowTime();
             s_temp_lock_count++;
+            /* Don't wait for the next scheduled report (up to ~48 h away in
+             * production) - power the Photon on now, same path as Photon2's
+             * own 0xF0 / UART-wake request. */
+            FlowReport_RequestReport();
         }
     }
 
@@ -188,6 +193,9 @@ static void evaluate_alerts(void)
         if ((n2 >= s_leak2_window_n) &&
             (sum2 >= (uint32_t)s_param.leak2_counts)) {
             s_perm_locked = true;
+            /* Same as alert1: report immediately instead of waiting for the
+             * next scheduled report. */
+            FlowReport_RequestReport();
         }
     }
 

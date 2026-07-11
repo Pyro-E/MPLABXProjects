@@ -1,5 +1,5 @@
 /*
- * LeakSense P2 firmware
+ * LeakSense P2/Boron firmware
  * Integrates:
  *   - LeakSense flow/leak/publish pipeline (doc 1)
  *   - PIC18F06Q40 UART meter source (doc 2)  -> pic_link.*
@@ -58,7 +58,7 @@ const float HOURLY_BIN_COARSE_MAX_SEC        = 3600.0f; // A batch spanning less
                                                        //   short to place sub-hour -- bin the whole batch into the
                                                        //   current hour. At/above this, bin each sample into its own
                                                        //   real hour (see ingestPicBatch()).
-const unsigned long INITIAL_HOLD_PUBLISH_MS  = 60000;  // Min gap between sensorData publishes during the hold (60 s).
+const unsigned long INITIAL_HOLD_PUBLISH_MS  = 120000;  // Min gap between sensorData publishes during the hold.
 const unsigned long STATE_CHANGE_DELAY_MS    = 500;    // A short 0.5 s pause used around state changes.
 // "Magic numbers" are unique tags we store in EEPROM to recognize OUR saved data.
 const uint32_t      FLOW_CAL_MAGIC           = 0x4643414CUL; // "FCAL"  (the bytes spell FCAL in ASCII).
@@ -199,6 +199,10 @@ bool initialHold = false;                        // True if the PIC reported its
 bool          lastButtonState = false;           // The button's state on the previous loop (to detect a new press).
 unsigned long lastPressTime   = 0;               // millis() when the current press started (also serves as debounce).
 bool          longPressFired  = false;           // true once the current hold has already fired the long-press action.
+bool          mainReportSent  = false;           // true once THIS session's normal end-of-session report has gone out.
+                                                 //   Deliberately NOT retained: power-gating means a fresh boot/reset
+                                                 //   runs setup() again every session, so this naturally starts false
+                                                 //   each time -- exactly the "once per power-up" scope we need.
 volatile bool resetShutoff    = false;           // Set by a timer to request auto-clearing the shutoff ("volatile" = set in a callback).
 volatile bool triggerPublish  = false;           // Set anywhere to request a cloud publish soon.
 volatile bool otaActive       = false;           // true from firmware_update_begin until complete/failed (set in onFirmwareUpdateEvent,
@@ -1470,6 +1474,7 @@ void handleMonitoring() {
   printHourlyFlow();                              // hourlyGallons[24]=[...] dailyGal=... (both builds, post-ingest).
   imuPublish();                                   // Cloud build: publish. Bench: BUILD + LOG the exact cloud payload
                                                   //   over USB-CDC (no transmit) so all cloud-bound data is visible.
+  mainReportSent = true;                          // This session's one PIC-triggered report is out; see serviceButton().
   persistAll();                                   // Flush RAM buffers to flash before power is cut.
   triggerPublish = false;                         // Report delivered.
 
@@ -1705,13 +1710,18 @@ void setup() {
 // =============================================================== MODE button
 // MODE_PIN (A1) only does anything while the Photon happens to be powered --
 // under power-gating that's whatever window the PIC has already granted for a
-// normal session, so this does not itself wake the device. Within that window:
-//   short press (released before LONG_PRESS_MS) -> an extra publish right now,
-//     on top of the one every session already sends at its normal end.
+// normal session, so this does not itself wake the device. Within that window,
+// BEFORE the session's normal report has gone out (mainReportSent still false):
+//   short press (released before LONG_PRESS_MS) -> an extra publish right now.
 //   long press  (held >= LONG_PRESS_MS)          -> zero the lifetime gallons
 //     tally, then publish immediately so the reset is visible on the dashboard.
-// Debounced/edge-detected with the existing lastButtonState/lastPressTime.
+// Once mainReportSent is true the session has already delivered its one
+// PIC-triggered report and is winding down (PHOTON_OFF sent, power about to be
+// cut) -- further presses are ignored so a session can never publish more than
+// once. Debounced/edge-detected with the existing lastButtonState/lastPressTime.
 void serviceButton() {
+  if (mainReportSent) return;                      // Session already reported -- ignore the button until next power-up.
+
   bool pressed = (digitalRead(MODE_PIN) == LOW);   // INPUT_PULLUP: pressed pulls the pin LOW.
   unsigned long nowMs = millis();
 

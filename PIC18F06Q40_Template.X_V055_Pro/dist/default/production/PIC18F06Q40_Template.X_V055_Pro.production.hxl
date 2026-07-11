@@ -1,7 +1,7 @@
 ### HEXMate logfile and output summary ###
 
 ### Command-line arguments ###
- /tmp/xcOne5gXv/driver_tmp_3.o
+ /tmp/xcSH22PUi/driver_tmp_3.o
  -Odist/default/production/PIC18F06Q40_Template.X_V055_Pro.production.hex
  -logfile=dist/default/production/PIC18F06Q40_Template.X_V055_Pro.production.hxl
  -addressing=1
@@ -9,23 +9,23 @@
 
 ### Memory Usage ###
  Input file ranges:
-  0h - 3h		(/tmp/xcOne5gXv/driver_tmp_3.o)
-  8h - Bh		(/tmp/xcOne5gXv/driver_tmp_3.o)
-  18h - 1Dh		(/tmp/xcOne5gXv/driver_tmp_3.o)
-  1600h - 4117h		(/tmp/xcOne5gXv/driver_tmp_3.o)
-  300000h - 300000h		(/tmp/xcOne5gXv/driver_tmp_3.o)
-  300002h - 300005h		(/tmp/xcOne5gXv/driver_tmp_3.o)
+  0h - 3h		(/tmp/xcSH22PUi/driver_tmp_3.o)
+  8h - Bh		(/tmp/xcSH22PUi/driver_tmp_3.o)
+  18h - 1Dh		(/tmp/xcSH22PUi/driver_tmp_3.o)
+  1600h - 4127h		(/tmp/xcSH22PUi/driver_tmp_3.o)
+  300000h - 300000h		(/tmp/xcSH22PUi/driver_tmp_3.o)
+  300002h - 300005h		(/tmp/xcSH22PUi/driver_tmp_3.o)
  Unused ranges:
   4h - 7h
   Ch - 17h
   1Eh - 15FFh
-  4118h - 2FFFFFh
+  4128h - 2FFFFFh
   300001h - 300001h
 
 ### Hex Memory Map ###
  Legend:
   -- = Unused memory
-  H1 = Input file             (/tmp/xcOne5gXv/driver_tmp_3.o)
+  H1 = Input file             (/tmp/xcSH22PUi/driver_tmp_3.o)
 ----------------------------------------------------------
          | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ----------------------------------------------------------
@@ -721,7 +721,8 @@
 000040E0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 000040F0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00004100 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
-00004110 | H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- -- -- --
+00004110 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00004120 | H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- -- -- --
 ----------------------------------------------------------
 00300000 | H1 -- H1 H1 H1 H1 -- -- -- -- -- -- -- -- -- --
 00300010 | --

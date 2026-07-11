@@ -222,31 +222,31 @@ PKT_ST_CRC_LO 7
 [v _UART_TX_IsEmpty UART_TX_IsEmpty `(a  1 e 1 0 ]
 "249
 [v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
-"70 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"71 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _quantize_window quantize_window `(us  1 s 2 quantize_window ]
-"81
+"82
 [v _FlowControl_RecalcDerived FlowControl_RecalcDerived `(v  1 e 1 0 ]
-"98
+"99
 [v _sliding_sum sliding_sum `(ul  1 s 4 sliding_sum ]
-"131
+"132
 [v _FlowControl_Init FlowControl_Init `(v  1 e 1 0 ]
-"142
+"143
 [v _apply_valve apply_valve `(v  1 s 1 apply_valve ]
-"166
+"167
 [v _evaluate_alerts evaluate_alerts `(v  1 s 1 evaluate_alerts ]
-"197
+"205
 [v _FlowControl_OnCapture FlowControl_OnCapture `(v  1 e 1 0 ]
-"206
+"214
 [v _FlowControl_Process FlowControl_Process `(v  1 e 1 0 ]
-"218
+"226
 [v _FlowControl_GetParams FlowControl_GetParams `(v  1 e 1 0 ]
-"223
+"231
 [v _FlowControl_SetParams FlowControl_SetParams `(v  1 e 1 0 ]
-"246
-[v _FlowControl_GetLockFlags FlowControl_GetLockFlags `(uc  1 e 1 0 ]
 "254
+[v _FlowControl_GetLockFlags FlowControl_GetLockFlags `(uc  1 e 1 0 ]
+"262
 [v _FlowControl_GetTempLockCount FlowControl_GetTempLockCount `(ul  1 e 4 0 ]
-"260
+"268
 [v _FlowControl_Unlock FlowControl_Unlock `(v  1 e 1 0 ]
 "46 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _ovf_set ovf_set `T(v  1 s 1 ovf_set ]
@@ -280,6 +280,8 @@ PKT_ST_CRC_LO 7
 [v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
 "116
 [v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
+"123
+[v _FlowReport_RequestReport FlowReport_RequestReport `(v  1 e 1 0 ]
 "139
 [v _FlowReport_IsSending FlowReport_IsSending `(a  1 e 1 0 ]
 "146
@@ -874,23 +876,23 @@ PKT_ST_CRC_LO 7
 "20 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Valve.c
 [v _s_phase0 s_phase0 `ul  1 s 4 s_phase0 ]
 [s S86 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
-"47 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"48 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _s_param s_param `S86  1 s 8 s_param ]
-"55
-[v _s_leak1_window_n s_leak1_window_n `us  1 s 2 s_leak1_window_n ]
 "56
+[v _s_leak1_window_n s_leak1_window_n `us  1 s 2 s_leak1_window_n ]
+"57
 [v _s_leak2_window_n s_leak2_window_n `us  1 s 2 s_leak2_window_n ]
-"59
-[v _s_temp_locked s_temp_locked `a  1 s 1 s_temp_locked ]
 "60
-[v _s_temp_unlock_ms s_temp_unlock_ms `ul  1 s 4 s_temp_unlock_ms ]
+[v _s_temp_locked s_temp_locked `a  1 s 1 s_temp_locked ]
 "61
-[v _s_perm_locked s_perm_locked `a  1 s 1 s_perm_locked ]
+[v _s_temp_unlock_ms s_temp_unlock_ms `ul  1 s 4 s_temp_unlock_ms ]
 "62
+[v _s_perm_locked s_perm_locked `a  1 s 1 s_perm_locked ]
+"63
 [v _s_temp_lock_count s_temp_lock_count `ul  1 s 4 s_temp_lock_count ]
-"65
-[v _s_valve_should_close s_valve_should_close `a  1 s 1 s_valve_should_close ]
 "66
+[v _s_valve_should_close s_valve_should_close `a  1 s 1 s_valve_should_close ]
+"67
 [v _s_valve_cmd_valid s_valve_cmd_valid `a  1 s 1 s_valve_cmd_valid ]
 "12 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _s_buf s_buf `[3000]uc  1 s 3000 s_buf ]
@@ -1058,17 +1060,17 @@ PKT_ST_CRC_LO 7
 {
 "127
 } 0
-"254 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"262 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_GetTempLockCount FlowControl_GetTempLockCount `(ul  1 e 4 0 ]
 {
-"257
+"265
 } 0
-"246
+"254
 [v _FlowControl_GetLockFlags FlowControl_GetLockFlags `(uc  1 e 1 0 ]
 {
-"248
+"256
 [v FlowControl_GetLockFlags@f f `uc  1 a 1 5 ]
-"252
+"260
 } 0
 "322 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_SendPowerState FlowReport_SendPowerState `(v  1 e 1 0 ]
@@ -1101,12 +1103,12 @@ PKT_ST_CRC_LO 7
 [v FlowReport_SendParam@pr pr `S86  1 a 8 63 ]
 "298
 } 0
-"218 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"226 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_GetParams FlowControl_GetParams `(v  1 e 1 0 ]
 {
 [s S86 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
 [v FlowControl_GetParams@out out `*.39S86  1 p 2 5 ]
-"221
+"229
 } 0
 "361 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
@@ -1169,21 +1171,21 @@ PKT_ST_CRC_LO 7
 {
 "119
 } 0
-"260 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"268 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_Unlock FlowControl_Unlock `(v  1 e 1 0 ]
 {
 [v FlowControl_Unlock@flags flags `uc  1 p 1 wreg ]
 [v FlowControl_Unlock@flags flags `uc  1 p 1 wreg ]
-"262
+"270
 [v FlowControl_Unlock@flags flags `uc  1 p 1 11 ]
-"265
+"273
 } 1
-"223
+"231
 [v _FlowControl_SetParams FlowControl_SetParams `(v  1 e 1 0 ]
 {
 [s S86 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
 [v FlowControl_SetParams@in in `*.39CS86  1 p 2 0 ]
-"243
+"251
 } 0
 "58 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _UART_RX_Pop UART_RX_Pop `(a  1 e 1 0 ]
@@ -1484,49 +1486,49 @@ PKT_ST_CRC_LO 7
 [v ovf_set@on on `a  1 p 1 7 ]
 "52
 } 0
-"197 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"205 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_OnCapture FlowControl_OnCapture `(v  1 e 1 0 ]
 {
 [v FlowControl_OnCapture@delta delta `us  1 p 2 0 ]
-"204
+"212
 } 0
-"166
+"167
 [v _evaluate_alerts evaluate_alerts `(v  1 s 1 evaluate_alerts ]
 {
-"187
+"192
 [v evaluate_alerts@sum2 sum2 `ul  1 a 4 76 ]
-"186
+"191
 [v evaluate_alerts@n2 n2 `us  1 a 2 82 ]
-"174
+"175
 [v evaluate_alerts@sum1 sum1 `ul  1 a 4 72 ]
-"173
+"174
 [v evaluate_alerts@n1 n1 `us  1 a 2 80 ]
-"195
+"203
 } 0
-"98
+"99
 [v _sliding_sum sliding_sum `(ul  1 s 4 sliding_sum ]
 {
 [s S1496 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
-"119
+"120
 [v sliding_sum@e e `S1496  1 a 4 64 ]
-"118
+"119
 [v sliding_sum@idx idx `us  1 a 2 48 ]
-"117
+"118
 [v sliding_sum@k k `us  1 a 2 58 ]
-"101
+"102
 [v sliding_sum@already already `ul  1 a 4 60 ]
-"116
+"117
 [v sliding_sum@sum sum `ul  1 a 4 50 ]
-"108
+"109
 [v sliding_sum@limit limit `us  1 a 2 56 ]
-"100
+"101
 [v sliding_sum@counted counted `us  1 a 2 54 ]
-"115
+"116
 [v sliding_sum@w w `us  1 a 2 46 ]
-"98
+"99
 [v sliding_sum@window_n window_n `us  1 p 2 38 ]
 [v sliding_sum@out_n out_n `*.39us  1 p 2 40 ]
-"129
+"130
 } 0
 "154 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _FlowLog_GetWriteIndex FlowLog_GetWriteIndex `(us  1 e 2 0 ]
@@ -1570,7 +1572,12 @@ PKT_ST_CRC_LO 7
 [v Compress_Unpack@pulses pulses `*.39us  1 p 2 9 ]
 "44
 } 0
-"22
+"123 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+[v _FlowReport_RequestReport FlowReport_RequestReport `(v  1 e 1 0 ]
+{
+"126
+} 0
+"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Compress_Pack_10_14.c
 [v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
 {
 "29
@@ -1615,10 +1622,10 @@ PKT_ST_CRC_LO 7
 [v PulseCounter_Get@lo lo `uc  1 a 1 9 ]
 "72
 } 0
-"206 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"214 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_Process FlowControl_Process `(v  1 e 1 0 ]
 {
-"215
+"223
 } 0
 "17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
 [v _timeSpan timeSpan `(ul  1 e 4 0 ]
@@ -1629,12 +1636,12 @@ PKT_ST_CRC_LO 7
 [v timeSpan@unOldTime_ms unOldTime_ms `ul  1 p 4 9 ]
 "24
 } 0
-"142 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"143 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _apply_valve apply_valve `(v  1 s 1 apply_valve ]
 {
-"144
+"145
 [v apply_valve@want_close want_close `a  1 a 1 10 ]
-"163
+"164
 } 0
 "54 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
 [v _MValve_OP3_CmdOpen MValve_OP3_CmdOpen `(v  1 e 1 0 ]
@@ -1651,24 +1658,24 @@ PKT_ST_CRC_LO 7
 {
 "12
 } 0
-"131 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"132 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_Init FlowControl_Init `(v  1 e 1 0 ]
 {
-"139
+"140
 } 0
-"81
+"82
 [v _FlowControl_RecalcDerived FlowControl_RecalcDerived `(v  1 e 1 0 ]
 {
-"85
+"86
 } 0
-"70
+"71
 [v _quantize_window quantize_window `(us  1 s 2 quantize_window ]
 {
-"75
+"76
 [v quantize_window@n n `ul  1 a 4 32 ]
-"70
+"71
 [v quantize_window@window_s window_s `us  1 p 2 30 ]
-"79
+"80
 } 0
 "15 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
