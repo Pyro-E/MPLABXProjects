@@ -33,7 +33,7 @@
 #include <string.h>     // memset(), strlen(), and similar C string/memory tools.
 #include <math.h>       // sqrtf(), floorf(), and other math functions.
 
-PRODUCT_VERSION(2);                            // Tag this firmware as product version 2 (for the Particle cloud).
+PRODUCT_VERSION(1);                            // Tag this firmware as product version 1 (for the Particle cloud).
 SYSTEM_MODE(MANUAL);                           // We control Wi-Fi/cloud connection ourselves (not automatic).
 SerialLogHandler logHandler(LOG_LEVEL_INFO);   // Send Log.info()/warn()/error() messages to the USB serial port.
 
@@ -44,6 +44,7 @@ STARTUP(System.enableFeature(FEATURE_RETAINED_MEMORY));   // Turn on "retained" 
 // ============================================================ Timing constants
 // "const unsigned long" = a fixed whole-number value that never changes at run time.
 const unsigned long DEBOUNCE_TIME            = 300;    // Ignore button presses closer than 300 ms apart (debounce).
+const unsigned long LONG_PRESS_MS            = 3000;   // Hold MODE_PIN this long to reset the lifetime gallons tally.
 const unsigned long SHUTOFF_TIMER_MS         = 10000;  // The valve power stays on for 10,000 ms (10 s) per action.
 const unsigned long WIFI_CONNECT_TIMEOUT_MS  = 20000;  // Give Wi-Fi up to 20 s to connect.
 const unsigned long CELL_CONNECT_TIMEOUT_MS  = 90000;  // Give cellular up to 90 s to connect (it's slower).
@@ -51,6 +52,12 @@ const unsigned long PARTICLE_DISCONNECT_MS   = 5000;   // Wait up to 5 s for a c
 const unsigned long PARTICLE_CONNECT_MS      = 30000;  // Wait up to 30 s for the cloud connection.
 const unsigned long SERIAL_CONNECT_MS        = 8000;   // Wait up to 8 s for the USB serial monitor at boot.
 const unsigned long INITIAL_HOLD_POLL_MS     = 2000;   // In the PIC's cold-boot hold: poll the meter every 2 s (spec: ~1-3 s).
+const unsigned long OTA_MAX_WAIT_MS          = 300000; // Cap (5 min) on how long a session holds power for an in-progress
+                                                       //   OTA download to finish before ending the session anyway.
+const float HOURLY_BIN_COARSE_MAX_SEC        = 3600.0f; // A batch spanning less than this (its "trtx period") is too
+                                                       //   short to place sub-hour -- bin the whole batch into the
+                                                       //   current hour. At/above this, bin each sample into its own
+                                                       //   real hour (see ingestPicBatch()).
 const unsigned long INITIAL_HOLD_PUBLISH_MS  = 60000;  // Min gap between sensorData publishes during the hold (60 s).
 const unsigned long STATE_CHANGE_DELAY_MS    = 500;    // A short 0.5 s pause used around state changes.
 // "Magic numbers" are unique tags we store in EEPROM to recognize OUR saved data.
@@ -126,10 +133,15 @@ retained PicParams    picParams          = {PIC_LEAK1_COUNTS_DFLT, PIC_LEAK1_WIN
                                             PIC_LEAK2_COUNTS_DFLT, PIC_LEAK2_WINDOW_DFLT};  // initialized to defaults.
 retained bool         picParamsDirty     = true;   // SET_PARAM to PIC on next contact
                                                    //   true = we still owe the PIC a fresh write of these params.
-retained float        dailyGallons       = 0.0f;   // Total gallons used so far today.
-retained float        hourlyData[24]     = {0.0f}; // Gallons used in each of the 24 hours of the current day.
-retained int          lastHourIngested   = -1;     // The hour of the last sample we processed (-1 = none yet).
-retained int          lastDayIngested    = -1;     // The day of the last sample we processed (-1 = none yet).
+retained float        dailyGallons       = 0.0f;   // Total gallons used so far today (in-progress, local UTC-8 day).
+retained float        lifetimeGallons    = 0.0f;   // Running total since install; never reset by day/hour rollovers --
+                                                   //   only a MODE_PIN long-press (see serviceButton()) zeroes this.
+retained float        hourlyData[24]     = {0.0f}; // Gallons used in each of the 24 hours of the current (in-progress) local day.
+retained float        prevDayHourly[24]  = {0.0f}; // Completed prior local day's 24 hourly buckets, queued for the next publish.
+retained uint32_t     prevDayMidnightUtc = 0;       // UTC epoch of local (UTC-8) midnight that starts the day prevDayHourly covers.
+retained bool         prevDayPending     = false;   // true once a completed day is snapshotted and awaiting publish (one period behind).
+retained int          lastHourIngested   = -1;     // The hour (local UTC-8) of the last sample we processed (-1 = none yet).
+retained int          lastDayIngested    = -1;     // The day (local UTC-8, day-of-month) of the last sample we processed (-1 = none yet).
 retained uint32_t     leakingEventCount  = 0;      // How many leak events happened since the last publish.
 retained uint32_t     shutoffEventCount  = 0;      // How many valve-shutoff events since the last publish.
 retained uint32_t     overflowEventCount = 0;      // How many overflow events since the last publish.
@@ -185,9 +197,12 @@ SystemState currentState = STATE_STARTUP;        // We begin in the STARTUP phas
 bool initialHold = false;                        // True if the PIC reported its initial cold-boot power-hold at boot.
 
 bool          lastButtonState = false;           // The button's state on the previous loop (to detect a new press).
-unsigned long lastPressTime   = 0;               // When the button was last accepted as pressed (for debounce).
+unsigned long lastPressTime   = 0;               // millis() when the current press started (also serves as debounce).
+bool          longPressFired  = false;           // true once the current hold has already fired the long-press action.
 volatile bool resetShutoff    = false;           // Set by a timer to request auto-clearing the shutoff ("volatile" = set in a callback).
 volatile bool triggerPublish  = false;           // Set anywhere to request a cloud publish soon.
+volatile bool otaActive       = false;           // true from firmware_update_begin until complete/failed (set in onFirmwareUpdateEvent,
+                                                 //   a Device OS system-event callback -- "volatile" because it's set outside loop()).
 
 unsigned long sleepStart    = 0;                 // When the current awake window started.
 unsigned long lastWakeTime  = 0;                 // When we last woke from sleep.
@@ -221,7 +236,7 @@ void syncBackupRam();                            // Flush retained RAM to flash 
 static float freqToGpm(float freq);              // Convert a flow-sensor frequency (Hz) into gallons-per-minute.
 void ingestPicBatch(const PicSample *s, int n, const PicReportInfo &info);  // Process a batch; info carries the V051 header totals.
 void serviceMeterFromPic(bool picInitiated);     // Pull and process data from the PIC.
-void accumulateHourly(int hr, int day, float gallons);   // Add gallons into the right hourly bucket.
+void accumulateHourly(int hr, int day, float gallons, uint32_t tsEndUtc);   // Bin gallons into the right hourly bucket.
 void appendIntervalSample(float gpm);            // Store one reading in the interval logger.
 bool senseLeak(uint32_t tsUtc, float gpm);       // Decide whether the current reading indicates a leak.
 void onLeakDetected();                           // React to a detected leak (count, maybe shut off, maybe alert).
@@ -237,9 +252,12 @@ int  syncPic(String cmd);                        // Cloud function: force-push c
 bool pushPicParams();                            // Send the cached PIC params to the PIC; return true on ACK.
 void readValveStatus();                          // Read and remember the PIC valve status.
 void publishIntervalDataChunks();                // Publish the interval logger to the cloud in chunks.
+void serviceButton();                            // Poll MODE_PIN: short press = publish now, long press = reset lifetime gallons.
 void restartSleepTimer(const char *reason);      // Reset the awake window (called whenever activity happens).
 void runSleep();                                 // No-op under power-gating (kept for reference/compat).
 void endSession();                               // Finish the session: go idle and let the PIC cut power.
+void onFirmwareUpdateEvent(system_event_t event, int param);   // Device OS OTA callback; tracks otaActive.
+void waitForOtaIfActive();                       // Hold the session (PIC keepalives + Particle.process()) while an OTA downloads.
 #if USE_WIFI                                     // Only on Wi-Fi boards...
 int  setWiFi(String cmd);  int clearWiFi(String cmd);   // Cloud functions: set/clear Wi-Fi credentials.
 #endif                                           // End Wi-Fi-only prototypes.
@@ -481,29 +499,59 @@ bool senseLeak(uint32_t tsUtc, float gpm) {
 }
 
 // =============================================================== PIC ingest
-// ASSUMPTION (documented in README): the batch is a contiguous run of samples,
-// each spanning PIC_SAMPLE_INTERVAL_SEC, the last one ending at the most recent
-// interval boundary <= now. If the PIC stamps real times, replace this mapping.
+// Timestamps are reconstructed, not PIC-supplied (the protocol carries no per-
+// sample clock time -- see PicSample in pic_link.h). 'capSec' is the PIC's REAL,
+// LIVE-SYNCED capture interval (RSP_PHOTON_CFG 0x09 at boot; see requestPicConfig()),
+// the same value the GPM/gallons math below already uses -- NOT the compile-time
+// PIC_SAMPLE_INTERVAL_SEC, which goes stale the moment the PIC's own timing is
+// retuned (App_Config_Photon.h derives it from the PIC's capture config precisely
+// so it can be retuned without a Photon rebuild).
+//
+// Binning policy (Kevin, 2026-07-10): a batch's real span ("trtx period") =
+// n * capSec, i.e. how much wall-clock time this whole report actually covers.
+//   < 1 hour : too short to place sub-hour -- bin the WHOLE batch into the
+//              current hour (Time.hour/day(now)).
+//   >= 1 hour: bin each sample into its own real hour, walking forward from the
+//              last-ingested hour using its reconstructed timestamp -- this is
+//              exact now that capSec is correct, so no separate "hourly chunk"
+//              step is needed on top of it.
+//   >= 24 h  : the per-sample walk above crosses one (or more) local midnights;
+//              accumulateHourly() queues each completed day (prevDayHourly /
+//              prevDayPending) so imuPublish() sends it one period behind. NOTE:
+//              if a single batch spans TWO midnights, only the most recently
+//              completed day survives to be published (a Log.warn fires for the
+//              older one, matching the "prior queued day never published"
+//              path) -- flag this if a fleet configuration can realistically
+//              deliver 48 h+ in one un-truncated batch.
 void ingestPicBatch(const PicSample *s, int n, const PicReportInfo &info) {
   if (n <= 0) return;                             // Nothing to do if the batch is empty.
   if (!Time.isValid()) { Log.warn("PIC: time invalid, dropping batch"); return; }   // Need a valid clock to place samples.
 
-  uint32_t now = Time.now();                      // Current UTC time in seconds.
-  uint32_t endBoundary = (now / PIC_SAMPLE_INTERVAL_SEC) * PIC_SAMPLE_INTERVAL_SEC;   // Most recent 60-s boundary <= now.
+  uint32_t now    = Time.now();                   // Current UTC time in seconds.
+  float    capSec = g_cfg.captureIntervalSecF;     // Live, PIC-synced real capture period (seconds).
+
+  float trtxPeriodSec = (float)n * capSec;         // Real elapsed time this whole batch spans.
+  bool  coarseBin = (trtxPeriodSec < HOURLY_BIN_COARSE_MAX_SEC);   // < 1 h -> bulk-bin to current hour.
+  int   curHr  = Time.hour(now);                   // Used only in the coarse case (same for every sample).
+  int   curDay = Time.day(now);
+  if (coarseBin) {
+    Log.info("PIC batch spans %.0f s (<1h) -- binning entirely into the current hour (%d)",
+             trtxPeriodSec, curHr);
+  }
 
   bool     flowSeen   = false;                    // any sample in this batch shows water moving
   uint32_t lastFlowTs = 0;                        // epoch of the most recent flowing sample
   uint32_t sentPulses = 0;                        // sum of received sample pulses (for missed-fill)
 
   for (int k = 0; k < n; k++) {                   // Loop over every sample in the batch.
-    uint32_t tsEnd = endBoundary - (uint32_t)(n - 1 - k) * PIC_SAMPLE_INTERVAL_SEC;
+    uint32_t tsEnd = now - (uint32_t)((float)(n - 1 - k) * capSec + 0.5f);
                                                   //   Compute each sample's end-time: the last sample ends at
-                                                  //   endBoundary, earlier samples step back 60 s each.
+                                                  //   now, earlier samples step back capSec each (rounded).
 
-    float freq    = (float)s[k].pulses / g_cfg.captureIntervalSecF; // Hz (PIC-supplied interval)
+    float freq    = (float)s[k].pulses / capSec;  // Hz (PIC-supplied, live-synced interval)
                                                   //   Frequency = pulses counted / seconds in the interval.
     float gpm     = freqToGpm(freq);              // Convert that frequency to gallons-per-minute.
-    float gallons = gpm * (g_cfg.captureIntervalSecF / 60.0f) / FLOW_C4;   // Gallons used in this interval (PIC-supplied interval).
+    float gallons = gpm * (capSec / 60.0f) / FLOW_C4;   // Gallons used in this interval.
 
     // Show each received measurement so the raw data is visible in the log
     // (not just the batch count and the running daily total). Gated by
@@ -516,10 +564,12 @@ void ingestPicBatch(const PicSample *s, int n, const PicReportInfo &info) {
 
     if (gpm >= FLOW_ACTIVE_GPM) { flowSeen = true; lastFlowTs = tsEnd; }   // If flowing, remember it and the time.
 
-    int hr  = Time.hour(tsEnd);                   // Which hour-of-day this sample ends in.
-    int day = Time.day(tsEnd);                    // Which day-of-month this sample ends in.
-    accumulateHourly(hr, day, gallons);           // Add the gallons into the correct hourly bucket.
-    dailyGallons += gallons;                      // Add to the running daily total.
+    if (coarseBin)                                // < 1 h batch -> everything lands in the current hour.
+      accumulateHourly(curHr, curDay, gallons, now);
+    else                                           // >= 1 h batch -> each sample's own real hour.
+      accumulateHourly(Time.hour(tsEnd), Time.day(tsEnd), gallons, tsEnd);
+    dailyGallons    += gallons;                   // Add to the running daily total.
+    lifetimeGallons += gallons;                   // Add to the never-reset lifetime total.
     sentPulses   += s[k].pulses;                  // Track received pulses for the missed-fill reconciliation.
 
     if (senseLeak(tsEnd, gpm)) onLeakDetected();  // Run the leak detector; react if it says "leak".
@@ -555,12 +605,13 @@ if (g_cfg.missedFillMode == PIC_MISSED_FILL_AVERAGE) {
       // per-sample series is never fabricated.
       uint32_t spanCaps = (missedCaptures > 0u) ? missedCaptures : (uint32_t)n;
       if (spanCaps == 0u) spanCaps = 1u;
-      float avgFreq = (float)missedPulses / (float)spanCaps / g_cfg.captureIntervalSecF;
+      float avgFreq = (float)missedPulses / (float)spanCaps / capSec;
       float avgGpm  = freqToGpm(avgFreq);
       float missedGallons = avgGpm
-                          * ((float)spanCaps * g_cfg.captureIntervalSecF / 60.0f)
+                          * ((float)spanCaps * capSec / 60.0f)
                           / FLOW_C4;
-      dailyGallons += missedGallons;                 // total preserved
+      dailyGallons    += missedGallons;               // total preserved
+      lifetimeGallons += missedGallons;               // lifetime total preserved too
       if (missedCaptures > 0u) {                     // skipped span: give the hourly view a flat average
         float per = missedGallons / 24.0f;
         for (int i = 0; i < 24; i++) hourlyData[i] += per;
@@ -599,8 +650,37 @@ if (g_cfg.missedFillMode == PIC_MISSED_FILL_AVERAGE) {
   }
 }
 
+// UTC epoch of local (UTC-8, per Time.zone() set in setup()) midnight for the
+// calendar day that 'utcEpoch' falls in. Used to timestamp which day a 24-entry
+// hourly snapshot belongs to, independent of which hour-of-day it's computed at.
+static uint32_t localMidnightUtc(uint32_t utcEpoch) {
+  return utcEpoch - ((uint32_t)Time.hour(utcEpoch) * 3600UL
+                    + (uint32_t)Time.minute(utcEpoch) * 60UL
+                    + (uint32_t)Time.second(utcEpoch));
+}
+
 // Add 'gallons' into the bucket for hour 'hr'; also handle hour/day rollovers.
-void accumulateHourly(int hr, int day, float gallons) {
+//
+// A connect session pulls up to ~24 h of PIC samples in one pass, so ingest
+// commonly crosses exactly one local midnight. Since hourlyData is reset at
+// that boundary (so the new day starts from zero), a rollover mid-batch used
+// to wipe out the day that just finished before it was ever published -- the
+// evening hours accumulated earlier in this same batch (or in prior sessions
+// since the last rollover) vanished. Instead, snapshot the completed day into
+// prevDayHourly/prevDayPending before clearing; imuPublish() then sends that
+// completed day (one period behind) when pending, or the live in-progress day
+// otherwise (fine for sub-24 h reports, which never cross a midnight).
+
+// The bug: since a session pulls ~24h of PIC data in one pass, ingest almost always crosses exactly one local midnight. The old code cleared hourlyData[] the instant it saw hr==0 && day changed — mid-batch — which wiped out the evening hours of the day that had just finished before that day was ever published. Only the fragment of the new day survived to be published.
+// 7/10/26 - 
+// Added prevDayHourly[24] / prevDayPending / prevDayMidnightUtc (retained).
+// At a midnight rollover, the completed day is snapshotted into prevDayHourly (tagged with its local-midnight UTC epoch) before hourlyData is cleared, instead of being discarded.
+// selectHourlyForPublish() (leaksense.cpp:766-773) picks prevDayHourly (marked hourlyFinal=1) whenever a completed day is queued — sending it one period behind — or the live hourlyData (hourlyFinal=0) when no rollover occurred, which is correct for sub-24h reports.
+// imuPublish() now publishes whichever buffer was selected, adds hourlyDayUtc/hourlyFinal to the JSON so the cloud side can tell which calendar day the array belongs to, and clears prevDayPending only once that day is actually sent.
+// printHourlyFlow() uses the same selection so the USB debug line always matches what gets published.
+// If a second rollover happens before the queued day is published (missed session), it's overwritten but logged with a warning rather than silently vanishing.
+
+void accumulateHourly(int hr, int day, float gallons, uint32_t tsEndUtc) {
   if (lastHourIngested == -1) {                   // first ever sample
     lastHourIngested = hr;                        //   Remember this hour as the starting point.
     lastDayIngested  = day;                       //   ...and this day.
@@ -609,7 +689,16 @@ void accumulateHourly(int hr, int day, float gallons) {
              lastHourIngested, hourlyData[lastHourIngested], hr);
     if (hr == 0 && day != lastDayIngested) {      // midnight rollover
                                                   //   New hour is 0 AND the day changed = a new calendar day began.
-      Log.info("Midnight: daily=%.2f gal reset", dailyGallons);   // Log the day's final total before clearing.
+      if (prevDayPending) {                        // previous snapshot was never published (e.g. a missed/failed
+                                                  //   session) -- log it so the gap is visible, then overwrite.
+        float lostTotal = 0.0f;
+        for (int i = 0; i < 24; i++) lostTotal += prevDayHourly[i];
+        Log.warn("Hourly: prior queued day (daily=%.2f gal) never published -- overwriting", lostTotal);
+      }
+      Log.info("Midnight: daily=%.2f gal reset -> queued for next publish", dailyGallons);
+      memcpy(prevDayHourly, hourlyData, sizeof(hourlyData));   // snapshot the completed day...
+      prevDayMidnightUtc = localMidnightUtc(tsEndUtc) - 86400UL;   // ...and tag which local day it was.
+      prevDayPending = true;                        // Queue it; the next publish sends this, not the new day.
       for (int i = 0; i < 24; i++) hourlyData[i] = 0.0f;   // Clear all 24 hourly buckets for the new day.
       dailyGallons = 0.0f;                         // ONLY reset here (doc 1 bug fixed)
                                                   //   Reset the daily total (this is the single correct place to do it).
@@ -662,8 +751,9 @@ void serviceLocalMeter() {
   if (gpm > 0 && Time.isValid()) {                // Only proceed if there is real flow and a valid clock.
     uint32_t now = Time.now();                    // Current UTC time.
     float gallons = gpm * ((nowMs - lastCalc) / 60000.0f) / FLOW_C4;   // Gallons over the elapsed minutes (ms/60000).
-    accumulateHourly(Time.hour(now), Time.day(now), gallons);   // Add into the right hourly bucket.
-    dailyGallons += gallons;                      // Add to the daily total.
+    accumulateHourly(Time.hour(now), Time.day(now), gallons, now);   // Add into the right hourly bucket.
+    dailyGallons    += gallons;                   // Add to the daily total.
+    lifetimeGallons += gallons;                   // Add to the never-reset lifetime total.
     if (senseLeak(now, gpm)) onLeakDetected();    // Run the leak detector and react if needed.
   }
   lastCalc = nowMs;                               // Remember this time for the next gallons calculation.
@@ -727,6 +817,22 @@ void imuPrint() {
 // Round a value to one decimal place (e.g. 1.27 -> 1.3). Used to shrink published numbers.
 static inline float roundTenth(float v) { return floorf(v * 10.0f + 0.5f) / 10.0f; }   // *10, round, /10.
 
+// Choose which 24-entry hourly snapshot the NEXT publish should send: a
+// completed prior local day queued by accumulateHourly()'s midnight rollover
+// (sent one period behind), or the still in-progress current day when no
+// rollover has happened since the last publish (fine for sub-24 h reports,
+// which never cross a local midnight).
+static const float *selectHourlyForPublish(uint32_t *dayMidnightUtcOut, bool *finalOut) {
+  if (prevDayPending) {                           // A completed day is queued...
+    *dayMidnightUtcOut = prevDayMidnightUtc;      //   ...report which local day it covers...
+    *finalOut = true;                             //   ...and mark it as the final (complete) tally.
+    return prevDayHourly;
+  }
+  *dayMidnightUtcOut = Time.isValid() ? localMidnightUtc(Time.now()) : 0;   // today's local midnight, best effort
+  *finalOut = false;                              // still accumulating -> not final.
+  return hourlyData;
+}
+
 // Echo the hourly-flow summary over USB CDC: the 24 hour buckets + the daily total, using
 // the SAME rounding the cloud uses (roundTenth, one decimal) so the USB line matches the
 // published "hourlyGallons" array exactly. Call this AFTER cloud connect + ingest so the
@@ -734,14 +840,20 @@ static inline float roundTenth(float v) { return floorf(v * 10.0f + 0.5f) / 10.0
 // values. Used in both builds: the cloud build's imuPublish() also sends these up; this
 // line just makes them directly visible on the serial monitor for the test.
 void printHourlyFlow() {
+  uint32_t dayUtc; bool final;
+  const float *pub = selectHourlyForPublish(&dayUtc, &final);   // same buffer imuPublish() is about to send.
+
   char buf[200];                                  // Holds up to 24 comma-separated "%.1f" values.
   int  pos = 0;
+  float total = 0.0f;
   for (int i = 0; i < 24 && pos < (int)sizeof(buf) - 12; i++) {   // Leave margin for one more field + null.
     pos += snprintf(buf + pos, sizeof(buf) - pos,
-                    (i == 0) ? "%.1f" : ",%.1f", roundTenth(hourlyData[i]));   // hh=0 has no leading comma.
+                    (i == 0) ? "%.1f" : ",%.1f", roundTenth(pub[i]));   // hh=0 has no leading comma.
+    total += pub[i];
   }
-  Log.info("hourlyGallons[24]=[%s] dailyGal=%.1f",   // Same numbers the cloud publishes.
-           buf, roundTenth(dailyGallons));
+  Log.info("hourlyGallons[24]=[%s] dailyGal=%.1f%s lifetimeGal=%.1f",   // Same numbers the cloud publishes.
+           buf, roundTenth(total), final ? " [prior day, one period behind]" : " [current day]",
+           roundTenth(lifetimeGallons));
 }
 
 // =============================================================== Publishing
@@ -808,6 +920,10 @@ void imuPublish() {
 #endif
   }
 
+  uint32_t pubDayUtc; bool pubFinal;               // Which day this publish reports, and whether it's the
+  const float *pubHourly = selectHourlyForPublish(&pubDayUtc, &pubFinal);   // completed prior day (queued by a
+                                                  // midnight rollover) or the still-in-progress current day.
+
   JsonWriterStatic<512> jw;                       // A 512-byte JSON builder for the status message.
   {                                               // Inner scope so the JSON object auto-finishes.
      JsonWriterAutoObject obj(&jw);                // Begin the JSON object.
@@ -838,8 +954,11 @@ void imuPublish() {
     //   jw.insertKeyValue("valveTempLocks",(int)lastValve.temp_lock_count);// Cumulative temp-lock count.
     // }
     jw.insertKeyArray("hourlyGallons");           // Begin an array "hourlyGallons": [ ... ].
-    for (int i = 0; i < 24; i++) jw.insertArrayValue(roundTenth(hourlyData[i]));   // Add each hour's gallons (1 decimal).
+    for (int i = 0; i < 24; i++) jw.insertArrayValue(roundTenth(pubHourly[i]));   // Add each hour's gallons (1 decimal).
     jw.finishObjectOrArray();                     // Close the hourlyGallons array.
+    jw.insertKeyValue("hourlyDayUtc", (int)pubDayUtc);   // UTC epoch of local (UTC-8) midnight this array covers.
+    jw.insertKeyValue("hourlyFinal", (int)pubFinal);     // 1 = a completed prior day (one period behind); 0 = current day so far.
+    jw.insertKeyValue("lifetimeGal", roundTenth(lifetimeGallons));   // Never-reset total; MODE_PIN long-press zeroes it.
 
     if (g_cfg.fastBench) {
       jw.insertKeyValue("rssi", (int)0);          // Bench: no radio; placeholder so the payload shape matches.
@@ -866,6 +985,7 @@ void imuPublish() {
 
   cloudEmit("sensorData", jw.getBuffer());        // Cloud: publish + log; bench: log the exact payload (no transmit).
   // publishIntervalDataChunks();                    // Then publish/log the detailed interval logger in chunks.
+  if (pubFinal) prevDayPending = false;           // The queued prior day was just sent -- stop reporting it again.
 
   // Roll to a fresh UTC-day window after a full-day buffer was sent.
   if (gMeter.count >= MAX_SAMPLES) {              // If the logger filled a whole day...
@@ -1168,6 +1288,58 @@ void endSession() {
   Log.info("SESSION ended -> idle; awaiting power-off from PIC");   // Announce we're done.
 }
 
+// =============================================================== OTA (firmware update)
+// Device OS applies OTA updates on its own via Particle.process() -- the app just
+// has to (a) stay connected/powered long enough for the download to finish and
+// (b) not tell the PIC to cut power out from under it. This callback tracks
+// whether a download is currently in flight; see waitForOtaIfActive().
+void onFirmwareUpdateEvent(system_event_t event, int param) {
+  if (param == firmware_update_begin) {
+    otaActive = true;
+    Log.info("OTA: download starting");
+  } else if (param == firmware_update_complete) {
+    otaActive = false;
+    Log.info("OTA: download complete -- device will reset to apply it");
+  } else if (param == (int)firmware_update_failed) {
+    otaActive = false;
+    Log.warn("OTA: download failed");
+  }                                                // else firmware_update_progress, etc. -- still active, nothing to do.
+}
+
+// Called right before a session would normally end (send PKT_PHOTON_OFF_REQ).
+// If Device OS is mid-download, ending the session here would cut our own power
+// and abort it every single session -- the update would never land. Hold the
+// session open instead: keep servicing the cloud connection (Particle.process())
+// and keep petting the PIC's idle backstop with keepalives (the same trick
+// handleConnecting() uses), until the update finishes/fails or OTA_MAX_WAIT_MS
+// elapses, whichever comes first.
+//
+// NOT verified against real hardware: the PIC's power-cutoff behavior beyond the
+// documented ~20 s idle / ~90 s no-packet backstops isn't visible from the Photon
+// side. Confirm on the bench that the PIC tolerates a multi-minute hold before
+// relying on this for a fleet OTA push.
+void waitForOtaIfActive() {
+  if (!otaActive) return;
+
+  Log.info("OTA: in progress -- deferring PHOTON_OFF (up to %lu s)",
+           (unsigned long)(OTA_MAX_WAIT_MS / 1000));
+  uint32_t waitStart = millis();
+  uint32_t lastKeepalive = 0;
+  while (otaActive && (millis() - waitStart) < OTA_MAX_WAIT_MS) {
+    Particle.process();                           // keep servicing the download
+    if (millis() - lastKeepalive >= KEEPALIVE_INTERVAL_MS) {
+      lastKeepalive = millis();
+      picLink.sendKeepalive();                     // hold PIC power through the wait
+    }
+    delay(50);
+  }
+  if (otaActive)
+    Log.warn("OTA: still in progress after %lu s -- ending session anyway",
+             (unsigned long)(OTA_MAX_WAIT_MS / 1000));
+  else
+    Log.info("OTA: finished -- resuming normal session end");
+}
+
 // In the CONNECTING phase: once the network + cloud are ready, move to the report
 // (MONITORING) phase. If the cloud is NOT reachable within the 80 s budget, tell
 // the PIC why with OFF_REASON_CLOUD_FAIL *before* its 90 s cutoff, then go idle.
@@ -1300,6 +1472,8 @@ void handleMonitoring() {
                                                   //   over USB-CDC (no transmit) so all cloud-bound data is visible.
   persistAll();                                   // Flush RAM buffers to flash before power is cut.
   triggerPublish = false;                         // Report delivered.
+
+  waitForOtaIfActive();                           // Don't cut power out from under an in-progress OTA download.
 
   // 4) Done with all business -> ask the PIC to cut our power. Sending 0x07 here
   //    (rather than waiting for the PIC's 20 s idle backstop) is the normal, clean
@@ -1449,6 +1623,9 @@ void setup() {
   Particle.function("clearWiFi", clearWiFi);      // (Wi-Fi only) clear credentials.
 #endif
 
+  System.on(firmware_update, onFirmwareUpdateEvent);   // Track OTA downloads so handleMonitoring() can hold the
+                                                       //   session open instead of cutting power mid-download.
+
 #if USE_IMU
   if (!imuInit()) Log.error("IMU init failed");   // Initialize the real IMU; log if it fails.
   calibrateGyroscope();                           // Calibrate the gyro's resting bias.
@@ -1525,11 +1702,47 @@ void setup() {
   }
 }
 
+// =============================================================== MODE button
+// MODE_PIN (A1) only does anything while the Photon happens to be powered --
+// under power-gating that's whatever window the PIC has already granted for a
+// normal session, so this does not itself wake the device. Within that window:
+//   short press (released before LONG_PRESS_MS) -> an extra publish right now,
+//     on top of the one every session already sends at its normal end.
+//   long press  (held >= LONG_PRESS_MS)          -> zero the lifetime gallons
+//     tally, then publish immediately so the reset is visible on the dashboard.
+// Debounced/edge-detected with the existing lastButtonState/lastPressTime.
+void serviceButton() {
+  bool pressed = (digitalRead(MODE_PIN) == LOW);   // INPUT_PULLUP: pressed pulls the pin LOW.
+  unsigned long nowMs = millis();
+
+  if (pressed && !lastButtonState) {                       // falling edge: press just started.
+    lastPressTime  = nowMs;
+    longPressFired = false;
+  } else if (pressed && lastButtonState && !longPressFired
+             && (nowMs - lastPressTime >= LONG_PRESS_MS)) { // still held past the long-press threshold.
+    longPressFired = true;
+    lifetimeGallons = 0.0f;
+    Log.warn("BUTTON: long press (>= %lu ms) -> lifetime gallons reset to 0",
+             (unsigned long)LONG_PRESS_MS);
+    persistAll();
+    imuPublish();
+  } else if (!pressed && lastButtonState) {                // rising edge: just released.
+    unsigned long heldMs = nowMs - lastPressTime;
+    if (!longPressFired && heldMs >= DEBOUNCE_TIME) {       // real (debounced) short press.
+      Log.info("BUTTON: short press (%lu ms) -> publish now", (unsigned long)heldMs);
+      imuPublish();
+      persistAll();
+    }
+  }
+  lastButtonState = pressed;
+}
+
 // loop() runs over and over after setup(). Under power-gating it drives ONE
 // session (connect -> report -> ask the PIC to cut power), then idles until the
 // PIC removes power. The Photon never sleeps itself anymore.
 void loop() {
   Particle.process();   // Service the cloud link every pass (required in SYSTEM_MODE(MANUAL)).
+  serviceButton();      // Poll MODE_PIN every pass, regardless of session state.
 
   switch (currentState) {                         // Act based on the current session phase.
     case STATE_STARTUP:                           // (STARTUP falls through to CONNECTING.)
