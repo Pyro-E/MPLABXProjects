@@ -51,7 +51,7 @@ const unsigned long PARTICLE_DISCONNECT_MS   = 5000;   // Wait up to 5 s for a c
 const unsigned long PARTICLE_CONNECT_MS      = 30000;  // Wait up to 30 s for the cloud connection.
 const unsigned long SERIAL_CONNECT_MS        = 8000;   // Wait up to 8 s for the USB serial monitor at boot.
 const unsigned long INITIAL_HOLD_POLL_MS     = 2000;   // In the PIC's cold-boot hold: poll the meter every 2 s (spec: ~1-3 s).
-const unsigned long INITIAL_HOLD_PUBLISH_MS  = 60000;  // Min gap between sensorData publishes during the hold (60 s).
+const unsigned long INITIAL_HOLD_PUBLISH_MS  = 60000;  // Min gap between sensorData publishes during the hold (ms).
 const unsigned long STATE_CHANGE_DELAY_MS    = 500;    // A short 0.5 s pause used around state changes.
 // "Magic numbers" are unique tags we store in EEPROM to recognize OUR saved data.
 const uint32_t      FLOW_CAL_MAGIC           = 0x4643414CUL; // "FCAL"  (the bytes spell FCAL in ASCII).
@@ -130,9 +130,11 @@ retained float        dailyGallons       = 0.0f;   // Total gallons used so far 
 retained float        hourlyData[24]     = {0.0f}; // Gallons used in each of the 24 hours of the current day.
 retained int          lastHourIngested   = -1;     // The hour of the last sample we processed (-1 = none yet).
 retained int          lastDayIngested    = -1;     // The day of the last sample we processed (-1 = none yet).
-retained uint32_t     leakingEventCount  = 0;      // How many leak events happened since the last publish.
+retained uint32_t     leakingEventCount  = 0;      // LEAK1 (PIC temp-lock alert): lifetime trip count.
+                                                   //   Reset only by a MODE_PIN long-press (see serviceButton()).
 retained uint32_t     shutoffEventCount  = 0;      // How many valve-shutoff events since the last publish.
-retained uint32_t     overflowEventCount = 0;      // How many overflow events since the last publish.
+retained uint32_t     overflowEventCount = 0;      // LEAK2 (PIC perm-lock alert): lifetime trip count.
+                                                   //   Reset only by a MODE_PIN long-press (see serviceButton()).
 retained unsigned long nextPublishEpoch  = 0;      // UTC time (seconds) of the next scheduled 24 h cloud upload.
 retained uint32_t     nextSampleAtUtc    = 0;      // UTC time of the next expected sampling boundary.
 retained bool         triggerState       = false;  // true while water is actively flowing (keeps us awake).
@@ -630,13 +632,15 @@ void appendIntervalSample(float gpm) {
   gMeter.raw[gMeter.count++] = val;               // Store the value and advance the count by one.
 }
 
-// React to a detected leak: bump counters, optionally shut off the valve, optionally alert.
+// React to this (Photon-side senseLeak()) detector flagging a leak: mark status,
+// optionally shut off the valve, optionally alert. leakingEventCount/
+// overflowEventCount are NOT bumped here -- those are the PIC's real LEAK1/LEAK2
+// alert trips (the ones actually driving the valve lock hardware), accumulated
+// in readValveStatus() instead, so the published counts reflect the PIC's
+// authoritative detection rather than this separate approximation.
 void onLeakDetected() {
-  if (!imu_data.overflow) overflowEventCount++;   // First time seeing overflow this cycle -> count it.
   imu_data.overflow = true;                       // Mark overflow active.
-
-  if (!imu_data.leaking) leakingEventCount++;     // First time seeing a leak this cycle -> count it.
-  imu_data.leaking = true;                        // Mark leaking active.
+  imu_data.leaking  = true;                        // Mark leaking active.
 
   if (appConfig.autoShutoff) {                    // cloud var (3)
     shutoffSwitch("close");                       //   If auto-shutoff is enabled, close the local valve.
@@ -813,8 +817,8 @@ void imuPublish() {
      JsonWriterAutoObject obj(&jw);                // Begin the JSON object.
     jw.insertKeyValue("pf", PLATFORM_STR);  // Board name.
     // jw.insertKeyValue("sensor", imu_data.sensor); // IMU address (0 if none).
-    jw.insertKeyValue("a1Events", (int)leakingEventCount);    // Number of leak events this cycle.
-    jw.insertKeyValue("a2Events", (int)overflowEventCount);  // Number of overflow events this cycle.
+    jw.insertKeyValue("a1Events", (int)leakingEventCount);    // LEAK1 (PIC temp-lock): lifetime trip count.
+    jw.insertKeyValue("a2Events", (int)overflowEventCount);  // LEAK2 (PIC perm-lock): lifetime trip count.
     jw.insertKeyValue("shutoffs", (int)shutoffEventCount);    // Number of shutoff events this cycle.
     // jw.insertKeyValue("temp", imu_data.temperature);         // Current temperature.
     jw.insertKeyValue("Cal", flowCalScale);              // Current flow calibration scale.
@@ -877,7 +881,8 @@ void imuPublish() {
   }
   persistAll();                                   // Save everything to flash now that we've published.
 
-  leakingEventCount = shutoffEventCount = overflowEventCount = 0;   // Clear the per-cycle event counters.
+  shutoffEventCount = 0;   // Clear the per-cycle shutoff counter. leakingEventCount/overflowEventCount are
+                          //   lifetime (LEAK1/LEAK2 tallies) -- NOT reset here; see serviceButton().
 }
 
 // =============================================================== Shutoff valve
@@ -1028,14 +1033,20 @@ int getLeakParams(String cmd) {
 }
 
 // ---- Valve (REQ_GET_VALVE / REQ_VALVE_UNLOCK) ------------------------------
-// Read the PIC valve status and remember it for later publishing/logging.
+// Read the PIC valve status and remember it for later publishing/logging. This
+// is also where the PIC's LEAK1/LEAK2 trips become the lifetime tally: the PIC
+// only reports "tripped since I last told you" (v.leakSinceReport) and clears
+// its own flag right after sending, so the Photon owns accumulating that into
+// leakingEventCount (LEAK1) / overflowEventCount (LEAK2) -- lifetime sums, never
+// reset by a publish, only zeroed by the MODE button (see serviceButton()).
 void readValveStatus() {
   PicValve v;                                     // Holder for the valve status.
   if (picLink.getValve(v)) {                      // If the PIC returns valve status...
     lastValve = v; haveValve = true;              // ...store it and note that we now have valid valve data.
-    Log.info("VALVE pwr=%u ctrl=%u motion=%u lock=0x%02X tempLocks=%lu",   // Log the valve state.
-             v.pwr_pin, v.ctrl_pin, v.motion, v.lock_flags,
-             (unsigned long)v.temp_lock_count);
+    if (v.leakSinceReport & VALVE_LOCK_TEMP) leakingEventCount++;    // LEAK1 tripped since last report.
+    if (v.leakSinceReport & VALVE_LOCK_PERM) overflowEventCount++;   // LEAK2 tripped since last report.
+    Log.info("VALVE pwr=%u ctrl=%u motion=%u lock=0x%02X leakSinceReport=0x%02X",   // Log the valve state.
+             v.pwr_pin, v.ctrl_pin, v.motion, v.lock_flags, v.leakSinceReport);
   }
 }
 

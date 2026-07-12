@@ -139,13 +139,16 @@ struct PicPhotonCfg {
   uint16_t serialDelayMs;     // boot delay before the log burst
 };
 
-struct PicValve {            // RSP_VALVE payload (8 B)
+struct PicValve {            // RSP_VALVE payload (5 B)
                              //   The current state of the PIC's motorized valve.
   uint8_t  pwr_pin;          // VALVE_PWR  level (0/1)     : is valve power on?
   uint8_t  ctrl_pin;         // VALVE_CTRL level (0/1)     : valve direction signal.
   uint8_t  motion;           // 0..6 (see spec 4.3)        : current valve motion state.
-  uint8_t  lock_flags;       // bit0=temp, bit1=perm (0x03=both) : which locks are active.
-  uint32_t temp_lock_count;  // cumulative # of temporary locks   : how many times temp-locked so far.
+  uint8_t  lock_flags;       // bit0=temp, bit1=perm (0x03=both) : which locks are currently ACTIVE.
+  uint8_t  leakSinceReport;  // bit0=LEAK1(temp), bit1=LEAK2(perm) : tripped since the PIC last sent this.
+                             //   Transient -- the PIC clears it right after sending. The Photon owns the
+                             //   lifetime tally (leakingEventCount/overflowEventCount in leaksense.cpp),
+                             //   incrementing once per bit seen set here, reset only by the MODE button.
 };
 
 // Valve lock bit layout (shared by lock_flags and the UNLOCK command).

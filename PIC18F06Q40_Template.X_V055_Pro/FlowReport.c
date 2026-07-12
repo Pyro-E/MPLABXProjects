@@ -299,17 +299,17 @@ void FlowReport_SendParam(void)
 
 void FlowReport_SendValve(void)
 {
-    uint8_t d[8];
-    uint32_t tc = FlowControl_GetTempLockCount();
+    uint8_t d[5];
     d[0] = MValve_OP3_GetPwrPin();
     d[1] = MValve_OP3_GetCtrlPin();
     d[2] = (uint8_t)MValve_OP3_GetMotion();
-    d[3] = FlowControl_GetLockFlags();
-    d[4] = (uint8_t)((tc >> 24) & 0xFFu);
-    d[5] = (uint8_t)((tc >> 16) & 0xFFu);
-    d[6] = (uint8_t)((tc >>  8) & 0xFFu);
-    d[7] = (uint8_t)( tc        & 0xFFu);
-    send_small_packet(PKT_RSP_VALVE, d, 8u);
+    d[3] = FlowControl_GetLockFlags();          /* locks currently ACTIVE */
+    d[4] = FlowControl_GetSinceReportFlags();   /* LEAK1/LEAK2 tripped since last report */
+    send_small_packet(PKT_RSP_VALVE, d, 5u);
+    /* This RSP_VALVE IS the report -- the Photon owns the lifetime LEAK1/LEAK2
+     * tally now (leakingEventCount/overflowEventCount), so clear our transient
+     * since-report flags the moment they've been sent. */
+    FlowControl_ClearSinceReport();
 }
 
 void FlowReport_SendAck(uint8_t echoed_func)

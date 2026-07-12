@@ -59,7 +59,11 @@ static uint16_t s_leak2_window_n = 0;
 static bool     s_temp_locked    = false;
 static uint32_t s_temp_unlock_ms = 0;     /* when temp lock auto-clears   */
 static bool     s_perm_locked    = false;
-static uint32_t s_temp_lock_count = 0;    /* cumulative # of temp locks   */
+
+/* ---- leak trip flags since the last report (no lifetime count kept here --
+ * the Photon does that; see Flow_Control.h) ---- */
+static bool     s_leak1_since_report = false;   /* alert 1 (temp) tripped since last RSP_VALVE */
+static bool     s_leak2_since_report = false;   /* alert 2 (perm) tripped since last RSP_VALVE */
 
 /* track what we last commanded so we only drive the valve on a real change */
 static bool     s_valve_should_close = false;
@@ -133,7 +137,8 @@ void FlowControl_Init(void)
     FlowControl_RecalcDerived();
     s_temp_locked = false;
     s_perm_locked = false;
-    s_temp_lock_count = 0;
+    s_leak1_since_report = false;
+    s_leak2_since_report = false;
     s_valve_should_close = false;
     s_valve_cmd_valid    = false;
 }
@@ -176,7 +181,7 @@ static void evaluate_alerts(void)
             (sum1 >= (uint32_t)s_param.leak1_counts)) {
             s_temp_locked    = true;
             s_temp_unlock_ms = getNowTime();
-            s_temp_lock_count++;
+            s_leak1_since_report = true;
         }
     }
 
@@ -188,6 +193,7 @@ static void evaluate_alerts(void)
         if ((n2 >= s_leak2_window_n) &&
             (sum2 >= (uint32_t)s_param.leak2_counts)) {
             s_perm_locked = true;
+            s_leak2_since_report = true;
         }
     }
 
@@ -251,9 +257,18 @@ uint8_t FlowControl_GetLockFlags(void)
     return f;
 }
 
-uint32_t FlowControl_GetTempLockCount(void)
+uint8_t FlowControl_GetSinceReportFlags(void)
 {
-    return s_temp_lock_count;
+    uint8_t f = 0u;
+    if (s_leak1_since_report) f |= VALVE_LOCK_TEMP_BIT;
+    if (s_leak2_since_report) f |= VALVE_LOCK_PERM_BIT;
+    return f;
+}
+
+void FlowControl_ClearSinceReport(void)
+{
+    s_leak1_since_report = false;
+    s_leak2_since_report = false;
 }
 
 /* ---- unlock command ---- */

@@ -1,7 +1,7 @@
 
 18F06Q40 Memory Summary:
-    Program space        used  2B2Eh ( 11054) of 10000h bytes   ( 16.9%)
-    Data space           used   DCAh (  3530) of  1000h bytes   ( 86.2%)
+    Program space        used  2B22h ( 11042) of 10000h bytes   ( 16.8%)
+    Data space           used   DC8h (  3528) of  1000h bytes   ( 86.1%)
     Configuration bits   used     3h (     3) of     9h words   ( 33.3%)
     EEPROM space         used     0h (     0) of   200h bytes   (  0.0%)
     ID Location space    used     0h (     0) of    40h bytes   (  0.0%)

@@ -251,10 +251,10 @@
   #define TIME_VALVE_TEMP_LOCK_MS  30000UL  /* temp lock holds 30 s in debug */
 #else
   /* production values */
-  #define APP_LEAK1_COUNTS_DEF     100u     /* alert1 threshold counts       */
-  #define APP_LEAK1_WINDOW_S_DEF   300u     /* alert1 window  (8 min)        */
-  #define APP_LEAK2_COUNTS_DEF     1200u     /* alert2 threshold counts       */
-  #define APP_LEAK2_WINDOW_S_DEF   180u     /* alert2 window  (3 min)        */
+  #define APP_LEAK1_COUNTS_DEF     5000u     /* alert1 threshold counts for  leaks   */
+  #define APP_LEAK1_WINDOW_S_DEF   3600u     /* alert1 window for counting (sec)        */
+  #define APP_LEAK2_COUNTS_DEF     1200u     /* alert2 threshold counts for overflows     */
+  #define APP_LEAK2_WINDOW_S_DEF   180u     /* alert2 window for counting (sec)        */
   #define TIME_VALVE_TEMP_LOCK_MS  600000UL /* temp lock holds 10 min        */
 #endif
 

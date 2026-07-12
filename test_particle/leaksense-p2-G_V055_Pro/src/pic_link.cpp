@@ -272,17 +272,16 @@ bool PicLink::setParams(const PicParams &in) {
 // ---- REQ_GET_VALVE -> RSP_VALVE --------------------------------------------
 // Read the valve status into 'out'. Returns true on success.
 bool PicLink::getValve(PicValve &out) {
-  uint8_t  rx[8];                                  // The valve reply is 8 bytes.
+  uint8_t  rx[5];                                  // The valve reply is 5 bytes.
   uint16_t rl = 0;                                 // Will receive the reply length.
   int r = transact(REQ_GET_VALVE, nullptr, 0, RSP_VALVE,   // Send REQ_GET_VALVE, expect RSP_VALVE.
                    rx, sizeof(rx), &rl, PHOTON_TIMEOUT_READ_MS);
-  if (r != PIC_OK || rl != 8) return false;        // Fail if transaction failed or length wasn't 8.
+  if (r != PIC_OK || rl != 5) return false;        // Fail if transaction failed or length wasn't 5.
   out.pwr_pin         = rx[0];                      // Byte 0: valve power pin level (0/1).
   out.ctrl_pin        = rx[1];                      // Byte 1: valve control/direction pin level (0/1).
   out.motion          = rx[2];                      // Byte 2: valve motion state (0..6).
   out.lock_flags      = rx[3];                      // Byte 3: which locks are active (bit0=temp, bit1=perm).
-  out.temp_lock_count = ((uint32_t)rx[4] << 24) | ((uint32_t)rx[5] << 16) |   // Bytes 4-7: rebuild the 32-bit
-                        ((uint32_t)rx[6] << 8)  |  (uint32_t)rx[7];           // cumulative temp-lock counter.
+  out.leakSinceReport = rx[4];                      // Byte 4: LEAK1/LEAK2 tripped since last report (PIC clears after sending).
   return true;                                     // Successfully read the valve status.
 }
 
