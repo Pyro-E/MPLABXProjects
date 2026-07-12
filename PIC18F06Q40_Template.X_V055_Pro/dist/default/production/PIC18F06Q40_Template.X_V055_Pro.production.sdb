@@ -302,9 +302,9 @@ PKT_ST_CRC_LO 7
 [v _FlowReport_SendPowerState FlowReport_SendPowerState `(v  1 e 1 0 ]
 "331
 [v _FlowReport_SendPhotonCfg FlowReport_SendPhotonCfg `(v  1 e 1 0 ]
-"361
+"362
 [v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
-"368
+"369
 [v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
 "21 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
 [v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
@@ -1095,10 +1095,10 @@ PKT_ST_CRC_LO 7
 [v _FlowReport_SendPhotonCfg FlowReport_SendPhotonCfg `(v  1 e 1 0 ]
 {
 "333
-[v FlowReport_SendPhotonCfg@d d `[13]uc  1 a 13 55 ]
+[v FlowReport_SendPhotonCfg@d d `[14]uc  1 a 14 55 ]
 "334
-[v FlowReport_SendPhotonCfg@i i `us  1 a 2 68 ]
-"359
+[v FlowReport_SendPhotonCfg@i i `us  1 a 2 69 ]
+"360
 } 0
 "288
 [v _FlowReport_SendParam FlowReport_SendParam `(v  1 e 1 0 ]
@@ -1117,17 +1117,17 @@ PKT_ST_CRC_LO 7
 [v FlowControl_GetParams@out out `*.39S86  1 p 2 5 ]
 "227
 } 0
-"361 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"362 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
 {
 [v FlowReport_SendNak@reason reason `uc  1 p 1 wreg ]
-"363
+"364
 [v FlowReport_SendNak@d d `uc  1 a 1 56 ]
-"361
+"362
 [v FlowReport_SendNak@reason reason `uc  1 p 1 wreg ]
-"363
+"364
 [v FlowReport_SendNak@reason reason `uc  1 p 1 55 ]
-"365
+"366
 } 1
 "315
 [v _FlowReport_SendAck FlowReport_SendAck `(v  1 e 1 0 ]
@@ -1342,37 +1342,37 @@ PKT_ST_CRC_LO 7
 {
 "152
 } 0
-"368
+"369
 [v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
 {
-"571
+"572
 [v FlowReport_Process@k_1751 k `uc  1 a 1 45 ]
-"531
+"532
 [v FlowReport_Process@k k `uc  1 a 1 44 ]
-"581
+"582
 [v FlowReport_Process@crc crc `[2]uc  1 a 2 24 ]
 [s S1496 . 4 `us 1 grp 2 0 `us 1 pulses 2 2 ]
-"545
+"546
 [v FlowReport_Process@e e `S1496  1 a 4 40 ]
-"548
+"549
 [v FlowReport_Process@raw raw `[3]uc  1 a 3 26 ]
-"509
-[v FlowReport_Process@hdr_1743 hdr `[18]uc  1 a 18 6 ]
 "510
+[v FlowReport_Process@hdr_1743 hdr `[18]uc  1 a 18 6 ]
+"511
 [v FlowReport_Process@p p `uc  1 a 1 50 ]
-"485
+"486
 [v FlowReport_Process@hdr hdr `[5]uc  1 a 5 33 ]
-"482
-[v FlowReport_Process@count count `ul  1 a 4 0 ]
 "483
+[v FlowReport_Process@count count `ul  1 a 4 0 ]
+"484
 [v FlowReport_Process@plen plen `us  1 a 2 38 ]
-"441
-[v FlowReport_Process@cur_total cur_total `ul  1 a 4 46 ]
 "442
+[v FlowReport_Process@cur_total cur_total `ul  1 a 4 46 ]
+"443
 [v FlowReport_Process@cur_caps cur_caps `ul  1 a 4 29 ]
-"439
+"440
 [v FlowReport_Process@backlog backlog `us  1 a 2 4 ]
-"594
+"595
 } 0
 "241
 [v _send_raw send_raw `(v  1 s 1 send_raw ]

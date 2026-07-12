@@ -1494,7 +1494,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "82
 [e = _T0CON1 -> | -> 144 `ui -> 14 `ui `uc ]
 "83
-[e = _TMR0H -> -> 5 `ui `uc ]
+[e = _TMR0H -> -> 114 `ui `uc ]
 "84
 [e = _TMR0L -> -> 0 `ui `uc ]
 "85
@@ -1539,7 +1539,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! != -> . . _PIR3bits 0 7 `i -> 0 `i 1871  ]
 {
 "113
-[e ( _MCU_Time_Advance (1 / + << -> -> 5 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul ]
+[e ( _MCU_Time_Advance (1 / + << -> -> 114 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul ]
 "116
 }
 [e :U 1871 ]

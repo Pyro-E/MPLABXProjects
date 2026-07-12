@@ -325,12 +325,12 @@ void FlowReport_SendPowerState(uint8_t state)
     send_small_packet(PKT_RSP_POWER_STATE, &d, 1u);
 }
 
-/* RSP_PHOTON_CFG : 13-byte config block the Photon reads at boot.
+/* RSP_PHOTON_CFG : 14-byte config block the Photon reads at boot.
  * If PIC_PROVIDES_PHOTON_CFG is undefined we still answer, with provided=0, so
  * the Photon uses its own defaults (and never hangs waiting). */
 void FlowReport_SendPhotonCfg(void)
 {
-    uint8_t d[13];
+    uint8_t d[14];
     uint16_t i = 0;
 
 #ifdef PIC_PROVIDES_PHOTON_CFG
@@ -347,6 +347,7 @@ void FlowReport_SendPhotonCfg(void)
     d[i++] = (uint8_t)( PCFG_CAPTURE_INTERVAL_MS        & 0xFFu);
     d[i++] = (uint8_t)((PCFG_SAMPLES_PER_REPORT >> 8) & 0xFFu);
     d[i++] = (uint8_t)( PCFG_SAMPLES_PER_REPORT       & 0xFFu);
+    d[i++] = (uint8_t)PCFG_REPORT_INTERVAL_HR;
 
     /* B. debug toggles */
     d[i++] = (uint8_t)PCFG_FAST_BENCH;
@@ -355,7 +356,7 @@ void FlowReport_SendPhotonCfg(void)
     d[i++] = (uint8_t)((PCFG_SERIAL_DELAY_MS >> 8) & 0xFFu);
     d[i++] = (uint8_t)( PCFG_SERIAL_DELAY_MS       & 0xFFu);
 
-    send_small_packet(PKT_RSP_PHOTON_CFG, d, i);   /* i == 13 */
+    send_small_packet(PKT_RSP_PHOTON_CFG, d, i);   /* i == 14 */
 }
 
 void FlowReport_SendNak(uint8_t reason)

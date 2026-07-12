@@ -33,7 +33,7 @@
 #include <string.h>     // memset(), strlen(), and similar C string/memory tools.
 #include <math.h>       // sqrtf(), floorf(), and other math functions.
 
-PRODUCT_VERSION(1);                            // Tag this firmware as product version 1 (for the Particle cloud).
+PRODUCT_VERSION(2);                            // Tag this firmware as product version 1 (for the Particle cloud).
 SYSTEM_MODE(MANUAL);                           // We control Wi-Fi/cloud connection ourselves (not automatic).
 SerialLogHandler logHandler(LOG_LEVEL_INFO);   // Send Log.info()/warn()/error() messages to the USB serial port.
 
@@ -140,8 +140,11 @@ retained float        hourlyData[24]     = {0.0f}; // Gallons used in each of th
 retained float        prevDayHourly[24]  = {0.0f}; // Completed prior local day's 24 hourly buckets, queued for the next publish.
 retained uint32_t     prevDayMidnightUtc = 0;       // UTC epoch of local (UTC-8) midnight that starts the day prevDayHourly covers.
 retained bool         prevDayPending     = false;   // true once a completed day is snapshotted and awaiting publish (one period behind).
-retained int          lastHourIngested   = -1;     // The hour (local UTC-8) of the last sample we processed (-1 = none yet).
-retained int          lastDayIngested    = -1;     // The day (local UTC-8, day-of-month) of the last sample we processed (-1 = none yet).
+retained int          lastSlotIngested   = -1;     // Which of the 24 hourlyData[] bins the last sample landed in
+                                                   //   (-1 = none yet). Bin width = hourlyBinWidthHours().
+retained long         lastPeriodIndex    = -1;     // Monotonic local-day-based report-period counter (NOT day-of-
+                                                   //   month -- see hourlyBinWidthHours()); changes exactly once
+                                                   //   per report period (every 1 or 2 local calendar days).
 retained uint32_t     leakingEventCount  = 0;      // LEAK1 (PIC temp-lock alert): lifetime trip count.
                                                    //   Reset only by a MODE_PIN long-press (see serviceButton()).
 retained uint32_t     shutoffEventCount  = 0;      // How many valve-shutoff events since the last publish.
@@ -173,6 +176,7 @@ struct RuntimeCfg {
   bool     fromPic          = false;                       // did the PIC supply these?
   float    captureIntervalSecF = PIC_SAMPLE_INTERVAL_SEC_F;// rate divisor (seconds)
   uint16_t samplesPerReport = (uint16_t)PIC_SAMPLES_PER_REPORT;
+  uint8_t  reportIntervalHr = 24;                          // PIC's REPORT_INTERVAL_HR; drives hourly-bin width.
   bool     fastBench        = (FAST_BENCH_TEST != 0);      // skip cloud (bench)
 #ifdef DEBUG_CDC_DATASERIES
   bool     debugDataseries  = true;
@@ -242,7 +246,7 @@ void syncBackupRam();                            // Flush retained RAM to flash 
 static float freqToGpm(float freq);              // Convert a flow-sensor frequency (Hz) into gallons-per-minute.
 void ingestPicBatch(const PicSample *s, int n, const PicReportInfo &info);  // Process a batch; info carries the V051 header totals.
 void serviceMeterFromPic(bool picInitiated);     // Pull and process data from the PIC.
-void accumulateHourly(int hr, int day, float gallons, uint32_t tsEndUtc);   // Bin gallons into the right hourly bucket.
+void accumulateHourly(float gallons, uint32_t tsEndUtc);   // Bin gallons into the right hourly/period bucket.
 void appendIntervalSample(float gpm);            // Store one reading in the interval logger.
 bool senseLeak(uint32_t tsUtc, float gpm);       // Decide whether the current reading indicates a leak.
 void onLeakDetected();                           // React to a detected leak (count, maybe shut off, maybe alert).
@@ -521,14 +525,16 @@ bool senseLeak(uint32_t tsUtc, float gpm) {
 //              last-ingested hour using its reconstructed timestamp -- this is
 //              exact now that capSec is correct, so no separate "hourly chunk"
 //              step is needed on top of it.
-//   >= 24 h  : the per-sample walk above crosses one (or more) local midnights;
-//              accumulateHourly() queues each completed day (prevDayHourly /
-//              prevDayPending) so imuPublish() sends it one period behind. NOTE:
-//              if a single batch spans TWO midnights, only the most recently
-//              completed day survives to be published (a Log.warn fires for the
-//              older one, matching the "prior queued day never published"
-//              path) -- flag this if a fleet configuration can realistically
-//              deliver 48 h+ in one un-truncated batch.
+//   >= period: the per-sample walk above crosses one (or more) report-period
+//              boundaries (see hourlyBinWidthHours() -- 24 h or 48 h, whatever
+//              REPORT_INTERVAL_HR is set to); accumulateHourly() queues each
+//              completed period (prevDayHourly/prevDayPending) so imuPublish()
+//              sends it one period behind. NOTE: if a single batch spans TWO
+//              period boundaries, only the most recently completed period
+//              survives to be published (a Log.warn fires for the older one,
+//              matching the "prior queued period never published" path) --
+//              flag this if a fleet configuration can realistically deliver
+//              two full report periods in one un-truncated batch.
 void ingestPicBatch(const PicSample *s, int n, const PicReportInfo &info) {
   if (n <= 0) return;                             // Nothing to do if the batch is empty.
   if (!Time.isValid()) { Log.warn("PIC: time invalid, dropping batch"); return; }   // Need a valid clock to place samples.
@@ -538,8 +544,7 @@ void ingestPicBatch(const PicSample *s, int n, const PicReportInfo &info) {
 
   float trtxPeriodSec = (float)n * capSec;         // Real elapsed time this whole batch spans.
   bool  coarseBin = (trtxPeriodSec < HOURLY_BIN_COARSE_MAX_SEC);   // < 1 h -> bulk-bin to current hour.
-  int   curHr  = Time.hour(now);                   // Used only in the coarse case (same for every sample).
-  int   curDay = Time.day(now);
+  int   curHr  = Time.hour(now);                   // Used only for the log line below.
   if (coarseBin) {
     Log.info("PIC batch spans %.0f s (<1h) -- binning entirely into the current hour (%d)",
              trtxPeriodSec, curHr);
@@ -570,10 +575,7 @@ void ingestPicBatch(const PicSample *s, int n, const PicReportInfo &info) {
 
     if (gpm >= FLOW_ACTIVE_GPM) { flowSeen = true; lastFlowTs = tsEnd; }   // If flowing, remember it and the time.
 
-    if (coarseBin)                                // < 1 h batch -> everything lands in the current hour.
-      accumulateHourly(curHr, curDay, gallons, now);
-    else                                           // >= 1 h batch -> each sample's own real hour.
-      accumulateHourly(Time.hour(tsEnd), Time.day(tsEnd), gallons, tsEnd);
+    accumulateHourly(gallons, coarseBin ? now : tsEnd);   // coarse: whole batch -> current bin; else: this sample's own bin.
     dailyGallons    += gallons;                   // Add to the running daily total.
     lifetimeGallons += gallons;                   // Add to the never-reset lifetime total.
     sentPulses   += s[k].pulses;                  // Track received pulses for the missed-fill reconciliation.
@@ -665,54 +667,75 @@ static uint32_t localMidnightUtc(uint32_t utcEpoch) {
                     + (uint32_t)Time.second(utcEpoch));
 }
 
-// Add 'gallons' into the bucket for hour 'hr'; also handle hour/day rollovers.
+// hourlyData[24]/prevDayHourly[24] are fixed at 24 slots, but the PIC's
+// REPORT_INTERVAL_HR (24 or 48; see PicPhotonCfg/requestPicConfig()) sets how
+// much real time one report spans. To keep the array at exactly 24 slots for
+// either cadence, the bin width scales with the report period: 1 h/slot for a
+// 24 h period, 2 h/slot for 48 h -- so binWidthHours * 24 slots always covers
+// exactly one full report period. binWidthHours also equals the period length
+// in local calendar days (both derive from the same "period spans N days"
+// fact), which accumulateHourly() below relies on to detect rollovers.
+static inline int hourlyBinWidthHours() {
+  return (g_cfg.reportIntervalHr >= 48) ? 2 : 1;
+}
+
+// Add 'gallons' into the right hourlyData[] slot for 'tsEndUtc'; also handle
+// report-period rollovers.
 //
-// A connect session pulls up to ~24 h of PIC samples in one pass, so ingest
-// commonly crosses exactly one local midnight. Since hourlyData is reset at
-// that boundary (so the new day starts from zero), a rollover mid-batch used
-// to wipe out the day that just finished before it was ever published -- the
-// evening hours accumulated earlier in this same batch (or in prior sessions
-// since the last rollover) vanished. Instead, snapshot the completed day into
-// prevDayHourly/prevDayPending before clearing; imuPublish() then sends that
-// completed day (one period behind) when pending, or the live in-progress day
-// otherwise (fine for sub-24 h reports, which never cross a midnight).
+// A connect session pulls up to one full report period of PIC samples in one
+// pass, so ingest commonly crosses exactly one period boundary. Since
+// hourlyData is reset at that boundary (so the new period starts from zero), a
+// rollover mid-batch used to wipe out the period that just finished before it
+// was ever published -- the hours accumulated earlier in this same batch (or
+// in prior sessions since the last rollover) vanished. Instead, the completed
+// period is snapshotted into prevDayHourly/prevDayPending before clearing;
+// imuPublish() sends that completed period one period behind (via
+// selectHourlyForPublish(), hourlyFinal=1), or the live in-progress period
+// otherwise (hourlyFinal=0; fine for sub-period reports, which never cross a
+// boundary). If a second rollover happens before the queued period is
+// published (a missed/failed session), it's logged with a warning and
+// overwritten rather than silently vanishing.
+//
+// Slot/period math: 'epochDay' is a continuously-incrementing local calendar
+// day count (unlike Time.day()'s day-of-month, it never resets at a month
+// boundary, so grouping days into periods below can't misfire there).
+// 'periodIndex' groups consecutive days into report-period-sized chunks
+// (hourlyBinWidthHours() days each) so it changes exactly once per period.
+// 'slot' places the sample within the current period's 24 bins, accounting
+// for which day-within-the-period it falls on.
+void accumulateHourly(float gallons, uint32_t tsEndUtc) {
+  int binW = hourlyBinWidthHours();               // hours/slot == period length in local days
+  uint32_t epochDay    = localMidnightUtc(tsEndUtc) / 86400UL;
+  int      dayInPeriod = (int)(epochDay % (uint32_t)binW);
+  int      slot        = (dayInPeriod * 24 + Time.hour(tsEndUtc)) / binW;
+  long     periodIndex = (long)(epochDay / (uint32_t)binW);
 
-// The bug: since a session pulls ~24h of PIC data in one pass, ingest almost always crosses exactly one local midnight. The old code cleared hourlyData[] the instant it saw hr==0 && day changed — mid-batch — which wiped out the evening hours of the day that had just finished before that day was ever published. Only the fragment of the new day survived to be published.
-// 7/10/26 - 
-// Added prevDayHourly[24] / prevDayPending / prevDayMidnightUtc (retained).
-// At a midnight rollover, the completed day is snapshotted into prevDayHourly (tagged with its local-midnight UTC epoch) before hourlyData is cleared, instead of being discarded.
-// selectHourlyForPublish() (leaksense.cpp:766-773) picks prevDayHourly (marked hourlyFinal=1) whenever a completed day is queued — sending it one period behind — or the live hourlyData (hourlyFinal=0) when no rollover occurred, which is correct for sub-24h reports.
-// imuPublish() now publishes whichever buffer was selected, adds hourlyDayUtc/hourlyFinal to the JSON so the cloud side can tell which calendar day the array belongs to, and clears prevDayPending only once that day is actually sent.
-// printHourlyFlow() uses the same selection so the USB debug line always matches what gets published.
-// If a second rollover happens before the queued day is published (missed session), it's overwritten but logged with a warning rather than silently vanishing.
-
-void accumulateHourly(int hr, int day, float gallons, uint32_t tsEndUtc) {
-  if (lastHourIngested == -1) {                   // first ever sample
-    lastHourIngested = hr;                        //   Remember this hour as the starting point.
-    lastDayIngested  = day;                       //   ...and this day.
-  } else if (hr != lastHourIngested) {            // If we've moved into a new hour...
-    Log.info("Hour %d done: %.2f gal -> hour %d",  //   ...log how much the finished hour used.
-             lastHourIngested, hourlyData[lastHourIngested], hr);
-    if (hr == 0 && day != lastDayIngested) {      // midnight rollover
-                                                  //   New hour is 0 AND the day changed = a new calendar day began.
+  if (lastSlotIngested == -1) {                   // first ever sample
+    lastSlotIngested = slot;                      //   Remember this bin as the starting point.
+    lastPeriodIndex  = periodIndex;                //   ...and this period.
+  } else if (slot != lastSlotIngested) {          // If we've moved into a new bin...
+    Log.info("Bin %d done: %.2f gal -> bin %d",    //   ...log how much the finished bin used.
+             lastSlotIngested, hourlyData[lastSlotIngested], slot);
+    if (periodIndex != lastPeriodIndex) {          // report-period rollover
+                                                  //   New bin AND the period changed = a new report period began.
       if (prevDayPending) {                        // previous snapshot was never published (e.g. a missed/failed
                                                   //   session) -- log it so the gap is visible, then overwrite.
         float lostTotal = 0.0f;
         for (int i = 0; i < 24; i++) lostTotal += prevDayHourly[i];
-        Log.warn("Hourly: prior queued day (daily=%.2f gal) never published -- overwriting", lostTotal);
+        Log.warn("Hourly: prior queued period (daily=%.2f gal) never published -- overwriting", lostTotal);
       }
-      Log.info("Midnight: daily=%.2f gal reset -> queued for next publish", dailyGallons);
-      memcpy(prevDayHourly, hourlyData, sizeof(hourlyData));   // snapshot the completed day...
-      prevDayMidnightUtc = localMidnightUtc(tsEndUtc) - 86400UL;   // ...and tag which local day it was.
-      prevDayPending = true;                        // Queue it; the next publish sends this, not the new day.
-      for (int i = 0; i < 24; i++) hourlyData[i] = 0.0f;   // Clear all 24 hourly buckets for the new day.
+      Log.info("Period done: daily=%.2f gal reset -> queued for next publish", dailyGallons);
+      memcpy(prevDayHourly, hourlyData, sizeof(hourlyData));   // snapshot the completed period...
+      prevDayMidnightUtc = localMidnightUtc(tsEndUtc) - (uint32_t)binW * 86400UL;   // ...and tag when it started.
+      prevDayPending = true;                        // Queue it; the next publish sends this, not the new period.
+      for (int i = 0; i < 24; i++) hourlyData[i] = 0.0f;   // Clear all 24 bins for the new period.
       dailyGallons = 0.0f;                         // ONLY reset here (doc 1 bug fixed)
                                                   //   Reset the daily total (this is the single correct place to do it).
     }
-    lastHourIngested = hr;                        // Update the "current hour" marker.
-    lastDayIngested  = day;                       // Update the "current day" marker.
+    lastSlotIngested = slot;                        // Update the "current bin" marker.
+    lastPeriodIndex  = periodIndex;                 // Update the "current period" marker.
   }
-  hourlyData[hr] += gallons;                      // Finally, add the gallons into this hour's bucket.
+  hourlyData[slot] += gallons;                      // Finally, add the gallons into this bin.
 }
 
 // One logger entry per PIC sample (intervals are aligned 1:1).
@@ -759,7 +782,7 @@ void serviceLocalMeter() {
   if (gpm > 0 && Time.isValid()) {                // Only proceed if there is real flow and a valid clock.
     uint32_t now = Time.now();                    // Current UTC time.
     float gallons = gpm * ((nowMs - lastCalc) / 60000.0f) / FLOW_C4;   // Gallons over the elapsed minutes (ms/60000).
-    accumulateHourly(Time.hour(now), Time.day(now), gallons, now);   // Add into the right hourly bucket.
+    accumulateHourly(gallons, now);               // Add into the right hourly/period bucket.
     dailyGallons    += gallons;                   // Add to the daily total.
     lifetimeGallons += gallons;                   // Add to the never-reset lifetime total.
     if (senseLeak(now, gpm)) onLeakDetected();    // Run the leak detector and react if needed.
@@ -826,13 +849,13 @@ void imuPrint() {
 static inline float roundTenth(float v) { return floorf(v * 10.0f + 0.5f) / 10.0f; }   // *10, round, /10.
 
 // Choose which 24-entry hourly snapshot the NEXT publish should send: a
-// completed prior local day queued by accumulateHourly()'s midnight rollover
-// (sent one period behind), or the still in-progress current day when no
-// rollover has happened since the last publish (fine for sub-24 h reports,
-// which never cross a local midnight).
+// completed prior report period queued by accumulateHourly()'s period rollover
+// (sent one period behind), or the still in-progress current period when no
+// rollover has happened since the last publish (fine for sub-period reports,
+// which never cross a period boundary).
 static const float *selectHourlyForPublish(uint32_t *dayMidnightUtcOut, bool *finalOut) {
-  if (prevDayPending) {                           // A completed day is queued...
-    *dayMidnightUtcOut = prevDayMidnightUtc;      //   ...report which local day it covers...
+  if (prevDayPending) {                           // A completed period is queued...
+    *dayMidnightUtcOut = prevDayMidnightUtc;      //   ...report when it started...
     *finalOut = true;                             //   ...and mark it as the final (complete) tally.
     return prevDayHourly;
   }
@@ -859,8 +882,9 @@ void printHourlyFlow() {
                     (i == 0) ? "%.1f" : ",%.1f", roundTenth(pub[i]));   // hh=0 has no leading comma.
     total += pub[i];
   }
-  Log.info("hourlyGallons[24]=[%s] dailyGal=%.1f%s lifetimeGal=%.1f",   // Same numbers the cloud publishes.
-           buf, roundTenth(total), final ? " [prior day, one period behind]" : " [current day]",
+  Log.info("hourlyGallons[24]=[%s] (%dh/bin) dailyGal=%.1f%s lifetimeGal=%.1f",   // Same numbers the cloud publishes.
+           buf, hourlyBinWidthHours(), roundTenth(total),
+           final ? " [prior period, one period behind]" : " [current period]",
            roundTenth(lifetimeGallons));
 }
 
@@ -965,7 +989,9 @@ void imuPublish() {
     for (int i = 0; i < 24; i++) jw.insertArrayValue(roundTenth(pubHourly[i]));   // Add each hour's gallons (1 decimal).
     jw.finishObjectOrArray();                     // Close the hourlyGallons array.
     jw.insertKeyValue("hourlyDayUtc", (int)pubDayUtc);   // UTC epoch of local (UTC-8) midnight this array covers.
-    jw.insertKeyValue("hourlyFinal", (int)pubFinal);     // 1 = a completed prior day (one period behind); 0 = current day so far.
+    jw.insertKeyValue("hourlyFinal", (int)pubFinal);     // 1 = a completed prior period (one period behind); 0 = current period so far.
+    jw.insertKeyValue("binHours", (int)hourlyBinWidthHours());   // Hours each of the 24 hourlyGallons slots covers (1 or 2).
+    jw.insertKeyValue("reportIntervalHr", (int)g_cfg.reportIntervalHr);   // PIC's configured report period (24 or 48), for reference.
     jw.insertKeyValue("lifetimeGal", roundTenth(lifetimeGallons));   // Never-reset total; MODE_PIN long-press zeroes it.
 
     if (g_cfg.fastBench) {
@@ -1561,13 +1587,14 @@ static void requestPicConfig() {
         g_cfg.fromPic            = true;
         g_cfg.captureIntervalSecF = (float)c.captureIntervalMs / 1000.0f;
         g_cfg.samplesPerReport   = c.samplesPerReport;
+        g_cfg.reportIntervalHr   = c.reportIntervalHr;
         g_cfg.fastBench          = c.fastBench;
         g_cfg.debugDataseries    = c.debugDataseries;
         g_cfg.missedFillMode     = c.missedFillMode;
         g_cfg.serialDelayMs      = c.serialDelayMs;
-        Log.info("CFG: from PIC v%u (capture=%.3fs, samples=%u, fastBench=%d, dataseries=%d, missedFill=%d, serialDelay=%ums) [try %d]",
+        Log.info("CFG: from PIC v%u (capture=%.3fs, samples=%u, reportIntervalHr=%u, fastBench=%d, dataseries=%d, missedFill=%d, serialDelay=%ums) [try %d]",
                  c.version, g_cfg.captureIntervalSecF, g_cfg.samplesPerReport,
-                 (int)g_cfg.fastBench, (int)g_cfg.debugDataseries,
+                 g_cfg.reportIntervalHr, (int)g_cfg.fastBench, (int)g_cfg.debugDataseries,
                  (int)g_cfg.missedFillMode, g_cfg.serialDelayMs, attempt);
       } else {
         Log.info("CFG: PIC provides none -> using Photon defaults (capture=%.3fs, samples=%u, fastBench=%d) [try %d]",
@@ -1777,7 +1804,7 @@ void loop() {
       // Session finished. The PIC will drive RC4 HIGH and remove our power very
       // shortly (it acts on our 0x07, or its 20 s idle / 90 s no-packet backstop).
       // There is nothing to do but idle -- the PIC owns power now.
-      break;
+    break;
   }
-  delay(5);                                       // Small pause so the loop doesn't spin too hard.
+  delay(5);    // Small pause so the loop doesn't spin too hard.
 }

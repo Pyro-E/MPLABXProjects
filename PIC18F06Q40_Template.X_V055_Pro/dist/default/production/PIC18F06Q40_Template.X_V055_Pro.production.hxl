@@ -1,7 +1,7 @@
 ### HEXMate logfile and output summary ###
 
 ### Command-line arguments ###
- /tmp/xc2UWWMAy/driver_tmp_3.o
+ /tmp/xcA2P6LKn/driver_tmp_3.o
  -Odist/default/production/PIC18F06Q40_Template.X_V055_Pro.production.hex
  -logfile=dist/default/production/PIC18F06Q40_Template.X_V055_Pro.production.hxl
  -addressing=1
@@ -9,23 +9,23 @@
 
 ### Memory Usage ###
  Input file ranges:
-  0h - 3h		(/tmp/xc2UWWMAy/driver_tmp_3.o)
-  8h - Bh		(/tmp/xc2UWWMAy/driver_tmp_3.o)
-  18h - 1Dh		(/tmp/xc2UWWMAy/driver_tmp_3.o)
-  1600h - 4107h		(/tmp/xc2UWWMAy/driver_tmp_3.o)
-  300000h - 300000h		(/tmp/xc2UWWMAy/driver_tmp_3.o)
-  300002h - 300005h		(/tmp/xc2UWWMAy/driver_tmp_3.o)
+  0h - 3h		(/tmp/xcA2P6LKn/driver_tmp_3.o)
+  8h - Bh		(/tmp/xcA2P6LKn/driver_tmp_3.o)
+  18h - 1Dh		(/tmp/xcA2P6LKn/driver_tmp_3.o)
+  1600h - 411Fh		(/tmp/xcA2P6LKn/driver_tmp_3.o)
+  300000h - 300000h		(/tmp/xcA2P6LKn/driver_tmp_3.o)
+  300002h - 300005h		(/tmp/xcA2P6LKn/driver_tmp_3.o)
  Unused ranges:
   4h - 7h
   Ch - 17h
   1Eh - 15FFh
-  4108h - 2FFFFFh
+  4120h - 2FFFFFh
   300001h - 300001h
 
 ### Hex Memory Map ###
  Legend:
   -- = Unused memory
-  H1 = Input file             (/tmp/xc2UWWMAy/driver_tmp_3.o)
+  H1 = Input file             (/tmp/xcA2P6LKn/driver_tmp_3.o)
 ----------------------------------------------------------
          | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ----------------------------------------------------------
@@ -720,7 +720,8 @@
 000040D0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 000040E0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 000040F0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
-00004100 | H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- -- -- --
+00004100 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00004110 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 ----------------------------------------------------------
 00300000 | H1 -- H1 H1 H1 H1 -- -- -- -- -- -- -- -- -- --
 00300010 | --

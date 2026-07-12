@@ -133,6 +133,8 @@ struct PicPhotonCfg {
   uint8_t  version;           // wire-format version
   uint32_t captureIntervalMs; // real per-sample window in ms (rate divisor x1000)
   uint16_t samplesPerReport;  // PIC's APP_SAMPLES_PER_REPORT
+  uint8_t  reportIntervalHr;  // PIC's REPORT_INTERVAL_HR (24 or 48) -- drives the Photon's
+                             //   hourly-bin width (see leaksense.cpp: hourlyBinWidthHours()).
   bool     fastBench;         // true = skip cloud (virtual clock, sim publish)
   bool     debugDataseries;   // true = stream per-sample lines over USB-CDC
   uint8_t  missedFillMode;    // 0 = ZERO, 1 = AVERAGE
