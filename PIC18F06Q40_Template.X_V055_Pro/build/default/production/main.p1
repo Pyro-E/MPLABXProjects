@@ -1547,7 +1547,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _in_initial_hold ]
 [f ]
 "82
-[e ) -> -> && != -> _s_cold_boot `i -> 0 `i < ( _getNowTime ..  * * -> 10 `ul -> 60 `ul -> 1000 `ul `i `a ]
+[e ) -> -> && != -> _s_cold_boot `i -> 0 `i < ( _getNowTime ..  * * -> 3 `ul -> 60 `ul -> 1000 `ul `i `a ]
 [e $UE 1864  ]
 "83
 [e :UE 1864 ]

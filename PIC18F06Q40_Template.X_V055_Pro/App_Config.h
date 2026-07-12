@@ -397,7 +397,7 @@
     #define INITIAL_POWER_HOLD_MS      (100UL * 1000UL)          /* test: 30 seconds */
   #endif
 #else
-  #define INITIAL_POWER_HOLD_MS        (10UL * 60UL * 1000UL)   /* PRODUCTION: 10 minutes */
+  #define INITIAL_POWER_HOLD_MS        (3UL * 60UL * 1000UL)   /* PRODUCTION:  minutes */
 #endif
 
 /* NOTE: TIMEOUT_CANNOT_FIND_CLOUD_MS (80 s) lives on the PHOTON side: if the

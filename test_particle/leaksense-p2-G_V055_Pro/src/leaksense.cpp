@@ -58,7 +58,7 @@ const float HOURLY_BIN_COARSE_MAX_SEC        = 3600.0f; // A batch spanning less
                                                        //   short to place sub-hour -- bin the whole batch into the
                                                        //   current hour. At/above this, bin each sample into its own
                                                        //   real hour (see ingestPicBatch()).
-const unsigned long INITIAL_HOLD_PUBLISH_MS  = 120000;  // Min gap between sensorData publishes during the hold.
+const unsigned long INITIAL_HOLD_PUBLISH_MS  = 180000;  // Min gap between sensorData publishes during the hold.
 const unsigned long STATE_CHANGE_DELAY_MS    = 500;    // A short 0.5 s pause used around state changes.
 // "Magic numbers" are unique tags we store in EEPROM to recognize OUR saved data.
 const uint32_t      FLOW_CAL_MAGIC           = 0x4643414CUL; // "FCAL"  (the bytes spell FCAL in ASCII).
@@ -1528,15 +1528,15 @@ void handleInitialHold() {
   imuPrint();                                     // One-line status summary (USB).
   printHourlyFlow();                              // hourlyGallons[24]=[...] dailyGal=... (USB).
 
-  // // Publish sensorData to the cloud at most once per INITIAL_HOLD_PUBLISH_MS so the
-  // // Particle console shows live data during the hold. The cloud is already connected
-  // // (we only enter here from handleConnecting() after Particle.connected()). The PIC
-  // // still owns the window and ends the session by removing power.
-  // static uint32_t lastHoldPub = 0;
-  // if (lastHoldPub == 0 || millis() - lastHoldPub >= INITIAL_HOLD_PUBLISH_MS) {
-  //   imuPublish();
-  //   lastHoldPub = millis();
-  // }
+  // Publish sensorData to the cloud at most once per INITIAL_HOLD_PUBLISH_MS so the
+  // Particle console shows live data during the hold. The cloud is already connected
+  // (we only enter here from handleConnecting() after Particle.connected()). The PIC
+  // still owns the window and ends the session by removing power.
+  static uint32_t lastHoldPub = 0;
+  if (lastHoldPub == 0 || millis() - lastHoldPub >= INITIAL_HOLD_PUBLISH_MS) {
+    imuPublish();
+    lastHoldPub = millis();
+  }
 }
 
 // =============================================================== Arduino entry
