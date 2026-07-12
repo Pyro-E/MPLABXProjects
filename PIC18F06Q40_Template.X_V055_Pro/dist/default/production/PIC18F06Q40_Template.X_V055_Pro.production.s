@@ -16027,9 +16027,9 @@ __pidataBANK6:
 	line	47
 
 ;initializer for _s_param
-	dw	(064h)&0ffffh
-	dw	(012Ch)&0ffffh
-	dw	(04B0h)&0ffffh
+	dw	(01388h)&0ffffh
+	dw	(0E10h)&0ffffh
+	dw	(0190h)&0ffffh
 	dw	(0B4h)&0ffffh
 	global	_s_rx_tail
 	global	_s_rx_head
@@ -18006,7 +18006,7 @@ _main:
 	callstack 117
 	line	246
 	
-l6578:
+l6572:
 	btfss	((c:1264))^0400h,c,4	;volatile
 	goto	u4911
 	goto	u4910
@@ -18020,7 +18020,7 @@ u4920:
 	movwf	((main@wdt_reset))&0ffh
 	line	247
 	
-l6580:; BSR set to: 6
+l6574:; BSR set to: 6
 
 	setf	((c:1264))^0400h,c	;volatile
 	line	252
@@ -18038,14 +18038,14 @@ u4940:
 	movwf	((_s_cold_boot))&0ffh
 	line	255
 	
-l6582:; BSR set to: 5
+l6576:; BSR set to: 5
 
 	call	_LEDs_Init	;wreg free
 	line	256
 	call	_UART_Init	;wreg free
 	line	257
 	
-l6584:
+l6578:
 		movlw	low(_on_uart_rx)
 	movwf	((c:UART_RX_SetCallback@cb))^0500h,c
 	movlw	high(_on_uart_rx)
@@ -18054,31 +18054,31 @@ l6584:
 	call	_UART_RX_SetCallback	;wreg free
 	line	258
 	
-l6586:
+l6580:
 	call	_Sys_Time_Init	;wreg free
 	line	260
 	
-l6588:
+l6582:
 	call	_PulseCounter_Init	;wreg free
 	line	261
 	
-l6590:
+l6584:
 	call	_PulseCounter_Enable	;wreg free
 	line	262
 	
-l6592:
+l6586:
 	call	_FlowMeter_Init	;wreg free
 	line	263
 	
-l6594:
+l6588:
 	call	_FlowLog_Init	;wreg free
 	line	264
 	
-l6596:
+l6590:
 	call	_FlowReport_Init	;wreg free
 	line	265
 	
-l6598:
+l6592:
 	call	_LedFsm_Init	;wreg free
 	line	267
 		movlw	low(_s_parser)
@@ -18089,11 +18089,11 @@ l6598:
 	call	_Packet_ParserReset	;wreg free
 	line	268
 	
-l6600:
+l6594:
 	call	_FlowControl_Init	;wreg free
 	line	271
 	
-l6602:
+l6596:
 	movlb	6	; () banked
 	movf	((main@wdt_reset))&0ffh,w
 	btfsc	status,2
@@ -18109,33 +18109,33 @@ u4960:
 	call	_MValve_OP3_Init
 	line	273
 	
-l6604:
+l6598:
 	movlb	6	; () banked
 	movf	((main@wdt_reset))&0ffh,w
 	btfss	status,2
 	goto	u4971
 	goto	u4970
 u4971:
-	goto	l6608
+	goto	l6602
 u4970:
 	line	274
 	
-l6606:; BSR set to: 6
+l6600:; BSR set to: 6
 
 	call	_MValve_OP3_CmdOpen	;wreg free
 	line	278
 	
-l6608:
+l6602:
 	bsf	((c:1238))^0400h,c,6	;volatile
 	line	279
 	
-l6610:
+l6604:
 	bsf	((c:1238))^0400h,c,7	;volatile
 	line	285
 	call	_photon_power_on	;wreg free
 	line	287
 	
-l6612:
+l6606:
 	movlb	0	; () banked
 	bsf	((120))&0ffh,0	;volatile
 	line	288
@@ -18147,47 +18147,47 @@ clrwdt ;#
 psect	text0
 	line	290
 	
-l6614:
+l6608:
 	call	_MCU_Time_Process	;wreg free
 	line	291
 	
-l6616:
+l6610:
 	call	_LedFsm_Process	;wreg free
 	line	292
 	
-l6618:
+l6612:
 	call	_MValve_OP3_Process	;wreg free
 	line	293
 	
-l6620:
+l6614:
 	call	_FlowControl_Process	;wreg free
 	line	294
 	
-l6622:
+l6616:
 	call	_FlowLog_Process	;wreg free
 	line	295
 	
-l6624:
+l6618:
 	call	_FlowReport_Process	;wreg free
 	line	296
 	
-l6626:
+l6620:
 	call	_packet_rx_pump	;wreg free
 	line	299
-	goto	l6696
+	goto	l6690
 	line	305
 	
-l6628:; BSR set to: 5
+l6622:; BSR set to: 5
 
 	movf	((_s_cold_boot))&0ffh,w
 	btfsc	status,2
 	goto	u4981
 	goto	u4980
 u4981:
-	goto	l6636
+	goto	l6630
 u4980:
 	
-l6630:; BSR set to: 5
+l6624:; BSR set to: 5
 
 	call	_in_initial_hold	;wreg free
 	iorlw	0
@@ -18195,35 +18195,35 @@ l6630:; BSR set to: 5
 	goto	u4991
 	goto	u4990
 u4991:
-	goto	l6636
+	goto	l6630
 u4990:
 	line	306
 	
-l6632:
+l6626:
 	call	_FlowReport_ClearWakeDue	;wreg free
 	line	307
 	call	_photon_power_off	;wreg free
 	line	308
 	
-l6634:
+l6628:
 	movlb	5	; () banked
 	clrf	((_s_cold_boot))&0ffh
 	line	309
 	goto	l167
 	line	314
 	
-l6636:
+l6630:
 	movlb	5	; () banked
 	movf	((_s_pkt_seen))&0ffh,w
 	btfsc	status,2
 	goto	u5001
 	goto	u5000
 u5001:
-	goto	l6642
+	goto	l6636
 u5000:
 	line	315
 	
-l6638:; BSR set to: 5
+l6632:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_last_valid_ms)
@@ -18233,14 +18233,14 @@ l6638:; BSR set to: 5
 	
 	line	316
 	
-l6640:
+l6634:
 	movlw	low(02h)
 	movlb	5	; () banked
 	movwf	((_s_pwr))&0ffh
 	line	317
 	goto	l167
 	
-l6642:; BSR set to: 5
+l6636:; BSR set to: 5
 
 	call	_in_initial_hold	;wreg free
 	iorlw	0
@@ -18251,7 +18251,7 @@ u5011:
 	goto	l167
 u5010:
 	
-l6644:
+l6638:
 	movff	(_s_pwr_on_ms),(c:timeSpan@unOldTime_ms)
 	movff	(_s_pwr_on_ms+1),(c:timeSpan@unOldTime_ms+1)
 	movff	(_s_pwr_on_ms+2),(c:timeSpan@unOldTime_ms+2)
@@ -18274,12 +18274,12 @@ u5021:
 u5020:
 	line	319
 	
-l6646:
+l6640:
 	call	_photon_power_off	;wreg free
 	goto	l167
 	line	326
 	
-l6648:; BSR set to: 5
+l6642:; BSR set to: 5
 
 	call	_UART_TX_IsEmpty	;wreg free
 	iorlw	0
@@ -18287,21 +18287,21 @@ l6648:; BSR set to: 5
 	goto	u5031
 	goto	u5030
 u5031:
-	goto	l6652
+	goto	l6646
 u5030:
 	
-l6650:
+l6644:
 	call	_FlowReport_IsSending	;wreg free
 	iorlw	0
 	btfsc	status,2
 	goto	u5041
 	goto	u5040
 u5041:
-	goto	l6654
+	goto	l6648
 u5040:
 	line	327
 	
-l6652:
+l6646:
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_last_valid_ms)
 	movff	1+?_getNowTime,(_s_last_valid_ms+1)
@@ -18310,35 +18310,35 @@ l6652:
 	
 	line	329
 	
-l6654:
+l6648:
 	call	_in_initial_hold	;wreg free
 	iorlw	0
 	btfsc	status,2
 	goto	u5051
 	goto	u5050
 u5051:
-	goto	l6658
+	goto	l6652
 u5050:
 	line	334
 	
-l6656:
+l6650:
 	movlb	5	; () banked
 	clrf	((_s_off_request))&0ffh
 	line	335
 	goto	l167
 	
-l6658:
+l6652:
 	movlb	5	; () banked
 	movf	((_s_cold_boot))&0ffh,w
 	btfsc	status,2
 	goto	u5061
 	goto	u5060
 u5061:
-	goto	l6668
+	goto	l6662
 u5060:
 	line	340
 	
-l6660:; BSR set to: 5
+l6654:; BSR set to: 5
 
 	call	_UART_TX_IsEmpty	;wreg free
 	iorlw	0
@@ -18349,7 +18349,7 @@ u5071:
 	goto	l167
 u5070:
 	
-l6662:
+l6656:
 	call	_FlowReport_IsSending	;wreg free
 	iorlw	0
 	btfss	status,2
@@ -18358,20 +18358,20 @@ l6662:
 u5081:
 	goto	l167
 u5080:
-	goto	l6632
+	goto	l6626
 	line	345
 	
-l6668:; BSR set to: 5
+l6662:; BSR set to: 5
 
 	movf	((_s_off_request))&0ffh,w
 	btfss	status,2
 	goto	u5091
 	goto	u5090
 u5091:
-	goto	l6672
+	goto	l6666
 u5090:
 	
-l6670:; BSR set to: 5
+l6664:; BSR set to: 5
 
 	movff	(_s_last_valid_ms),(c:timeSpan@unOldTime_ms)
 	movff	(_s_last_valid_ms+1),(c:timeSpan@unOldTime_ms+1)
@@ -18394,7 +18394,7 @@ u5101:
 u5100:
 	line	350
 	
-l6672:
+l6666:
 	call	_UART_TX_IsEmpty	;wreg free
 	iorlw	0
 	btfsc	status,2
@@ -18404,7 +18404,7 @@ u5111:
 	goto	l167
 u5110:
 	
-l6674:
+l6668:
 	call	_FlowReport_IsSending	;wreg free
 	iorlw	0
 	btfss	status,2
@@ -18413,10 +18413,10 @@ l6674:
 u5121:
 	goto	l167
 u5120:
-	goto	l6646
+	goto	l6640
 	line	361
 	
-l6678:; BSR set to: 5
+l6672:; BSR set to: 5
 
 	call	_FlowReport_WakeDuePending	;wreg free
 	iorlw	0
@@ -18424,17 +18424,17 @@ l6678:; BSR set to: 5
 	goto	u5131
 	goto	u5130
 u5131:
-	goto	l6682
+	goto	l6676
 u5130:
 	line	362
 	
-l6680:
+l6674:
 	call	_photon_power_on	;wreg free
 	line	363
 	goto	l167
 	line	369
 	
-l6682:
+l6676:
 	call	_in_initial_hold	;wreg free
 	iorlw	0
 	btfss	status,2
@@ -18444,7 +18444,7 @@ u5141:
 	goto	l167
 u5140:
 	
-l6684:
+l6678:
 	call	_MValve_OP3_IsBusy	;wreg free
 	iorlw	0
 	btfss	status,2
@@ -18454,7 +18454,7 @@ u5151:
 	goto	l167
 u5150:
 	
-l6686:
+l6680:
 	call	_UART_TX_IsEmpty	;wreg free
 	iorlw	0
 	btfsc	status,2
@@ -18465,20 +18465,20 @@ u5161:
 u5160:
 	line	371
 	
-l6688:
+l6682:
 	bcf	((c:1216))^0400h,c,3	;volatile
 	line	372
 	
-l6690:
+l6684:
 	call	_Sys_Time_EnterDeepSleep	;wreg free
 	line	373
 	
-l6692:
+l6686:
 	call	_LedFsm_NotifyWake	;wreg free
 	goto	l167
 	line	377
 	
-l6696:
+l6690:
 	movlb	5	; () banked
 	movf	((_s_pwr))&0ffh,w
 	movwf	(??_main+0)&0ffh
@@ -18495,10 +18495,10 @@ l6696:
 	movf ??_main+0+1&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6918
-	goto	l6678
+	goto	l6912
+	goto	l6672
 	
-l6918:; BSR set to: 5
+l6912:; BSR set to: 5
 
 ; Switch size 1, requested type "simple"
 ; Number of cases is 3, Range of values is 0 to 2
@@ -18510,14 +18510,14 @@ l6918:; BSR set to: 5
 	movf ??_main+0&0ffh,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6678
+	goto	l6672
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l6628
+	goto	l6622
 	xorlw	2^1	; case 2
 	skipnz
-	goto	l6648
-	goto	l6678
+	goto	l6642
+	goto	l6672
 
 	global	start
 	goto	start
@@ -18572,11 +18572,11 @@ _photon_power_on:; BSR set to: 5
 	callstack 121
 	line	87
 	
-l6038:
+l6032:
 	bcf	((c:1216))^0400h,c,4	;volatile
 	line	88
 	
-l6040:
+l6034:
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_pwr_on_ms)
 	movff	1+?_getNowTime,(_s_pwr_on_ms+1)
@@ -18585,23 +18585,23 @@ l6040:
 	
 	line	89
 	
-l6042:
+l6036:
 	movlb	5	; () banked
 	clrf	((_s_pkt_seen))&0ffh
 	line	90
 	
-l6044:; BSR set to: 5
+l6038:; BSR set to: 5
 
 	clrf	((_s_off_request))&0ffh
 	line	91
 	
-l6046:; BSR set to: 5
+l6040:; BSR set to: 5
 
 	movlw	low(01h)
 	movwf	((_s_pwr))&0ffh
 	line	92
 	
-l6048:; BSR set to: 5
+l6042:; BSR set to: 5
 
 	call	_LedFsm_NotifyWake	;wreg free
 	line	93
@@ -18658,14 +18658,14 @@ _LedFsm_NotifyWake:
 	callstack 121
 	line	46
 	
-l5760:
+l5754:
 	movlb	5	; () banked
 	clrf	((_s_mode))&0ffh
 	line	47
 	bsf	((c:1216))^0400h,c,3	;volatile
 	line	48
 	
-l5762:; BSR set to: 5
+l5756:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_mark)
@@ -18726,7 +18726,7 @@ _photon_power_off:
 	callstack 122
 	line	97
 	
-l6050:
+l6044:
 	bsf	((c:1216))^0400h,c,4	;volatile
 	line	98
 	movlb	5	; () banked
@@ -18790,7 +18790,7 @@ _packet_rx_pump:; BSR set to: 5
 	callstack 117
 	line	221
 	
-l6052:
+l6046:
 		movlw	low(_s_parser)
 	movwf	((c:Packet_ParserTimeoutCheck@p))^0500h,c
 	movlw	high(_s_parser)
@@ -18798,10 +18798,10 @@ l6052:
 
 	call	_Packet_ParserTimeoutCheck	;wreg free
 	line	222
-	goto	l6062
+	goto	l6056
 	line	223
 	
-l6054:
+l6048:
 		movlw	low(_s_parser)
 	movwf	((c:Packet_ParseByte@p))^0500h,c
 	movlw	high(_s_parser)
@@ -18814,17 +18814,17 @@ l6054:
 	goto	u4501
 	goto	u4500
 u4501:
-	goto	l6062
+	goto	l6056
 u4500:
 	line	226
 	
-l6056:
+l6050:
 	movlw	low(01h)
 	movlb	5	; () banked
 	movwf	((_s_pkt_seen))&0ffh
 	line	227
 	
-l6058:; BSR set to: 5
+l6052:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_last_valid_ms)
@@ -18839,11 +18839,11 @@ l6058:; BSR set to: 5
 	goto	u4511
 	goto	u4510
 u4511:
-	goto	l6062
+	goto	l6056
 u4510:
 	line	229
 	
-l6060:
+l6054:
 		movlw	low(_s_parser)
 	movlb	5	; () banked
 	movwf	((dispatch_packet@p))&0ffh
@@ -18853,7 +18853,7 @@ l6060:
 	call	_dispatch_packet	;wreg free
 	line	222
 	
-l6062:
+l6056:
 		movlw	low(packet_rx_pump@b)
 	movwf	((c:UART_RX_Pop@b))^0500h,c
 	movlw	high(packet_rx_pump@b)
@@ -18865,7 +18865,7 @@ l6062:
 	goto	u4521
 	goto	u4520
 u4521:
-	goto	l6054
+	goto	l6048
 u4520:
 	line	233
 	
@@ -18929,25 +18929,25 @@ _dispatch_packet:
 	callstack 117
 	line	140
 	
-l5764:
-	goto	l5800
+l5758:
+	goto	l5794
 	line	143
 	
-l5766:; BSR set to: 5
+l5760:; BSR set to: 5
 
 	call	_FlowReport_NotifyAA	;wreg free
 	line	144
 	goto	l146
 	line	147
 	
-l5768:; BSR set to: 5
+l5762:; BSR set to: 5
 
 	call	_FlowReport_SendParam	;wreg free
 	line	148
 	goto	l146
 	line	151
 	
-l5770:; BSR set to: 5
+l5764:; BSR set to: 5
 
 	lfsr	2,02h
 	movf	((dispatch_packet@p))&0ffh,w
@@ -18962,11 +18962,11 @@ iorwf	postinc2,w
 	goto	u4180
 
 u4181:
-	goto	l5778
+	goto	l5772
 u4180:
 	line	153
 	
-l5772:; BSR set to: 5
+l5766:; BSR set to: 5
 
 	lfsr	2,07h
 	movf	((dispatch_packet@p))&0ffh,w
@@ -19041,7 +19041,7 @@ l5772:; BSR set to: 5
 	movff	??_dispatch_packet+1,(1+(dispatch_packet@np+06h))
 	line	157
 	
-l5774:; BSR set to: 5
+l5768:; BSR set to: 5
 
 		movlw	low(dispatch_packet@np)
 	movwf	((FlowControl_SetParams@in))&0ffh
@@ -19051,7 +19051,7 @@ l5774:; BSR set to: 5
 	call	_FlowControl_SetParams	;wreg free
 	line	158
 	
-l5776:
+l5770:
 	movlw	(03h)&0ffh
 	
 	call	_FlowReport_SendAck
@@ -19059,7 +19059,7 @@ l5776:
 	goto	l146
 	line	160
 	
-l5778:; BSR set to: 5
+l5772:; BSR set to: 5
 
 	movlw	(02h)&0ffh
 	
@@ -19067,14 +19067,14 @@ l5778:; BSR set to: 5
 	goto	l146
 	line	165
 	
-l5780:; BSR set to: 5
+l5774:; BSR set to: 5
 
 	call	_FlowReport_SendValve	;wreg free
 	line	166
 	goto	l146
 	line	169
 	
-l5782:; BSR set to: 5
+l5776:; BSR set to: 5
 
 	lfsr	2,02h
 	movf	((dispatch_packet@p))&0ffh,w
@@ -19088,11 +19088,11 @@ iorwf	postinc2,w
 	goto	u4190
 
 u4191:
-	goto	l5788
+	goto	l5782
 u4190:
 	line	170
 	
-l5784:; BSR set to: 5
+l5778:; BSR set to: 5
 
 	lfsr	2,06h
 	movf	((dispatch_packet@p))&0ffh,w
@@ -19104,7 +19104,7 @@ l5784:; BSR set to: 5
 	call	_FlowControl_Unlock
 	line	171
 	
-l5786:
+l5780:
 	movlw	(05h)&0ffh
 	
 	call	_FlowReport_SendAck
@@ -19112,7 +19112,7 @@ l5786:
 	goto	l146
 	line	173
 	
-l5788:; BSR set to: 5
+l5782:; BSR set to: 5
 
 	movlw	(02h)&0ffh
 	
@@ -19130,7 +19130,7 @@ psect	text5
 	goto	l146
 	line	187
 	
-l5790:; BSR set to: 5
+l5784:; BSR set to: 5
 
 	movlw	low(01h)
 	movwf	((_s_off_request))&0ffh
@@ -19138,7 +19138,7 @@ l5790:; BSR set to: 5
 	goto	l146
 	line	194
 	
-l5792:; BSR set to: 5
+l5786:; BSR set to: 5
 
 	call	_in_initial_hold	;wreg free
 	iorlw	0
@@ -19157,14 +19157,14 @@ u4210:
 	goto	l146
 	line	201
 	
-l5794:; BSR set to: 5
+l5788:; BSR set to: 5
 
 	call	_FlowReport_SendPhotonCfg	;wreg free
 	line	202
 	goto	l146
 	line	213
 	
-l5796:; BSR set to: 5
+l5790:; BSR set to: 5
 
 	movlw	(03h)&0ffh
 	
@@ -19173,7 +19173,7 @@ l5796:; BSR set to: 5
 	goto	l146
 	line	215
 	
-l5800:
+l5794:
 	movlb	5	; () banked
 	lfsr	2,01h
 	movf	((dispatch_packet@p))&0ffh,w
@@ -19190,35 +19190,35 @@ l5800:
 
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l5766
+	goto	l5760
 	xorlw	2^1	; case 2
 	skipnz
-	goto	l5768
+	goto	l5762
 	xorlw	3^2	; case 3
 	skipnz
-	goto	l5770
+	goto	l5764
 	xorlw	4^3	; case 4
 	skipnz
-	goto	l5780
+	goto	l5774
 	xorlw	5^4	; case 5
 	skipnz
-	goto	l5782
+	goto	l5776
 	xorlw	6^5	; case 6
 	skipnz
 	goto	l140
 	xorlw	7^6	; case 7
 	skipnz
-	goto	l5790
+	goto	l5784
 	xorlw	8^7	; case 8
 	skipnz
-	goto	l5792
+	goto	l5786
 	xorlw	9^8	; case 9
 	skipnz
-	goto	l5794
+	goto	l5788
 	xorlw	10^9	; case 10
 	skipnz
 	goto	l146
-	goto	l5796
+	goto	l5790
 
 	line	216
 	
@@ -19273,10 +19273,10 @@ _in_initial_hold:
 	callstack 120
 	line	82
 	
-l5600:
+l5594:
 	clrf	((c:_in_initial_hold$446))^0500h,c
 	
-l5602:
+l5596:
 	movlb	5	; () banked
 	movf	((_s_cold_boot))&0ffh,w
 	btfsc	status,2
@@ -19286,7 +19286,7 @@ u4111:
 	goto	l114
 u4110:
 	
-l5604:; BSR set to: 5
+l5598:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 		movf	(3+?_getNowTime)^0500h,c,w
@@ -19305,7 +19305,7 @@ u4121:
 	goto	l114
 u4120:
 	
-l5606:
+l5600:
 	movlw	low(01h)
 	movwf	((c:_in_initial_hold$446))^0500h,c
 	
@@ -19370,7 +19370,7 @@ _FlowReport_SendValve:
 	callstack 119
 	line	303
 	
-l5648:
+l5642:
 	call	_MValve_OP3_GetPwrPin	;wreg free
 	movwf	((c:FlowReport_SendValve@d))^0500h,c
 	line	304
@@ -19381,17 +19381,17 @@ l5648:
 	movwf	(0+((c:FlowReport_SendValve@d)+02h))^0500h,c
 	line	306
 	
-l5650:
+l5644:
 	call	_FlowControl_GetLockFlags	;wreg free
 	movwf	(0+((c:FlowReport_SendValve@d)+03h))^0500h,c
 	line	307
 	
-l5652:
+l5646:
 	call	_FlowControl_GetSinceReportFlags	;wreg free
 	movwf	(0+((c:FlowReport_SendValve@d)+04h))^0500h,c
 	line	308
 	
-l5654:
+l5648:
 		movlw	low(FlowReport_SendValve@d)
 	movwf	((c:send_small_packet@data))^0500h,c
 	movlw	high(FlowReport_SendValve@d)
@@ -19405,7 +19405,7 @@ l5654:
 	call	_send_small_packet
 	line	312
 	
-l5656:
+l5650:
 	call	_FlowControl_ClearSinceReport	;wreg free
 	line	313
 	
@@ -19460,7 +19460,7 @@ _MValve_OP3_GetPwrPin:
 	callstack 119
 	line	121
 	
-l5526:
+l5522:
 	btfsc	((c:1216))^0400h,c,2	;volatile
 	goto	u3991
 	goto	u3990
@@ -19522,7 +19522,7 @@ _MValve_OP3_GetMotion:
 	callstack 119
 	line	116
 	
-l5534:
+l5530:
 	movlb	5	; () banked
 	movf	((_s_motion))&0ffh,w
 	line	117
@@ -19579,7 +19579,7 @@ _MValve_OP3_GetCtrlPin:; BSR set to: 5
 	callstack 119
 	line	126
 	
-l5530:
+l5526:
 	btfsc	((c:1214))^0400h,c,2	;volatile
 	goto	u4001
 	goto	u4000
@@ -19642,41 +19642,41 @@ _FlowControl_GetSinceReportFlags:
 	callstack 119
 	line	262
 	
-l5552:
+l5548:
 	clrf	((c:FlowControl_GetSinceReportFlags@f))^0500h,c
 	line	263
 	
-l5554:
+l5550:
 	movlb	5	; () banked
 	movf	((_s_leak1_since_report))&0ffh,w
 	btfsc	status,2
 	goto	u4031
 	goto	u4030
 u4031:
-	goto	l5558
+	goto	l5554
 u4030:
 	
-l5556:; BSR set to: 5
+l5552:; BSR set to: 5
 
 	bsf	(0+(0/8)+(c:FlowControl_GetSinceReportFlags@f))^0500h,c,(0)&7
 	line	264
 	
-l5558:; BSR set to: 5
+l5554:; BSR set to: 5
 
 	movf	((_s_leak2_since_report))&0ffh,w
 	btfsc	status,2
 	goto	u4041
 	goto	u4040
 u4041:
-	goto	l5562
+	goto	l5558
 u4040:
 	
-l5560:; BSR set to: 5
+l5556:; BSR set to: 5
 
 	bsf	(0+(1/8)+(c:FlowControl_GetSinceReportFlags@f))^0500h,c,(1)&7
 	line	265
 	
-l5562:; BSR set to: 5
+l5558:; BSR set to: 5
 
 	movf	((c:FlowControl_GetSinceReportFlags@f))^0500h,c,w
 	line	266
@@ -19733,41 +19733,41 @@ _FlowControl_GetLockFlags:; BSR set to: 5
 	callstack 119
 	line	254
 	
-l5538:
+l5534:
 	clrf	((c:FlowControl_GetLockFlags@f))^0500h,c
 	line	255
 	
-l5540:
+l5536:
 	movlb	5	; () banked
 	movf	((_s_temp_locked))&0ffh,w
 	btfsc	status,2
 	goto	u4011
 	goto	u4010
 u4011:
-	goto	l5544
+	goto	l5540
 u4010:
 	
-l5542:; BSR set to: 5
+l5538:; BSR set to: 5
 
 	bsf	(0+(0/8)+(c:FlowControl_GetLockFlags@f))^0500h,c,(0)&7
 	line	256
 	
-l5544:; BSR set to: 5
+l5540:; BSR set to: 5
 
 	movf	((_s_perm_locked))&0ffh,w
 	btfsc	status,2
 	goto	u4021
 	goto	u4020
 u4021:
-	goto	l5548
+	goto	l5544
 u4020:
 	
-l5546:; BSR set to: 5
+l5542:; BSR set to: 5
 
 	bsf	(0+(1/8)+(c:FlowControl_GetLockFlags@f))^0500h,c,(1)&7
 	line	257
 	
-l5548:; BSR set to: 5
+l5544:; BSR set to: 5
 
 	movf	((c:FlowControl_GetLockFlags@f))^0500h,c,w
 	line	258
@@ -19824,7 +19824,7 @@ _FlowControl_ClearSinceReport:; BSR set to: 5
 	callstack 119
 	line	270
 	
-l5566:
+l5562:
 	movlb	5	; () banked
 	clrf	((_s_leak1_since_report))&0ffh
 	line	271
@@ -19886,11 +19886,11 @@ _FlowReport_SendPowerState:; BSR set to: 5
 	movwf	((c:FlowReport_SendPowerState@state))^0500h,c
 	line	324
 	
-l5668:
+l5662:
 	movff	(c:FlowReport_SendPowerState@state),(c:FlowReport_SendPowerState@d)
 	line	325
 	
-l5670:
+l5664:
 		movlw	low(FlowReport_SendPowerState@d)
 	movwf	((c:send_small_packet@data))^0500h,c
 	movlw	high(FlowReport_SendPowerState@d)
@@ -19955,22 +19955,22 @@ _FlowReport_SendPhotonCfg:
 	callstack 119
 	line	334
 	
-l5672:
+l5666:
 	clrf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	line	337
 	
-l5674:
+l5668:
 	movlw	low(01h)
 	movwf	((c:FlowReport_SendPhotonCfg@d))^0500h,c
 	
-l5676:
+l5670:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	341
 	
-l5678:
+l5672:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -19980,12 +19980,12 @@ l5678:
 	movlw	low(01h)
 	movwf	indf2
 	
-l5680:
+l5674:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	344
 	
-l5682:
+l5676:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -19994,12 +19994,12 @@ l5682:
 	movwf	1+c:fsr2l
 	clrf	indf2
 	
-l5684:
+l5678:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	345
 	
-l5686:
+l5680:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20008,12 +20008,12 @@ l5686:
 	movwf	1+c:fsr2l
 	clrf	indf2
 	
-l5688:
+l5682:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	346
 	
-l5690:
+l5684:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20023,12 +20023,12 @@ l5690:
 	movlw	low(0Ah)
 	movwf	indf2
 	
-l5692:
+l5686:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	347
 	
-l5694:
+l5688:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20038,12 +20038,12 @@ l5694:
 	movlw	low(053h)
 	movwf	indf2
 	
-l5696:
+l5690:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	348
 	
-l5698:
+l5692:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20053,12 +20053,12 @@ l5698:
 	movlw	low(02h)
 	movwf	indf2
 	
-l5700:
+l5694:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	349
 	
-l5702:
+l5696:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20068,12 +20068,12 @@ l5702:
 	movlw	low(0D0h)
 	movwf	indf2
 	
-l5704:
+l5698:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	352
 	
-l5706:
+l5700:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20082,12 +20082,12 @@ l5706:
 	movwf	1+c:fsr2l
 	clrf	indf2
 	
-l5708:
+l5702:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	353
 	
-l5710:
+l5704:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20097,12 +20097,12 @@ l5710:
 	movlw	low(01h)
 	movwf	indf2
 	
-l5712:
+l5706:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	354
 	
-l5714:
+l5708:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20112,12 +20112,12 @@ l5714:
 	movlw	low(01h)
 	movwf	indf2
 	
-l5716:
+l5710:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	355
 	
-l5718:
+l5712:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20127,12 +20127,12 @@ l5718:
 	movlw	low(0Bh)
 	movwf	indf2
 	
-l5720:
+l5714:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	356
 	
-l5722:
+l5716:
 	movlw	low(FlowReport_SendPhotonCfg@d)
 	addwf	((c:FlowReport_SendPhotonCfg@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20142,12 +20142,12 @@ l5722:
 	movlw	low(0B8h)
 	movwf	indf2
 	
-l5724:
+l5718:
 	infsnz	((c:FlowReport_SendPhotonCfg@i))^0500h,c
 	incf	((c:FlowReport_SendPhotonCfg@i+1))^0500h,c
 	line	358
 	
-l5726:
+l5720:
 		movlw	low(FlowReport_SendPhotonCfg@d)
 	movwf	((c:send_small_packet@data))^0500h,c
 	movlw	high(FlowReport_SendPhotonCfg@d)
@@ -20212,7 +20212,7 @@ _FlowReport_SendParam:
 	callstack 119
 	line	292
 	
-l5612:
+l5606:
 		movlw	low(FlowReport_SendParam@pr)
 	movwf	((c:FlowControl_GetParams@out))^0500h,c
 	movlw	high(FlowReport_SendParam@pr)
@@ -20221,35 +20221,35 @@ l5612:
 	call	_FlowControl_GetParams	;wreg free
 	line	293
 	
-l5614:
+l5608:
 	movf	((c:FlowReport_SendParam@pr+1))^0500h,c,w
 	movwf	((c:FlowReport_SendParam@d))^0500h,c
 	
-l5616:
+l5610:
 	movff	(c:FlowReport_SendParam@pr),0+((c:FlowReport_SendParam@d)+01h)
 	line	294
 	
-l5618:
+l5612:
 	movf	(1+((c:FlowReport_SendParam@pr)+02h))^0500h,c,w
 	movwf	(0+((c:FlowReport_SendParam@d)+02h))^0500h,c
 	
-l5620:
+l5614:
 	movff	0+((c:FlowReport_SendParam@pr)+02h),0+((c:FlowReport_SendParam@d)+03h)
 	line	295
 	
-l5622:
+l5616:
 	movf	(1+((c:FlowReport_SendParam@pr)+04h))^0500h,c,w
 	movwf	(0+((c:FlowReport_SendParam@d)+04h))^0500h,c
 	
-l5624:
+l5618:
 	movff	0+((c:FlowReport_SendParam@pr)+04h),0+((c:FlowReport_SendParam@d)+05h)
 	line	296
 	
-l5626:
+l5620:
 	movf	(1+((c:FlowReport_SendParam@pr)+06h))^0500h,c,w
 	movwf	(0+((c:FlowReport_SendParam@d)+06h))^0500h,c
 	
-l5628:
+l5622:
 	movff	0+((c:FlowReport_SendParam@pr)+06h),0+((c:FlowReport_SendParam@d)+07h)
 	line	297
 		movlw	low(FlowReport_SendParam@d)
@@ -20317,7 +20317,7 @@ _FlowControl_GetParams:
 	callstack 119
 	line	226
 	
-l5522:
+l5518:
 	movf	((c:FlowControl_GetParams@out))^0500h,c,w
 iorwf	((c:FlowControl_GetParams@out+1))^0500h,c,w
 	btfsc	status,2
@@ -20328,7 +20328,7 @@ u3971:
 	goto	l911
 u3970:
 	
-l5524:
+l5520:
 	lfsr	2,(_s_param)
 	movff	(c:FlowControl_GetParams@out),fsr1l
 	movff	(c:FlowControl_GetParams@out+1),fsr1h
@@ -20393,11 +20393,11 @@ _FlowReport_SendNak:
 	movwf	((c:FlowReport_SendNak@reason))^0500h,c
 	line	363
 	
-l5644:
+l5638:
 	movff	(c:FlowReport_SendNak@reason),(c:FlowReport_SendNak@d)
 	line	364
 	
-l5646:
+l5640:
 		movlw	low(FlowReport_SendNak@d)
 	movwf	((c:send_small_packet@data))^0500h,c
 	movlw	high(FlowReport_SendNak@d)
@@ -20463,11 +20463,11 @@ _FlowReport_SendAck:
 	movwf	((c:FlowReport_SendAck@echoed_func))^0500h,c
 	line	317
 	
-l5640:
+l5634:
 	movff	(c:FlowReport_SendAck@echoed_func),(c:FlowReport_SendAck@d)
 	line	318
 	
-l5642:
+l5636:
 		movlw	low(FlowReport_SendAck@d)
 	movwf	((c:send_small_packet@data))^0500h,c
 	movlw	high(FlowReport_SendAck@d)
@@ -20548,13 +20548,13 @@ _send_small_packet:
 	movwf	((c:send_small_packet@func))^0500h,c
 	line	260
 	
-l5472:
+l5468:
 	clrf	((c:send_small_packet@i+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:send_small_packet@i))^0500h,c
 	line	263
 	
-l5474:
+l5470:
 		movf	((c:send_small_packet@len+1))^0500h,c,w
 	bnz	u3930
 	movlw	17
@@ -20564,21 +20564,21 @@ l5474:
 	goto	u3930
 
 u3931:
-	goto	l5478
+	goto	l5474
 u3930:
 	goto	l698
 	line	267
 	
-l5478:
+l5474:
 	movlw	low(0AAh)
 	movwf	((c:send_small_packet@frame))^0500h,c
 	
-l5480:
+l5476:
 	infsnz	((c:send_small_packet@i))^0500h,c
 	incf	((c:send_small_packet@i+1))^0500h,c
 	line	268
 	
-l5482:
+l5478:
 	movlw	low(send_small_packet@frame)
 	addwf	((c:send_small_packet@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20591,7 +20591,7 @@ l5482:
 	incf	((c:send_small_packet@i+1))^0500h,c
 	line	269
 	
-l5484:
+l5480:
 	movlw	low(send_small_packet@frame)
 	addwf	((c:send_small_packet@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20601,7 +20601,7 @@ l5484:
 	movff	(c:send_small_packet@func),indf2
 
 	
-l5486:
+l5482:
 	infsnz	((c:send_small_packet@i))^0500h,c
 	incf	((c:send_small_packet@i+1))^0500h,c
 	line	270
@@ -20615,12 +20615,12 @@ l5486:
 	movwf	indf2,c
 
 	
-l5488:
+l5484:
 	infsnz	((c:send_small_packet@i))^0500h,c
 	incf	((c:send_small_packet@i+1))^0500h,c
 	line	271
 	
-l5490:
+l5486:
 	movlw	low(send_small_packet@frame)
 	addwf	((c:send_small_packet@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20633,14 +20633,14 @@ l5490:
 	incf	((c:send_small_packet@i+1))^0500h,c
 	line	272
 	
-l5492:
+l5488:
 	clrf	((c:send_small_packet@k+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:send_small_packet@k))^0500h,c
-	goto	l5500
+	goto	l5496
 	line	273
 	
-l5494:
+l5490:
 	movf	((c:send_small_packet@k))^0500h,c,w
 	addwf	((c:send_small_packet@data))^0500h,c,w
 	movwf	c:fsr2l
@@ -20655,16 +20655,16 @@ l5494:
 	movwf	1+c:fsr1l
 	movff	indf2,indf1
 	
-l5496:
+l5492:
 	infsnz	((c:send_small_packet@i))^0500h,c
 	incf	((c:send_small_packet@i+1))^0500h,c
 	line	274
 	
-l5498:
+l5494:
 	infsnz	((c:send_small_packet@k))^0500h,c
 	incf	((c:send_small_packet@k+1))^0500h,c
 	
-l5500:
+l5496:
 		movf	((c:send_small_packet@len))^0500h,c,w
 	subwf	((c:send_small_packet@k))^0500h,c,w
 	movf	((c:send_small_packet@len+1))^0500h,c,w
@@ -20674,11 +20674,11 @@ l5500:
 	goto	u3940
 
 u3941:
-	goto	l5494
+	goto	l5490
 u3940:
 	line	276
 	
-l5502:
+l5498:
 		movlw	low(send_small_packet@frame+02h)
 	movwf	((c:Packet_CRC16@data))^0500h,c
 	movlw	high(send_small_packet@frame+02h)
@@ -20695,7 +20695,7 @@ l5502:
 	movff	1+?_Packet_CRC16,(c:send_small_packet@crc+1)
 	line	277
 	
-l5504:
+l5500:
 	movlw	low(send_small_packet@frame)
 	addwf	((c:send_small_packet@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20706,12 +20706,12 @@ l5504:
 	movwf	indf2,c
 
 	
-l5506:
+l5502:
 	infsnz	((c:send_small_packet@i))^0500h,c
 	incf	((c:send_small_packet@i+1))^0500h,c
 	line	278
 	
-l5508:
+l5504:
 	movlw	low(send_small_packet@frame)
 	addwf	((c:send_small_packet@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -20721,12 +20721,12 @@ l5508:
 	movff	(c:send_small_packet@crc),indf2
 
 	
-l5510:
+l5506:
 	infsnz	((c:send_small_packet@i))^0500h,c
 	incf	((c:send_small_packet@i+1))^0500h,c
 	line	281
 	
-l5512:
+l5508:
 	call	_UART_TX_Free	;wreg free
 	movwf	(??_send_small_packet+0)^0500h,c
 	clrf	(??_send_small_packet+0+1)^0500h,c
@@ -20744,14 +20744,14 @@ u3951:
 u3950:
 	line	282
 	
-l5514:
+l5510:
 	clrf	((c:send_small_packet@k_1706+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:send_small_packet@k_1706))^0500h,c
-	goto	l5520
+	goto	l5516
 	line	283
 	
-l5516:
+l5512:
 	movlw	low(send_small_packet@frame)
 	addwf	((c:send_small_packet@k_1706))^0500h,c,w
 	movwf	c:fsr2l
@@ -20763,11 +20763,11 @@ l5516:
 	call	_print_char
 	line	284
 	
-l5518:
+l5514:
 	infsnz	((c:send_small_packet@k_1706))^0500h,c
 	incf	((c:send_small_packet@k_1706+1))^0500h,c
 	
-l5520:
+l5516:
 		movf	((c:send_small_packet@i))^0500h,c,w
 	subwf	((c:send_small_packet@k_1706))^0500h,c,w
 	movf	((c:send_small_packet@i+1))^0500h,c,w
@@ -20777,7 +20777,7 @@ l5520:
 	goto	u3960
 
 u3961:
-	goto	l5516
+	goto	l5512
 u3960:
 	line	286
 	
@@ -20835,15 +20835,15 @@ _Packet_CRC16:
 	callstack 117
 	line	29
 	
-l5374:
+l5370:
 	call	_Packet_CRC16_Init	;wreg free
 	movff	0+?_Packet_CRC16_Init,(c:Packet_CRC16@crc)
 	movff	1+?_Packet_CRC16_Init,(c:Packet_CRC16@crc+1)
 	line	30
-	goto	l5380
+	goto	l5376
 	line	31
 	
-l5376:
+l5372:
 	movff	(c:Packet_CRC16@crc),(c:Packet_CRC16_Update@crc)
 	movff	(c:Packet_CRC16@crc+1),(c:Packet_CRC16_Update@crc+1)
 	movff	(c:Packet_CRC16@data),fsr2l
@@ -20854,12 +20854,12 @@ l5376:
 	movff	0+?_Packet_CRC16_Update,(c:Packet_CRC16@crc)
 	movff	1+?_Packet_CRC16_Update,(c:Packet_CRC16@crc+1)
 	
-l5378:
+l5374:
 	infsnz	((c:Packet_CRC16@data))^0500h,c
 	incf	((c:Packet_CRC16@data+1))^0500h,c
 	line	30
 	
-l5380:
+l5376:
 	decf	((c:Packet_CRC16@len))^0500h,c
 	btfss	status,0
 	decf	((c:Packet_CRC16@len+1))^0500h,c
@@ -20871,7 +20871,7 @@ l5380:
 	goto	u3760
 
 u3761:
-	goto	l5376
+	goto	l5372
 u3760:
 	
 l1009:
@@ -20931,7 +20931,7 @@ _FlowReport_NotifyAA:
 	callstack 120
 	line	118
 	
-l5610:
+l5604:
 	movlw	low(01h)
 	movlb	5	; () banked
 	movwf	((_s_aa))&0ffh	;volatile
@@ -20991,35 +20991,35 @@ _FlowControl_Unlock:; BSR set to: 5
 	movwf	((c:FlowControl_Unlock@flags))^0500h,c
 	line	277
 	
-l5658:
+l5652:
 	
 	btfss	((c:FlowControl_Unlock@flags))^0500h,c,(0)&7
 	goto	u4151
 	goto	u4150
 u4151:
-	goto	l5662
+	goto	l5656
 u4150:
 	
-l5660:
+l5654:
 	movlb	5	; () banked
 	clrf	((_s_temp_locked))&0ffh
 	line	278
 	
-l5662:
+l5656:
 	
 	btfss	((c:FlowControl_Unlock@flags))^0500h,c,(1)&7
 	goto	u4161
 	goto	u4160
 u4161:
-	goto	l5666
+	goto	l5660
 u4160:
 	
-l5664:
+l5658:
 	movlb	5	; () banked
 	clrf	((_s_perm_locked))&0ffh
 	line	279
 	
-l5666:
+l5660:
 	call	_apply_valve	;wreg free
 	line	280
 	
@@ -21075,7 +21075,7 @@ _FlowControl_SetParams:
 	callstack 119
 	line	231
 	
-l5630:
+l5624:
 	movlb	5	; () banked
 	movf	((FlowControl_SetParams@in))&0ffh,w
 iorwf	((FlowControl_SetParams@in+1))&0ffh,w
@@ -21084,12 +21084,12 @@ iorwf	((FlowControl_SetParams@in+1))&0ffh,w
 	goto	u4130
 
 u4131:
-	goto	l5634
+	goto	l5628
 u4130:
 	goto	l915
 	line	243
 	
-l5634:; BSR set to: 5
+l5628:; BSR set to: 5
 
 	movff	(FlowControl_SetParams@in),fsr2l
 	movff	(FlowControl_SetParams@in+1),fsr2h
@@ -21102,12 +21102,12 @@ u4141:
 
 	line	244
 	
-l5636:; BSR set to: 5
+l5630:; BSR set to: 5
 
 	call	_FlowControl_RecalcDerived	;wreg free
 	line	247
 	
-l5638:
+l5632:
 	call	_evaluate_alerts	;wreg free
 	line	249
 	
@@ -21163,24 +21163,24 @@ _UART_RX_Pop:
 	callstack 121
 	line	60
 	
-l5902:
+l5896:
 	clrf	((c:UART_RX_Pop@ok))^0500h,c
 	line	61
 	bcf	((c:1238))^0400h,c,7	;volatile
 	line	62
 	
-l5904:
+l5898:
 	movlb	5	; () banked
 	movf	((_s_rx_count))&0ffh,w	;volatile
 	btfsc	status,2
 	goto	u4331
 	goto	u4330
 u4331:
-	goto	l5914
+	goto	l5908
 u4330:
 	line	63
 	
-l5906:; BSR set to: 5
+l5900:; BSR set to: 5
 
 	movlw	low(_s_rx_buf)
 	addwf	((c:_s_rx_tail))^0500h,c,w	;volatile
@@ -21193,30 +21193,30 @@ l5906:; BSR set to: 5
 	movff	indf2,indf1
 	line	64
 	
-l5908:; BSR set to: 5
+l5902:; BSR set to: 5
 
 	incf	((c:_s_rx_tail))^0500h,c,w	;volatile
 	andlw	low(01Fh)
 	movwf	((c:_s_rx_tail))^0500h,c	;volatile
 	line	65
 	
-l5910:; BSR set to: 5
+l5904:; BSR set to: 5
 
 	decf	((_s_rx_count))&0ffh	;volatile
 	line	66
 	
-l5912:; BSR set to: 5
+l5906:; BSR set to: 5
 
 	movlw	low(01h)
 	movwf	((c:UART_RX_Pop@ok))^0500h,c
 	line	68
 	
-l5914:; BSR set to: 5
+l5908:; BSR set to: 5
 
 	bsf	((c:1238))^0400h,c,7	;volatile
 	line	69
 	
-l5916:; BSR set to: 5
+l5910:; BSR set to: 5
 
 	movf	((c:UART_RX_Pop@ok))^0500h,c,w
 	line	70
@@ -21276,7 +21276,7 @@ _Packet_ParserTimeoutCheck:; BSR set to: 5
 	callstack 120
 	line	53
 	
-l5802:
+l5796:
 	movff	(c:Packet_ParserTimeoutCheck@p),fsr2l
 	movff	(c:Packet_ParserTimeoutCheck@p+1),fsr2h
 	movf	indf2,w
@@ -21288,7 +21288,7 @@ u4221:
 u4220:
 	line	54
 	
-l5804:
+l5798:
 	lfsr	2,012h
 	movf	((c:Packet_ParserTimeoutCheck@p))^0500h,c,w
 	addwf	fsr2l
@@ -21315,7 +21315,7 @@ u4231:
 u4230:
 	line	55
 	
-l5806:
+l5800:
 		movff	(c:Packet_ParserTimeoutCheck@p),(c:Packet_ParserReset@p)
 	movff	(c:Packet_ParserTimeoutCheck@p+1),(c:Packet_ParserReset@p+1)
 
@@ -21377,7 +21377,7 @@ _Packet_ParseByte:
 	callstack 120
 	line	62
 	
-l5808:
+l5802:
 	call	_getNowTime	;wreg free
 	lfsr	2,012h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
@@ -21390,10 +21390,10 @@ l5808:
 	movff	3+?_getNowTime,postinc2
 
 	line	64
-	goto	l5888
+	goto	l5882
 	line	67
 	
-l5810:
+l5804:
 		movlw	170
 	xorwf	((c:Packet_ParseByte@b))^0500h,c,w
 	btfss	status,2
@@ -21401,11 +21401,11 @@ l5810:
 	goto	u4240
 
 u4241:
-	goto	l5890
+	goto	l5884
 u4240:
 	line	68
 	
-l5812:
+l5806:
 	lfsr	2,016h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21421,15 +21421,15 @@ l5812:
 	clrf	indf2
 	line	70
 	
-l5814:
+l5808:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movlw	low(01h)
 	movwf	indf2
-	goto	l5890
+	goto	l5884
 	line	75
 	
-l5816:
+l5810:
 		movlw	85
 	xorwf	((c:Packet_ParseByte@b))^0500h,c,w
 	btfss	status,2
@@ -21437,19 +21437,19 @@ l5816:
 	goto	u4250
 
 u4251:
-	goto	l5820
+	goto	l5814
 u4250:
 	line	76
 	
-l5818:
+l5812:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movlw	low(02h)
 	movwf	indf2
 	line	77
-	goto	l5890
+	goto	l5884
 	
-l5820:
+l5814:
 		movlw	170
 	xorwf	((c:Packet_ParseByte@b))^0500h,c,w
 	btfss	status,2
@@ -21457,27 +21457,27 @@ l5820:
 	goto	u4260
 
 u4261:
-	goto	l5824
+	goto	l5818
 u4260:
 	line	78
 	
-l5822:
+l5816:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movlw	low(01h)
 	movwf	indf2
 	line	79
-	goto	l5890
+	goto	l5884
 	line	80
 	
-l5824:
+l5818:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	clrf	indf2
-	goto	l5890
+	goto	l5884
 	line	85
 	
-l5826:
+l5820:
 	lfsr	2,01h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21487,7 +21487,7 @@ l5826:
 
 	line	86
 	
-l5828:
+l5822:
 	call	_Packet_CRC16_Init	;wreg free
 	lfsr	2,0Eh
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
@@ -21499,7 +21499,7 @@ l5828:
 
 	line	87
 	
-l5830:
+l5824:
 	lfsr	2,0Eh
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21519,16 +21519,16 @@ l5830:
 
 	line	88
 	
-l5832:
+l5826:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movlw	low(03h)
 	movwf	indf2
 	line	89
-	goto	l5890
+	goto	l5884
 	line	92
 	
-l5834:
+l5828:
 	movf	((c:Packet_ParseByte@b))^0500h,c,w
 	movwf	(??_Packet_ParseByte+0+1)^0500h,c
 	clrf	(??_Packet_ParseByte+0)^0500h,c
@@ -21542,7 +21542,7 @@ l5834:
 
 	line	93
 	
-l5836:
+l5830:
 	lfsr	2,0Eh
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21562,16 +21562,16 @@ l5836:
 
 	line	94
 	
-l5838:
+l5832:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movlw	low(04h)
 	movwf	indf2
 	line	95
-	goto	l5890
+	goto	l5884
 	line	98
 	
-l5840:
+l5834:
 	lfsr	2,02h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21583,7 +21583,7 @@ l5840:
 	iorwf	postdec2
 	line	99
 	
-l5842:
+l5836:
 	lfsr	2,0Eh
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21603,7 +21603,7 @@ l5842:
 
 	line	100
 	
-l5844:
+l5838:
 	lfsr	2,04h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21613,7 +21613,7 @@ l5844:
 	clrf	postdec2
 	line	102
 	
-l5846:
+l5840:
 	lfsr	2,02h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21629,11 +21629,11 @@ l5846:
 	goto	u4270
 
 u4271:
-	goto	l5852
+	goto	l5846
 u4270:
 	line	103
 	
-l5848:
+l5842:
 	lfsr	2,016h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21643,16 +21643,16 @@ l5848:
 	movwf	indf2
 	line	104
 	
-l5850:
+l5844:
 		movff	(c:Packet_ParseByte@p),(c:Packet_ParserReset@p)
 	movff	(c:Packet_ParseByte@p+1),(c:Packet_ParserReset@p+1)
 
 	call	_Packet_ParserReset	;wreg free
 	line	105
-	goto	l5890
+	goto	l5884
 	line	107
 	
-l5852:
+l5846:
 	lfsr	2,02h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21665,28 +21665,28 @@ iorwf	postinc2,w
 	goto	u4280
 
 u4281:
-	goto	l5856
+	goto	l5850
 u4280:
 	
-l5854:
+l5848:
 	movlw	low(05h)
 	movwf	((c:_Packet_ParseByte$2010))^0500h,c
-	goto	l5858
+	goto	l5852
 	
-l5856:
+l5850:
 	movlw	low(06h)
 	movwf	((c:_Packet_ParseByte$2010))^0500h,c
 	
-l5858:
+l5852:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movff	(c:_Packet_ParseByte$2010),indf2
 
 	line	108
-	goto	l5890
+	goto	l5884
 	line	111
 	
-l5860:
+l5854:
 	lfsr	2,04h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21718,7 +21718,7 @@ l5860:
 	addwfc	postdec2
 	line	112
 	
-l5862:
+l5856:
 	lfsr	2,0Eh
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21738,7 +21738,7 @@ l5862:
 
 	line	113
 	
-l5864:
+l5858:
 	lfsr	2,02h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21758,19 +21758,19 @@ l5864:
 	goto	u4290
 
 u4291:
-	goto	l5890
+	goto	l5884
 u4290:
 	line	114
 	
-l5866:
+l5860:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movlw	low(06h)
 	movwf	indf2
-	goto	l5890
+	goto	l5884
 	line	119
 	
-l5868:
+l5862:
 	movf	((c:Packet_ParseByte@b))^0500h,c,w
 	movwf	(??_Packet_ParseByte+0+1)^0500h,c
 	clrf	(??_Packet_ParseByte+0)^0500h,c
@@ -21784,16 +21784,16 @@ l5868:
 
 	line	120
 	
-l5870:
+l5864:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movlw	low(07h)
 	movwf	indf2
 	line	121
-	goto	l5890
+	goto	l5884
 	line	124
 	
-l5872:
+l5866:
 	lfsr	2,010h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21805,13 +21805,13 @@ l5872:
 	iorwf	postdec2
 	line	125
 	
-l5874:
+l5868:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	clrf	indf2
 	line	126
 	
-l5876:
+l5870:
 	lfsr	2,0Eh
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21832,16 +21832,16 @@ xorwf	postinc1,w
 	goto	u4300
 
 u4301:
-	goto	l5882
+	goto	l5876
 u4300:
 	line	127
 	
-l5878:
+l5872:
 	movlw	(01h)&0ffh
 	goto	l1043
 	line	129
 	
-l5882:
+l5876:
 	lfsr	2,017h
 	movf	((c:Packet_ParseByte@p))^0500h,c,w
 	addwf	fsr2l
@@ -21850,10 +21850,10 @@ l5882:
 	movlw	low(01h)
 	movwf	indf2
 	line	130
-	goto	l5890
+	goto	l5884
 	line	135
 	
-l5888:
+l5882:
 	movff	(c:Packet_ParseByte@p),fsr2l
 	movff	(c:Packet_ParseByte@p+1),fsr2h
 	movf	indf2,w
@@ -21871,10 +21871,10 @@ l5888:
 	movf ??_Packet_ParseByte+0+1^0500h,c,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6920
-	goto	l5850
+	goto	l6914
+	goto	l5844
 	
-l6920:
+l6914:
 ; Switch size 1, requested type "simple"
 ; Number of cases is 8, Range of values is 0 to 7
 ; switch strategies available:
@@ -21885,33 +21885,33 @@ l6920:
 	movf ??_Packet_ParseByte+0^0500h,c,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l5810
+	goto	l5804
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l5816
+	goto	l5810
 	xorlw	2^1	; case 2
 	skipnz
-	goto	l5826
+	goto	l5820
 	xorlw	3^2	; case 3
 	skipnz
-	goto	l5834
+	goto	l5828
 	xorlw	4^3	; case 4
 	skipnz
-	goto	l5840
+	goto	l5834
 	xorlw	5^4	; case 5
 	skipnz
-	goto	l5860
+	goto	l5854
 	xorlw	6^5	; case 6
 	skipnz
-	goto	l5868
+	goto	l5862
 	xorlw	7^6	; case 7
 	skipnz
-	goto	l5872
-	goto	l5850
+	goto	l5866
+	goto	l5844
 
 	line	136
 	
-l5890:
+l5884:
 	movlw	(0)&0ffh
 	line	137
 	
@@ -21968,13 +21968,13 @@ _Packet_ParserReset:
 	callstack 120
 	line	41
 	
-l5728:
+l5722:
 	movff	(c:Packet_ParserReset@p),fsr2l
 	movff	(c:Packet_ParserReset@p+1),fsr2h
 	clrf	indf2
 	line	42
 	
-l5730:
+l5724:
 	lfsr	2,01h
 	movf	((c:Packet_ParserReset@p))^0500h,c,w
 	addwf	fsr2l
@@ -21983,7 +21983,7 @@ l5730:
 	clrf	indf2
 	line	43
 	
-l5732:
+l5726:
 	lfsr	2,02h
 	movf	((c:Packet_ParserReset@p))^0500h,c,w
 	addwf	fsr2l
@@ -21993,7 +21993,7 @@ l5732:
 	clrf	postdec2
 	line	44
 	
-l5734:
+l5728:
 	lfsr	2,04h
 	movf	((c:Packet_ParserReset@p))^0500h,c,w
 	addwf	fsr2l
@@ -22003,7 +22003,7 @@ l5734:
 	clrf	postdec2
 	line	45
 	
-l5736:
+l5730:
 	lfsr	2,0Eh
 	movf	((c:Packet_ParserReset@p))^0500h,c,w
 	addwf	fsr2l
@@ -22013,7 +22013,7 @@ l5736:
 	clrf	postdec2
 	line	46
 	
-l5738:
+l5732:
 	lfsr	2,010h
 	movf	((c:Packet_ParserReset@p))^0500h,c,w
 	addwf	fsr2l
@@ -22075,7 +22075,7 @@ _FlowReport_IsSending:
 	callstack 121
 	line	141
 	
-l5898:
+l5892:
 	movlb	5	; () banked
 	movf	((_s_send_state))&0ffh,w
 	btfss	status,2
@@ -22142,10 +22142,10 @@ _UART_TX_IsEmpty:; BSR set to: 5
 	callstack 122
 	line	246
 	
-l6510:
+l6504:
 	clrf	((c:_UART_TX_IsEmpty$1368))^0500h,c
 	
-l6512:
+l6506:
 	movf	((c:_s_tx_count))^0500h,c,w	;volatile
 	btfss	status,2
 	goto	u4861
@@ -22154,7 +22154,7 @@ u4861:
 	goto	l416
 u4860:
 	
-l6514:
+l6508:
 	movlb	2	; () banked
 	btfss	((690))&0ffh,7	;volatile
 	goto	u4871
@@ -22163,7 +22163,7 @@ u4871:
 	goto	l416
 u4870:
 	
-l6516:; BSR set to: 2
+l6510:; BSR set to: 2
 
 	movlw	low(01h)
 	movwf	((c:_UART_TX_IsEmpty$1368))^0500h,c
@@ -22223,7 +22223,7 @@ _UART_RX_SetCallback:
 	callstack 122
 	line	43
 	
-l6090:
+l6084:
 		movff	(c:UART_RX_SetCallback@cb),(_s_rx_cb)
 	movff	(c:UART_RX_SetCallback@cb+1),(_s_rx_cb+1)
 
@@ -22279,32 +22279,32 @@ _UART_Init:
 	callstack 122
 	line	116
 	
-l6066:
+l6060:
 	movlb	4	; () banked
 	bcf	((1040))&0ffh,0	;volatile
 	line	117
 	bcf	((c:1224))^0400h,c,0	;volatile
 	line	118
 	
-l6068:; BSR set to: 4
+l6062:; BSR set to: 4
 
 	movlw	low(010h)
 	movlb	2	; () banked
 	movwf	((529))&0ffh	;volatile
 	line	121
 	
-l6070:; BSR set to: 2
+l6064:; BSR set to: 2
 
 	movlb	4	; () banked
 	bcf	((1040))&0ffh,1	;volatile
 	line	122
 	
-l6072:; BSR set to: 4
+l6066:; BSR set to: 4
 
 	bsf	((c:1224))^0400h,c,1	;volatile
 	line	123
 	
-l6074:; BSR set to: 4
+l6068:; BSR set to: 4
 
 	bsf	((1041))&0ffh,1	;volatile
 	line	127
@@ -22313,7 +22313,7 @@ l6074:; BSR set to: 4
 	movwf	((626))&0ffh	;volatile
 	line	130
 	
-l6076:; BSR set to: 2
+l6070:; BSR set to: 2
 
 	bsf	((683))&0ffh,7	;volatile
 	line	131
@@ -22327,34 +22327,34 @@ l6076:; BSR set to: 2
 	andwf	((683))&0ffh	;volatile
 	line	136
 	
-l6078:; BSR set to: 2
+l6072:; BSR set to: 2
 
 	bsf	((683))&0ffh,5	;volatile
 	line	137
 	
-l6080:; BSR set to: 2
+l6074:; BSR set to: 2
 
 	bsf	((683))&0ffh,4	;volatile
 	line	138
 	
-l6082:; BSR set to: 2
+l6076:; BSR set to: 2
 
 	bsf	((684))&0ffh,7	;volatile
 	line	141
 	
-l6084:; BSR set to: 2
+l6078:; BSR set to: 2
 
 	clrf	((c:_s_tx_count))^0500h,c	;volatile
 	clrf	((c:_s_tx_tail))^0500h,c	;volatile
 	clrf	((c:_s_tx_head))^0500h,c	;volatile
 	line	144
 	
-l6086:; BSR set to: 2
+l6080:; BSR set to: 2
 
 	bsf	((c:1196))^0400h,c,0	;volatile
 	line	145
 	
-l6088:; BSR set to: 2
+l6082:; BSR set to: 2
 
 	bcf	((c:1196))^0400h,c,1	;volatile
 	line	147
@@ -22413,7 +22413,7 @@ _Sys_Time_Init:; BSR set to: 2
 	callstack 121
 	line	27
 	
-l6092:
+l6086:
 	movlw	(0)&0ffh
 	
 	call	_MCU_Time_Init
@@ -22472,7 +22472,7 @@ _MCU_Time_Init:
 	callstack 121
 	line	58
 	
-l5922:
+l5916:
 	movlw	low(0)
 	movlb	5	; () banked
 	movwf	((_unNowTime_ms))&0ffh	;volatile
@@ -22541,7 +22541,7 @@ _Sys_Time_EnterDeepSleep:; BSR set to: 5
 	callstack 121
 	line	71
 	
-l6536:
+l6530:
 	line	74
 	movlb	3	; () banked
 	bcf	((798))&0ffh,7	;volatile
@@ -22553,7 +22553,7 @@ l6536:
 	bcf	((794))&0ffh,7	;volatile
 	line	82
 	
-l6538:; BSR set to: 3
+l6532:; BSR set to: 3
 
 	movlw	low(09Eh)
 	movwf	((795))&0ffh	;volatile
@@ -22562,17 +22562,17 @@ l6538:; BSR set to: 3
 	movwf	((793))&0ffh	;volatile
 	line	84
 	
-l6540:; BSR set to: 3
+l6534:; BSR set to: 3
 
 	clrf	((792))&0ffh	;volatile
 	line	85
 	
-l6542:; BSR set to: 3
+l6536:; BSR set to: 3
 
 	bcf	((c:1206))^0400h,c,7	;volatile
 	line	86
 	
-l6544:; BSR set to: 3
+l6538:; BSR set to: 3
 
 	bsf	((c:1195))^0400h,c,7	;volatile
 	line	88
@@ -22580,20 +22580,20 @@ l6544:; BSR set to: 3
 	movwf	((794))&0ffh	;volatile
 	line	91
 	
-l6546:; BSR set to: 3
+l6540:; BSR set to: 3
 
 	call	_UART_WakeArm	;wreg free
 	line	97
 	
-l6548:
+l6542:
 	bcf	((c:1238))^0400h,c,7	;volatile
 	line	98
 	
-l6550:
+l6544:
 	bcf	((c:1266))^0400h,c,7	;volatile
 	line	99
 	
-l6552:
+l6546:
 	movlb	0	; () banked
 	bcf	((120))&0ffh,0	;volatile
 	
@@ -22605,14 +22605,14 @@ sleep ;#
 psect	text35
 	line	101
 	
-l6554:
+l6548:
 	asmopt	push
 	asmopt	off
 	nop
 	asmopt	pop
 	line	103
 	
-l6556:
+l6550:
 	movlb	0	; () banked
 	bsf	((120))&0ffh,0	;volatile
 	
@@ -22625,27 +22625,27 @@ l291:; BSR set to: 0
 	goto	u4891
 	goto	u4890
 u4891:
-	goto	l6560
+	goto	l6554
 u4890:
 	line	107
 	
-l6558:
+l6552:
 	line	109
 	
-l6560:
+l6554:
 	call	_UART_WakeDisarm	;wreg free
 	line	112
 	
-l6562:
+l6556:
 	btfss	((c:1206))^0400h,c,7	;volatile
 	goto	u4901
 	goto	u4900
 u4901:
-	goto	l6566
+	goto	l6560
 u4900:
 	line	113
 	
-l6564:
+l6558:
 	movlw	low(0A53h)
 	movwf	((c:MCU_Time_Advance@unMs))^0500h,c
 	movlw	high(0A53h)
@@ -22657,27 +22657,27 @@ l6564:
 	call	_MCU_Time_Advance	;wreg free
 	line	119
 	
-l6566:
+l6560:
 	movlb	3	; () banked
 	bcf	((794))&0ffh,7	;volatile
 	line	120
 	
-l6568:; BSR set to: 3
+l6562:; BSR set to: 3
 
 	bcf	((c:1195))^0400h,c,7	;volatile
 	line	121
 	
-l6570:; BSR set to: 3
+l6564:; BSR set to: 3
 
 	bcf	((c:1206))^0400h,c,7	;volatile
 	line	123
 	
-l6572:; BSR set to: 3
+l6566:; BSR set to: 3
 
 	bsf	((c:1238))^0400h,c,7	;volatile
 	line	125
 	
-l6574:; BSR set to: 3
+l6568:; BSR set to: 3
 
 	call	_Sys_Time_ResumeTick	;wreg free
 	line	127
@@ -22733,7 +22733,7 @@ _UART_WokeByEdge:
 	callstack 121
 	line	107
 	
-l5938:
+l5932:
 	movlb	2	; () banked
 	btfsc	((689))&0ffh,7	;volatile
 	goto	u4351
@@ -22798,7 +22798,7 @@ _UART_WakeDisarm:; BSR set to: 2
 	callstack 121
 	line	100
 	
-l5942:
+l5936:
 	movlb	2	; () banked
 	bcf	((684))&0ffh,4	;volatile
 	line	101
@@ -22859,7 +22859,7 @@ _UART_WakeArm:; BSR set to: 2
 	callstack 121
 	line	91
 	
-l5936:
+l5930:
 	
 l367:
 	movlb	2	; () banked
@@ -22934,18 +22934,18 @@ _Sys_Time_ResumeTick:; BSR set to: 2
 	callstack 121
 	line	41
 	
-l5924:
+l5918:
 	movlb	3	; () banked
 	bcf	((798))&0ffh,7	;volatile
 	line	43
 	
-l5926:; BSR set to: 3
+l5920:; BSR set to: 3
 
 	movlw	low(01h)
 	movwf	((800))&0ffh	;volatile
 	line	44
 	
-l5928:; BSR set to: 3
+l5922:; BSR set to: 3
 
 	clrf	((799))&0ffh	;volatile
 	line	45
@@ -22956,17 +22956,17 @@ l5928:; BSR set to: 3
 	movwf	((798))&0ffh	;volatile
 	line	49
 	
-l5930:; BSR set to: 3
+l5924:; BSR set to: 3
 
 	bcf	((c:1206))^0400h,c,3	;volatile
 	line	52
 	
-l5932:; BSR set to: 3
+l5926:; BSR set to: 3
 
 	bsf	((c:1195))^0400h,c,3	;volatile
 	line	57
 	
-l5934:; BSR set to: 3
+l5928:; BSR set to: 3
 
 	bsf	((798))&0ffh,7	;volatile
 	line	58
@@ -23024,7 +23024,7 @@ _MCU_Time_Advance:; BSR set to: 3
 	callstack 121
 	line	51
 	
-l5920:
+l5914:
 	movf	((c:MCU_Time_Advance@unMs))^0500h,c,w	;volatile
 	movlb	5	; () banked
 	addwf	((_unNowTime_ms))&0ffh	;volatile
@@ -23089,32 +23089,32 @@ _PulseCounter_Init:; BSR set to: 5
 	callstack 122
 	line	25
 	
-l6094:
+l6088:
 	movlb	4	; () banked
 	bcf	((1040))&0ffh,5	;volatile
 	line	26
 	bsf	((c:1224))^0400h,c,5	;volatile
 	line	27
 	
-l6096:; BSR set to: 4
+l6090:; BSR set to: 4
 
 	movlw	low(015h)
 	movlb	2	; () banked
 	movwf	((578))&0ffh	;volatile
 	line	30
 	
-l6098:; BSR set to: 2
+l6092:; BSR set to: 2
 
 	movlb	3	; () banked
 	bcf	((788))&0ffh,0	;volatile
 	line	33
 	
-l6100:; BSR set to: 3
+l6094:; BSR set to: 3
 
 	clrf	((789))&0ffh	;volatile
 	line	36
 	
-l6102:; BSR set to: 3
+l6096:; BSR set to: 3
 
 	clrf	((791))&0ffh	;volatile
 	line	40
@@ -23122,12 +23122,12 @@ l6102:; BSR set to: 3
 	movwf	((788))&0ffh	;volatile
 	line	43
 	
-l6104:; BSR set to: 3
+l6098:; BSR set to: 3
 
 	clrf	((787))&0ffh	;volatile
 	line	44
 	
-l6106:; BSR set to: 3
+l6100:; BSR set to: 3
 
 	clrf	((786))&0ffh	;volatile
 	line	45
@@ -23184,7 +23184,7 @@ _PulseCounter_Enable:; BSR set to: 3
 	callstack 122
 	line	49
 	
-l6108:
+l6102:
 	movlb	3	; () banked
 	bsf	((788))&0ffh,0	;volatile
 	line	50
@@ -23243,19 +23243,19 @@ _MValve_OP3_Process:; BSR set to: 3
 	callstack 121
 	line	95
 	
-l6216:
+l6210:
 	movlb	5	; () banked
 	movf	((_s_driving))&0ffh,w
 	btfss	status,2
 	goto	u4591
 	goto	u4590
 u4591:
-	goto	l6220
+	goto	l6214
 u4590:
 	goto	l965
 	line	99
 	
-l6220:; BSR set to: 5
+l6214:; BSR set to: 5
 
 	movff	(_s_drive_ms),(c:timeSpan@unOldTime_ms)
 	movff	(_s_drive_ms+1),(c:timeSpan@unOldTime_ms+1)
@@ -23278,32 +23278,32 @@ u4601:
 u4600:
 	line	101
 	
-l6222:
+l6216:
 	call	_valve_pins_idle	;wreg free
 	line	102
 	
-l6224:
+l6218:
 	movlb	5	; () banked
 	clrf	((_s_driving))&0ffh
 	line	103
 	
-l6226:; BSR set to: 5
+l6220:; BSR set to: 5
 
 	movf	((_s_drive_open))&0ffh,w
 	btfss	status,2
 	goto	u4611
 	goto	u4610
 u4611:
-	goto	l6230
+	goto	l6224
 u4610:
 	
-l6228:; BSR set to: 5
+l6222:; BSR set to: 5
 
 	movlw	low(02h)
 	movwf	((_s_motion))&0ffh
 	goto	l965
 	
-l6230:; BSR set to: 5
+l6224:; BSR set to: 5
 
 	movlw	low(01h)
 	movwf	((_s_motion))&0ffh
@@ -23359,7 +23359,7 @@ _MValve_OP3_IsBusy:
 	callstack 122
 	line	111
 	
-l6532:
+l6526:
 	movlb	5	; () banked
 	movf	((_s_driving))&0ffh,w
 	line	112
@@ -23416,16 +23416,16 @@ _MValve_OP3_Init:; BSR set to: 5
 	callstack 121
 	line	32
 	
-l6182:
+l6176:
 	call	_valve_pins_idle	;wreg free
 	line	33
 	
-l6184:
+l6178:
 	movlb	5	; () banked
 	clrf	((_s_driving))&0ffh
 	line	34
 	
-l6186:; BSR set to: 5
+l6180:; BSR set to: 5
 
 	movlw	low(0)
 	movlb	6	; () banked
@@ -23438,7 +23438,7 @@ l6186:; BSR set to: 5
 	movwf	((_s_drive_ms+3))&0ffh
 	line	46
 	
-l6188:; BSR set to: 6
+l6182:; BSR set to: 6
 
 	movlb	5	; () banked
 	clrf	((_s_motion))&0ffh
@@ -23498,7 +23498,7 @@ _valve_pins_idle:; BSR set to: 5
 	callstack 121
 	line	24
 	
-l6036:
+l6030:
 	bcf	((c:1216))^0400h,c,2	;volatile
 	line	25
 	bcf	((c:1214))^0400h,c,2	;volatile
@@ -23607,18 +23607,18 @@ _LedFsm_Process:
 	callstack 121
 	line	53
 	
-l6190:
+l6184:
 	movlb	5	; () banked
 	movf	((_s_mode))&0ffh,w
 	btfss	status,2
 	goto	u4541
 	goto	u4540
 u4541:
-	goto	l6200
+	goto	l6194
 u4540:
 	line	54
 	
-l6192:; BSR set to: 5
+l6186:; BSR set to: 5
 
 	movff	(_s_mark),(c:timeSpan@unOldTime_ms)
 	movff	(_s_mark+1),(c:timeSpan@unOldTime_ms+1)
@@ -23641,7 +23641,7 @@ u4551:
 u4550:
 	line	55
 	
-l6194:
+l6188:
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_mark)
 	movff	1+?_getNowTime,(_s_mark+1)
@@ -23650,12 +23650,12 @@ l6194:
 	
 	line	56
 	
-l6196:
+l6190:
 	btg	((c:1216))^0400h,c,3	;volatile
 	goto	l789
 	line	63
 	
-l6200:; BSR set to: 5
+l6194:; BSR set to: 5
 
 	movff	(_s_mark),(c:timeSpan@unOldTime_ms)
 	movff	(_s_mark+1),(c:timeSpan@unOldTime_ms+1)
@@ -23677,7 +23677,7 @@ u4561:
 u4560:
 	line	64
 	
-l6202:
+l6196:
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_mark)
 	movff	1+?_getNowTime,(_s_mark+1)
@@ -23686,27 +23686,27 @@ l6202:
 	
 	line	65
 	
-l6204:
+l6198:
 	btg	((c:1216))^0400h,c,3	;volatile
 	line	66
 	
-l6206:
+l6200:
 	movlb	5	; () banked
 	movf	((_s_toggles))&0ffh,w
 	btfsc	status,2
 	goto	u4571
 	goto	u4570
 u4571:
-	goto	l6210
+	goto	l6204
 u4570:
 	line	67
 	
-l6208:; BSR set to: 5
+l6202:; BSR set to: 5
 
 	decf	((_s_toggles))&0ffh
 	line	69
 	
-l6210:; BSR set to: 5
+l6204:; BSR set to: 5
 
 	movf	((_s_toggles))&0ffh,w
 	btfss	status,2
@@ -23717,14 +23717,14 @@ u4581:
 u4580:
 	line	71
 	
-l6212:; BSR set to: 5
+l6206:; BSR set to: 5
 
 	bcf	((c:1216))^0400h,c,3	;volatile
 	line	72
 	clrf	((_s_mode))&0ffh
 	line	73
 	
-l6214:; BSR set to: 5
+l6208:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_mark)
@@ -23784,12 +23784,12 @@ _LedFsm_Init:
 	callstack 121
 	line	23
 	
-l6160:
+l6154:
 	movlb	5	; () banked
 	clrf	((_s_mode))&0ffh
 	line	24
 	
-l6162:; BSR set to: 5
+l6156:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_mark)
@@ -23799,12 +23799,12 @@ l6162:; BSR set to: 5
 	
 	line	25
 	
-l6164:
+l6158:
 	movlb	5	; () banked
 	clrf	((_s_toggles))&0ffh
 	line	26
 	
-l6166:; BSR set to: 5
+l6160:; BSR set to: 5
 
 	bcf	((c:1216))^0400h,c,3	;volatile
 	line	27
@@ -23862,7 +23862,7 @@ _LEDs_Init:; BSR set to: 5
 	callstack 122
 	line	16
 	
-l6064:
+l6058:
 	movlb	4	; () banked
 	bcf	((1040))&0ffh,3	;volatile
 	line	17
@@ -23956,28 +23956,28 @@ _FlowReport_WakeDuePending:; BSR set to: 4
 	callstack 122
 	line	148
 	
-l6520:
+l6514:
 	movlb	5	; () banked
 	movf	((_s_wake_due))&0ffh,w	;volatile
 	btfsc	status,2
 	goto	u4881
 	goto	u4880
 u4881:
-	goto	l6528
+	goto	l6522
 u4880:
 	line	149
 	
-l6522:; BSR set to: 5
+l6516:; BSR set to: 5
 
 	clrf	((_s_wake_due))&0ffh	;volatile
 	
-l6524:; BSR set to: 5
+l6518:; BSR set to: 5
 
 	movlw	(01h)&0ffh
 	goto	l685
 	line	151
 	
-l6528:; BSR set to: 5
+l6522:; BSR set to: 5
 
 	movlw	(0)&0ffh
 	line	152
@@ -24063,11 +24063,11 @@ _FlowReport_Process:; BSR set to: 5
 	callstack 120
 	line	387
 	
-l6286:
-	goto	l6310
+l6280:
+	goto	l6304
 	line	390
 	
-l6288:; BSR set to: 5
+l6282:; BSR set to: 5
 
 	call	_FlowLog_BatchReady	;wreg free
 	iorlw	0
@@ -24078,14 +24078,14 @@ u4681:
 	goto	l730
 u4680:
 	
-l6290:
+l6284:
 	movlb	5	; () banked
 	movf	((_s_report_req))&0ffh,w	;volatile
 	btfsc	status,2
 	goto	u4691
 	goto	u4690
 u4691:
-	goto	l6494
+	goto	l6488
 u4690:
 	
 l730:
@@ -24094,13 +24094,13 @@ l730:
 	clrf	((_s_report_req))&0ffh	;volatile
 	line	392
 	
-l6292:; BSR set to: 5
+l6286:; BSR set to: 5
 
 	movlw	low(01h)
 	movwf	((_s_wake_due))&0ffh	;volatile
 	line	393
 	
-l6294:; BSR set to: 5
+l6288:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_wake_ms)
@@ -24110,14 +24110,14 @@ l6294:; BSR set to: 5
 	
 	line	394
 	
-l6296:
+l6290:
 	movlw	low(02h)
 	movlb	5	; () banked
 	movwf	((_s_wake_state))&0ffh
-	goto	l6494
+	goto	l6488
 	line	411
 	
-l6300:; BSR set to: 5
+l6294:; BSR set to: 5
 
 	movf	((_s_aa))&0ffh,w	;volatile
 	btfss	status,2
@@ -24127,14 +24127,14 @@ u4701:
 	goto	l736
 u4700:
 	
-l6302:; BSR set to: 5
+l6296:; BSR set to: 5
 
 	movf	((_s_send_state))&0ffh,w
 	btfsc	status,2
 	goto	u4711
 	goto	u4710
 u4711:
-	goto	l6304
+	goto	l6298
 u4710:
 	
 l736:
@@ -24142,9 +24142,9 @@ l736:
 	movlb	5	; () banked
 	clrf	((_s_wake_state))&0ffh
 	line	413
-	goto	l6494
+	goto	l6488
 	
-l6304:; BSR set to: 5
+l6298:; BSR set to: 5
 
 	movff	(_s_wake_ms),(c:timeSpan@unOldTime_ms)
 	movff	(_s_wake_ms+1),(c:timeSpan@unOldTime_ms+1)
@@ -24163,12 +24163,12 @@ l6304:; BSR set to: 5
 	goto	u4720
 
 u4721:
-	goto	l6494
+	goto	l6488
 u4720:
 	goto	l736
 	line	421
 	
-l6310:
+l6304:
 	movlb	5	; () banked
 	movf	((_s_wake_state))&0ffh,w
 	movwf	(??_FlowReport_Process+0)^0500h,c
@@ -24185,10 +24185,10 @@ l6310:
 	movf ??_FlowReport_Process+0+1^0500h,c,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6922
+	goto	l6916
 	goto	l736
 	
-l6922:; BSR set to: 5
+l6916:; BSR set to: 5
 
 ; Switch size 1, requested type "simple"
 ; Number of cases is 3, Range of values is 0 to 2
@@ -24200,18 +24200,18 @@ l6922:; BSR set to: 5
 	movf ??_FlowReport_Process+0^0500h,c,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6288
+	goto	l6282
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l6296
+	goto	l6290
 	xorlw	2^1	; case 2
 	skipnz
-	goto	l6300
+	goto	l6294
 	goto	l736
 
 	line	427
 	
-l6312:; BSR set to: 5
+l6306:; BSR set to: 5
 
 	movf	((_s_aa))&0ffh,w	;volatile
 	btfsc	status,2
@@ -24222,19 +24222,19 @@ u4731:
 u4730:
 	line	428
 	
-l6314:; BSR set to: 5
+l6308:; BSR set to: 5
 
 	clrf	((_s_aa))&0ffh	;volatile
 	line	429
 	
-l6316:; BSR set to: 5
+l6310:; BSR set to: 5
 
 	call	_FlowLog_GetWriteIndex	;wreg free
 	movff	0+?_FlowLog_GetWriteIndex,(_s_end)
 	movff	1+?_FlowLog_GetWriteIndex,(_s_end+1)
 	line	439
 	
-l6318:
+l6312:
 	movlb	5	; () banked
 	movf	((_s_read))&0ffh,w
 	subwf	((_s_end))&0ffh,w
@@ -24257,7 +24257,7 @@ l6318:
 	movff	1+?___lwmod,(FlowReport_Process@backlog+1)
 	line	441
 	
-l6320:
+l6314:
 	call	_FlowMeter_GetTotal	;wreg free
 	movff	0+?_FlowMeter_GetTotal,(FlowReport_Process@cur_total)
 	movff	1+?_FlowMeter_GetTotal,(FlowReport_Process@cur_total+1)
@@ -24273,7 +24273,7 @@ l6320:
 	
 	line	444
 	
-l6322:
+l6316:
 		movlw	133
 	movlb	5	; () banked
 	subwf	 ((FlowReport_Process@backlog))&0ffh,w
@@ -24284,10 +24284,10 @@ l6322:
 	goto	u4740
 
 u4741:
-	goto	l6328
+	goto	l6322
 u4740:
 	
-l6324:; BSR set to: 5
+l6318:; BSR set to: 5
 
 	call	_FlowLog_DueValid	;wreg free
 	iorlw	0
@@ -24295,11 +24295,11 @@ l6324:; BSR set to: 5
 	goto	u4751
 	goto	u4750
 u4751:
-	goto	l6328
+	goto	l6322
 u4750:
 	line	446
 	
-l6326:
+l6320:
 	call	_FlowLog_GetWriteAtDue	;wreg free
 	movff	0+?_FlowLog_GetWriteAtDue,(_s_read)
 	movff	1+?_FlowLog_GetWriteAtDue,(_s_read+1)
@@ -24312,7 +24312,7 @@ l6326:
 	
 	line	451
 	
-l6328:
+l6322:
 	movlb	5	; () banked
 	movf	((_s_impulse_mark))&0ffh,w
 	subwf	((FlowReport_Process@cur_total))&0ffh,w
@@ -24330,7 +24330,7 @@ l6328:
 	movwf	3+((_s_f_imp_report))&0ffh
 	line	452
 	
-l6330:; BSR set to: 5
+l6324:; BSR set to: 5
 
 	movf	((_s_caps_mark))&0ffh,w
 	subwf	((FlowReport_Process@cur_caps))&0ffh,w
@@ -24348,7 +24348,7 @@ l6330:; BSR set to: 5
 	movwf	3+((_s_f_cap_report))&0ffh
 	line	453
 	
-l6332:; BSR set to: 5
+l6326:; BSR set to: 5
 
 	movlb	6	; () banked
 	movf	((_s_total_at_read))&0ffh,w
@@ -24374,7 +24374,7 @@ l6332:; BSR set to: 5
 	movwf	3+((_s_f_imp_span))&0ffh
 	line	454
 	
-l6334:; BSR set to: 5
+l6328:; BSR set to: 5
 
 	movff	(_s_read),(c:FlowLog_CountOverflows@from)
 	movff	(_s_read+1),(c:FlowLog_CountOverflows@from+1)
@@ -24385,7 +24385,7 @@ l6334:; BSR set to: 5
 	movff	1+?_FlowLog_CountOverflows,(_s_f_ovf_span+1)
 	line	455
 	
-l6336:
+l6330:
 	movlb	5	; () banked
 	movf	((_s_read))&0ffh,w
 	subwf	((_s_end))&0ffh,w
@@ -24408,47 +24408,47 @@ l6336:
 	movff	1+?___lwmod,(_s_count+1)
 	line	459
 	
-l6338:
+l6332:
 	movff	(FlowReport_Process@cur_total),(_s_impulse_mark)
 	movff	(FlowReport_Process@cur_total+1),(_s_impulse_mark+1)
 	movff	(FlowReport_Process@cur_total+2),(_s_impulse_mark+2)
 	movff	(FlowReport_Process@cur_total+3),(_s_impulse_mark+3)
 	line	460
 	
-l6340:
+l6334:
 	movff	(FlowReport_Process@cur_caps),(_s_caps_mark)
 	movff	(FlowReport_Process@cur_caps+1),(_s_caps_mark+1)
 	movff	(FlowReport_Process@cur_caps+2),(_s_caps_mark+2)
 	movff	(FlowReport_Process@cur_caps+3),(_s_caps_mark+3)
 	line	461
 	
-l6342:
+l6336:
 	movff	(FlowReport_Process@cur_total),(_s_total_at_read)
 	movff	(FlowReport_Process@cur_total+1),(_s_total_at_read+1)
 	movff	(FlowReport_Process@cur_total+2),(_s_total_at_read+2)
 	movff	(FlowReport_Process@cur_total+3),(_s_total_at_read+3)
 	line	473
 	
-l6344:
+l6338:
 	movlb	5	; () banked
 	clrf	((_s_i+1))&0ffh
 	movlw	low(0)
 	movwf	((_s_i))&0ffh
 	line	474
 	
-l6346:; BSR set to: 5
+l6340:; BSR set to: 5
 
 	call	_LedFsm_NotifyDataCycle	;wreg free
 	line	475
 	
-l6348:
+l6342:
 	movlw	low(01h)
 	movlb	5	; () banked
 	movwf	((_s_send_state))&0ffh
 	goto	l763
 	line	482
 	
-l6350:; BSR set to: 5
+l6344:; BSR set to: 5
 
 	movff	(_s_count),(FlowReport_Process@count)
 	movff	(_s_count+1),(FlowReport_Process@count+1)
@@ -24456,7 +24456,7 @@ l6350:; BSR set to: 5
 	clrf	((FlowReport_Process@count+3))&0ffh
 	line	483
 	
-l6352:; BSR set to: 5
+l6346:; BSR set to: 5
 
 	movlw	low(03h)
 	mulwf	((FlowReport_Process@count))&0ffh
@@ -24473,36 +24473,36 @@ l6352:; BSR set to: 5
 	movwf	1+((FlowReport_Process@plen))&0ffh
 	line	486
 	
-l6354:; BSR set to: 5
+l6348:; BSR set to: 5
 
 	movlw	low(0AAh)
 	movwf	((FlowReport_Process@hdr))&0ffh
 	line	487
 	
-l6356:; BSR set to: 5
+l6350:; BSR set to: 5
 
 	movlw	low(055h)
 	movwf	(0+(FlowReport_Process@hdr+01h))&0ffh
 	line	488
 	
-l6358:; BSR set to: 5
+l6352:; BSR set to: 5
 
 	movlw	low(081h)
 	movwf	(0+(FlowReport_Process@hdr+02h))&0ffh
 	line	489
 	
-l6360:; BSR set to: 5
+l6354:; BSR set to: 5
 
 	movf	((FlowReport_Process@plen+1))&0ffh,w
 	movwf	(0+(FlowReport_Process@hdr+03h))&0ffh
 	line	490
 	
-l6362:; BSR set to: 5
+l6356:; BSR set to: 5
 
 	movff	(FlowReport_Process@plen),0+(FlowReport_Process@hdr+04h)
 	line	492
 	
-l6364:; BSR set to: 5
+l6358:; BSR set to: 5
 
 	call	_UART_TX_Free	;wreg free
 	movwf	(??_FlowReport_Process+0)^0500h,c
@@ -24512,18 +24512,18 @@ l6364:; BSR set to: 5
 	goto	u4760
 
 u4761:
-	goto	l6368
+	goto	l6362
 u4760:
 	goto	l763
 	line	496
 	
-l6368:
+l6362:
 	call	_Packet_CRC16_Init	;wreg free
 	movff	0+?_Packet_CRC16_Init,(_s_rsp_crc)
 	movff	1+?_Packet_CRC16_Init,(_s_rsp_crc+1)
 	line	497
 	
-l6370:
+l6364:
 	movff	(_s_rsp_crc),(c:Packet_CRC16_Update@crc)
 	movff	(_s_rsp_crc+1),(c:Packet_CRC16_Update@crc+1)
 	movff	0+(FlowReport_Process@hdr+02h),(c:Packet_CRC16_Update@b)
@@ -24532,7 +24532,7 @@ l6370:
 	movff	1+?_Packet_CRC16_Update,(_s_rsp_crc+1)
 	line	498
 	
-l6372:
+l6366:
 	movff	(_s_rsp_crc),(c:Packet_CRC16_Update@crc)
 	movff	(_s_rsp_crc+1),(c:Packet_CRC16_Update@crc+1)
 	movff	0+(FlowReport_Process@hdr+03h),(c:Packet_CRC16_Update@b)
@@ -24541,7 +24541,7 @@ l6372:
 	movff	1+?_Packet_CRC16_Update,(_s_rsp_crc+1)
 	line	499
 	
-l6374:
+l6368:
 	movff	(_s_rsp_crc),(c:Packet_CRC16_Update@crc)
 	movff	(_s_rsp_crc+1),(c:Packet_CRC16_Update@crc+1)
 	movff	0+(FlowReport_Process@hdr+04h),(c:Packet_CRC16_Update@b)
@@ -24550,7 +24550,7 @@ l6374:
 	movff	1+?_Packet_CRC16_Update,(_s_rsp_crc+1)
 	line	500
 	
-l6376:
+l6370:
 		movlw	low(FlowReport_Process@hdr)
 	movwf	((c:send_raw@b))^0500h,c
 	movlw	high(FlowReport_Process@hdr)
@@ -24561,7 +24561,7 @@ l6376:
 	call	_send_raw	;wreg free
 	line	501
 	
-l6378:
+l6372:
 	movlw	low(02h)
 	movlb	5	; () banked
 	movwf	((_s_send_state))&0ffh
@@ -24575,7 +24575,7 @@ l747:; BSR set to: 5
 	clrf	((FlowReport_Process@p))&0ffh
 	line	511
 	
-l6380:; BSR set to: 5
+l6374:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24586,12 +24586,12 @@ l6380:; BSR set to: 5
 	movff	0+3+(_s_f_imp_report),indf2
 
 	
-l6382:; BSR set to: 5
+l6376:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	512
 	
-l6384:; BSR set to: 5
+l6378:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24604,7 +24604,7 @@ l6384:; BSR set to: 5
 	incf	((FlowReport_Process@p))&0ffh
 	line	513
 	
-l6386:; BSR set to: 5
+l6380:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24615,7 +24615,7 @@ l6386:; BSR set to: 5
 	movff	0+1+(_s_f_imp_report),indf2
 
 	
-l6388:; BSR set to: 5
+l6382:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	514
@@ -24628,12 +24628,12 @@ l6388:; BSR set to: 5
 	movff	(_s_f_imp_report),indf2
 
 	
-l6390:; BSR set to: 5
+l6384:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	515
 	
-l6392:; BSR set to: 5
+l6386:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24646,7 +24646,7 @@ l6392:; BSR set to: 5
 	incf	((FlowReport_Process@p))&0ffh
 	line	516
 	
-l6394:; BSR set to: 5
+l6388:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24657,7 +24657,7 @@ l6394:; BSR set to: 5
 	movff	0+2+(_s_f_cap_report),indf2
 
 	
-l6396:; BSR set to: 5
+l6390:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	517
@@ -24670,12 +24670,12 @@ l6396:; BSR set to: 5
 	movff	0+1+(_s_f_cap_report),indf2
 
 	
-l6398:; BSR set to: 5
+l6392:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	518
 	
-l6400:; BSR set to: 5
+l6394:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24688,7 +24688,7 @@ l6400:; BSR set to: 5
 	incf	((FlowReport_Process@p))&0ffh
 	line	519
 	
-l6402:; BSR set to: 5
+l6396:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24699,7 +24699,7 @@ l6402:; BSR set to: 5
 	movff	0+3+(_s_f_imp_span),indf2
 
 	
-l6404:; BSR set to: 5
+l6398:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	520
@@ -24712,12 +24712,12 @@ l6404:; BSR set to: 5
 	movff	0+2+(_s_f_imp_span),indf2
 
 	
-l6406:; BSR set to: 5
+l6400:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	521
 	
-l6408:; BSR set to: 5
+l6402:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24730,7 +24730,7 @@ l6408:; BSR set to: 5
 	incf	((FlowReport_Process@p))&0ffh
 	line	522
 	
-l6410:; BSR set to: 5
+l6404:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24741,7 +24741,7 @@ l6410:; BSR set to: 5
 	movff	(_s_f_imp_span),indf2
 
 	
-l6412:; BSR set to: 5
+l6406:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	523
@@ -24755,12 +24755,12 @@ l6412:; BSR set to: 5
 	movwf	indf2,c
 
 	
-l6414:; BSR set to: 5
+l6408:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	524
 	
-l6416:; BSR set to: 5
+l6410:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24773,7 +24773,7 @@ l6416:; BSR set to: 5
 	incf	((FlowReport_Process@p))&0ffh
 	line	525
 	
-l6418:; BSR set to: 5
+l6412:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24804,7 +24804,7 @@ u4770:
 	movwf	indf2,c
 
 	
-l6420:; BSR set to: 5
+l6414:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	526
@@ -24837,12 +24837,12 @@ u4780:
 	movwf	indf2,c
 
 	
-l6422:; BSR set to: 5
+l6416:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	527
 	
-l6424:; BSR set to: 5
+l6418:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24856,7 +24856,7 @@ l6424:; BSR set to: 5
 	incf	((FlowReport_Process@p))&0ffh
 	line	528
 	
-l6426:; BSR set to: 5
+l6420:; BSR set to: 5
 
 	movlw	low(FlowReport_Process@hdr_1743)
 	addwf	((FlowReport_Process@p))&0ffh,w
@@ -24867,12 +24867,12 @@ l6426:; BSR set to: 5
 	movff	(_s_count),indf2
 
 	
-l6428:; BSR set to: 5
+l6422:; BSR set to: 5
 
 	incf	((FlowReport_Process@p))&0ffh
 	line	530
 	
-l6430:; BSR set to: 5
+l6424:; BSR set to: 5
 
 	call	_UART_TX_Free	;wreg free
 	movwf	(??_FlowReport_Process+0)^0500h,c
@@ -24891,7 +24891,7 @@ l748:
 	movlb	5	; () banked
 	clrf	((FlowReport_Process@k))&0ffh
 	
-l6434:; BSR set to: 5
+l6428:; BSR set to: 5
 
 		movlw	012h-1
 	cpfsgt	((FlowReport_Process@k))&0ffh
@@ -24899,12 +24899,12 @@ l6434:; BSR set to: 5
 	goto	u4800
 
 u4801:
-	goto	l6438
+	goto	l6432
 u4800:
-	goto	l6444
+	goto	l6438
 	line	532
 	
-l6438:; BSR set to: 5
+l6432:; BSR set to: 5
 
 	movff	(_s_rsp_crc),(c:Packet_CRC16_Update@crc)
 	movff	(_s_rsp_crc+1),(c:Packet_CRC16_Update@crc+1)
@@ -24921,13 +24921,13 @@ l6438:; BSR set to: 5
 	movff	1+?_Packet_CRC16_Update,(_s_rsp_crc+1)
 	line	533
 	
-l6440:
+l6434:
 	movlb	5	; () banked
 	incf	((FlowReport_Process@k))&0ffh
-	goto	l6434
+	goto	l6428
 	line	534
 	
-l6444:; BSR set to: 5
+l6438:; BSR set to: 5
 
 		movlw	low(FlowReport_Process@hdr_1743)
 	movwf	((c:send_raw@b))^0500h,c
@@ -24939,7 +24939,7 @@ l6444:; BSR set to: 5
 	call	_send_raw	;wreg free
 	line	535
 	
-l6446:
+l6440:
 	movlb	5	; () banked
 	movf	((_s_count))&0ffh,w
 iorwf	((_s_count+1))&0ffh,w
@@ -24948,23 +24948,23 @@ iorwf	((_s_count+1))&0ffh,w
 	goto	u4810
 
 u4811:
-	goto	l6450
+	goto	l6444
 u4810:
 	
-l6448:; BSR set to: 5
+l6442:; BSR set to: 5
 
 	movlw	low(03h)
 	movwf	((_s_send_state))&0ffh
 	goto	l763
 	
-l6450:; BSR set to: 5
+l6444:; BSR set to: 5
 
 	movlw	low(04h)
 	movwf	((_s_send_state))&0ffh
 	goto	l763
 	line	540
 	
-l6452:; BSR set to: 5
+l6446:; BSR set to: 5
 
 	movf	((_s_end))&0ffh,w
 xorwf	((_s_read))&0ffh,w
@@ -24976,12 +24976,12 @@ xorwf	((_s_read+1))&0ffh,w
 	goto	u4820
 
 u4821:
-	goto	l6456
-u4820:
 	goto	l6450
+u4820:
+	goto	l6444
 	line	546
 	
-l6456:; BSR set to: 5
+l6450:; BSR set to: 5
 
 	movff	(_s_read),(c:FlowLog_GetAt@index)
 	movff	(_s_read+1),(c:FlowLog_GetAt@index+1)
@@ -24993,7 +24993,7 @@ l6456:; BSR set to: 5
 	call	_FlowLog_GetAt	;wreg free
 	line	549
 	
-l6458:
+l6452:
 	movff	(_s_i),(c:Compress_Pack@time16)
 	movff	(_s_i+1),(c:Compress_Pack@time16+1)
 	movff	0+(FlowReport_Process@e+02h),(c:Compress_Pack@pulses)
@@ -25006,7 +25006,7 @@ l6458:
 	call	_Compress_Pack	;wreg free
 	line	569
 	
-l6460:
+l6454:
 	call	_UART_TX_Free	;wreg free
 	movwf	(??_FlowReport_Process+0)^0500h,c
 		movlw	03h-0
@@ -25024,7 +25024,7 @@ l757:
 	movlb	5	; () banked
 	clrf	((FlowReport_Process@k_1751))&0ffh
 	
-l6464:; BSR set to: 5
+l6458:; BSR set to: 5
 
 		movlw	03h-1
 	cpfsgt	((FlowReport_Process@k_1751))&0ffh
@@ -25032,12 +25032,12 @@ l6464:; BSR set to: 5
 	goto	u4840
 
 u4841:
-	goto	l6468
+	goto	l6462
 u4840:
-	goto	l6474
+	goto	l6468
 	line	572
 	
-l6468:; BSR set to: 5
+l6462:; BSR set to: 5
 
 	movff	(_s_rsp_crc),(c:Packet_CRC16_Update@crc)
 	movff	(_s_rsp_crc+1),(c:Packet_CRC16_Update@crc+1)
@@ -25054,13 +25054,13 @@ l6468:; BSR set to: 5
 	movff	1+?_Packet_CRC16_Update,(_s_rsp_crc+1)
 	line	573
 	
-l6470:
+l6464:
 	movlb	5	; () banked
 	incf	((FlowReport_Process@k_1751))&0ffh
-	goto	l6464
+	goto	l6458
 	line	574
 	
-l6474:; BSR set to: 5
+l6468:; BSR set to: 5
 
 		movlw	low(FlowReport_Process@raw)
 	movwf	((c:send_raw@b))^0500h,c
@@ -25072,7 +25072,7 @@ l6474:; BSR set to: 5
 	call	_send_raw	;wreg free
 	line	575
 	
-l6476:
+l6470:
 	movlw	low(01h)
 	movlb	5	; () banked
 	addwf	((_s_read))&0ffh,w
@@ -25089,7 +25089,7 @@ l6476:
 	movff	1+?___lwmod,(_s_read+1)
 	line	576
 	
-l6478:
+l6472:
 	movlb	5	; () banked
 	infsnz	((_s_i))&0ffh
 	incf	((_s_i+1))&0ffh
@@ -25097,18 +25097,18 @@ l6478:
 	goto	l763
 	line	582
 	
-l6480:; BSR set to: 5
+l6474:; BSR set to: 5
 
 	movf	((_s_rsp_crc+1))&0ffh,w
 	movwf	((FlowReport_Process@crc))&0ffh
 	line	583
 	
-l6482:; BSR set to: 5
+l6476:; BSR set to: 5
 
 	movff	(_s_rsp_crc),0+(FlowReport_Process@crc+01h)
 	line	584
 	
-l6484:; BSR set to: 5
+l6478:; BSR set to: 5
 
 	call	_UART_TX_Free	;wreg free
 	movwf	(??_FlowReport_Process+0)^0500h,c
@@ -25118,12 +25118,12 @@ l6484:; BSR set to: 5
 	goto	u4850
 
 u4851:
-	goto	l6488
+	goto	l6482
 u4850:
 	goto	l763
 	line	585
 	
-l6488:
+l6482:
 		movlw	low(FlowReport_Process@crc)
 	movwf	((c:send_raw@b))^0500h,c
 	movlw	high(FlowReport_Process@crc)
@@ -25134,14 +25134,14 @@ l6488:
 	call	_send_raw	;wreg free
 	line	586
 	
-l6490:
+l6484:
 	movlb	5	; () banked
 	clrf	((_s_send_state))&0ffh
 	line	587
 	goto	l763
 	line	593
 	
-l6494:
+l6488:
 	movlb	5	; () banked
 	movf	((_s_send_state))&0ffh,w
 	movwf	(??_FlowReport_Process+0)^0500h,c
@@ -25158,10 +25158,10 @@ l6494:
 	movf ??_FlowReport_Process+0+1^0500h,c,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6924
-	goto	l6490
+	goto	l6918
+	goto	l6484
 	
-l6924:; BSR set to: 5
+l6918:; BSR set to: 5
 
 ; Switch size 1, requested type "simple"
 ; Number of cases is 5, Range of values is 0 to 4
@@ -25173,20 +25173,20 @@ l6924:; BSR set to: 5
 	movf ??_FlowReport_Process+0^0500h,c,w
 	xorlw	0^0	; case 0
 	skipnz
-	goto	l6312
+	goto	l6306
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l6350
+	goto	l6344
 	xorlw	2^1	; case 2
 	skipnz
 	goto	l747
 	xorlw	3^2	; case 3
 	skipnz
-	goto	l6452
+	goto	l6446
 	xorlw	4^3	; case 4
 	skipnz
-	goto	l6480
-	goto	l6490
+	goto	l6474
+	goto	l6484
 
 	line	594
 	
@@ -25242,12 +25242,12 @@ _send_raw:
 	callstack 120
 	line	243
 	
-l6022:
+l6016:
 	clrf	((c:send_raw@k))^0500h,c
-	goto	l6028
+	goto	l6022
 	line	244
 	
-l6024:
+l6018:
 	movf	((c:send_raw@k))^0500h,c,w
 	addwf	((c:send_raw@b))^0500h,c,w
 	movwf	c:fsr2l
@@ -25259,10 +25259,10 @@ l6024:
 	call	_print_char
 	line	245
 	
-l6026:
+l6020:
 	incf	((c:send_raw@k))^0500h,c
 	
-l6028:
+l6022:
 		movf	((c:send_raw@n))^0500h,c,w
 	subwf	((c:send_raw@k))^0500h,c,w
 	btfss	status,0
@@ -25270,7 +25270,7 @@ l6028:
 	goto	u4490
 
 u4491:
-	goto	l6024
+	goto	l6018
 u4490:
 	line	246
 	
@@ -25330,7 +25330,7 @@ _print_char:
 	movwf	((c:print_char@c))^0500h,c
 	line	185
 	
-l5356:
+l5352:
 		movlw	040h-1
 	cpfsgt	((c:_s_tx_count))^0500h,c	;volatile
 	goto	u3751
@@ -25347,7 +25347,7 @@ l390:
 	bcf	((c:1196))^0400h,c,1	;volatile
 	line	191
 	
-l5360:
+l5356:
 	movlw	low(_s_tx_buf)
 	addwf	((c:_s_tx_head))^0500h,c,w	;volatile
 	movwf	c:fsr2l
@@ -25358,17 +25358,17 @@ l5360:
 
 	line	192
 	
-l5362:
+l5358:
 	incf	((c:_s_tx_head))^0500h,c,w	;volatile
 	andlw	low(03Fh)
 	movwf	((c:_s_tx_head))^0500h,c	;volatile
 	line	193
 	
-l5364:
+l5360:
 	incf	((c:_s_tx_count))^0500h,c	;volatile
 	line	194
 	
-l5366:
+l5362:
 	bsf	((c:1196))^0400h,c,1	;volatile
 	line	197
 	
@@ -25423,7 +25423,7 @@ _UART_TX_Free:
 	callstack 118
 	line	251
 	
-l5370:
+l5366:
 	movf	((c:_s_tx_count))^0500h,c,w
 	sublw	low(040h)
 	line	252
@@ -25482,12 +25482,12 @@ _Packet_CRC16_Update:
 	callstack 117
 	line	19
 	
-l5300:
+l5296:
 	movf	((c:Packet_CRC16_Update@b))^0500h,c,w
 	xorwf	((c:Packet_CRC16_Update@crc))^0500h,c
 	line	20
 	
-l5302:
+l5298:
 	clrf	((c:Packet_CRC16_Update@i))^0500h,c
 	
 l1000:
@@ -25497,10 +25497,10 @@ l1000:
 	goto	u3681
 	goto	u3680
 u3681:
-	goto	l5308
+	goto	l5304
 u3680:
 	
-l5306:
+l5302:
 	bcf	status,0
 	rrcf	((c:Packet_CRC16_Update@crc+1))^0500h,c,w
 	movwf	(??_Packet_CRC16_Update+0+1)^0500h,c
@@ -25512,10 +25512,10 @@ l5306:
 	movlw	0A0h
 	xorwf	(??_Packet_CRC16_Update+0+1)^0500h,c,w
 	movwf	1+((c:Packet_CRC16_Update@crc))^0500h,c
-	goto	l5310
+	goto	l5306
 	line	22
 	
-l5308:
+l5304:
 	bcf	status,0
 	rrcf	((c:Packet_CRC16_Update@crc+1))^0500h,c,w
 	movwf	(??_Packet_CRC16_Update+0)^0500h,c
@@ -25524,10 +25524,10 @@ l5308:
 	movff	??_Packet_CRC16_Update+0,((c:Packet_CRC16_Update@crc+1))
 	line	23
 	
-l5310:
+l5306:
 	incf	((c:Packet_CRC16_Update@i))^0500h,c
 	
-l5312:
+l5308:
 		movlw	08h-1
 	cpfsgt	((c:Packet_CRC16_Update@i))^0500h,c
 	goto	u3691
@@ -25595,7 +25595,7 @@ _Packet_CRC16_Init:
 	callstack 117
 	line	14
 	
-l5298:
+l5294:
 	setf	((c:?_Packet_CRC16_Init))^0500h,c
 	setf	((c:?_Packet_CRC16_Init+1))^0500h,c
 	line	15
@@ -25651,13 +25651,13 @@ _LedFsm_NotifyDataCycle:
 	callstack 120
 	line	35
 	
-l6030:
+l6024:
 	movlw	low(01h)
 	movlb	5	; () banked
 	movwf	((_s_mode))&0ffh
 	line	36
 	
-l6032:; BSR set to: 5
+l6026:; BSR set to: 5
 
 	bsf	((c:1216))^0400h,c,3	;volatile
 	line	37
@@ -25665,7 +25665,7 @@ l6032:; BSR set to: 5
 	movwf	((_s_toggles))&0ffh
 	line	38
 	
-l6034:; BSR set to: 5
+l6028:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_mark)
@@ -25726,7 +25726,7 @@ _FlowLog_GetWriteAtDue:
 	callstack 121
 	line	77
 	
-l5980:
+l5974:
 		movlw	02h-0
 	movlb	5	; () banked
 	cpfslt	((_s_due_count))&0ffh
@@ -25737,7 +25737,7 @@ u4421:
 	goto	l541
 u4420:
 	
-l5982:; BSR set to: 5
+l5976:; BSR set to: 5
 
 	movff	(_s_write_at_due),(c:?_FlowLog_GetWriteAtDue)
 	movff	(_s_write_at_due+1),(c:?_FlowLog_GetWriteAtDue+1)
@@ -25801,7 +25801,7 @@ _FlowLog_GetTotalAtDue:; BSR set to: 5
 	callstack 121
 	line	73
 	
-l5976:
+l5970:
 		movlw	02h-0
 	movlb	5	; () banked
 	cpfslt	((_s_due_count))&0ffh
@@ -25812,7 +25812,7 @@ u4411:
 	goto	l534
 u4410:
 	
-l5978:; BSR set to: 5
+l5972:; BSR set to: 5
 
 	movff	(_s_total_at_due),(c:?_FlowLog_GetTotalAtDue)
 	movff	(_s_total_at_due+1),(c:?_FlowLog_GetTotalAtDue+1)
@@ -25879,7 +25879,7 @@ _FlowLog_DueValid:; BSR set to: 5
 ;incstack = 0
 	callstack 121
 	
-l5984:
+l5978:
 	movlb	5	; () banked
 	movf	((_s_due_count))&0ffh,w
 	btfss	status,2
@@ -25948,20 +25948,20 @@ _FlowLog_CountOverflows:; BSR set to: 5
 	callstack 120
 	line	57
 	
-l5960:
+l5954:
 	clrf	((c:FlowLog_CountOverflows@n+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:FlowLog_CountOverflows@n))^0500h,c
 	line	58
 	
-l5962:
+l5956:
 	movff	(c:FlowLog_CountOverflows@from),(c:FlowLog_CountOverflows@i)
 	movff	(c:FlowLog_CountOverflows@from+1),(c:FlowLog_CountOverflows@i+1)
 	line	59
-	goto	l5974
+	goto	l5968
 	line	60
 	
-l5964:
+l5958:
 	movff	(c:FlowLog_CountOverflows@i),??_FlowLog_CountOverflows+0
 	movff	(c:FlowLog_CountOverflows@i+1),??_FlowLog_CountOverflows+0+1
 	bcf	status,0
@@ -25977,7 +25977,7 @@ l5964:
 	movff	??_FlowLog_CountOverflows+0+1,(c:FlowLog_CountOverflows@byte+1)
 	line	61
 	
-l5966:
+l5960:
 	movff	(c:FlowLog_CountOverflows@i),??_FlowLog_CountOverflows+0
 	movlw	07h
 	andwf	(??_FlowLog_CountOverflows+0)^0500h,c
@@ -25995,7 +25995,7 @@ u4384:
 	movwf	((c:FlowLog_CountOverflows@mask))^0500h,c
 	line	62
 	
-l5968:
+l5962:
 	movlw	low(_s_ovf_bits)
 	addwf	((c:FlowLog_CountOverflows@byte))^0500h,c,w
 	movwf	c:fsr2l
@@ -26009,15 +26009,15 @@ l5968:
 	goto	u4391
 	goto	u4390
 u4391:
-	goto	l5972
+	goto	l5966
 u4390:
 	
-l5970:
+l5964:
 	infsnz	((c:FlowLog_CountOverflows@n))^0500h,c
 	incf	((c:FlowLog_CountOverflows@n+1))^0500h,c
 	line	63
 	
-l5972:
+l5966:
 	movlw	low(01h)
 	addwf	((c:FlowLog_CountOverflows@i))^0500h,c,w
 	movwf	((c:___lwmod@dividend))^0500h,c
@@ -26033,7 +26033,7 @@ l5972:
 	movff	1+?___lwmod,(c:FlowLog_CountOverflows@i+1)
 	line	59
 	
-l5974:
+l5968:
 	movf	((c:FlowLog_CountOverflows@to))^0500h,c,w
 xorwf	((c:FlowLog_CountOverflows@i))^0500h,c,w
 	bnz	u4401
@@ -26044,7 +26044,7 @@ xorwf	((c:FlowLog_CountOverflows@i+1))^0500h,c,w
 	goto	u4400
 
 u4401:
-	goto	l5964
+	goto	l5958
 u4400:
 	
 l529:
@@ -26103,29 +26103,29 @@ _FlowLog_BatchReady:
 	callstack 121
 	line	184
 	
-l6010:
+l6004:
 	movlb	5	; () banked
 	movf	((_s_batch_ready))&0ffh,w
 	btfsc	status,2
 	goto	u4481
 	goto	u4480
 u4481:
-	goto	l6018
+	goto	l6012
 u4480:
 	line	185
 	
-l6012:; BSR set to: 5
+l6006:; BSR set to: 5
 
 	clrf	((_s_batch_ready))&0ffh
 	line	186
 	
-l6014:; BSR set to: 5
+l6008:; BSR set to: 5
 
 	movlw	(01h)&0ffh
 	goto	l578
 	line	188
 	
-l6018:; BSR set to: 5
+l6012:; BSR set to: 5
 
 	movlw	(0)&0ffh
 	line	189
@@ -26184,14 +26184,14 @@ _FlowReport_Init:; BSR set to: 5
 	callstack 121
 	line	97
 	
-l6138:
+l6132:
 	movlb	5	; () banked
 	clrf	((_s_wake_state))&0ffh
 	line	98
 	clrf	((_s_send_state))&0ffh
 	line	99
 	
-l6140:; BSR set to: 5
+l6134:; BSR set to: 5
 
 	clrf	((_s_read+1))&0ffh
 	movlw	low(0)
@@ -26206,12 +26206,12 @@ l6140:; BSR set to: 5
 	movwf	((_s_i))&0ffh
 	line	102
 	
-l6142:; BSR set to: 5
+l6136:; BSR set to: 5
 
 	clrf	((_s_aa))&0ffh	;volatile
 	line	105
 	
-l6144:; BSR set to: 5
+l6138:; BSR set to: 5
 
 	call	_FlowMeter_GetTotal	;wreg free
 	movff	0+?_FlowMeter_GetTotal,(_s_impulse_mark)
@@ -26221,7 +26221,7 @@ l6144:; BSR set to: 5
 	
 	line	106
 	
-l6146:
+l6140:
 	call	_FlowLog_GetCaptureCount	;wreg free
 	movff	0+?_FlowLog_GetCaptureCount,(_s_caps_mark)
 	movff	1+?_FlowLog_GetCaptureCount,(_s_caps_mark+1)
@@ -26230,14 +26230,14 @@ l6146:
 	
 	line	107
 	
-l6148:
+l6142:
 	movff	(_s_impulse_mark),(_s_total_at_read)
 	movff	(_s_impulse_mark+1),(_s_total_at_read+1)
 	movff	(_s_impulse_mark+2),(_s_total_at_read+2)
 	movff	(_s_impulse_mark+3),(_s_total_at_read+3)
 	line	108
 	
-l6150:
+l6144:
 	movlw	low(0)
 	movlb	5	; () banked
 	movwf	((_s_f_imp_report))&0ffh
@@ -26249,7 +26249,7 @@ l6150:
 	movwf	((_s_f_imp_report+3))&0ffh
 	line	109
 	
-l6152:; BSR set to: 5
+l6146:; BSR set to: 5
 
 	movlw	low(0)
 	movwf	((_s_f_cap_report))&0ffh
@@ -26261,7 +26261,7 @@ l6152:; BSR set to: 5
 	movwf	((_s_f_cap_report+3))&0ffh
 	line	110
 	
-l6154:; BSR set to: 5
+l6148:; BSR set to: 5
 
 	movlw	low(0)
 	movwf	((_s_f_imp_span))&0ffh
@@ -26273,14 +26273,14 @@ l6154:; BSR set to: 5
 	movwf	((_s_f_imp_span+3))&0ffh
 	line	111
 	
-l6156:; BSR set to: 5
+l6150:; BSR set to: 5
 
 	clrf	((_s_f_ovf_span+1))&0ffh
 	movlw	low(0)
 	movwf	((_s_f_ovf_span))&0ffh
 	line	112
 	
-l6158:; BSR set to: 5
+l6152:; BSR set to: 5
 
 	clrf	((_s_count+1))&0ffh
 	movlw	low(0)
@@ -26339,7 +26339,7 @@ _FlowReport_ClearWakeDue:; BSR set to: 5
 	callstack 122
 	line	160
 	
-l6508:
+l6502:
 	movlb	5	; () banked
 	clrf	((_s_wake_due))&0ffh	;volatile
 	line	161
@@ -26397,13 +26397,13 @@ _FlowMeter_Init:; BSR set to: 5
 	callstack 121
 	line	18
 	
-l6110:
+l6104:
 	call	_PulseCounter_Get	;wreg free
 	movff	0+?_PulseCounter_Get,(_s_prev_cnt)
 	movff	1+?_PulseCounter_Get,(_s_prev_cnt+1)
 	line	19
 	
-l6112:
+l6106:
 	movlw	low(0)
 	movlb	5	; () banked
 	movwf	((_s_total))&0ffh
@@ -26477,7 +26477,7 @@ _FlowLog_Process:; BSR set to: 5
 	callstack 117
 	line	101
 	
-l6240:
+l6234:
 	movff	(_s_mark_ms),(c:timeSpan@unOldTime_ms)
 	movff	(_s_mark_ms+1),(c:timeSpan@unOldTime_ms+1)
 	movff	(_s_mark_ms+2),(c:timeSpan@unOldTime_ms+2)
@@ -26495,12 +26495,12 @@ l6240:
 	goto	u4640
 
 u4641:
-	goto	l6244
+	goto	l6238
 u4640:
 	goto	l556
 	line	104
 	
-l6244:
+l6238:
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_mark_ms)
 	movff	1+?_getNowTime,(_s_mark_ms+1)
@@ -26509,7 +26509,7 @@ l6244:
 	
 	line	107
 	
-l6246:
+l6240:
 	call	_FlowMeter_GetTotal	;wreg free
 	movff	0+?_FlowMeter_GetTotal,(FlowLog_Process@cur)
 	movff	1+?_FlowMeter_GetTotal,(FlowLog_Process@cur+1)
@@ -26534,7 +26534,7 @@ l6246:
 	movwf	3+((FlowLog_Process@d32))&0ffh
 	line	109
 	
-l6248:; BSR set to: 5
+l6242:; BSR set to: 5
 
 	movff	(FlowLog_Process@cur),(_s_prev_total)
 	movff	(FlowLog_Process@cur+1),(_s_prev_total+1)
@@ -26542,7 +26542,7 @@ l6248:; BSR set to: 5
 	movff	(FlowLog_Process@cur+3),(_s_prev_total+3)
 	line	116
 	
-l6250:; BSR set to: 5
+l6244:; BSR set to: 5
 
 	movff	(_s_write),(c:___lwmod@dividend)
 	movff	(_s_write+1),(c:___lwmod@dividend+1)
@@ -26555,7 +26555,7 @@ l6250:; BSR set to: 5
 	movff	1+?___lwmod,(FlowLog_Process@slot+1)
 	line	118
 	
-l6252:
+l6246:
 	movlb	5	; () banked
 		movf	((FlowLog_Process@d32+3))&0ffh,w
 	iorwf	((FlowLog_Process@d32+2))&0ffh,w
@@ -26571,14 +26571,14 @@ u4651:
 u4650:
 	line	119
 	
-l6254:; BSR set to: 5
+l6248:; BSR set to: 5
 
 	movlw	high(03FFFh)
 	movwf	((FlowLog_Process@delta+1))&0ffh
 	setf	((FlowLog_Process@delta))&0ffh
 	line	120
 	
-l6256:; BSR set to: 5
+l6250:; BSR set to: 5
 
 	movff	(FlowLog_Process@slot),(c:ovf_set@slot)
 	movff	(FlowLog_Process@slot+1),(c:ovf_set@slot+1)
@@ -26586,7 +26586,7 @@ l6256:; BSR set to: 5
 	movwf	((c:ovf_set@on))^0500h,c
 	call	_ovf_set	;wreg free
 	line	121
-	goto	l6260
+	goto	l6254
 	
 l557:; BSR set to: 5
 
@@ -26595,7 +26595,7 @@ l557:; BSR set to: 5
 	movff	(FlowLog_Process@d32+1),(FlowLog_Process@delta+1)
 	line	123
 	
-l6258:; BSR set to: 5
+l6252:; BSR set to: 5
 
 	movff	(FlowLog_Process@slot),(c:ovf_set@slot)
 	movff	(FlowLog_Process@slot+1),(c:ovf_set@slot+1)
@@ -26604,7 +26604,7 @@ l6258:; BSR set to: 5
 	call	_ovf_set	;wreg free
 	line	126
 	
-l6260:
+l6254:
 	movlw	low(01h)
 	movlb	5	; () banked
 	addwf	((_s_captures))&0ffh
@@ -26614,7 +26614,7 @@ l6260:
 	addwfc	((_s_captures+3))&0ffh
 	line	129
 	
-l6262:; BSR set to: 5
+l6256:; BSR set to: 5
 
 	movff	(_s_group),(c:Compress_Pack@time16)
 	movff	(_s_group+1),(c:Compress_Pack@time16+1)
@@ -26636,7 +26636,7 @@ l6262:; BSR set to: 5
 	call	_Compress_Pack	;wreg free
 	line	132
 	
-l6264:
+l6258:
 	movlw	low(01h)
 	movlb	5	; () banked
 	addwf	((_s_write))&0ffh,w
@@ -26653,13 +26653,13 @@ l6264:
 	movff	1+?___lwmod,(_s_write+1)
 	line	134
 	
-l6266:
+l6260:
 	movlb	5	; () banked
 	infsnz	((_s_group))&0ffh
 	incf	((_s_group+1))&0ffh
 	line	135
 	
-l6268:; BSR set to: 5
+l6262:; BSR set to: 5
 
 		movlw	208
 	subwf	 ((_s_group))&0ffh,w
@@ -26670,11 +26670,11 @@ l6268:; BSR set to: 5
 	goto	u4660
 
 u4661:
-	goto	l6284
+	goto	l6278
 u4660:
 	line	136
 	
-l6270:; BSR set to: 5
+l6264:; BSR set to: 5
 
 	clrf	((_s_group+1))&0ffh
 	movlw	low(0)
@@ -26684,7 +26684,7 @@ l6270:; BSR set to: 5
 	movwf	((_s_batch_ready))&0ffh
 	line	140
 	
-l6272:; BSR set to: 5
+l6266:; BSR set to: 5
 
 	movff	(_s_total_at_due),(_s_total_at_due2)
 	movff	(_s_total_at_due+1),(_s_total_at_due2+1)
@@ -26692,13 +26692,13 @@ l6272:; BSR set to: 5
 	movff	(_s_total_at_due+3),(_s_total_at_due2+3)
 	line	141
 	
-l6274:; BSR set to: 5
+l6268:; BSR set to: 5
 
 	movff	(_s_write_at_due),(_s_write_at_due2)
 	movff	(_s_write_at_due+1),(_s_write_at_due2+1)
 	line	142
 	
-l6276:; BSR set to: 5
+l6270:; BSR set to: 5
 
 	movff	(FlowLog_Process@cur),(_s_total_at_due)
 	movff	(FlowLog_Process@cur+1),(_s_total_at_due+1)
@@ -26706,13 +26706,13 @@ l6276:; BSR set to: 5
 	movff	(FlowLog_Process@cur+3),(_s_total_at_due+3)
 	line	143
 	
-l6278:; BSR set to: 5
+l6272:; BSR set to: 5
 
 	movff	(_s_write),(_s_write_at_due)
 	movff	(_s_write+1),(_s_write_at_due+1)
 	line	144
 	
-l6280:; BSR set to: 5
+l6274:; BSR set to: 5
 
 		movlw	02h-0
 	cpfslt	((_s_due_count))&0ffh
@@ -26720,15 +26720,15 @@ l6280:; BSR set to: 5
 	goto	u4670
 
 u4671:
-	goto	l6284
+	goto	l6278
 u4670:
 	
-l6282:; BSR set to: 5
+l6276:; BSR set to: 5
 
 	incf	((_s_due_count))&0ffh
 	line	151
 	
-l6284:; BSR set to: 5
+l6278:; BSR set to: 5
 
 	movff	(FlowLog_Process@delta),(FlowControl_OnCapture@delta)
 	movff	(FlowLog_Process@delta+1),(FlowControl_OnCapture@delta+1)
@@ -26787,7 +26787,7 @@ _ovf_set:
 	callstack 121
 	line	48
 	
-l5950:
+l5944:
 	movff	(c:ovf_set@slot),??_ovf_set+0
 	movff	(c:ovf_set@slot+1),??_ovf_set+0+1
 	bcf	status,0
@@ -26803,7 +26803,7 @@ l5950:
 	movff	??_ovf_set+0+1,(c:ovf_set@byte+1)
 	line	49
 	
-l5952:
+l5946:
 	movff	(c:ovf_set@slot),??_ovf_set+0
 	movlw	07h
 	andwf	(??_ovf_set+0)^0500h,c
@@ -26821,16 +26821,16 @@ u4364:
 	movwf	((c:ovf_set@mask))^0500h,c
 	line	50
 	
-l5954:
+l5948:
 	movf	((c:ovf_set@on))^0500h,c,w
 	btfsc	status,2
 	goto	u4371
 	goto	u4370
 u4371:
-	goto	l5958
+	goto	l5952
 u4370:
 	
-l5956:
+l5950:
 	movlw	low(_s_ovf_bits)
 	addwf	((c:ovf_set@byte))^0500h,c,w
 	movwf	c:fsr2l
@@ -26842,7 +26842,7 @@ l5956:
 	goto	l523
 	line	51
 	
-l5958:
+l5952:
 	movlw	low(_s_ovf_bits)
 	addwf	((c:ovf_set@byte))^0500h,c,w
 	movwf	c:fsr2l
@@ -26915,7 +26915,7 @@ _FlowControl_OnCapture:
 	callstack 117
 	line	209
 	
-l6008:
+l6002:
 	call	_evaluate_alerts	;wreg free
 	line	210
 	
@@ -26975,25 +26975,25 @@ _evaluate_alerts:
 	callstack 119
 	line	177
 	
-l5570:
+l5566:
 	movlb	5	; () banked
 	movf	((_s_temp_locked))&0ffh,w
 	btfss	status,2
 	goto	u4051
 	goto	u4050
 u4051:
-	goto	l5586
+	goto	l5580
 u4050:
 	line	178
 	
-l5572:; BSR set to: 5
+l5568:; BSR set to: 5
 
 	clrf	((c:evaluate_alerts@n1+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:evaluate_alerts@n1))^0500h,c
 	line	179
 	
-l5574:; BSR set to: 5
+l5570:; BSR set to: 5
 
 	movff	(_s_leak1_window_n),(c:sliding_sum@window_n)
 	movff	(_s_leak1_window_n+1),(c:sliding_sum@window_n+1)
@@ -27010,7 +27010,7 @@ l5574:; BSR set to: 5
 	
 	line	180
 	
-l5576:
+l5572:
 	movlb	5	; () banked
 		movf	((_s_leak1_window_n))&0ffh,w
 	subwf	((c:evaluate_alerts@n1))^0500h,c,w
@@ -27021,10 +27021,10 @@ l5576:
 	goto	u4060
 
 u4061:
-	goto	l5586
+	goto	l5580
 u4060:
 	
-l5578:; BSR set to: 5
+l5574:; BSR set to: 5
 
 	movlb	6	; () banked
 	movf	((_s_param))&0ffh,w
@@ -27048,18 +27048,18 @@ l5578:; BSR set to: 5
 	goto	u4070
 
 u4071:
-	goto	l5586
+	goto	l5580
 u4070:
 	line	182
 	
-l5580:; BSR set to: 6
+l5576:; BSR set to: 6
 
 	movlw	low(01h)
 	movlb	5	; () banked
 	movwf	((_s_temp_locked))&0ffh
 	line	183
 	
-l5582:; BSR set to: 5
+l5578:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_temp_unlock_ms)
@@ -27067,33 +27067,27 @@ l5582:; BSR set to: 5
 	movff	2+?_getNowTime,(_s_temp_unlock_ms+2)
 	movff	3+?_getNowTime,(_s_temp_unlock_ms+3)
 	
-	line	184
-	
-l5584:
-	movlw	low(01h)
-	movlb	5	; () banked
-	movwf	((_s_leak1_since_report))&0ffh
 	line	190
 	
-l5586:
+l5580:
 	movlb	5	; () banked
 	movf	((_s_perm_locked))&0ffh,w
 	btfss	status,2
 	goto	u4081
 	goto	u4080
 u4081:
-	goto	l5598
+	goto	l5592
 u4080:
 	line	191
 	
-l5588:; BSR set to: 5
+l5582:; BSR set to: 5
 
 	clrf	((c:evaluate_alerts@n2+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:evaluate_alerts@n2))^0500h,c
 	line	192
 	
-l5590:; BSR set to: 5
+l5584:; BSR set to: 5
 
 	movff	(_s_leak2_window_n),(c:sliding_sum@window_n)
 	movff	(_s_leak2_window_n+1),(c:sliding_sum@window_n+1)
@@ -27110,7 +27104,7 @@ l5590:; BSR set to: 5
 	
 	line	193
 	
-l5592:
+l5586:
 	movlb	5	; () banked
 		movf	((_s_leak2_window_n))&0ffh,w
 	subwf	((c:evaluate_alerts@n2))^0500h,c,w
@@ -27121,10 +27115,10 @@ l5592:
 	goto	u4090
 
 u4091:
-	goto	l5598
+	goto	l5592
 u4090:
 	
-l5594:; BSR set to: 5
+l5588:; BSR set to: 5
 
 	movlb	6	; () banked
 	movf	(0+(_s_param+04h))&0ffh,w
@@ -27148,11 +27142,11 @@ l5594:; BSR set to: 5
 	goto	u4100
 
 u4101:
-	goto	l5598
+	goto	l5592
 u4100:
 	line	195
 	
-l5596:; BSR set to: 6
+l5590:; BSR set to: 6
 
 	movlw	low(01h)
 	movlb	5	; () banked
@@ -27162,7 +27156,7 @@ l5596:; BSR set to: 6
 	movwf	((_s_leak2_since_report))&0ffh
 	line	200
 	
-l5598:
+l5592:
 	call	_apply_valve	;wreg free
 	line	201
 	
@@ -27228,13 +27222,13 @@ _sliding_sum:
 	callstack 116
 	line	104
 	
-l5396:
+l5392:
 	clrf	((c:sliding_sum@counted+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:sliding_sum@counted))^0500h,c
 	line	105
 	
-l5398:
+l5394:
 	call	_FlowLog_GetCaptureCount	;wreg free
 	movff	0+?_FlowLog_GetCaptureCount,(c:sliding_sum@already)
 	movff	1+?_FlowLog_GetCaptureCount,(c:sliding_sum@already+1)
@@ -27243,7 +27237,7 @@ l5398:
 	
 	line	106
 	
-l5400:
+l5396:
 	movf	((c:sliding_sum@already))^0500h,c,w
 iorwf	((c:sliding_sum@already+1))^0500h,c,w
 iorwf	((c:sliding_sum@already+2))^0500h,c,w
@@ -27257,7 +27251,7 @@ u3791:
 u3790:
 	line	107
 	
-l5402:
+l5398:
 	movf	((c:sliding_sum@out_n))^0500h,c,w
 iorwf	((c:sliding_sum@out_n+1))^0500h,c,w
 	btfsc	status,2
@@ -27265,17 +27259,17 @@ iorwf	((c:sliding_sum@out_n+1))^0500h,c,w
 	goto	u3800
 
 u3801:
-	goto	l5406
+	goto	l5402
 u3800:
 	
-l5404:
+l5400:
 	movff	(c:sliding_sum@out_n),fsr2l
 	movff	(c:sliding_sum@out_n+1),fsr2h
 	clrf	postinc2
 	clrf	postdec2
 	line	108
 	
-l5406:
+l5402:
 	movlw	low(0)
 	movwf	((c:?_sliding_sum))^0500h,c
 	movlw	high(0)
@@ -27293,7 +27287,7 @@ l872:
 	movff	(c:sliding_sum@window_n+1),(c:sliding_sum@limit+1)
 	line	113
 	
-l5410:
+l5406:
 	movf	((c:sliding_sum@limit))^0500h,c,w
 	movwf	(??_sliding_sum+0)^0500h,c
 	movf	((c:sliding_sum@limit+1))^0500h,c,w
@@ -27315,22 +27309,22 @@ l5410:
 	goto	u3810
 
 u3811:
-	goto	l5414
+	goto	l5410
 u3810:
 	line	114
 	
-l5412:
+l5408:
 	movff	(c:sliding_sum@already),(c:sliding_sum@limit)
 	movff	(c:sliding_sum@already+1),(c:sliding_sum@limit+1)
 	line	119
 	
-l5414:
+l5410:
 	call	_FlowLog_GetWriteIndex	;wreg free
 	movff	0+?_FlowLog_GetWriteIndex,(c:sliding_sum@w)
 	movff	1+?_FlowLog_GetWriteIndex,(c:sliding_sum@w+1)
 	line	120
 	
-l5416:
+l5412:
 	movlw	low(0)
 	movwf	((c:sliding_sum@sum))^0500h,c
 	movlw	high(0)
@@ -27341,14 +27335,14 @@ l5416:
 	movwf	((c:sliding_sum@sum+3))^0500h,c
 	line	121
 	
-l5418:
+l5414:
 	clrf	((c:sliding_sum@k+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:sliding_sum@k))^0500h,c
-	goto	l5430
+	goto	l5426
 	line	122
 	
-l5420:
+l5416:
 	movf	((c:sliding_sum@k))^0500h,c,w
 	subwf	((c:sliding_sum@w))^0500h,c,w
 	movwf	(??_sliding_sum+0)^0500h,c
@@ -27370,7 +27364,7 @@ l5420:
 	movff	1+?___lwmod,(c:sliding_sum@idx+1)
 	line	124
 	
-l5422:
+l5418:
 	movff	(c:sliding_sum@idx),(c:FlowLog_GetAt@index)
 	movff	(c:sliding_sum@idx+1),(c:FlowLog_GetAt@index+1)
 		movlw	low(sliding_sum@e)
@@ -27381,7 +27375,7 @@ l5422:
 	call	_FlowLog_GetAt	;wreg free
 	line	125
 	
-l5424:
+l5420:
 	movf	(0+((c:sliding_sum@e)+02h))^0500h,c,w
 iorwf	(1+((c:sliding_sum@e)+02h))^0500h,c,w
 	btfss	status,2
@@ -27389,12 +27383,12 @@ iorwf	(1+((c:sliding_sum@e)+02h))^0500h,c,w
 	goto	u3820
 
 u3821:
-	goto	l5428
+	goto	l5424
 u3820:
-	goto	l5432
+	goto	l5428
 	line	128
 	
-l5428:
+l5424:
 	movf	(0+((c:sliding_sum@e)+02h))^0500h,c,w
 	addwf	((c:sliding_sum@sum))^0500h,c
 	movf	(1+((c:sliding_sum@e)+02h))^0500h,c,w
@@ -27411,7 +27405,7 @@ l5428:
 	infsnz	((c:sliding_sum@k))^0500h,c
 	incf	((c:sliding_sum@k+1))^0500h,c
 	
-l5430:
+l5426:
 		movf	((c:sliding_sum@limit))^0500h,c,w
 	subwf	((c:sliding_sum@k))^0500h,c,w
 	movf	((c:sliding_sum@limit+1))^0500h,c,w
@@ -27421,11 +27415,11 @@ l5430:
 	goto	u3830
 
 u3831:
-	goto	l5420
+	goto	l5416
 u3830:
 	line	131
 	
-l5432:
+l5428:
 	movf	((c:sliding_sum@out_n))^0500h,c,w
 iorwf	((c:sliding_sum@out_n+1))^0500h,c,w
 	btfsc	status,2
@@ -27433,17 +27427,17 @@ iorwf	((c:sliding_sum@out_n+1))^0500h,c,w
 	goto	u3840
 
 u3841:
-	goto	l5436
+	goto	l5432
 u3840:
 	
-l5434:
+l5430:
 	movff	(c:sliding_sum@out_n),fsr2l
 	movff	(c:sliding_sum@out_n+1),fsr2h
 	movff	(c:sliding_sum@counted),postinc2
 	movff	(c:sliding_sum@counted+1),postdec2
 	line	132
 	
-l5436:
+l5432:
 	movff	(c:sliding_sum@sum),(c:?_sliding_sum)
 	movff	(c:sliding_sum@sum+1),(c:?_sliding_sum+1)
 	movff	(c:sliding_sum@sum+2),(c:?_sliding_sum+2)
@@ -27502,7 +27496,7 @@ _FlowLog_GetWriteIndex:
 	callstack 117
 	line	156
 	
-l5290:
+l5286:
 	movff	(_s_write),(c:?_FlowLog_GetWriteIndex)
 	movff	(_s_write+1),(c:?_FlowLog_GetWriteIndex+1)
 	line	157
@@ -27559,7 +27553,7 @@ _FlowLog_GetCaptureCount:
 	callstack 117
 	line	179
 	
-l5296:
+l5292:
 	movff	(_s_captures),(c:?_FlowLog_GetCaptureCount)
 	movff	(_s_captures+1),(c:?_FlowLog_GetCaptureCount+1)
 	movff	(_s_captures+2),(c:?_FlowLog_GetCaptureCount+2)
@@ -27620,7 +27614,7 @@ _FlowLog_GetAt:
 	callstack 117
 	line	161
 	
-l5292:
+l5288:
 	movff	(c:FlowLog_GetAt@index),(c:___lwmod@dividend)
 	movff	(c:FlowLog_GetAt@index+1),(c:___lwmod@dividend+1)
 	movlw	high(03E8h)
@@ -27632,7 +27626,7 @@ l5292:
 	movff	1+?___lwmod,(c:FlowLog_GetAt@slot+1)
 	line	162
 	
-l5294:
+l5290:
 	movlw	low(03h)
 	mulwf	((c:FlowLog_GetAt@slot))^0500h,c
 	movff	prodl,??_FlowLog_GetAt+0
@@ -27715,7 +27709,7 @@ ___lwmod:
 	callstack 116
 	line	12
 	
-l5266:
+l5262:
 	movf	((c:___lwmod@divisor))^0500h,c,w
 iorwf	((c:___lwmod@divisor+1))^0500h,c,w
 	btfsc	status,2
@@ -27727,14 +27721,14 @@ u3651:
 u3650:
 	line	13
 	
-l5268:
+l5264:
 	movlw	low(01h)
 	movwf	((c:___lwmod@counter))^0500h,c
 	line	14
-	goto	l5272
+	goto	l5268
 	line	15
 	
-l5270:
+l5266:
 	bcf	status,0
 	rlcf	((c:___lwmod@divisor))^0500h,c
 	rlcf	((c:___lwmod@divisor+1))^0500h,c
@@ -27742,17 +27736,17 @@ l5270:
 	incf	((c:___lwmod@counter))^0500h,c
 	line	14
 	
-l5272:
+l5268:
 	
 	btfss	((c:___lwmod@divisor+1))^0500h,c,(15)&7
 	goto	u3661
 	goto	u3660
 u3661:
-	goto	l5270
+	goto	l5266
 u3660:
 	line	19
 	
-l5274:
+l5270:
 		movf	((c:___lwmod@divisor))^0500h,c,w
 	subwf	((c:___lwmod@dividend))^0500h,c,w
 	movf	((c:___lwmod@divisor+1))^0500h,c,w
@@ -27762,11 +27756,11 @@ l5274:
 	goto	u3670
 
 u3671:
-	goto	l5278
+	goto	l5274
 u3670:
 	line	20
 	
-l5276:
+l5272:
 	movf	((c:___lwmod@divisor))^0500h,c,w
 	subwf	((c:___lwmod@dividend))^0500h,c
 	movf	((c:___lwmod@divisor+1))^0500h,c,w
@@ -27774,16 +27768,16 @@ l5276:
 
 	line	21
 	
-l5278:
+l5274:
 	bcf	status,0
 	rrcf	((c:___lwmod@divisor+1))^0500h,c
 	rrcf	((c:___lwmod@divisor))^0500h,c
 	line	22
 	
-l5280:
+l5276:
 	decfsz	((c:___lwmod@counter))^0500h,c
 	
-	goto	l5274
+	goto	l5270
 	line	23
 	
 l1658:
@@ -27848,7 +27842,7 @@ _Compress_Unpack:
 	callstack 116
 	line	38
 	
-l5264:
+l5260:
 	lfsr	2,01h
 	movf	((c:Compress_Unpack@src))^0500h,c,w
 	addwf	fsr2l
@@ -28005,7 +27999,7 @@ _Compress_Pack:
 	callstack 121
 	line	25
 	
-l5988:
+l5982:
 		movlw	4
 	subwf	 ((c:Compress_Pack@time16+1))^0500h,c,w
 	btfsc	status,0
@@ -28013,21 +28007,21 @@ l5988:
 	goto	u4450
 
 u4451:
-	goto	l5992
+	goto	l5986
 u4450:
 	
-l5990:
+l5984:
 	movff	(c:Compress_Pack@time16),(c:Compress_Pack@g)
 	movff	(c:Compress_Pack@time16+1),(c:Compress_Pack@g+1)
-	goto	l5994
+	goto	l5988
 	
-l5992:
+l5986:
 	movlw	high(03FFh)
 	movwf	((c:Compress_Pack@g+1))^0500h,c
 	setf	((c:Compress_Pack@g))^0500h,c
 	line	26
 	
-l5994:
+l5988:
 		movlw	64
 	subwf	 ((c:Compress_Pack@pulses+1))^0500h,c,w
 	btfsc	status,0
@@ -28035,21 +28029,21 @@ l5994:
 	goto	u4460
 
 u4461:
-	goto	l5998
+	goto	l5992
 u4460:
 	
-l5996:
+l5990:
 	movff	(c:Compress_Pack@pulses),(c:Compress_Pack@p)
 	movff	(c:Compress_Pack@pulses+1),(c:Compress_Pack@p+1)
-	goto	l6000
+	goto	l5994
 	
-l5998:
+l5992:
 	movlw	high(03FFFh)
 	movwf	((c:Compress_Pack@p+1))^0500h,c
 	setf	((c:Compress_Pack@p))^0500h,c
 	line	29
 	
-l6000:
+l5994:
 	movf	((c:Compress_Pack@g))^0500h,c,w
 	movwf	(??_Compress_Pack+0)^0500h,c
 	movf	((c:Compress_Pack@g+1))^0500h,c,w
@@ -28083,14 +28077,14 @@ u4475:
 	movwf	3+((c:Compress_Pack@v))^0500h,c
 	line	31
 	
-l6002:
+l5996:
 	movff	(c:Compress_Pack@dst),fsr2l
 	movff	(c:Compress_Pack@dst+1),fsr2h
 	movff	0+2+(c:Compress_Pack@v),indf2
 
 	line	32
 	
-l6004:
+l5998:
 	lfsr	2,01h
 	movf	((c:Compress_Pack@dst))^0500h,c,w
 	addwf	fsr2l
@@ -28100,7 +28094,7 @@ l6004:
 
 	line	33
 	
-l6006:
+l6000:
 	lfsr	2,02h
 	movf	((c:Compress_Pack@dst))^0500h,c,w
 	addwf	fsr2l
@@ -28162,7 +28156,7 @@ _FlowLog_Init:
 	callstack 119
 	line	83
 	
-l6114:
+l6108:
 	movlb	5	; () banked
 	clrf	((_s_write+1))&0ffh
 	movlw	low(0)
@@ -28182,12 +28176,12 @@ l6114:
 	movwf	((_s_captures+3))&0ffh
 	line	86
 	
-l6116:; BSR set to: 5
+l6110:; BSR set to: 5
 
 	clrf	((_s_batch_ready))&0ffh
 	line	87
 	
-l6118:; BSR set to: 5
+l6112:; BSR set to: 5
 
 	call	_FlowMeter_GetTotal	;wreg free
 	movff	0+?_FlowMeter_GetTotal,(_s_prev_total)
@@ -28197,7 +28191,7 @@ l6118:; BSR set to: 5
 	
 	line	88
 	
-l6120:
+l6114:
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_mark_ms)
 	movff	1+?_getNowTime,(_s_mark_ms+1)
@@ -28206,13 +28200,13 @@ l6120:
 	
 	line	90
 	
-l6122:
+l6116:
 	clrf	((c:FlowLog_Init@i+1))^0500h,c
 	movlw	low(0)
 	movwf	((c:FlowLog_Init@i))^0500h,c
 	line	91
 	
-l6126:
+l6120:
 	movlw	low(_s_ovf_bits)
 	addwf	((c:FlowLog_Init@i))^0500h,c,w
 	movwf	c:fsr2l
@@ -28221,11 +28215,11 @@ l6126:
 	movwf	1+c:fsr2l
 	clrf	indf2
 	
-l6128:
+l6122:
 	infsnz	((c:FlowLog_Init@i))^0500h,c
 	incf	((c:FlowLog_Init@i+1))^0500h,c
 	
-l6130:
+l6124:
 		movf	((c:FlowLog_Init@i+1))^0500h,c,w
 	bnz	u4530
 	movlw	125
@@ -28235,7 +28229,7 @@ l6130:
 	goto	u4530
 
 u4531:
-	goto	l6126
+	goto	l6120
 u4530:
 	
 l551:
@@ -28246,14 +28240,14 @@ l551:
 	movff	(_s_prev_total+3),(_s_total_at_due+3)
 	line	93
 	
-l6132:
+l6126:
 	movlb	5	; () banked
 	clrf	((_s_write_at_due+1))&0ffh
 	movlw	low(0)
 	movwf	((_s_write_at_due))&0ffh
 	line	94
 	
-l6134:; BSR set to: 5
+l6128:; BSR set to: 5
 
 	movff	(_s_prev_total),(_s_total_at_due2)
 	movff	(_s_prev_total+1),(_s_total_at_due2+1)
@@ -28265,7 +28259,7 @@ l6134:; BSR set to: 5
 	movwf	((_s_write_at_due2))&0ffh
 	line	96
 	
-l6136:; BSR set to: 5
+l6130:; BSR set to: 5
 
 	clrf	((_s_due_count))&0ffh
 	line	97
@@ -28326,11 +28320,11 @@ _FlowMeter_GetTotal:; BSR set to: 5
 	callstack 121
 	line	39
 	
-l5944:
+l5938:
 	call	_flowmeter_refresh	;wreg free
 	line	40
 	
-l5946:
+l5940:
 	movff	(_s_total),(c:?_FlowMeter_GetTotal)
 	movff	(_s_total+1),(c:?_FlowMeter_GetTotal+1)
 	movff	(_s_total+2),(c:?_FlowMeter_GetTotal+2)
@@ -28390,13 +28384,13 @@ _flowmeter_refresh:
 	callstack 119
 	line	25
 	
-l5752:
+l5746:
 	call	_PulseCounter_Get	;wreg free
 	movff	0+?_PulseCounter_Get,(c:flowmeter_refresh@now)
 	movff	1+?_PulseCounter_Get,(c:flowmeter_refresh@now+1)
 	line	26
 	
-l5754:
+l5748:
 	movlb	6	; () banked
 	movf	((_s_prev_cnt))&0ffh,w
 	subwf	((c:flowmeter_refresh@now))^0500h,c,w
@@ -28406,13 +28400,13 @@ l5754:
 	movwf	1+((c:flowmeter_refresh@inc))^0500h,c
 	line	27
 	
-l5756:; BSR set to: 6
+l5750:; BSR set to: 6
 
 	movff	(c:flowmeter_refresh@now),(_s_prev_cnt)
 	movff	(c:flowmeter_refresh@now+1),(_s_prev_cnt+1)
 	line	28
 	
-l5758:; BSR set to: 6
+l5752:; BSR set to: 6
 
 	movf	((c:flowmeter_refresh@inc))^0500h,c,w
 	movlb	5	; () banked
@@ -28482,13 +28476,13 @@ _PulseCounter_Get:; BSR set to: 5
 	callstack 119
 	line	69
 	
-l5466:
+l5462:
 	movff	(786),(c:PulseCounter_Get@lo)	;volatile
 	line	70
 	movff	(787),(c:PulseCounter_Get@hi)	;volatile
 	line	71
 	
-l5468:
+l5464:
 	movf	((c:PulseCounter_Get@hi))^0500h,c,w
 	movwf	(??_PulseCounter_Get+0)^0500h,c
 	movf	((c:PulseCounter_Get@lo))^0500h,c,w
@@ -28548,7 +28542,7 @@ _FlowControl_Process:
 	callstack 119
 	line	216
 	
-l6232:
+l6226:
 	movlb	5	; () banked
 	movf	((_s_temp_locked))&0ffh,w
 	btfsc	status,2
@@ -28558,7 +28552,7 @@ u4621:
 	goto	l907
 u4620:
 	
-l6234:; BSR set to: 5
+l6228:; BSR set to: 5
 
 	movff	(_s_temp_unlock_ms),(c:timeSpan@unOldTime_ms)
 	movff	(_s_temp_unlock_ms+1),(c:timeSpan@unOldTime_ms+1)
@@ -28582,12 +28576,12 @@ u4631:
 u4630:
 	line	218
 	
-l6236:
+l6230:
 	movlb	5	; () banked
 	clrf	((_s_temp_locked))&0ffh
 	line	219
 	
-l6238:; BSR set to: 5
+l6232:; BSR set to: 5
 
 	call	_apply_valve	;wreg free
 	line	221
@@ -28651,7 +28645,7 @@ _timeSpan:
 	callstack 120
 	line	19
 	
-l5740:
+l5734:
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(c:timeSpan@now)
 	movff	1+?_getNowTime,(c:timeSpan@now+1)
@@ -28660,7 +28654,7 @@ l5740:
 	
 	line	20
 	
-l5742:
+l5736:
 		movf	((c:timeSpan@unOldTime_ms))^0500h,c,w
 	subwf	((c:timeSpan@now))^0500h,c,w
 	movf	((c:timeSpan@unOldTime_ms+1))^0500h,c,w
@@ -28674,11 +28668,11 @@ l5742:
 	goto	u4170
 
 u4171:
-	goto	l5748
+	goto	l5742
 u4170:
 	line	21
 	
-l5744:
+l5738:
 	comf	((c:timeSpan@unOldTime_ms))^0500h,c,w
 
 	movwf	(??_timeSpan+0)^0500h,c
@@ -28722,7 +28716,7 @@ l5744:
 	goto	l218
 	line	23
 	
-l5748:
+l5742:
 	movf	((c:timeSpan@unOldTime_ms))^0500h,c,w
 	subwf	((c:timeSpan@now))^0500h,c,w
 	movwf	((c:?_timeSpan))^0500h,c
@@ -28793,7 +28787,7 @@ _apply_valve:
 	callstack 118
 	line	149
 	
-l5440:
+l5436:
 	movlw	low(01h)
 	movwf	((c:_apply_valve$1869))^0500h,c
 	movlb	5	; () banked
@@ -28802,24 +28796,24 @@ l5440:
 	goto	u3851
 	goto	u3850
 u3851:
-	goto	l5446
+	goto	l5442
 u3850:
 	
-l5442:; BSR set to: 5
+l5438:; BSR set to: 5
 
 	movf	((_s_perm_locked))&0ffh,w
 	btfss	status,2
 	goto	u3861
 	goto	u3860
 u3861:
-	goto	l5446
+	goto	l5442
 u3860:
 	
-l5444:; BSR set to: 5
+l5440:; BSR set to: 5
 
 	clrf	((c:_apply_valve$1869))^0500h,c
 	
-l5446:; BSR set to: 5
+l5442:; BSR set to: 5
 
 	movf	((c:_apply_valve$1869))^0500h,c,w
 	btfss	status,2
@@ -28838,16 +28832,16 @@ u3880:
 	goto	u3891
 	goto	u3890
 u3891:
-	goto	l5456
+	goto	l5452
 u3890:
 	line	155
 	
-l5448:; BSR set to: 5
+l5444:; BSR set to: 5
 
 	movff	(c:apply_valve@want_close),(_s_valve_should_close)
 	line	156
 	
-l5450:; BSR set to: 5
+l5446:; BSR set to: 5
 
 	movlw	low(01h)
 	movwf	((_s_valve_cmd_valid))&0ffh
@@ -28861,13 +28855,13 @@ u3901:
 u3900:
 	line	158
 	
-l5452:; BSR set to: 5
+l5448:; BSR set to: 5
 
 	call	_MValve_OP3_CmdClose	;wreg free
 	goto	l890
 	line	163
 	
-l5456:; BSR set to: 5
+l5452:; BSR set to: 5
 
 	movf	((_s_valve_should_close))&0ffh,w
 xorwf	((c:apply_valve@want_close))^0500h,c,w
@@ -28880,28 +28874,28 @@ u3911:
 u3910:
 	line	164
 	
-l5458:; BSR set to: 5
+l5454:; BSR set to: 5
 
 	movf	((c:apply_valve@want_close))^0500h,c,w
 	btfsc	status,2
 	goto	u3921
 	goto	u3920
 u3921:
-	goto	l5462
+	goto	l5458
 u3920:
 	
-l5460:; BSR set to: 5
+l5456:; BSR set to: 5
 
 	call	_MValve_OP3_CmdClose	;wreg free
-	goto	l5464
+	goto	l5460
 	line	165
 	
-l5462:; BSR set to: 5
+l5458:; BSR set to: 5
 
 	call	_MValve_OP3_CmdOpen	;wreg free
 	line	166
 	
-l5464:
+l5460:
 	movff	(c:apply_valve@want_close),(_s_valve_should_close)
 	line	168
 	
@@ -28957,13 +28951,13 @@ _MValve_OP3_CmdOpen:
 	callstack 117
 	line	57
 	
-l5282:
+l5278:
 	bsf	((c:1216))^0400h,c,2	;volatile
 	line	58
 	bsf	((c:1214))^0400h,c,2	;volatile
 	line	59
 	
-l5284:
+l5280:
 	movlw	low(01h)
 	movlb	5	; () banked
 	movwf	((_s_driving))&0ffh
@@ -28972,7 +28966,7 @@ l5284:
 	movwf	((_s_drive_open))&0ffh
 	line	61
 	
-l5286:; BSR set to: 5
+l5282:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_drive_ms)
@@ -28982,7 +28976,7 @@ l5286:; BSR set to: 5
 	
 	line	62
 	
-l5288:
+l5284:
 	movlw	low(03h)
 	movlb	5	; () banked
 	movwf	((_s_motion))&0ffh
@@ -29040,24 +29034,24 @@ _MValve_OP3_CmdClose:; BSR set to: 5
 	callstack 116
 	line	69
 	
-l5314:
+l5310:
 	bsf	((c:1216))^0400h,c,2	;volatile
 	line	70
 	bcf	((c:1214))^0400h,c,2	;volatile
 	line	71
 	
-l5316:
+l5312:
 	movlw	low(01h)
 	movlb	5	; () banked
 	movwf	((_s_driving))&0ffh
 	line	72
 	
-l5318:; BSR set to: 5
+l5314:; BSR set to: 5
 
 	clrf	((_s_drive_open))&0ffh
 	line	73
 	
-l5320:; BSR set to: 5
+l5316:; BSR set to: 5
 
 	call	_getNowTime	;wreg free
 	movff	0+?_getNowTime,(_s_drive_ms)
@@ -29067,7 +29061,7 @@ l5320:; BSR set to: 5
 	
 	line	74
 	
-l5322:
+l5318:
 	movlw	low(04h)
 	movlb	5	; () banked
 	movwf	((_s_motion))&0ffh
@@ -29144,7 +29138,7 @@ _getNowTime:; BSR set to: 5
 	callstack 116
 	line	11
 	
-l5262:
+l5258:
 	movff	(_unNowTime_ms),(c:?_getNowTime)	;volatile
 	movff	(_unNowTime_ms+1),(c:?_getNowTime+1)	;volatile
 	movff	(_unNowTime_ms+2),(c:?_getNowTime+2)	;volatile
@@ -29202,36 +29196,36 @@ _FlowControl_Init:
 	callstack 119
 	line	137
 	
-l6168:
+l6162:
 	call	_FlowControl_RecalcDerived	;wreg free
 	line	138
 	
-l6170:
+l6164:
 	movlb	5	; () banked
 	clrf	((_s_temp_locked))&0ffh
 	line	139
 	
-l6172:; BSR set to: 5
+l6166:; BSR set to: 5
 
 	clrf	((_s_perm_locked))&0ffh
 	line	140
 	
-l6174:; BSR set to: 5
+l6168:; BSR set to: 5
 
 	clrf	((_s_leak1_since_report))&0ffh
 	line	141
 	
-l6176:; BSR set to: 5
+l6170:; BSR set to: 5
 
 	clrf	((_s_leak2_since_report))&0ffh
 	line	142
 	
-l6178:; BSR set to: 5
+l6172:; BSR set to: 5
 
 	clrf	((_s_valve_should_close))&0ffh
 	line	143
 	
-l6180:; BSR set to: 5
+l6174:; BSR set to: 5
 
 	clrf	((_s_valve_cmd_valid))&0ffh
 	line	144
@@ -29289,7 +29283,7 @@ _FlowControl_RecalcDerived:; BSR set to: 5
 	callstack 119
 	line	87
 	
-l5568:
+l5564:
 	movff	0+(_s_param+02h),(c:quantize_window@window_s)
 	movff	1+(_s_param+02h),(c:quantize_window@window_s+1)
 	call	_quantize_window	;wreg free
@@ -29354,7 +29348,7 @@ _quantize_window:
 	callstack 117
 	line	79
 	
-l5382:
+l5378:
 	movff	(c:quantize_window@window_s),(c:___lmul@multiplier)
 	movff	(c:quantize_window@window_s+1),(c:___lmul@multiplier+1)
 	clrf	((c:___lmul@multiplier+2))^0500h,c
@@ -29389,7 +29383,7 @@ l5382:
 	
 	line	80
 	
-l5384:
+l5380:
 		movf	((c:quantize_window@n+3))^0500h,c,w
 	iorwf	((c:quantize_window@n+2))^0500h,c,w
 	bnz	u3770
@@ -29402,10 +29396,10 @@ l5384:
 	goto	u3770
 
 u3771:
-	goto	l5388
+	goto	l5384
 u3770:
 	
-l5386:
+l5382:
 	movlw	low(03E8h)
 	movwf	((c:quantize_window@n))^0500h,c
 	movlw	high(03E8h)
@@ -29416,7 +29410,7 @@ l5386:
 	movwf	((c:quantize_window@n+3))^0500h,c
 	line	81
 	
-l5388:
+l5384:
 	movf	((c:quantize_window@n))^0500h,c,w
 iorwf	((c:quantize_window@n+1))^0500h,c,w
 iorwf	((c:quantize_window@n+2))^0500h,c,w
@@ -29426,10 +29420,10 @@ iorwf	((c:quantize_window@n+3))^0500h,c,w
 	goto	u3780
 
 u3781:
-	goto	l5392
+	goto	l5388
 u3780:
 	
-l5390:
+l5386:
 	movlw	low(01h)
 	movwf	((c:quantize_window@n))^0500h,c
 	movlw	high(01h)
@@ -29440,7 +29434,7 @@ l5390:
 	movwf	((c:quantize_window@n+3))^0500h,c
 	line	82
 	
-l5392:
+l5388:
 	movff	(c:quantize_window@n),(c:?_quantize_window)
 	movff	(c:quantize_window@n+1),(c:?_quantize_window+1)
 	line	83
@@ -29497,7 +29491,7 @@ ___lmul:
 	callstack 117
 	line	119
 	
-l5324:
+l5320:
 	movlw	low(0)
 	movwf	((c:___lmul@product))^0500h,c
 	movlw	high(0)
@@ -29508,17 +29502,17 @@ l5324:
 	movwf	((c:___lmul@product+3))^0500h,c
 	line	121
 	
-l5326:
+l5322:
 	
 	btfss	((c:___lmul@multiplier))^0500h,c,(0)&7
 	goto	u3701
 	goto	u3700
 u3701:
-	goto	l5330
+	goto	l5326
 u3700:
 	line	122
 	
-l5328:
+l5324:
 	movf	((c:___lmul@multiplicand))^0500h,c,w
 	addwf	((c:___lmul@product))^0500h,c
 	movf	((c:___lmul@multiplicand+1))^0500h,c,w
@@ -29529,7 +29523,7 @@ l5328:
 	addwfc	((c:___lmul@product+3))^0500h,c
 	line	123
 	
-l5330:
+l5326:
 	bcf	status,0
 	rlcf	((c:___lmul@multiplicand))^0500h,c
 	rlcf	((c:___lmul@multiplicand+1))^0500h,c
@@ -29537,7 +29531,7 @@ l5330:
 	rlcf	((c:___lmul@multiplicand+3))^0500h,c
 	line	124
 	
-l5332:
+l5328:
 	bcf	status,0
 	rrcf	((c:___lmul@multiplier+3))^0500h,c
 	rrcf	((c:___lmul@multiplier+2))^0500h,c
@@ -29553,7 +29547,7 @@ iorwf	((c:___lmul@multiplier+3))^0500h,c,w
 	goto	u3710
 
 u3711:
-	goto	l5326
+	goto	l5322
 u3710:
 	
 l1058:
@@ -29618,7 +29612,7 @@ ___lldiv:
 	callstack 117
 	line	13
 	
-l5334:
+l5330:
 	movlw	low(0)
 	movwf	((c:___lldiv@quotient))^0500h,c
 	movlw	high(0)
@@ -29629,7 +29623,7 @@ l5334:
 	movwf	((c:___lldiv@quotient+3))^0500h,c
 	line	14
 	
-l5336:
+l5332:
 	movf	((c:___lldiv@divisor))^0500h,c,w
 iorwf	((c:___lldiv@divisor+1))^0500h,c,w
 iorwf	((c:___lldiv@divisor+2))^0500h,c,w
@@ -29643,14 +29637,14 @@ u3721:
 u3720:
 	line	15
 	
-l5338:
+l5334:
 	movlw	low(01h)
 	movwf	((c:___lldiv@counter))^0500h,c
 	line	16
-	goto	l5342
+	goto	l5338
 	line	17
 	
-l5340:
+l5336:
 	bcf	status,0
 	rlcf	((c:___lldiv@divisor))^0500h,c
 	rlcf	((c:___lldiv@divisor+1))^0500h,c
@@ -29660,17 +29654,17 @@ l5340:
 	incf	((c:___lldiv@counter))^0500h,c
 	line	16
 	
-l5342:
+l5338:
 	
 	btfss	((c:___lldiv@divisor+3))^0500h,c,(31)&7
 	goto	u3731
 	goto	u3730
 u3731:
-	goto	l5340
+	goto	l5336
 u3730:
 	line	21
 	
-l5344:
+l5340:
 	bcf	status,0
 	rlcf	((c:___lldiv@quotient))^0500h,c
 	rlcf	((c:___lldiv@quotient+1))^0500h,c
@@ -29678,7 +29672,7 @@ l5344:
 	rlcf	((c:___lldiv@quotient+3))^0500h,c
 	line	22
 	
-l5346:
+l5342:
 		movf	((c:___lldiv@divisor))^0500h,c,w
 	subwf	((c:___lldiv@dividend))^0500h,c,w
 	movf	((c:___lldiv@divisor+1))^0500h,c,w
@@ -29692,11 +29686,11 @@ l5346:
 	goto	u3740
 
 u3741:
-	goto	l5352
+	goto	l5348
 u3740:
 	line	23
 	
-l5348:
+l5344:
 	movf	((c:___lldiv@divisor))^0500h,c,w
 	subwf	((c:___lldiv@dividend))^0500h,c
 	movf	((c:___lldiv@divisor+1))^0500h,c,w
@@ -29707,11 +29701,11 @@ l5348:
 	subwfb	((c:___lldiv@dividend+3))^0500h,c
 	line	24
 	
-l5350:
+l5346:
 	bsf	(0+(0/8)+(c:___lldiv@quotient))^0500h,c,(0)&7
 	line	26
 	
-l5352:
+l5348:
 	bcf	status,0
 	rrcf	((c:___lldiv@divisor+3))^0500h,c
 	rrcf	((c:___lldiv@divisor+2))^0500h,c
@@ -29719,10 +29713,10 @@ l5352:
 	rrcf	((c:___lldiv@divisor))^0500h,c
 	line	27
 	
-l5354:
+l5350:
 	decfsz	((c:___lldiv@counter))^0500h,c
 	
-	goto	l5344
+	goto	l5340
 	line	28
 	
 l1074:
@@ -29787,11 +29781,11 @@ _isr:
 	movff	pclatu+0,??_isr+1
 	line	238
 	
-i2l4886:
+i2l4882:
 	call	_UART_ISR	;wreg free
 	line	239
 	
-i2l4888:
+i2l4884:
 	call	_Sys_Time_ISR	;wreg free
 	line	240
 	
@@ -29849,28 +29843,28 @@ _UART_ISR:
 	callstack 116
 	line	156
 	
-i2l4338:
+i2l4334:
 	btfss	((c:1196))^0400h,c,0	;volatile
 	goto	i2u271_41
 	goto	i2u271_40
 i2u271_41:
-	goto	i2l4348
+	goto	i2l4344
 i2u271_40:
 	
-i2l4340:
+i2l4336:
 	btfss	((c:1207))^0400h,c,0	;volatile
 	goto	i2u272_41
 	goto	i2u272_40
 i2u272_41:
-	goto	i2l4348
+	goto	i2l4344
 i2u272_40:
 	line	157
 	
-i2l4342:
+i2l4338:
 	movff	(673),(c:UART_ISR@ch)	;volatile
 	line	161
 	
-i2l4344:
+i2l4340:
 	movlb	6	; () banked
 	movf	((_s_rx_cb))&0ffh,w
 iorwf	((_s_rx_cb+1))&0ffh,w
@@ -29879,11 +29873,11 @@ iorwf	((_s_rx_cb+1))&0ffh,w
 	goto	i2u273_40
 
 i2u273_41:
-	goto	i2l4348
+	goto	i2l4344
 i2u273_40:
 	line	162
 	
-i2l4346:; BSR set to: 6
+i2l4342:; BSR set to: 6
 
 	movff	(c:UART_ISR@ch),(c:on_uart_rx@ch)
 	call	i2u274_48
@@ -29903,7 +29897,7 @@ i2u274_48:
 	i2u274_49:
 	line	167
 	
-i2l4348:
+i2l4344:
 	btfss	((c:1196))^0400h,c,1	;volatile
 	goto	i2u275_41
 	goto	i2u275_40
@@ -29911,7 +29905,7 @@ i2u275_41:
 	goto	i2l387
 i2u275_40:
 	
-i2l4350:
+i2l4346:
 	btfss	((c:1207))^0400h,c,1	;volatile
 	goto	i2u276_41
 	goto	i2u276_40
@@ -29920,17 +29914,17 @@ i2u276_41:
 i2u276_40:
 	line	168
 	
-i2l4352:
+i2l4348:
 	movf	((c:_s_tx_count))^0500h,c,w	;volatile
 	btfsc	status,2
 	goto	i2u277_41
 	goto	i2u277_40
 i2u277_41:
-	goto	i2l4360
+	goto	i2l4356
 i2u277_40:
 	line	169
 	
-i2l4354:
+i2l4350:
 	movlw	low(_s_tx_buf)
 	addwf	((c:_s_tx_tail))^0500h,c,w	;volatile
 	movwf	c:fsr2l
@@ -29942,19 +29936,19 @@ i2l4354:
 	movwf	((675))&0ffh	;volatile
 	line	170
 	
-i2l4356:; BSR set to: 2
+i2l4352:; BSR set to: 2
 
 	incf	((c:_s_tx_tail))^0500h,c,w	;volatile
 	andlw	low(03Fh)
 	movwf	((c:_s_tx_tail))^0500h,c	;volatile
 	line	171
 	
-i2l4358:; BSR set to: 2
+i2l4354:; BSR set to: 2
 
 	decf	((c:_s_tx_count))^0500h,c	;volatile
 	line	173
 	
-i2l4360:
+i2l4356:
 	movf	((c:_s_tx_count))^0500h,c,w	;volatile
 	btfss	status,2
 	goto	i2u278_41
@@ -29964,7 +29958,7 @@ i2u278_41:
 i2u278_40:
 	line	174
 	
-i2l4362:
+i2l4358:
 	bcf	((c:1196))^0400h,c,1	;volatile
 	line	177
 	
@@ -30020,7 +30014,7 @@ _on_uart_rx:
 	callstack 116
 	line	113
 	
-i2l4034:
+i2l4030:
 	movf	((c:on_uart_rx@ch))^0500h,c,w
 	
 	call	_UART_RX_Push
@@ -30077,7 +30071,7 @@ _UART_RX_Push:
 	movwf	((c:UART_RX_Push@b))^0500h,c
 	line	49
 	
-i2l3872:
+i2l3868:
 		movlw	020h-0
 	movlb	5	; () banked
 	cpfslt	((_s_rx_count))&0ffh	;volatile
@@ -30089,7 +30083,7 @@ i2u230_41:
 i2u230_40:
 	line	50
 	
-i2l3874:; BSR set to: 5
+i2l3870:; BSR set to: 5
 
 	movlw	low(_s_rx_buf)
 	addwf	((c:_s_rx_head))^0500h,c,w	;volatile
@@ -30101,14 +30095,14 @@ i2l3874:; BSR set to: 5
 
 	line	51
 	
-i2l3876:; BSR set to: 5
+i2l3872:; BSR set to: 5
 
 	incf	((c:_s_rx_head))^0500h,c,w	;volatile
 	andlw	low(01Fh)
 	movwf	((c:_s_rx_head))^0500h,c	;volatile
 	line	52
 	
-i2l3878:; BSR set to: 5
+i2l3874:; BSR set to: 5
 
 	incf	((_s_rx_count))&0ffh	;volatile
 	line	55
@@ -30166,7 +30160,7 @@ _Sys_Time_ISR:; BSR set to: 5
 	callstack 117
 	line	139
 	
-i2l4364:
+i2l4360:
 	btfss	((c:1195))^0400h,c,3	;volatile
 	goto	i2u279_41
 	goto	i2u279_40
@@ -30174,7 +30168,7 @@ i2u279_41:
 	goto	i2l298
 i2u279_40:
 	
-i2l4366:
+i2l4362:
 	btfss	((c:1206))^0400h,c,3	;volatile
 	goto	i2u280_41
 	goto	i2u280_40
@@ -30183,11 +30177,11 @@ i2u280_41:
 i2u280_40:
 	line	140
 	
-i2l4368:
+i2l4364:
 	bcf	((c:1206))^0400h,c,3	;volatile
 	line	141
 	
-i2l4370:
+i2l4366:
 	call	_MCU_Time_Increase_Unit	;wreg free
 	line	146
 	
@@ -30241,7 +30235,7 @@ _MCU_Time_Increase_Unit:
 	callstack 117
 	line	41
 	
-i2l4192:
+i2l4188:
 	movlw	low(01h)
 	movlb	5	; () banked
 	addwf	((_unNowTime_ms))&0ffh	;volatile

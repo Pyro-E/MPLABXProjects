@@ -27,6 +27,10 @@
  * This single switch flips EVERY related value at once. */
 //#define REPORT_CONFIG_DEBUG   /* DEFAULT = PRODUCTION. Define this for fast bench test. */
 
+ #define REPORT_INTERVAL_HR 24      // 
+// #define REPORT_INTERVAL_HR 48
+
+
 /* ---- 2. SLEEP (power saving) -----------------------------------------
  * Defined   -> between captures the MCU enters deep Sleep (low power).
  * Undefined -> MCU stays awake all the time (super-loop). USE THIS WHILE
@@ -135,10 +139,18 @@
   #define APP_WAKES_PER_SAMPLE   4u       /* capture = 4 wakes (24 x 0.5285) = 12.68 s */
   #define APP_SAMPLES_PER_REPORT 10u      /* report  = 10 captures = 126.8 s         */
 #else
-  #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
-  #define APP_WAKE_COUNTS        5u //6u //114u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
-  #define APP_WAKES_PER_SAMPLE   1u //4u       /* capture = 4 wakes (456 x 0.5285) = 241.0 s (~4 min) */
-  #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
+  #if REPORT_INTERVAL_HR == 24
+    #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
+    #define APP_WAKE_COUNTS        5u //6u //114u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
+    #define APP_WAKES_PER_SAMPLE   1u //4u       /* capture = 4 wakes (456 x 0.5285) = 241.0 s (~4 min) */
+    #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
+  #endif
+  #if REPORT_INTERVAL_HR == 48
+    #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
+    #define APP_WAKE_COUNTS        114u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
+    #define APP_WAKES_PER_SAMPLE   4u       /* capture = 4 wakes (456 x 0.5285) = 241.0 s (~4 min) */
+    #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
+  #endif
 #endif
 
 /* Derived: capture period (ring-buffer sample interval) and report batch.
@@ -253,7 +265,7 @@
   /* production values */
   #define APP_LEAK1_COUNTS_DEF     5000u     /* alert1 threshold counts for  leaks   */
   #define APP_LEAK1_WINDOW_S_DEF   3600u     /* alert1 window for counting (sec)        */
-  #define APP_LEAK2_COUNTS_DEF     1200u     /* alert2 threshold counts for overflows     */
+  #define APP_LEAK2_COUNTS_DEF     400u     /* alert2 threshold counts for overflows     */
   #define APP_LEAK2_WINDOW_S_DEF   180u     /* alert2 window for counting (sec)        */
   #define TIME_VALVE_TEMP_LOCK_MS  600000UL /* temp lock holds 10 min        */
 #endif

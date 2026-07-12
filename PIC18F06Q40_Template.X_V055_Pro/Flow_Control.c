@@ -181,7 +181,7 @@ static void evaluate_alerts(void)
             (sum1 >= (uint32_t)s_param.leak1_counts)) {
             s_temp_locked    = true;
             s_temp_unlock_ms = getNowTime();
-            s_leak1_since_report = true;
+            s_leak1_since_report = true;  
         }
     }
 

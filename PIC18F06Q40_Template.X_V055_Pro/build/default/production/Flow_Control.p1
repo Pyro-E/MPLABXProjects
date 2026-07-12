@@ -1336,9 +1336,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _s_param
 :U ..
 :U ..
--> -> 100 `ui `us
--> -> 300 `ui `us
--> -> 1200 `ui `us
+-> -> 5000 `ui `us
+-> -> 3600 `ui `us
+-> -> 400 `ui `us
 -> -> 180 `ui `us
 ..
 ..
@@ -1610,8 +1610,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _s_temp_locked -> -> 1 `i `a ]
 "183
 [e = _s_temp_unlock_ms ( _getNowTime ..  ]
-"184
-[e = _s_leak1_since_report -> -> 1 `i `a ]
 "185
 }
 [e :U 1886 ]
