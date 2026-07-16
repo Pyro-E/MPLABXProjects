@@ -117,8 +117,9 @@ static SlotModel model;                          // The single global leak-learn
 // All small -> comfortably inside the retained block; synced via backupRamSync.
 // "retained" variables keep their value across sleep (and, after backupRamSync, resets).
 retained float        flowCalScale       = FLOW_CAL_DFLT;   // User's flow calibration scale (default 1.255).
-retained AppConfig    appConfig          = {CFG_LEAK_GPM_DFLT, CFG_SHUTOFF_DFLT,    // The 4 host analytics settings,
-                                            CFG_AUTOSHUT_DFLT, CFG_ALERTMODE_DFLT}; // initialized to their defaults.
+retained AppConfig    appConfig          = {CFG_LEAK_GPM_DFLT, CFG_SHUTOFF_DFLT,    // The 5 host analytics settings,
+                                            CFG_AUTOSHUT_DFLT, CFG_ALERTMODE_DFLT,  // initialized to their defaults.
+                                            CFG_PUBLISH_HOUR_DFLT};
 // Cached copy of the PIC's 4 leak parameters (REQ_GET/SET_PARAM payload). The
 // host caches what it last wrote so it can re-push after a reset/power loss.
 retained PicParams    picParams          = {PIC_LEAK1_COUNTS_DFLT, PIC_LEAK1_WINDOW_DFLT,   // The 4 PIC leak params,
@@ -353,9 +354,16 @@ void loadConfig() {
   EEPROM.get(CFG_EEPROM_ADDR, s);                 // Read whatever is at the config address.
   if (s.magic == CFG_MAGIC) {                     // If the tag matches, the data is ours/valid...
     appConfig = s.cfg;                            // ...so use it.
+    // publishHourUtc was added after CFG_MAGIC was last bumped, so EEPROM written by
+    // older firmware has garbage/leftover bytes there -- fall back to the default.
+    if (appConfig.publishHourUtc > CFG_PUBLISH_HOUR_MAX) {
+      appConfig.publishHourUtc = CFG_PUBLISH_HOUR_DFLT;
+      saveConfig();
+    }
   } else {
     appConfig = {CFG_LEAK_GPM_DFLT, CFG_SHUTOFF_DFLT,    // Otherwise initialize the config from defaults...
-                 CFG_AUTOSHUT_DFLT, CFG_ALERTMODE_DFLT};
+                 CFG_AUTOSHUT_DFLT, CFG_ALERTMODE_DFLT,
+                 CFG_PUBLISH_HOUR_DFLT};
     saveConfig();                                 // ...and save those defaults for next boot.
   }
   Log.info("CFG: leak=%.2f shutoffVol=%.1f auto=%u alert=%u",   // Log the active config values.
@@ -831,6 +839,8 @@ void imuPublish() {
     for (int i = 0; i < 24; i++) jw.insertArrayValue(roundTenth(hourlyData[i]));   // Add each hour's gallons (1 decimal).
     jw.finishObjectOrArray();                     // Close the hourlyGallons array.
     jw.insertKeyValue("dailyGal", roundTenth(dailyGallons));   // Today's running total (matches USB "dailyGal=" line).
+    jw.insertKeyValue("publishHourUtc", (int)appConfig.publishHourUtc);   // Target UTC hour reports are anchored to.
+    jw.insertKeyValue("nextPublishEpoch", (int)nextPublishEpoch);         // UTC epoch of the next scheduled report.
 #ifdef FAST_BENCH_TEST
     jw.insertKeyValue("rssi", (int)0);            // Bench: no radio; placeholder so the payload shape matches.
 #elif USE_WIFI
@@ -946,6 +956,21 @@ int setConfig(String cmd) {
 // Cloud function: just trigger a publish of the current config (no input used).
 int getConfig(String cmd) { (void)cmd; triggerPublish = true; return 1; }
 
+// setPublishHour: "0".."23" -- the UTC hour of day reports should land on
+// (see syncPublishSchedule()). Persists to EEPROM like the other host settings.
+int setPublishHour(String cmd) {
+  restartSleepTimer("setPublishHour");
+  cmd.trim();
+  int hr = atoi(cmd.c_str());
+  if (hr < CFG_PUBLISH_HOUR_MIN || hr > CFG_PUBLISH_HOUR_MAX) return -2;   // Range-check 0..23.
+
+  appConfig.publishHourUtc = (uint8_t)hr;
+  saveConfig(); syncBackupRam();
+  triggerPublish = true;
+  Log.info("CFG set publishHourUtc=%u", (unsigned)hr);
+  return 1;
+}
+
 // ---- PIC leak parameters (REQ_GET/SET_PARAM) -------------------------------
 // Push the cached picParams to the PIC. Returns true on ACK (spec 5.4).
 bool pushPicParams() {
@@ -956,6 +981,37 @@ bool pushPicParams() {
   }
   Log.warn("PIC: SET_PARAM failed (nak=0x%02X)", picLink.lastNak());   // Log the failure + NAK reason.
   return false;                                    // Report failure (stays dirty for a later retry).
+}
+
+// ---- Publish-hour scheduling (REQ_SET_SCHEDULE) ----------------------------
+// The PIC has no RTC: it only knows "report due after N more captures". The
+// Photon knows real time, so every session (once Time.isValid()) it works out
+// how many captures remain until the next occurrence of appConfig.publishHourUtc
+// (UTC) and tells the PIC to re-anchor its countdown to that. Re-sent every
+// session so the ~6 min/day drift from the PIC's hardware timer never
+// accumulates past one cycle. Requires a valid clock; caller must check
+// Time.isValid() first (both call sites already do, for other reasons).
+//
+// Unlike leaksense-p2-G_V055_Pro this project has no live RSP_PHOTON_CFG sync,
+// so it uses the compile-time PIC_SAMPLE_INTERVAL_SEC_F / PIC_SAMPLES_PER_REPORT
+// (app_config.h) directly -- the same source everything else in this file uses.
+void syncPublishSchedule() {
+  uint32_t now = Time.now();
+  uint32_t todayTarget = (now / 86400UL) * 86400UL + (uint32_t)appConfig.publishHourUtc * 3600UL;
+  uint32_t nextTarget = (todayTarget > now) ? todayTarget : todayTarget + 86400UL;   // Next occurrence, today or tomorrow.
+  float remSec = (float)(nextTarget - now);
+  float remSamplesF = remSec / PIC_SAMPLE_INTERVAL_SEC_F;
+  if (remSamplesF < 1.0f) remSamplesF = 1.0f;
+  if (remSamplesF > (float)PIC_SAMPLES_PER_REPORT) remSamplesF = (float)PIC_SAMPLES_PER_REPORT;
+  uint16_t remSamples = (uint16_t)remSamplesF;
+
+  if (picLink.setSchedule(remSamples)) {
+    nextPublishEpoch = nextTarget;                  // Now has a real purpose (was dead retained state before).
+    Log.info("PIC: schedule set (remaining=%u samples, next=%lu UTC, target hr=%u)",
+             remSamples, (unsigned long)nextTarget, (unsigned)appConfig.publishHourUtc);
+  } else {
+    Log.warn("PIC: SET_SCHEDULE failed (nak=0x%02X) -- old PIC firmware or transient error", picLink.lastNak());
+  }
 }
 
 // setLeakParams: "leak1_counts,leak1_window_s,leak2_counts,leak2_window_s".
@@ -1275,6 +1331,10 @@ void handleMonitoring() {
   persistAll();                                   // Flush RAM buffers to flash before power is cut.
   triggerPublish = false;                         // Report delivered.
 
+#ifndef FAST_BENCH_TEST
+  syncPublishSchedule();                          // Re-anchor the PIC's next report to the target UTC hour.
+#endif
+
   // 4) Done with all business -> ask the PIC to cut our power. Sending 0x07 here
   //    (rather than waiting for the PIC's 20 s idle backstop) is the normal, clean
   //    end of a session: the PIC drives RC4 HIGH -> P-MOS off -> Photon unpowered.
@@ -1298,6 +1358,18 @@ void handleMonitoring() {
 void handleInitialHold() {
   if (!Time.isValid()) return;                    // Wait for cloud time: keeps buckets valid and avoids
                                                   //   pulling a batch we'd only drop (ingestPicBatch needs a clock).
+
+#ifndef FAST_BENCH_TEST
+  // Pin the schedule to the target UTC hour as soon as we have a clock, even on this
+  // very first cold-boot session -- this is what stops the report cadence from being
+  // anchored to "whatever hour the device happened to first power on".
+  static bool sentInitialSchedule = false;
+  if (!sentInitialSchedule) {
+    syncPublishSchedule();
+    sentInitialSchedule = true;
+  }
+#endif
+
   static uint32_t lastPoll = 0;                   // Rate-limit polling to the ~1-3 s window.
   if (millis() - lastPoll < INITIAL_HOLD_POLL_MS) return;
   lastPoll = millis();
@@ -1361,6 +1433,7 @@ void setup() {
   Particle.function("getFlowCal", getFlowCal);         // Get flow calibration.
   Particle.function("setConfig", setConfig);   // host analytics (4 vars)   // Set the 4 host settings.
   Particle.function("getConfig", getConfig);                                // Publish current config.
+  Particle.function("setPublishHour", setPublishHour);                      // Set the target UTC report hour.
   Particle.function("setLeakParams", setLeakParams); // PIC 4 leak params   // Set the PIC's 4 leak params.
   Particle.function("getLeakParams", getLeakParams);                        // Refresh PIC params from the PIC.
   Particle.function("getValve", getValve);      // PIC valve status         // Read the PIC valve status.

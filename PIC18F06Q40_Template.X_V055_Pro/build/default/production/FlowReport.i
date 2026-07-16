@@ -22684,6 +22684,14 @@ _Bool FlowLog_DueValid(void);
 
 
 _Bool FlowLog_BatchReady(void);
+
+
+
+
+
+
+
+void FlowLog_SetGroupCountdown(uint16_t remainingCaptures);
 # 11 "FlowReport.c" 2
 # 1 "./FlowMeter.h" 1
 # 19 "./FlowMeter.h"
@@ -22786,7 +22794,19 @@ typedef enum {
 
 
     PKT_KEEPALIVE = 0x0Au,
-# 75 "./Packet.h"
+
+
+
+
+
+
+    PKT_REQ_SET_SCHEDULE = 0x0Bu,
+
+
+
+
+
+
     PKT_RSP_DATA = 0x81u,
 
 
@@ -22798,7 +22818,7 @@ typedef enum {
     PKT_RSP_VALVE = 0x84u,
     PKT_RSP_POWER_STATE = 0x88u,
     PKT_RSP_PHOTON_CFG = 0x89u,
-# 94 "./Packet.h"
+# 99 "./Packet.h"
     PKT_RSP_ACK = 0x8Eu,
     PKT_RSP_NAK = 0x8Fu
 } pkt_func_t;
@@ -23155,10 +23175,10 @@ void FlowReport_SendPhotonCfg(void)
     d[i++] = (uint8_t)2u;
 
 
-    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 24) & 0xFFu);
-    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 16) & 0xFFu);
-    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 8) & 0xFFu);
-    d[i++] = (uint8_t)( ((uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) & 0xFFu);
+    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 24) & 0xFFu);
+    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 16) & 0xFFu);
+    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 8) & 0xFFu);
+    d[i++] = (uint8_t)( ((uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) & 0xFFu);
     d[i++] = (uint8_t)((((uint16_t)720u) >> 8) & 0xFFu);
     d[i++] = (uint8_t)( ((uint16_t)720u) & 0xFFu);
     d[i++] = (uint8_t)((uint8_t)24);

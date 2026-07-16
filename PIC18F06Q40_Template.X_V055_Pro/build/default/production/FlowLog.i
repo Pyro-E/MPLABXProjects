@@ -22580,6 +22580,14 @@ _Bool FlowLog_DueValid(void);
 
 
 _Bool FlowLog_BatchReady(void);
+
+
+
+
+
+
+
+void FlowLog_SetGroupCountdown(uint16_t remainingCaptures);
 # 6 "FlowLog.c" 2
 
 # 1 "./FlowMeter.h" 1
@@ -22732,7 +22740,7 @@ void FlowLog_Init(void)
 
 void FlowLog_Process(void)
 {
-    if (timeSpan(s_mark_ms) < (((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) {
+    if (timeSpan(s_mark_ms) < (((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) {
         return;
     }
     s_mark_ms = getNowTime();
@@ -22820,4 +22828,11 @@ _Bool FlowLog_BatchReady(void)
         return 1;
     }
     return 0;
+}
+
+void FlowLog_SetGroupCountdown(uint16_t remainingCaptures)
+{
+    if (remainingCaptures < 1u) remainingCaptures = 1u;
+    if (remainingCaptures > 720u) remainingCaptures = 720u;
+    s_group = (uint16_t)(720u - remainingCaptures);
 }

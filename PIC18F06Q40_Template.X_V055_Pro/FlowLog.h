@@ -49,4 +49,12 @@ bool     FlowLog_DueValid(void);        /* has a report-due boundary happened ye
  * the flag, so it fires exactly once per completed group. */
 bool     FlowLog_BatchReady(void);
 
+/* Re-anchor the report-due countdown: the NEXT report fires after exactly
+ * 'remainingCaptures' more captures (clamped to [1, FLOWLOG_BATCH]), instead
+ * of whenever the in-progress group would otherwise complete. Used by the
+ * Photon (REQ_SET_SCHEDULE) to align reports to a user-chosen wall-clock
+ * hour, since the PIC itself has no RTC. Only changes the FUTURE boundary;
+ * does not retroactively trigger FlowLog_BatchReady(). */
+void     FlowLog_SetGroupCountdown(uint16_t remainingCaptures);
+
 #endif /* FLOWLOG_H */

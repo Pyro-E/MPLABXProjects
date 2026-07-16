@@ -22726,6 +22726,14 @@ _Bool FlowLog_DueValid(void);
 
 
 _Bool FlowLog_BatchReady(void);
+
+
+
+
+
+
+
+void FlowLog_SetGroupCountdown(uint16_t remainingCaptures);
 # 52 "main.c" 2
 # 1 "./FlowReport.h" 1
 # 23 "./FlowReport.h"
@@ -22873,7 +22881,19 @@ typedef enum {
 
 
     PKT_KEEPALIVE = 0x0Au,
-# 75 "./Packet.h"
+
+
+
+
+
+
+    PKT_REQ_SET_SCHEDULE = 0x0Bu,
+
+
+
+
+
+
     PKT_RSP_DATA = 0x81u,
 
 
@@ -22885,7 +22905,7 @@ typedef enum {
     PKT_RSP_VALVE = 0x84u,
     PKT_RSP_POWER_STATE = 0x88u,
     PKT_RSP_PHOTON_CFG = 0x89u,
-# 94 "./Packet.h"
+# 99 "./Packet.h"
     PKT_RSP_ACK = 0x8Eu,
     PKT_RSP_NAK = 0x8Fu
 } pkt_func_t;
@@ -23022,7 +23042,7 @@ static void on_uart_rx(uint8_t ch)
 
 static void dispatch_packet(const pkt_parser_t *p)
 {
-# 140 "main.c"
+# 141 "main.c"
     switch (p->func) {
 
     case PKT_REQ_DATA:
@@ -23042,6 +23062,16 @@ static void dispatch_packet(const pkt_parser_t *p)
             np.leak2_window_s = (uint16_t)(((uint16_t)p->data[6] << 8) | p->data[7]);
             FlowControl_SetParams(&np);
             FlowReport_SendAck(PKT_REQ_SET_PARAM);
+        } else {
+            FlowReport_SendNak(NAK_BAD_LEN);
+        }
+        break;
+
+    case PKT_REQ_SET_SCHEDULE:
+        if (p->len == 2u) {
+            uint16_t remaining = (uint16_t)(((uint16_t)p->data[0] << 8) | p->data[1]);
+            FlowLog_SetGroupCountdown(remaining);
+            FlowReport_SendAck(PKT_REQ_SET_SCHEDULE);
         } else {
             FlowReport_SendNak(NAK_BAD_LEN);
         }

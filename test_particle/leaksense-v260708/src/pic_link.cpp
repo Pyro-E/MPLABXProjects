@@ -269,6 +269,20 @@ bool PicLink::setParams(const PicParams &in) {
                                                   //   true only if the PIC acknowledged the write.
 }
 
+// ---- REQ_SET_SCHEDULE -> RSP_ACK/NAK ---------------------------------------
+// Re-anchor the PIC's report-due countdown to fire after exactly
+// 'remainingCaptures' more captures. Returns true only if ACKed.
+bool PicLink::setSchedule(uint16_t remainingCaptures) {
+  uint8_t tx[2];
+  tx[0] = (uint8_t)(remainingCaptures >> 8); tx[1] = (uint8_t)(remainingCaptures);
+
+  uint8_t  rx[2];
+  uint16_t rl = 0;
+  int r = transact(REQ_SET_SCHEDULE, tx, sizeof(tx), RSP_ACK,
+                   rx, sizeof(rx), &rl, PHOTON_TIMEOUT_READ_MS);
+  return (r == PIC_OK);
+}
+
 // ---- REQ_GET_VALVE -> RSP_VALVE --------------------------------------------
 // Read the valve status into 'out'. Returns true on success.
 bool PicLink::getValve(PicValve &out) {

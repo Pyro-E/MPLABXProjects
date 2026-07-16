@@ -140,9 +140,10 @@
 #else
   #if REPORT_INTERVAL_HR == 24
     #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
-    #define APP_WAKE_COUNTS        2u  // 114u //2u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
+    #define APP_WAKE_COUNTS        48u  // 114u //2u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
     #define APP_WAKES_PER_SAMPLE   2u       /* capture = 2 wakes -> ⌊(114×16384+15)/31⌋ x 2 = 60.251 ms x2 = 120.502 s (~2 min) */
     #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~24 hours       */
+    // 8u - 1:53; 16u - 2:36 ; 24u - 5:40; 48u - 11:20; 72u - 17:00; 96u - 22:40; 120u - 28:20; 144u - 34:00; 168u - 39:40; 192u - 45:20; 216u - 51:00; 240u - 56:40; 255u - 1:00:00
   #endif
   #if REPORT_INTERVAL_HR == 48
     #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
@@ -393,10 +394,10 @@
   #ifdef TEST_INITIAL_HOLD_10MIN
     #define INITIAL_POWER_HOLD_MS      (10UL * 60UL * 1000UL)   /* test: 10 minutes */
   #else
-    #define INITIAL_POWER_HOLD_MS      (100UL * 1000UL)          /* test: 30 seconds */
+    #define INITIAL_POWER_HOLD_MS      (100UL * 1000UL)          /* test: 100 seconds */
   #endif
 #else
-  #define INITIAL_POWER_HOLD_MS        (3UL * 60UL * 1000UL)   /* PRODUCTION:  minutes */
+  #define INITIAL_POWER_HOLD_MS        (3UL * 60UL * 1000UL)   /* PRODUCTION: 3 minutes */
 #endif
 
 /* NOTE: TIMEOUT_CANNOT_FIND_CLOUD_MS (80 s) lives on the PHOTON side: if the

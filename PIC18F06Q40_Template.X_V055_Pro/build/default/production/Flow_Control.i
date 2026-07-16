@@ -22671,6 +22671,14 @@ _Bool FlowLog_DueValid(void);
 
 
 _Bool FlowLog_BatchReady(void);
+
+
+
+
+
+
+
+void FlowLog_SetGroupCountdown(uint16_t remainingCaptures);
 # 45 "Flow_Control.c" 2
 
 
@@ -22706,7 +22714,7 @@ static uint16_t quantize_window(uint16_t window_s)
 
 
 
-    uint32_t n = ((uint32_t)window_s * 1000UL) / (uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u);
+    uint32_t n = ((uint32_t)window_s * 1000UL) / (uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u);
     if (n > (uint32_t)1000) n = (uint32_t)1000;
     if (n == 0u) n = 1u;
     return (uint16_t)n;

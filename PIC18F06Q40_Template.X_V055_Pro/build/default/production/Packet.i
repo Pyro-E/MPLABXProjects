@@ -145,7 +145,19 @@ typedef enum {
 
 
     PKT_KEEPALIVE = 0x0Au,
-# 75 "./Packet.h"
+
+
+
+
+
+
+    PKT_REQ_SET_SCHEDULE = 0x0Bu,
+
+
+
+
+
+
     PKT_RSP_DATA = 0x81u,
 
 
@@ -157,7 +169,7 @@ typedef enum {
     PKT_RSP_VALVE = 0x84u,
     PKT_RSP_POWER_STATE = 0x88u,
     PKT_RSP_PHOTON_CFG = 0x89u,
-# 94 "./Packet.h"
+# 99 "./Packet.h"
     PKT_RSP_ACK = 0x8Eu,
     PKT_RSP_NAK = 0x8Fu
 } pkt_func_t;

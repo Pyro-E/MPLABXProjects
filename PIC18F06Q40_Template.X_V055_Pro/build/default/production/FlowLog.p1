@@ -2061,10 +2061,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [i _s_due_count
 -> -> 0 `i `uc
 ]
-[v F13168 `(v ~T0 @X0 1 tf2`us`a ]
+[v F13170 `(v ~T0 @X0 1 tf2`us`a ]
 "46
 [; ;FlowLog.c: 46: static __attribute__((inline)) void ovf_set(uint16_t slot, _Bool on)
-[v _ovf_set `TF13168 ~T0 @X0 1 s ]
+[v _ovf_set `TF13170 ~T0 @X0 1 s ]
 "47
 [; ;FlowLog.c: 47: {
 {
@@ -2268,8 +2268,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _FlowLog_Process ]
 [f ]
 "101
-[; ;FlowLog.c: 101:     if (timeSpan(s_mark_ms) < (((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) {
-[e $ ! < ( _timeSpan (1 _s_mark_ms * / + << -> -> 2 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul 1879  ]
+[; ;FlowLog.c: 101:     if (timeSpan(s_mark_ms) < (((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) {
+[e $ ! < ( _timeSpan (1 _s_mark_ms * / + << -> -> 48 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul 1879  ]
 {
 "102
 [; ;FlowLog.c: 102:         return;
@@ -2507,4 +2507,34 @@ Version 4.0 HI-TECH Software Intermediate Code
 "189
 [; ;FlowLog.c: 189: }
 [e :UE 1891 ]
+}
+"191
+[; ;FlowLog.c: 191: void FlowLog_SetGroupCountdown(uint16_t remainingCaptures)
+[v _FlowLog_SetGroupCountdown `(v ~T0 @X0 1 ef1`us ]
+"192
+[; ;FlowLog.c: 192: {
+{
+[e :U _FlowLog_SetGroupCountdown ]
+"191
+[; ;FlowLog.c: 191: void FlowLog_SetGroupCountdown(uint16_t remainingCaptures)
+[v _remainingCaptures `us ~T0 @X0 1 r1 ]
+"192
+[; ;FlowLog.c: 192: {
+[f ]
+"193
+[; ;FlowLog.c: 193:     if (remainingCaptures < 1u) remainingCaptures = 1u;
+[e $ ! < -> _remainingCaptures `ui -> 1 `ui 1894  ]
+[e = _remainingCaptures -> -> 1 `ui `us ]
+[e :U 1894 ]
+"194
+[; ;FlowLog.c: 194:     if (remainingCaptures > 720u) remainingCaptures = 720u;
+[e $ ! > -> _remainingCaptures `ui -> 720 `ui 1895  ]
+[e = _remainingCaptures -> -> 720 `ui `us ]
+[e :U 1895 ]
+"195
+[; ;FlowLog.c: 195:     s_group = (uint16_t)(720u - remainingCaptures);
+[e = _s_group -> - -> 720 `ui -> _remainingCaptures `ui `us ]
+"196
+[; ;FlowLog.c: 196: }
+[e :UE 1893 ]
 }

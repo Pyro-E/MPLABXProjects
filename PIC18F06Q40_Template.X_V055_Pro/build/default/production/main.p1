@@ -1,8 +1,8 @@
 Version 4.0 HI-TECH Software Intermediate Code
 "68 main.c
 [; ;main.c: 68: static pwr_state_t s_pwr = PWR_SLEEP;
-[c E13308 0 1 2 .. ]
-[n E13308 . PWR_SLEEP PWR_WAIT_FIRST PWR_ACTIVE  ]
+[c E13311 0 1 2 .. ]
+[n E13311 . PWR_SLEEP PWR_WAIT_FIRST PWR_ACTIVE  ]
 "24 ./MCU_Time.h
 [; ;./MCU_Time.h: 24: uint32_t getNowTime(void);
 [v _getNowTime `(ul ~T0 @X0 0 ef ]
@@ -22,11 +22,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _LedFsm_NotifyWake `(v ~T0 @X0 0 ef ]
 "104 main.c
 [; ;main.c: 104: static pkt_parser_t s_parser;
-[c E13279 0 1 2 3 4 5 6 7 .. ]
-[n E13279 . PKT_ST_MARKER0 PKT_ST_MARKER1 PKT_ST_FUNC PKT_ST_LEN_HI PKT_ST_LEN_LO PKT_ST_DATA PKT_ST_CRC_HI PKT_ST_CRC_LO  ]
-"142 ./Packet.h
-[; ;./Packet.h: 142: typedef struct {
-[s S1863 `E13279 1 `uc 1 `us 1 `us 1 `uc -> 8 `i `us 1 `us 1 `ul 1 `a 1 `a 1 ]
+[c E13282 0 1 2 3 4 5 6 7 .. ]
+[n E13282 . PKT_ST_MARKER0 PKT_ST_MARKER1 PKT_ST_FUNC PKT_ST_LEN_HI PKT_ST_LEN_LO PKT_ST_DATA PKT_ST_CRC_HI PKT_ST_CRC_LO  ]
+"147 ./Packet.h
+[; ;./Packet.h: 147: typedef struct {
+[s S1863 `E13282 1 `uc 1 `us 1 `us 1 `uc -> 8 `i `us 1 `us 1 `ul 1 `a 1 `a 1 ]
 [n S1863 . state func len idx data crc_calc crc_rx last_byte_ms bad_len bad_crc ]
 "34 ./Dev_Uart.h
 [; ;./Dev_Uart.h: 34: void UART_RX_Push(uint8_t b);
@@ -47,17 +47,20 @@ Version 4.0 HI-TECH Software Intermediate Code
 "58 ./FlowReport.h
 [; ;./FlowReport.h: 58: void FlowReport_SendAck(uint8_t echoed_func);
 [v _FlowReport_SendAck `(v ~T0 @X0 0 ef1`uc ]
-"158 main.c
-[; ;main.c: 158:             FlowReport_SendAck(PKT_REQ_SET_PARAM);
-[c E13239 1 2 3 4 5 6 7 8 9 10 129 130 132 136 137 142 143 .. ]
-[n E13239 . PKT_REQ_DATA PKT_REQ_GET_PARAM PKT_REQ_SET_PARAM PKT_REQ_GET_VALVE PKT_REQ_VALVE_UNLOCK PKT_SYS_RESET PKT_PHOTON_OFF_REQ PKT_REQ_POWER_STATE PKT_REQ_PHOTON_CFG PKT_KEEPALIVE PKT_RSP_DATA PKT_RSP_PARAM PKT_RSP_VALVE PKT_RSP_POWER_STATE PKT_RSP_PHOTON_CFG PKT_RSP_ACK PKT_RSP_NAK  ]
+"159 main.c
+[; ;main.c: 159:             FlowReport_SendAck(PKT_REQ_SET_PARAM);
+[c E13241 1 2 3 4 5 6 7 8 9 10 11 129 130 132 136 137 142 143 .. ]
+[n E13241 . PKT_REQ_DATA PKT_REQ_GET_PARAM PKT_REQ_SET_PARAM PKT_REQ_GET_VALVE PKT_REQ_VALVE_UNLOCK PKT_SYS_RESET PKT_PHOTON_OFF_REQ PKT_REQ_POWER_STATE PKT_REQ_PHOTON_CFG PKT_KEEPALIVE PKT_REQ_SET_SCHEDULE PKT_RSP_DATA PKT_RSP_PARAM PKT_RSP_VALVE PKT_RSP_POWER_STATE PKT_RSP_PHOTON_CFG PKT_RSP_ACK PKT_RSP_NAK  ]
 "59 ./FlowReport.h
 [; ;./FlowReport.h: 59: void FlowReport_SendNak(uint8_t reason);
 [v _FlowReport_SendNak `(v ~T0 @X0 0 ef1`uc ]
-"160 main.c
-[; ;main.c: 160:             FlowReport_SendNak(NAK_BAD_LEN);
-[c E13258 1 2 3 4 .. ]
-[n E13258 . NAK_BAD_CRC NAK_BAD_LEN NAK_BAD_FUNC NAK_BUSY  ]
+"161 main.c
+[; ;main.c: 161:             FlowReport_SendNak(NAK_BAD_LEN);
+[c E13261 1 2 3 4 .. ]
+[n E13261 . NAK_BAD_CRC NAK_BAD_LEN NAK_BAD_FUNC NAK_BUSY  ]
+"58 ./FlowLog.h
+[; ;./FlowLog.h: 58: void FlowLog_SetGroupCountdown(uint16_t remainingCaptures);
+[v _FlowLog_SetGroupCountdown `(v ~T0 @X0 0 ef1`us ]
 "57 ./FlowReport.h
 [; ;./FlowReport.h: 57: void FlowReport_SendValve(void);
 [v _FlowReport_SendValve `(v ~T0 @X0 0 ef ]
@@ -67,18 +70,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "60 ./FlowReport.h
 [; ;./FlowReport.h: 60: void FlowReport_SendPowerState(uint8_t state);
 [v _FlowReport_SendPowerState `(v ~T0 @X0 0 ef1`uc ]
-"194 main.c
-[; ;main.c: 194:         FlowReport_SendPowerState(in_initial_hold() ? POWER_STATE_INITIAL
-[c E13268 0 1 .. ]
-[n E13268 . POWER_STATE_INITIAL POWER_STATE_NORMAL  ]
+"205 main.c
+[; ;main.c: 205:         FlowReport_SendPowerState(in_initial_hold() ? POWER_STATE_INITIAL
+[c E13271 0 1 .. ]
+[n E13271 . POWER_STATE_INITIAL POWER_STATE_NORMAL  ]
 "61 ./FlowReport.h
 [; ;./FlowReport.h: 61: void FlowReport_SendPhotonCfg(void);
 [v _FlowReport_SendPhotonCfg `(v ~T0 @X0 0 ef ]
-"160 ./Packet.h
-[; ;./Packet.h: 160: void Packet_ParserTimeoutCheck(pkt_parser_t *p);
+"165 ./Packet.h
+[; ;./Packet.h: 165: void Packet_ParserTimeoutCheck(pkt_parser_t *p);
 [v _Packet_ParserTimeoutCheck `(v ~T0 @X0 0 ef1`*S1863 ]
-"166
-[; ;./Packet.h: 166: _Bool Packet_ParseByte(pkt_parser_t *p, uint8_t b);
+"171
+[; ;./Packet.h: 171: _Bool Packet_ParseByte(pkt_parser_t *p, uint8_t b);
 [v _Packet_ParseByte `(a ~T0 @X0 0 ef2`*S1863`uc ]
 "48 ./FlowReport.h
 [; ;./FlowReport.h: 48: _Bool FlowReport_IsSending(void);
@@ -168,8 +171,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "21 ./led_fsm_sysstate.h
 [; ;./led_fsm_sysstate.h: 21: void LedFsm_Init(void);
 [v _LedFsm_Init `(v ~T0 @X0 0 ef ]
-"156 ./Packet.h
-[; ;./Packet.h: 156: void Packet_ParserReset(pkt_parser_t *p);
+"161 ./Packet.h
+[; ;./Packet.h: 161: void Packet_ParserReset(pkt_parser_t *p);
 [v _Packet_ParserReset `(v ~T0 @X0 0 ef1`*S1863 ]
 "38 ./Flow_Control.h
 [; ;./Flow_Control.h: 38: void FlowControl_Init(void);
@@ -251,8 +254,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "56 ./MValve_OP3.h
 [; ;./MValve_OP3.h: 56: _Bool MValve_OP3_IsBusy(void);
 [v _MValve_OP3_IsBusy `(a ~T0 @X0 0 ef ]
-"372 main.c
-[; ;main.c: 372:                 (void)Sys_Time_EnterDeepSleep();
+"383 main.c
+[; ;main.c: 383:                 (void)Sys_Time_EnterDeepSleep();
 [c E13136 0 1 .. ]
 [n E13136 . WAKE_BY_TIMER0 WAKE_BY_UART  ]
 "46 ./Sys_Time_MCU_Specific.h
@@ -2244,9 +2247,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [p x WDTCWS  =  WDTCWS_7          ]
 "68
 [; ;main.c: 68: static pwr_state_t s_pwr = PWR_SLEEP;
-[v _s_pwr `E13308 ~T0 @X0 1 s ]
+[v _s_pwr `E13311 ~T0 @X0 1 s ]
 [i _s_pwr
-. `E13308 0
+. `E13311 0
 ]
 "69
 [; ;main.c: 69: static uint32_t s_pwr_on_ms = 0;
@@ -2316,7 +2319,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _s_off_request -> -> 0 `i `a ]
 "91
 [; ;main.c: 91:     s_pwr = PWR_WAIT_FIRST;
-[e = _s_pwr . `E13308 1 ]
+[e = _s_pwr . `E13311 1 ]
 "92
 [; ;main.c: 92:     LedFsm_NotifyWake();
 [e ( _LedFsm_NotifyWake ..  ]
@@ -2337,7 +2340,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _LATCbits 0 4 -> -> 1 `i `uc ]
 "98
 [; ;main.c: 98:     s_pwr = PWR_SLEEP;
-[e = _s_pwr . `E13308 0 ]
+[e = _s_pwr . `E13311 0 ]
 "99
 [; ;main.c: 99: }
 [e :UE 1866 ]
@@ -2378,563 +2381,597 @@ Version 4.0 HI-TECH Software Intermediate Code
 "117
 [; ;main.c: 117: {
 [f ]
-"140
-[; ;main.c: 140:     switch (p->func) {
+"141
+[; ;main.c: 141:     switch (p->func) {
 [e $U 1870  ]
 {
-"142
-[; ;main.c: 142:     case PKT_REQ_DATA:
-[e :U 1871 ]
 "143
-[; ;main.c: 143:         FlowReport_NotifyAA();
-[e ( _FlowReport_NotifyAA ..  ]
+[; ;main.c: 143:     case PKT_REQ_DATA:
+[e :U 1871 ]
 "144
-[; ;main.c: 144:         break;
+[; ;main.c: 144:         FlowReport_NotifyAA();
+[e ( _FlowReport_NotifyAA ..  ]
+"145
+[; ;main.c: 145:         break;
 [e $U 1869  ]
-"146
-[; ;main.c: 146:     case PKT_REQ_GET_PARAM:
-[e :U 1872 ]
 "147
-[; ;main.c: 147:         FlowReport_SendParam();
-[e ( _FlowReport_SendParam ..  ]
+[; ;main.c: 147:     case PKT_REQ_GET_PARAM:
+[e :U 1872 ]
 "148
-[; ;main.c: 148:         break;
+[; ;main.c: 148:         FlowReport_SendParam();
+[e ( _FlowReport_SendParam ..  ]
+"149
+[; ;main.c: 149:         break;
 [e $U 1869  ]
-"150
-[; ;main.c: 150:     case PKT_REQ_SET_PARAM:
-[e :U 1873 ]
 "151
-[; ;main.c: 151:         if (p->len == 8u) {
+[; ;main.c: 151:     case PKT_REQ_SET_PARAM:
+[e :U 1873 ]
+"152
+[; ;main.c: 152:         if (p->len == 8u) {
 [e $ ! == -> . *U _p 2 `ui -> 8 `ui 1874  ]
 {
-"152
-[; ;main.c: 152:             leak_param_t np;
-[v _np `S1862 ~T0 @X0 1 a ]
 "153
-[; ;main.c: 153:             np.leak1_counts = (uint16_t)(((uint16_t)p->data[0] << 8) | p->data[1]);
-[e = . _np 0 -> | << -> -> *U + &U . *U _p 4 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 1 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
+[; ;main.c: 153:             leak_param_t np;
+[v _np `S1862 ~T0 @X0 1 a ]
 "154
-[; ;main.c: 154:             np.leak1_window_s = (uint16_t)(((uint16_t)p->data[2] << 8) | p->data[3]);
-[e = . _np 1 -> | << -> -> *U + &U . *U _p 4 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 3 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
+[; ;main.c: 154:             np.leak1_counts = (uint16_t)(((uint16_t)p->data[0] << 8) | p->data[1]);
+[e = . _np 0 -> | << -> -> *U + &U . *U _p 4 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 1 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
 "155
-[; ;main.c: 155:             np.leak2_counts = (uint16_t)(((uint16_t)p->data[4] << 8) | p->data[5]);
-[e = . _np 2 -> | << -> -> *U + &U . *U _p 4 * -> -> -> 4 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 5 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
+[; ;main.c: 155:             np.leak1_window_s = (uint16_t)(((uint16_t)p->data[2] << 8) | p->data[3]);
+[e = . _np 1 -> | << -> -> *U + &U . *U _p 4 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 3 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
 "156
-[; ;main.c: 156:             np.leak2_window_s = (uint16_t)(((uint16_t)p->data[6] << 8) | p->data[7]);
-[e = . _np 3 -> | << -> -> *U + &U . *U _p 4 * -> -> -> 6 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 7 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
+[; ;main.c: 156:             np.leak2_counts = (uint16_t)(((uint16_t)p->data[4] << 8) | p->data[5]);
+[e = . _np 2 -> | << -> -> *U + &U . *U _p 4 * -> -> -> 4 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 5 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
 "157
-[; ;main.c: 157:             FlowControl_SetParams(&np);
-[e ( _FlowControl_SetParams (1 -> &U _np `*CS1862 ]
+[; ;main.c: 157:             np.leak2_window_s = (uint16_t)(((uint16_t)p->data[6] << 8) | p->data[7]);
+[e = . _np 3 -> | << -> -> *U + &U . *U _p 4 * -> -> -> 6 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 7 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
 "158
-[; ;main.c: 158:             FlowReport_SendAck(PKT_REQ_SET_PARAM);
-[e ( _FlowReport_SendAck (1 -> . `E13239 2 `uc ]
+[; ;main.c: 158:             FlowControl_SetParams(&np);
+[e ( _FlowControl_SetParams (1 -> &U _np `*CS1862 ]
 "159
-[; ;main.c: 159:         } else {
+[; ;main.c: 159:             FlowReport_SendAck(PKT_REQ_SET_PARAM);
+[e ( _FlowReport_SendAck (1 -> . `E13241 2 `uc ]
+"160
+[; ;main.c: 160:         } else {
 }
 [e $U 1875  ]
 [e :U 1874 ]
 {
-"160
-[; ;main.c: 160:             FlowReport_SendNak(NAK_BAD_LEN);
-[e ( _FlowReport_SendNak (1 -> . `E13258 1 `uc ]
 "161
-[; ;main.c: 161:         }
+[; ;main.c: 161:             FlowReport_SendNak(NAK_BAD_LEN);
+[e ( _FlowReport_SendNak (1 -> . `E13261 1 `uc ]
+"162
+[; ;main.c: 162:         }
 }
 [e :U 1875 ]
-"162
-[; ;main.c: 162:         break;
+"163
+[; ;main.c: 163:         break;
 [e $U 1869  ]
-"164
-[; ;main.c: 164:     case PKT_REQ_GET_VALVE:
-[e :U 1876 ]
 "165
-[; ;main.c: 165:         FlowReport_SendValve();
-[e ( _FlowReport_SendValve ..  ]
+[; ;main.c: 165:     case PKT_REQ_SET_SCHEDULE:
+[e :U 1876 ]
 "166
-[; ;main.c: 166:         break;
-[e $U 1869  ]
+[; ;main.c: 166:         if (p->len == 2u) {
+[e $ ! == -> . *U _p 2 `ui -> 2 `ui 1877  ]
+{
+"167
+[; ;main.c: 167:             uint16_t remaining = (uint16_t)(((uint16_t)p->data[0] << 8) | p->data[1]);
+[v _remaining `us ~T0 @X0 1 a ]
+[e = _remaining -> | << -> -> *U + &U . *U _p 4 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `us `ui -> 8 `i -> *U + &U . *U _p 4 * -> -> -> 1 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux `ui `us ]
 "168
-[; ;main.c: 168:     case PKT_REQ_VALVE_UNLOCK:
-[e :U 1877 ]
+[; ;main.c: 168:             FlowLog_SetGroupCountdown(remaining);
+[e ( _FlowLog_SetGroupCountdown (1 _remaining ]
 "169
-[; ;main.c: 169:         if (p->len == 1u) {
-[e $ ! == -> . *U _p 2 `ui -> 1 `ui 1878  ]
-{
+[; ;main.c: 169:             FlowReport_SendAck(PKT_REQ_SET_SCHEDULE);
+[e ( _FlowReport_SendAck (1 -> . `E13241 10 `uc ]
 "170
-[; ;main.c: 170:             FlowControl_Unlock(p->data[0]);
-[e ( _FlowControl_Unlock (1 *U + &U . *U _p 4 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux ]
-"171
-[; ;main.c: 171:             FlowReport_SendAck(PKT_REQ_VALVE_UNLOCK);
-[e ( _FlowReport_SendAck (1 -> . `E13239 4 `uc ]
-"172
-[; ;main.c: 172:         } else {
+[; ;main.c: 170:         } else {
 }
-[e $U 1879  ]
-[e :U 1878 ]
+[e $U 1878  ]
+[e :U 1877 ]
 {
-"173
-[; ;main.c: 173:             FlowReport_SendNak(NAK_BAD_LEN);
-[e ( _FlowReport_SendNak (1 -> . `E13258 1 `uc ]
-"174
-[; ;main.c: 174:         }
+"171
+[; ;main.c: 171:             FlowReport_SendNak(NAK_BAD_LEN);
+[e ( _FlowReport_SendNak (1 -> . `E13261 1 `uc ]
+"172
+[; ;main.c: 172:         }
 }
-[e :U 1879 ]
+[e :U 1878 ]
+"173
+[; ;main.c: 173:         break;
+[e $U 1869  ]
 "175
-[; ;main.c: 175:         break;
-[e $U 1869  ]
+[; ;main.c: 175:     case PKT_REQ_GET_VALVE:
+[e :U 1879 ]
+"176
+[; ;main.c: 176:         FlowReport_SendValve();
+[e ( _FlowReport_SendValve ..  ]
 "177
-[; ;main.c: 177:     case PKT_SYS_RESET:
-[e :U 1880 ]
-"178
-[; ;main.c: 178:         __asm("reset");
-[; <" reset ;# ">
+[; ;main.c: 177:         break;
+[e $U 1869  ]
 "179
-[; ;main.c: 179:         break;
-[e $U 1869  ]
+[; ;main.c: 179:     case PKT_REQ_VALVE_UNLOCK:
+[e :U 1880 ]
+"180
+[; ;main.c: 180:         if (p->len == 1u) {
+[e $ ! == -> . *U _p 2 `ui -> 1 `ui 1881  ]
+{
 "181
-[; ;main.c: 181:     case PKT_PHOTON_OFF_REQ:
+[; ;main.c: 181:             FlowControl_Unlock(p->data[0]);
+[e ( _FlowControl_Unlock (1 *U + &U . *U _p 4 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _p 4 `ui `ux ]
+"182
+[; ;main.c: 182:             FlowReport_SendAck(PKT_REQ_VALVE_UNLOCK);
+[e ( _FlowReport_SendAck (1 -> . `E13241 4 `uc ]
+"183
+[; ;main.c: 183:         } else {
+}
+[e $U 1882  ]
 [e :U 1881 ]
-"187
-[; ;main.c: 187:         s_off_request = 1;
-[e = _s_off_request -> -> 1 `i `a ]
-"188
-[; ;main.c: 188:         break;
-[e $U 1869  ]
-"190
-[; ;main.c: 190:     case PKT_REQ_POWER_STATE:
+{
+"184
+[; ;main.c: 184:             FlowReport_SendNak(NAK_BAD_LEN);
+[e ( _FlowReport_SendNak (1 -> . `E13261 1 `uc ]
+"185
+[; ;main.c: 185:         }
+}
 [e :U 1882 ]
-"194
-[; ;main.c: 194:         FlowReport_SendPowerState(in_initial_hold() ? POWER_STATE_INITIAL
-[e ( _FlowReport_SendPowerState (1 -> ? != -> ( _in_initial_hold ..  `i -> 0 `i : . `E13268 0 . `E13268 1 `uc ]
-"196
-[; ;main.c: 196:         break;
+"186
+[; ;main.c: 186:         break;
 [e $U 1869  ]
-"198
-[; ;main.c: 198:     case PKT_REQ_PHOTON_CFG:
+"188
+[; ;main.c: 188:     case PKT_SYS_RESET:
 [e :U 1883 ]
-"201
-[; ;main.c: 201:         FlowReport_SendPhotonCfg();
-[e ( _FlowReport_SendPhotonCfg ..  ]
-"202
-[; ;main.c: 202:         break;
+"189
+[; ;main.c: 189:         __asm("reset");
+[; <" reset ;# ">
+"190
+[; ;main.c: 190:         break;
 [e $U 1869  ]
-"204
-[; ;main.c: 204:     case PKT_KEEPALIVE:
+"192
+[; ;main.c: 192:     case PKT_PHOTON_OFF_REQ:
 [e :U 1884 ]
-"210
-[; ;main.c: 210:         break;
+"198
+[; ;main.c: 198:         s_off_request = 1;
+[e = _s_off_request -> -> 1 `i `a ]
+"199
+[; ;main.c: 199:         break;
 [e $U 1869  ]
-"212
-[; ;main.c: 212:     default:
+"201
+[; ;main.c: 201:     case PKT_REQ_POWER_STATE:
 [e :U 1885 ]
+"205
+[; ;main.c: 205:         FlowReport_SendPowerState(in_initial_hold() ? POWER_STATE_INITIAL
+[e ( _FlowReport_SendPowerState (1 -> ? != -> ( _in_initial_hold ..  `i -> 0 `i : . `E13271 0 . `E13271 1 `uc ]
+"207
+[; ;main.c: 207:         break;
+[e $U 1869  ]
+"209
+[; ;main.c: 209:     case PKT_REQ_PHOTON_CFG:
+[e :U 1886 ]
+"212
+[; ;main.c: 212:         FlowReport_SendPhotonCfg();
+[e ( _FlowReport_SendPhotonCfg ..  ]
 "213
-[; ;main.c: 213:         FlowReport_SendNak(NAK_BAD_FUNC);
-[e ( _FlowReport_SendNak (1 -> . `E13258 2 `uc ]
-"214
-[; ;main.c: 214:         break;
+[; ;main.c: 213:         break;
 [e $U 1869  ]
 "215
-[; ;main.c: 215:     }
+[; ;main.c: 215:     case PKT_KEEPALIVE:
+[e :U 1887 ]
+"221
+[; ;main.c: 221:         break;
+[e $U 1869  ]
+"223
+[; ;main.c: 223:     default:
+[e :U 1888 ]
+"224
+[; ;main.c: 224:         FlowReport_SendNak(NAK_BAD_FUNC);
+[e ( _FlowReport_SendNak (1 -> . `E13261 2 `uc ]
+"225
+[; ;main.c: 225:         break;
+[e $U 1869  ]
+"226
+[; ;main.c: 226:     }
 }
 [e $U 1869  ]
 [e :U 1870 ]
-[e [\ . *U _p 1 , $ . `E13239 0 1871
- , $ . `E13239 1 1872
- , $ . `E13239 2 1873
- , $ . `E13239 3 1876
- , $ . `E13239 4 1877
- , $ . `E13239 5 1880
- , $ . `E13239 6 1881
- , $ . `E13239 7 1882
- , $ . `E13239 8 1883
- , $ . `E13239 9 1884
- 1885 ]
+[e [\ . *U _p 1 , $ . `E13241 0 1871
+ , $ . `E13241 1 1872
+ , $ . `E13241 2 1873
+ , $ . `E13241 10 1876
+ , $ . `E13241 3 1879
+ , $ . `E13241 4 1880
+ , $ . `E13241 5 1883
+ , $ . `E13241 6 1884
+ , $ . `E13241 7 1885
+ , $ . `E13241 8 1886
+ , $ . `E13241 9 1887
+ 1888 ]
 [e :U 1869 ]
-"216
-[; ;main.c: 216: }
+"227
+[; ;main.c: 227: }
 [e :UE 1868 ]
 }
-"218
-[; ;main.c: 218: static void packet_rx_pump(void)
+"229
+[; ;main.c: 229: static void packet_rx_pump(void)
 [v _packet_rx_pump `(v ~T0 @X0 1 sf ]
-"219
-[; ;main.c: 219: {
+"230
+[; ;main.c: 230: {
 {
 [e :U _packet_rx_pump ]
 [f ]
-"220
-[; ;main.c: 220:     uint8_t b;
-[v _b `uc ~T0 @X0 1 a ]
-"221
-[; ;main.c: 221:     Packet_ParserTimeoutCheck(&s_parser);
-[e ( _Packet_ParserTimeoutCheck (1 &U _s_parser ]
-"222
-[; ;main.c: 222:     while (UART_RX_Pop(&b)) {
-[e $U 1887  ]
-[e :U 1888 ]
-{
-"223
-[; ;main.c: 223:         if (Packet_ParseByte(&s_parser, b)) {
-[e $ ! != -> ( _Packet_ParseByte (2 , &U _s_parser _b `i -> 0 `i 1890  ]
-{
-"226
-[; ;main.c: 226:             s_pkt_seen = 1;
-[e = _s_pkt_seen -> -> 1 `i `a ]
-"227
-[; ;main.c: 227:             s_last_valid_ms = getNowTime();
-[e = _s_last_valid_ms ( _getNowTime ..  ]
-"228
-[; ;main.c: 228:             if (!FlowReport_IsSending()) {
-[e $ ! ! != -> ( _FlowReport_IsSending ..  `i -> 0 `i 1891  ]
-{
-"229
-[; ;main.c: 229:                 dispatch_packet(&s_parser);
-[e ( _dispatch_packet (1 -> &U _s_parser `*CS1863 ]
-"230
-[; ;main.c: 230:             }
-}
-[e :U 1891 ]
 "231
-[; ;main.c: 231:         }
+[; ;main.c: 231:     uint8_t b;
+[v _b `uc ~T0 @X0 1 a ]
+"232
+[; ;main.c: 232:     Packet_ParserTimeoutCheck(&s_parser);
+[e ( _Packet_ParserTimeoutCheck (1 &U _s_parser ]
+"233
+[; ;main.c: 233:     while (UART_RX_Pop(&b)) {
+[e $U 1890  ]
+[e :U 1891 ]
+{
+"234
+[; ;main.c: 234:         if (Packet_ParseByte(&s_parser, b)) {
+[e $ ! != -> ( _Packet_ParseByte (2 , &U _s_parser _b `i -> 0 `i 1893  ]
+{
+"237
+[; ;main.c: 237:             s_pkt_seen = 1;
+[e = _s_pkt_seen -> -> 1 `i `a ]
+"238
+[; ;main.c: 238:             s_last_valid_ms = getNowTime();
+[e = _s_last_valid_ms ( _getNowTime ..  ]
+"239
+[; ;main.c: 239:             if (!FlowReport_IsSending()) {
+[e $ ! ! != -> ( _FlowReport_IsSending ..  `i -> 0 `i 1894  ]
+{
+"240
+[; ;main.c: 240:                 dispatch_packet(&s_parser);
+[e ( _dispatch_packet (1 -> &U _s_parser `*CS1863 ]
+"241
+[; ;main.c: 241:             }
+}
+[e :U 1894 ]
+"242
+[; ;main.c: 242:         }
+}
+[e :U 1893 ]
+"243
+[; ;main.c: 243:     }
 }
 [e :U 1890 ]
-"232
-[; ;main.c: 232:     }
-}
-[e :U 1887 ]
-"222
-[; ;main.c: 222:     while (UART_RX_Pop(&b)) {
-[e $ != -> ( _UART_RX_Pop (1 &U _b `i -> 0 `i 1888  ]
-[e :U 1889 ]
 "233
-[; ;main.c: 233: }
-[e :UE 1886 ]
+[; ;main.c: 233:     while (UART_RX_Pop(&b)) {
+[e $ != -> ( _UART_RX_Pop (1 &U _b `i -> 0 `i 1891  ]
+[e :U 1892 ]
+"244
+[; ;main.c: 244: }
+[e :UE 1889 ]
 }
 [v $root$_isr `(v ~T0 @X0 0 e ]
-"236
-[; ;main.c: 236: void __attribute__((picinterrupt(("")))) isr(void)
+"247
+[; ;main.c: 247: void __attribute__((picinterrupt(("")))) isr(void)
 [v _isr `(v ~T1 @X0 1 ef ]
-"237
-[; ;main.c: 237: {
+"248
+[; ;main.c: 248: {
 {
 [e :U _isr ]
 [f ]
-"238
-[; ;main.c: 238:     UART_ISR();
+"249
+[; ;main.c: 249:     UART_ISR();
 [e ( _UART_ISR ..  ]
-"239
-[; ;main.c: 239:     Sys_Time_ISR();
+"250
+[; ;main.c: 250:     Sys_Time_ISR();
 [e ( _Sys_Time_ISR ..  ]
-"240
-[; ;main.c: 240: }
-[e :UE 1892 ]
+"251
+[; ;main.c: 251: }
+[e :UE 1895 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"242
-[; ;main.c: 242: void main(void)
+"253
+[; ;main.c: 253: void main(void)
 [v _main `(v ~T0 @X0 1 ef ]
-"243
-[; ;main.c: 243: {
+"254
+[; ;main.c: 254: {
 {
 [e :U _main ]
 [f ]
-"246
-[; ;main.c: 246:     _Bool wdt_reset = (PCON0bits.RWDT == 0);
+"257
+[; ;main.c: 257:     _Bool wdt_reset = (PCON0bits.RWDT == 0);
 [v _wdt_reset `a ~T0 @X0 1 a ]
 [e = _wdt_reset -> -> == -> . . _PCON0bits 7 4 `i -> 0 `i `i `a ]
-"247
-[; ;main.c: 247:     PCON0 = 0xFFu;
-[e = _PCON0 -> -> 255 `ui `uc ]
-"252
-[; ;main.c: 252:     s_cold_boot = !wdt_reset;
-[e = _s_cold_boot -> -> ! != -> _wdt_reset `i -> 0 `i `i `a ]
-"255
-[; ;main.c: 255:     LEDs_Init();
-[e ( _LEDs_Init ..  ]
-"256
-[; ;main.c: 256:     UART_Init();
-[e ( _UART_Init ..  ]
-"257
-[; ;main.c: 257:     UART_RX_SetCallback(on_uart_rx);
-[e ( _UART_RX_SetCallback (1 &U _on_uart_rx ]
 "258
-[; ;main.c: 258:     Sys_Time_Init();
-[e ( _Sys_Time_Init ..  ]
-"260
-[; ;main.c: 260:     PulseCounter_Init();
-[e ( _PulseCounter_Init ..  ]
-"261
-[; ;main.c: 261:     PulseCounter_Enable();
-[e ( _PulseCounter_Enable ..  ]
-"262
-[; ;main.c: 262:     FlowMeter_Init();
-[e ( _FlowMeter_Init ..  ]
+[; ;main.c: 258:     PCON0 = 0xFFu;
+[e = _PCON0 -> -> 255 `ui `uc ]
 "263
-[; ;main.c: 263:     FlowLog_Init();
-[e ( _FlowLog_Init ..  ]
-"264
-[; ;main.c: 264:     FlowReport_Init();
-[e ( _FlowReport_Init ..  ]
-"265
-[; ;main.c: 265:     LedFsm_Init();
-[e ( _LedFsm_Init ..  ]
+[; ;main.c: 263:     s_cold_boot = !wdt_reset;
+[e = _s_cold_boot -> -> ! != -> _wdt_reset `i -> 0 `i `i `a ]
+"266
+[; ;main.c: 266:     LEDs_Init();
+[e ( _LEDs_Init ..  ]
 "267
-[; ;main.c: 267:     Packet_ParserReset(&s_parser);
-[e ( _Packet_ParserReset (1 &U _s_parser ]
+[; ;main.c: 267:     UART_Init();
+[e ( _UART_Init ..  ]
 "268
-[; ;main.c: 268:     FlowControl_Init();
-[e ( _FlowControl_Init ..  ]
+[; ;main.c: 268:     UART_RX_SetCallback(on_uart_rx);
+[e ( _UART_RX_SetCallback (1 &U _on_uart_rx ]
+"269
+[; ;main.c: 269:     Sys_Time_Init();
+[e ( _Sys_Time_Init ..  ]
 "271
-[; ;main.c: 271:     MValve_OP3_Init( !wdt_reset);
-[e ( _MValve_OP3_Init (1 -> -> ! != -> _wdt_reset `i -> 0 `i `i `a ]
+[; ;main.c: 271:     PulseCounter_Init();
+[e ( _PulseCounter_Init ..  ]
+"272
+[; ;main.c: 272:     PulseCounter_Enable();
+[e ( _PulseCounter_Enable ..  ]
 "273
-[; ;main.c: 273:     if (!wdt_reset) {
-[e $ ! ! != -> _wdt_reset `i -> 0 `i 1894  ]
-{
+[; ;main.c: 273:     FlowMeter_Init();
+[e ( _FlowMeter_Init ..  ]
 "274
-[; ;main.c: 274:         MValve_OP3_CmdOpen();
-[e ( _MValve_OP3_CmdOpen ..  ]
+[; ;main.c: 274:     FlowLog_Init();
+[e ( _FlowLog_Init ..  ]
 "275
-[; ;main.c: 275:     }
-}
-[e :U 1894 ]
+[; ;main.c: 275:     FlowReport_Init();
+[e ( _FlowReport_Init ..  ]
+"276
+[; ;main.c: 276:     LedFsm_Init();
+[e ( _LedFsm_Init ..  ]
 "278
-[; ;main.c: 278:     INTCON0bits.GIEL = 1;
-[e = . . _INTCON0bits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 278:     Packet_ParserReset(&s_parser);
+[e ( _Packet_ParserReset (1 &U _s_parser ]
 "279
-[; ;main.c: 279:     INTCON0bits.GIE = 1;
-[e = . . _INTCON0bits 0 6 -> -> 1 `i `uc ]
-"281
-[; ;main.c: 281:     ((void)0);
-[e -> 0 `i ]
+[; ;main.c: 279:     FlowControl_Init();
+[e ( _FlowControl_Init ..  ]
+"282
+[; ;main.c: 282:     MValve_OP3_Init( !wdt_reset);
+[e ( _MValve_OP3_Init (1 -> -> ! != -> _wdt_reset `i -> 0 `i `i `a ]
+"284
+[; ;main.c: 284:     if (!wdt_reset) {
+[e $ ! ! != -> _wdt_reset `i -> 0 `i 1897  ]
+{
 "285
-[; ;main.c: 285:     photon_power_on();
-[e ( _photon_power_on ..  ]
-"287
-[; ;main.c: 287:     do { WDTCON0bits.SEN = 1; } while (0);
+[; ;main.c: 285:         MValve_OP3_CmdOpen();
+[e ( _MValve_OP3_CmdOpen ..  ]
+"286
+[; ;main.c: 286:     }
+}
 [e :U 1897 ]
+"289
+[; ;main.c: 289:     INTCON0bits.GIEL = 1;
+[e = . . _INTCON0bits 0 5 -> -> 1 `i `uc ]
+"290
+[; ;main.c: 290:     INTCON0bits.GIE = 1;
+[e = . . _INTCON0bits 0 6 -> -> 1 `i `uc ]
+"292
+[; ;main.c: 292:     ((void)0);
+[e -> 0 `i ]
+"296
+[; ;main.c: 296:     photon_power_on();
+[e ( _photon_power_on ..  ]
+"298
+[; ;main.c: 298:     do { WDTCON0bits.SEN = 1; } while (0);
+[e :U 1900 ]
 {
 [e = . . _WDTCON0bits 0 0 -> -> 1 `i `uc ]
 }
-[e :U 1896 ]
-"288
-[; ;main.c: 288:     while (1) {
 [e :U 1899 ]
-{
-"289
-[; ;main.c: 289:         __asm(" clrwdt");
-[; <"  clrwdt ;# ">
-"290
-[; ;main.c: 290:         MCU_Time_Process();
-[e ( _MCU_Time_Process ..  ]
-"291
-[; ;main.c: 291:         LedFsm_Process();
-[e ( _LedFsm_Process ..  ]
-"292
-[; ;main.c: 292:         MValve_OP3_Process();
-[e ( _MValve_OP3_Process ..  ]
-"293
-[; ;main.c: 293:         FlowControl_Process();
-[e ( _FlowControl_Process ..  ]
-"294
-[; ;main.c: 294:         FlowLog_Process();
-[e ( _FlowLog_Process ..  ]
-"295
-[; ;main.c: 295:         FlowReport_Process();
-[e ( _FlowReport_Process ..  ]
-"296
-[; ;main.c: 296:         packet_rx_pump();
-[e ( _packet_rx_pump ..  ]
 "299
-[; ;main.c: 299:         switch (s_pwr) {
-[e $U 1902  ]
+[; ;main.c: 299:     while (1) {
+[e :U 1902 ]
 {
+"300
+[; ;main.c: 300:         __asm(" clrwdt");
+[; <"  clrwdt ;# ">
 "301
-[; ;main.c: 301:         case PWR_WAIT_FIRST:
-[e :U 1903 ]
+[; ;main.c: 301:         MCU_Time_Process();
+[e ( _MCU_Time_Process ..  ]
+"302
+[; ;main.c: 302:         LedFsm_Process();
+[e ( _LedFsm_Process ..  ]
+"303
+[; ;main.c: 303:         MValve_OP3_Process();
+[e ( _MValve_OP3_Process ..  ]
+"304
+[; ;main.c: 304:         FlowControl_Process();
+[e ( _FlowControl_Process ..  ]
 "305
-[; ;main.c: 305:             if (s_cold_boot && !in_initial_hold()) {
-[e $ ! && != -> _s_cold_boot `i -> 0 `i ! != -> ( _in_initial_hold ..  `i -> 0 `i 1904  ]
-{
+[; ;main.c: 305:         FlowLog_Process();
+[e ( _FlowLog_Process ..  ]
 "306
-[; ;main.c: 306:                 FlowReport_ClearWakeDue();
-[e ( _FlowReport_ClearWakeDue ..  ]
+[; ;main.c: 306:         FlowReport_Process();
+[e ( _FlowReport_Process ..  ]
 "307
-[; ;main.c: 307:                 photon_power_off();
-[e ( _photon_power_off ..  ]
-"308
-[; ;main.c: 308:                 s_cold_boot = 0;
-[e = _s_cold_boot -> -> 0 `i `a ]
-"309
-[; ;main.c: 309:                 break;
-[e $U 1901  ]
+[; ;main.c: 307:         packet_rx_pump();
+[e ( _packet_rx_pump ..  ]
 "310
-[; ;main.c: 310:             }
-}
-[e :U 1904 ]
-"314
-[; ;main.c: 314:             if (s_pkt_seen) {
-[e $ ! != -> _s_pkt_seen `i -> 0 `i 1905  ]
+[; ;main.c: 310:         switch (s_pwr) {
+[e $U 1905  ]
 {
-"315
-[; ;main.c: 315:                 s_last_valid_ms = getNowTime();
-[e = _s_last_valid_ms ( _getNowTime ..  ]
+"312
+[; ;main.c: 312:         case PWR_WAIT_FIRST:
+[e :U 1906 ]
 "316
-[; ;main.c: 316:                 s_pwr = PWR_ACTIVE;
-[e = _s_pwr . `E13308 2 ]
-"317
-[; ;main.c: 317:             } else if (!in_initial_hold() &&
-}
-[e $U 1906  ]
-[e :U 1905 ]
-[e $ ! && ! != -> ( _in_initial_hold ..  `i -> 0 `i >= ( _timeSpan (1 _s_pwr_on_ms -> 90000 `ul 1907  ]
-"318
-[; ;main.c: 318:                        timeSpan(s_pwr_on_ms) >= 90000UL) {
+[; ;main.c: 316:             if (s_cold_boot && !in_initial_hold()) {
+[e $ ! && != -> _s_cold_boot `i -> 0 `i ! != -> ( _in_initial_hold ..  `i -> 0 `i 1907  ]
 {
-"319
-[; ;main.c: 319:                 photon_power_off();
+"317
+[; ;main.c: 317:                 FlowReport_ClearWakeDue();
+[e ( _FlowReport_ClearWakeDue ..  ]
+"318
+[; ;main.c: 318:                 photon_power_off();
 [e ( _photon_power_off ..  ]
+"319
+[; ;main.c: 319:                 s_cold_boot = 0;
+[e = _s_cold_boot -> -> 0 `i `a ]
 "320
-[; ;main.c: 320:             }
+[; ;main.c: 320:                 break;
+[e $U 1904  ]
+"321
+[; ;main.c: 321:             }
 }
 [e :U 1907 ]
-[e :U 1906 ]
-"321
-[; ;main.c: 321:             break;
-[e $U 1901  ]
-"323
-[; ;main.c: 323:         case PWR_ACTIVE:
-[e :U 1908 ]
+"325
+[; ;main.c: 325:             if (s_pkt_seen) {
+[e $ ! != -> _s_pkt_seen `i -> 0 `i 1908  ]
+{
 "326
-[; ;main.c: 326:             if (!UART_TX_IsEmpty() || FlowReport_IsSending()) {
-[e $ ! || ! != -> ( _UART_TX_IsEmpty ..  `i -> 0 `i != -> ( _FlowReport_IsSending ..  `i -> 0 `i 1909  ]
-{
-"327
-[; ;main.c: 327:                 s_last_valid_ms = getNowTime();
+[; ;main.c: 326:                 s_last_valid_ms = getNowTime();
 [e = _s_last_valid_ms ( _getNowTime ..  ]
+"327
+[; ;main.c: 327:                 s_pwr = PWR_ACTIVE;
+[e = _s_pwr . `E13311 2 ]
 "328
-[; ;main.c: 328:             }
+[; ;main.c: 328:             } else if (!in_initial_hold() &&
 }
-[e :U 1909 ]
+[e $U 1909  ]
+[e :U 1908 ]
+[e $ ! && ! != -> ( _in_initial_hold ..  `i -> 0 `i >= ( _timeSpan (1 _s_pwr_on_ms -> 90000 `ul 1910  ]
 "329
-[; ;main.c: 329:             if (in_initial_hold()) {
-[e $ ! != -> ( _in_initial_hold ..  `i -> 0 `i 1910  ]
+[; ;main.c: 329:                        timeSpan(s_pwr_on_ms) >= 90000UL) {
 {
-"334
-[; ;main.c: 334:                 s_off_request = 0;
-[e = _s_off_request -> -> 0 `i `a ]
-"335
-[; ;main.c: 335:             } else if (s_cold_boot) {
-}
-[e $U 1911  ]
-[e :U 1910 ]
-[e $ ! != -> _s_cold_boot `i -> 0 `i 1912  ]
-{
-"340
-[; ;main.c: 340:                 if (UART_TX_IsEmpty() && !FlowReport_IsSending()) {
-[e $ ! && != -> ( _UART_TX_IsEmpty ..  `i -> 0 `i ! != -> ( _FlowReport_IsSending ..  `i -> 0 `i 1913  ]
-{
-"341
-[; ;main.c: 341:                     FlowReport_ClearWakeDue();
-[e ( _FlowReport_ClearWakeDue ..  ]
-"342
-[; ;main.c: 342:                     photon_power_off();
+"330
+[; ;main.c: 330:                 photon_power_off();
 [e ( _photon_power_off ..  ]
-"343
-[; ;main.c: 343:                     s_cold_boot = 0;
-[e = _s_cold_boot -> -> 0 `i `a ]
-"344
-[; ;main.c: 344:                 }
+"331
+[; ;main.c: 331:             }
 }
-[e :U 1913 ]
+[e :U 1910 ]
+[e :U 1909 ]
+"332
+[; ;main.c: 332:             break;
+[e $U 1904  ]
+"334
+[; ;main.c: 334:         case PWR_ACTIVE:
+[e :U 1911 ]
+"337
+[; ;main.c: 337:             if (!UART_TX_IsEmpty() || FlowReport_IsSending()) {
+[e $ ! || ! != -> ( _UART_TX_IsEmpty ..  `i -> 0 `i != -> ( _FlowReport_IsSending ..  `i -> 0 `i 1912  ]
+{
+"338
+[; ;main.c: 338:                 s_last_valid_ms = getNowTime();
+[e = _s_last_valid_ms ( _getNowTime ..  ]
+"339
+[; ;main.c: 339:             }
+}
+[e :U 1912 ]
+"340
+[; ;main.c: 340:             if (in_initial_hold()) {
+[e $ ! != -> ( _in_initial_hold ..  `i -> 0 `i 1913  ]
+{
 "345
-[; ;main.c: 345:             } else if (s_off_request ||
+[; ;main.c: 345:                 s_off_request = 0;
+[e = _s_off_request -> -> 0 `i `a ]
+"346
+[; ;main.c: 346:             } else if (s_cold_boot) {
 }
 [e $U 1914  ]
-[e :U 1912 ]
-[e $ ! || != -> _s_off_request `i -> 0 `i >= ( _timeSpan (1 _s_last_valid_ms -> 20000 `ul 1915  ]
-"346
-[; ;main.c: 346:                        (timeSpan(s_last_valid_ms) >= 20000UL)) {
-{
-"350
-[; ;main.c: 350:                 if (UART_TX_IsEmpty() && !FlowReport_IsSending()) {
-[e $ ! && != -> ( _UART_TX_IsEmpty ..  `i -> 0 `i ! != -> ( _FlowReport_IsSending ..  `i -> 0 `i 1916  ]
+[e :U 1913 ]
+[e $ ! != -> _s_cold_boot `i -> 0 `i 1915  ]
 {
 "351
-[; ;main.c: 351:                     photon_power_off();
-[e ( _photon_power_off ..  ]
+[; ;main.c: 351:                 if (UART_TX_IsEmpty() && !FlowReport_IsSending()) {
+[e $ ! && != -> ( _UART_TX_IsEmpty ..  `i -> 0 `i ! != -> ( _FlowReport_IsSending ..  `i -> 0 `i 1916  ]
+{
 "352
-[; ;main.c: 352:                 }
+[; ;main.c: 352:                     FlowReport_ClearWakeDue();
+[e ( _FlowReport_ClearWakeDue ..  ]
+"353
+[; ;main.c: 353:                     photon_power_off();
+[e ( _photon_power_off ..  ]
+"354
+[; ;main.c: 354:                     s_cold_boot = 0;
+[e = _s_cold_boot -> -> 0 `i `a ]
+"355
+[; ;main.c: 355:                 }
 }
 [e :U 1916 ]
-"353
-[; ;main.c: 353:             }
-}
-[e :U 1915 ]
-[e :U 1914 ]
-[e :U 1911 ]
-"354
-[; ;main.c: 354:             break;
-[e $U 1901  ]
 "356
-[; ;main.c: 356:         case PWR_SLEEP:
-[e :U 1917 ]
+[; ;main.c: 356:             } else if (s_off_request ||
+}
+[e $U 1917  ]
+[e :U 1915 ]
+[e $ ! || != -> _s_off_request `i -> 0 `i >= ( _timeSpan (1 _s_last_valid_ms -> 20000 `ul 1918  ]
 "357
-[; ;main.c: 357:         default:
-[e :U 1918 ]
+[; ;main.c: 357:                        (timeSpan(s_last_valid_ms) >= 20000UL)) {
+{
 "361
-[; ;main.c: 361:             if (FlowReport_WakeDuePending()) {
-[e $ ! != -> ( _FlowReport_WakeDuePending ..  `i -> 0 `i 1919  ]
+[; ;main.c: 361:                 if (UART_TX_IsEmpty() && !FlowReport_IsSending()) {
+[e $ ! && != -> ( _UART_TX_IsEmpty ..  `i -> 0 `i ! != -> ( _FlowReport_IsSending ..  `i -> 0 `i 1919  ]
 {
 "362
-[; ;main.c: 362:                 photon_power_on();
-[e ( _photon_power_on ..  ]
+[; ;main.c: 362:                     photon_power_off();
+[e ( _photon_power_off ..  ]
 "363
-[; ;main.c: 363:                 break;
-[e $U 1901  ]
+[; ;main.c: 363:                 }
+}
+[e :U 1919 ]
 "364
 [; ;main.c: 364:             }
 }
-[e :U 1919 ]
-"369
-[; ;main.c: 369:             if (!in_initial_hold() &&
-[e $ ! && && ! != -> ( _in_initial_hold ..  `i -> 0 `i ! != -> ( _MValve_OP3_IsBusy ..  `i -> 0 `i != -> ( _UART_TX_IsEmpty ..  `i -> 0 `i 1920  ]
-"370
-[; ;main.c: 370:                 !MValve_OP3_IsBusy() && UART_TX_IsEmpty()) {
-{
-"371
-[; ;main.c: 371:                 (LATCbits.LATC3 = 0);
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
-"372
-[; ;main.c: 372:                 (void)Sys_Time_EnterDeepSleep();
-[e ( _Sys_Time_EnterDeepSleep ..  ]
-"373
-[; ;main.c: 373:                 LedFsm_NotifyWake();
-[e ( _LedFsm_NotifyWake ..  ]
-"374
-[; ;main.c: 374:             }
-}
+[e :U 1918 ]
+[e :U 1917 ]
+[e :U 1914 ]
+"365
+[; ;main.c: 365:             break;
+[e $U 1904  ]
+"367
+[; ;main.c: 367:         case PWR_SLEEP:
 [e :U 1920 ]
-"376
-[; ;main.c: 376:             break;
-[e $U 1901  ]
-"377
-[; ;main.c: 377:         }
+"368
+[; ;main.c: 368:         default:
+[e :U 1921 ]
+"372
+[; ;main.c: 372:             if (FlowReport_WakeDuePending()) {
+[e $ ! != -> ( _FlowReport_WakeDuePending ..  `i -> 0 `i 1922  ]
+{
+"373
+[; ;main.c: 373:                 photon_power_on();
+[e ( _photon_power_on ..  ]
+"374
+[; ;main.c: 374:                 break;
+[e $U 1904  ]
+"375
+[; ;main.c: 375:             }
 }
-[e $U 1901  ]
-[e :U 1902 ]
-[e [\ -> _s_pwr `ui , $ -> . `E13308 1 `ui 1903
- , $ -> . `E13308 2 `ui 1908
- , $ -> . `E13308 0 `ui 1917
- 1918 ]
+[e :U 1922 ]
+"380
+[; ;main.c: 380:             if (!in_initial_hold() &&
+[e $ ! && && ! != -> ( _in_initial_hold ..  `i -> 0 `i ! != -> ( _MValve_OP3_IsBusy ..  `i -> 0 `i != -> ( _UART_TX_IsEmpty ..  `i -> 0 `i 1923  ]
+"381
+[; ;main.c: 381:                 !MValve_OP3_IsBusy() && UART_TX_IsEmpty()) {
+{
+"382
+[; ;main.c: 382:                 (LATCbits.LATC3 = 0);
+[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
+"383
+[; ;main.c: 383:                 (void)Sys_Time_EnterDeepSleep();
+[e ( _Sys_Time_EnterDeepSleep ..  ]
+"384
+[; ;main.c: 384:                 LedFsm_NotifyWake();
+[e ( _LedFsm_NotifyWake ..  ]
+"385
+[; ;main.c: 385:             }
+}
+[e :U 1923 ]
+"387
+[; ;main.c: 387:             break;
+[e $U 1904  ]
+"388
+[; ;main.c: 388:         }
+}
+[e $U 1904  ]
+[e :U 1905 ]
+[e [\ -> _s_pwr `ui , $ -> . `E13311 1 `ui 1906
+ , $ -> . `E13311 2 `ui 1911
+ , $ -> . `E13311 0 `ui 1920
+ 1921 ]
+[e :U 1904 ]
+"389
+[; ;main.c: 389:     }
+}
 [e :U 1901 ]
-"378
-[; ;main.c: 378:     }
-}
-[e :U 1898 ]
-[e $U 1899  ]
-[e :U 1900 ]
-"379
-[; ;main.c: 379: }
-[e :UE 1893 ]
+[e $U 1902  ]
+[e :U 1903 ]
+"390
+[; ;main.c: 390: }
+[e :UE 1896 ]
 }

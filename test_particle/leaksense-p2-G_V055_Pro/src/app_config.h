@@ -281,6 +281,11 @@ struct AppConfig {
                            //     0 = just warn; 1 = also close the valve automatically.
   uint8_t alertMode;       // (4) 0=off, 1=publish, 2=publish + extra alert
                            //     How loudly to report a leak to the cloud.
+  uint8_t publishHourUtc;  // (5) 0-23 UTC hour the daily/48h report should land on
+                           //     (see syncPublishSchedule()); PIC has no RTC, so the
+                           //     Photon re-anchors the PIC's report-due countdown to
+                           //     this hour every session instead of leaving it at
+                           //     whatever hour the device first powered on.
 };                         // (Note: the ";" after a struct's closing brace is REQUIRED in C++.)
 
 // Defaults (used on first boot / corrupt EEPROM)
@@ -289,11 +294,13 @@ constexpr float   CFG_LEAK_GPM_DFLT  = 5.0f;   // Default leak threshold: 5 GPM.
 constexpr float   CFG_SHUTOFF_DFLT   = 30.0f;  // Default 30-min shutoff volume: 30 gallons.
 constexpr uint8_t CFG_AUTOSHUT_DFLT  = 0;      // Default: do NOT auto-close the valve.
 constexpr uint8_t CFG_ALERTMODE_DFLT = 1;      // Default: publish alerts to the cloud.
+constexpr uint8_t CFG_PUBLISH_HOUR_DFLT = 17;   // Default: UTC time.
 
 // Accepted ranges for the cloud setter
 // When a user sends new settings from the cloud, we reject anything outside these bounds.
 constexpr float CFG_LEAK_GPM_MIN = 0.1f,  CFG_LEAK_GPM_MAX = 200.0f;  // Leak threshold must be 0.1 .. 200 GPM.
 constexpr float CFG_SHUTOFF_MIN  = 1.0f,  CFG_SHUTOFF_MAX  = 1000.0f; // Shutoff volume must be 1 .. 1000 gal.
+constexpr uint8_t CFG_PUBLISH_HOUR_MIN = 0, CFG_PUBLISH_HOUR_MAX = 23; // publishHourUtc must be 0..23.
 
 // ============================================================================
 //  PIC framed-protocol host parameters (V040 spec section 7).
