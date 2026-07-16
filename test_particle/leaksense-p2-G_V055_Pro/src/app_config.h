@@ -17,6 +17,9 @@
 #include "Particle.h"    // Pull in the Particle device-OS library. This is what gives
                          // us pinMode(), digitalWrite(), Serial, Time, etc.
 
+#define REPORT_INTERVAL_HR 24      // 
+// #define REPORT_INTERVAL_HR 48
+
 // ------------------------------------------------------------------ Platform
 // "#if / #elif / #else / #endif" is the C++ PREPROCESSOR choosing code BEFORE
 // compiling. Depending on which board we build for, a different block is kept
@@ -173,14 +176,21 @@ constexpr uint32_t FLOW_IDLE_TIMEOUT_S = 5UL * 60UL;       // 5 min idle -> clea
 //#define PIC_MODE_TEST     // define -> fast test; undefined -> PRODUCTION (default)
 
 #ifdef PIC_MODE_TEST
-  #define PIC_CAPTURE_PERIOD_SEC     12          // integer, for timestamp spacing
-  #define PIC_SAMPLE_INTERVAL_SEC_F  12.684f     // precise window (rate/gallons)
-  #define PIC_SAMPLES_PER_REPORT     10
+  #define PIC_CAPTURE_PERIOD_SEC 12         // integer, for timestamp spacing
+  #define PIC_SAMPLE_INTERVAL_SEC_F 12.684f // precise window (rate/gallons)
+  #define PIC_SAMPLES_PER_REPORT 10
 #else
-  #define PIC_CAPTURE_PERIOD_SEC     240         // integer, for timestamp spacing
-  #define PIC_SAMPLE_INTERVAL_SEC_F  241.004f    // precise window (rate/gallons)
-  #define PIC_SAMPLES_PER_REPORT     720
+  #if REPORT_INTERVAL_HR == 24
+    #define PIC_CAPTURE_PERIOD_SEC 120        // integer, for timestamp spacing
+    #define PIC_SAMPLE_INTERVAL_SEC_F 120.502f // precise window (rate/gallons)
+  #endif
+  #if REPORT_INTERVAL_HR == 48
+    #define PIC_CAPTURE_PERIOD_SEC 240         // integer, for timestamp spacing
+    #define PIC_SAMPLE_INTERVAL_SEC_F 241.004f // precise window (rate/gallons)
+  #endif
+  #define PIC_SAMPLES_PER_REPORT 720
 #endif
+
 #define REPORT_PERIOD_SEC  ((uint32_t)PIC_SAMPLES_PER_REPORT * (uint32_t)PIC_CAPTURE_PERIOD_SEC)
 
 // FAST_BENCH_TEST virtual clock jitter: each session's advance is REPORT_PERIOD_SEC

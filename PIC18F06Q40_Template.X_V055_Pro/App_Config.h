@@ -26,7 +26,7 @@
  *              leak windows, 10 min temp-lock).
  * This single switch flips EVERY related value at once. */
 //#define REPORT_CONFIG_DEBUG   /* DEFAULT = PRODUCTION. Define this for fast bench test. */
- #define REPORT_INTERVAL_HR 24      // 
+ #define REPORT_INTERVAL_HR 24      
 // #define REPORT_INTERVAL_HR 48
 
 
@@ -140,9 +140,9 @@
 #else
   #if REPORT_INTERVAL_HR == 24
     #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
-    #define APP_WAKE_COUNTS        114u //5u //6u      /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
-    #define APP_WAKES_PER_SAMPLE   2u //4u       /* capture = 2 wakes (456 x 0.5285) = 241.0 s (~2 min) */
-    #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
+    #define APP_WAKE_COUNTS        2u // 114u //2u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
+    #define APP_WAKES_PER_SAMPLE   2u       /* capture = 2 wakes -> ⌊(114×16384+15)/31⌋ x 2 = 60.251 ms x2 = 120.502 s (~2 min) */
+    #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~24 hours       */
   #endif
   #if REPORT_INTERVAL_HR == 48
     #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */

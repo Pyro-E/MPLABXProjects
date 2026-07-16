@@ -1,9 +1,9 @@
-[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK ]
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
 [d version 1.1 ]
 [d edition pro ]
 [d chip 18F06Q40 ]
 [d frameptr 1249 ]
-"68 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
+"68 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
 [e E13308 . `uc
 PWR_SLEEP 0
 PWR_WAIT_FIRST 1
@@ -57,12 +57,12 @@ POWER_STATE_NORMAL 1
 WAKE_BY_TIMER0 0
 WAKE_BY_UART 1
 ]
-"69 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
+"69 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
 [e E13093 . `uc
 WAKE_BY_TIMER0 0
 WAKE_BY_UART 1
 ]
-"61 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"61 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [e E13459 . `uc
 WAKE_IDLE 0
 WAKE_HIGH 1
@@ -106,12 +106,12 @@ VALVE_MOTION_CLOSING 4
 VALVE_MOTION_OPEN_INTERRUPTED 5
 VALVE_MOTION_CLOSE_INTERRUPTED 6
 ]
-"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
+"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
 [e E13106 . `uc
 LED_HEARTBEAT 0
 LED_BLINK 1
 ]
-"11 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
+"11 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
 [e E13091 . `uc
 VALVE_MOTION_UNKNOWN 0
 VALVE_MOTION_OPEN 1
@@ -121,7 +121,7 @@ VALVE_MOTION_CLOSING 4
 VALVE_MOTION_OPEN_INTERRUPTED 5
 VALVE_MOTION_CLOSE_INTERRUPTED 6
 ]
-"39 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
+"39 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
 [e E76 . `uc
 PKT_ST_MARKER0 0
 PKT_ST_MARKER1 1
@@ -192,13 +192,13 @@ PKT_ST_CRC_LO 7
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 /Applications/microchip/xc8/v3.10/pic/sources/c99/common/Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Compress_Pack_10_14.c
+"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Compress_Pack_10_14.c
 [v _Compress_Pack Compress_Pack `(v  1 e 1 0 ]
 "36
 [v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
-"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Led.c
+"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Led.c
 [v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
-"41 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
+"41 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _UART_RX_SetCallback UART_RX_SetCallback `(v  1 e 1 0 ]
 "47
 [v _UART_RX_Push UART_RX_Push `(v  1 e 1 0 ]
@@ -222,7 +222,7 @@ PKT_ST_CRC_LO 7
 [v _UART_TX_IsEmpty UART_TX_IsEmpty `(a  1 e 1 0 ]
 "249
 [v _UART_TX_Free UART_TX_Free `(uc  1 e 1 0 ]
-"74 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"74 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _quantize_window quantize_window `(us  1 s 2 quantize_window ]
 "85
 [v _FlowControl_RecalcDerived FlowControl_RecalcDerived `(v  1 e 1 0 ]
@@ -250,7 +250,7 @@ PKT_ST_CRC_LO 7
 [v _FlowControl_ClearSinceReport FlowControl_ClearSinceReport `(v  1 e 1 0 ]
 "275
 [v _FlowControl_Unlock FlowControl_Unlock `(v  1 e 1 0 ]
-"46 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
+"46 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _ovf_set ovf_set `T(v  1 s 1 ovf_set ]
 "55
 [v _FlowLog_CountOverflows FlowLog_CountOverflows `(us  1 e 2 0 ]
@@ -272,13 +272,13 @@ PKT_ST_CRC_LO 7
 [v _FlowLog_GetCaptureCount FlowLog_GetCaptureCount `(ul  1 e 4 0 ]
 "182
 [v _FlowLog_BatchReady FlowLog_BatchReady `(a  1 e 1 0 ]
-"16 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowMeter.c
+"16 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowMeter.c
 [v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
 "23
 [v _flowmeter_refresh flowmeter_refresh `(v  1 s 1 flowmeter_refresh ]
 "37
 [v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
-"94 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"94 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
 "116
 [v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
@@ -306,7 +306,7 @@ PKT_ST_CRC_LO 7
 [v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
 "369
 [v _FlowReport_Process FlowReport_Process `(v  1 e 1 0 ]
-"21 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
+"21 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
 [v _LedFsm_Init LedFsm_Init `(v  1 e 1 0 ]
 "30
 [v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
@@ -314,7 +314,7 @@ PKT_ST_CRC_LO 7
 [v _LedFsm_NotifyWake LedFsm_NotifyWake `(v  1 e 1 0 ]
 "51
 [v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
-"80 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
+"80 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
 [v _in_initial_hold in_initial_hold `(a  1 s 1 in_initial_hold ]
 "85
 [v _photon_power_on photon_power_on `(v  1 s 1 photon_power_on ]
@@ -330,7 +330,7 @@ PKT_ST_CRC_LO 7
 [v _isr isr `IIH(v  1 e 1 0 ]
 "242
 [v _main main `(v  1 e 1 0 ]
-"9 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
+"9 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
 [v _getNowTime getNowTime `(ul  1 e 4 0 ]
 "17
 [v _timeSpan timeSpan `(ul  1 e 4 0 ]
@@ -340,7 +340,7 @@ PKT_ST_CRC_LO 7
 [v _MCU_Time_Advance MCU_Time_Advance `(v  1 e 1 0 ]
 "55
 [v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
-"21 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
+"21 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
 [v _valve_pins_idle valve_pins_idle `(v  1 s 1 valve_pins_idle ]
 "30
 [v _MValve_OP3_Init MValve_OP3_Init `(v  1 e 1 0 ]
@@ -358,7 +358,7 @@ PKT_ST_CRC_LO 7
 [v _MValve_OP3_GetPwrPin MValve_OP3_GetPwrPin `(uc  1 e 1 0 ]
 "124
 [v _MValve_OP3_GetCtrlPin MValve_OP3_GetCtrlPin `(uc  1 e 1 0 ]
-"12 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
+"12 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
 [v _Packet_CRC16_Init Packet_CRC16_Init `(us  1 e 2 0 ]
 "17
 [v _Packet_CRC16_Update Packet_CRC16_Update `(us  1 e 2 0 ]
@@ -370,7 +370,7 @@ PKT_ST_CRC_LO 7
 [v _Packet_ParserTimeoutCheck Packet_ParserTimeoutCheck `(v  1 e 1 0 ]
 "60
 [v _Packet_ParseByte Packet_ParseByte `(a  1 e 1 0 ]
-"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/PulseCounter.c
+"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/PulseCounter.c
 [v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
 "47
 [v _PulseCounter_Enable PulseCounter_Enable `(v  1 e 1 0 ]
@@ -378,7 +378,7 @@ PKT_ST_CRC_LO 7
 [v _PulseCounter_Clear PulseCounter_Clear `(v  1 e 1 0 ]
 "65
 [v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
-"24 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
+"24 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
 [v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
 "38
 [v _Sys_Time_ResumeTick Sys_Time_ResumeTick `(v  1 e 1 0 ]
@@ -855,7 +855,7 @@ PKT_ST_CRC_LO 7
 "37385
 "37385
 [v _CPUDOZEbits CPUDOZEbits `VES853  1 e 1 @1266 ]
-"25 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
+"25 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _s_tx_buf s_tx_buf `VE[64]uc  1 s 64 s_tx_buf ]
 "26
 [v _s_tx_head s_tx_head `VEuc  1 s 1 s_tx_head ]
@@ -873,10 +873,10 @@ PKT_ST_CRC_LO 7
 [v _s_rx_count s_rx_count `VEuc  1 s 1 s_rx_count ]
 "39
 [v _s_rx_cb s_rx_cb `*.37(v  1 s 2 s_rx_cb ]
-"20 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Valve.c
+"20 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Valve.c
 [v _s_phase0 s_phase0 `ul  1 s 4 s_phase0 ]
 [s S86 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
-"47 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"47 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _s_param s_param `S86  1 s 8 s_param ]
 "55
 [v _s_leak1_window_n s_leak1_window_n `us  1 s 2 s_leak1_window_n ]
@@ -896,7 +896,7 @@ PKT_ST_CRC_LO 7
 [v _s_valve_should_close s_valve_should_close `a  1 s 1 s_valve_should_close ]
 "70
 [v _s_valve_cmd_valid s_valve_cmd_valid `a  1 s 1 s_valve_cmd_valid ]
-"12 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
+"12 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _s_buf s_buf `[3000]uc  1 s 3000 s_buf ]
 "20
 [v _s_write s_write `us  1 s 2 s_write ]
@@ -922,11 +922,11 @@ PKT_ST_CRC_LO 7
 [v _s_write_at_due2 s_write_at_due2 `us  1 s 2 s_write_at_due2 ]
 "44
 [v _s_due_count s_due_count `uc  1 s 1 s_due_count ]
-"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowMeter.c
+"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowMeter.c
 [v _s_prev_cnt s_prev_cnt `us  1 s 2 s_prev_cnt ]
 "14
 [v _s_total s_total `ul  1 s 4 s_total ]
-"61 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"61 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _s_wake_state s_wake_state `E13459  1 s 1 s_wake_state ]
 "62
 [v _s_wake_due s_wake_due `VEa  1 s 1 s_wake_due ]
@@ -962,13 +962,13 @@ PKT_ST_CRC_LO 7
 [v _s_caps_mark s_caps_mark `ul  1 s 4 s_caps_mark ]
 "90
 [v _s_total_at_read s_total_at_read `ul  1 s 4 s_total_at_read ]
-"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
+"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
 [v _s_mode s_mode `E13106  1 s 1 s_mode ]
 "18
 [v _s_mark s_mark `ul  1 s 4 s_mark ]
 "19
 [v _s_toggles s_toggles `uc  1 s 1 s_toggles ]
-"68 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
+"68 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
 [v _s_pwr s_pwr `E13308  1 s 1 s_pwr ]
 "69
 [v _s_pwr_on_ms s_pwr_on_ms `ul  1 s 4 s_pwr_on_ms ]
@@ -983,9 +983,9 @@ PKT_ST_CRC_LO 7
 [s S62 . 24 `E13279 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
 "104
 [v _s_parser s_parser `S62  1 s 24 s_parser ]
-"6 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
+"6 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
 [v _unNowTime_ms unNowTime_ms `VEul  1 s 4 unNowTime_ms ]
-"11 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
+"11 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
 [v _s_motion s_motion `E13091  1 s 1 s_motion ]
 "12
 [v _s_drive_ms s_drive_ms `ul  1 s 4 s_drive_ms ]
@@ -993,7 +993,7 @@ PKT_ST_CRC_LO 7
 [v _s_driving s_driving `a  1 s 1 s_driving ]
 "14
 [v _s_drive_open s_drive_open `a  1 s 1 s_drive_open ]
-"242 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
+"242 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
 [v _main main `(v  1 e 1 0 ]
 {
 "246
@@ -1005,12 +1005,12 @@ PKT_ST_CRC_LO 7
 {
 "93
 } 0
-"42 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
+"42 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
 [v _LedFsm_NotifyWake LedFsm_NotifyWake `(v  1 e 1 0 ]
 {
 "49
 } 0
-"95 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
+"95 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
 [v _photon_power_off photon_power_off `(v  1 s 1 photon_power_off ]
 {
 "99
@@ -1038,14 +1038,14 @@ PKT_ST_CRC_LO 7
 {
 "83
 } 0
-"300 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"300 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_SendValve FlowReport_SendValve `(v  1 e 1 0 ]
 {
 "302
 [v FlowReport_SendValve@d d `[5]uc  1 a 5 55 ]
 "313
 } 0
-"119 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
+"119 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
 [v _MValve_OP3_GetPwrPin MValve_OP3_GetPwrPin `(uc  1 e 1 0 ]
 {
 "122
@@ -1060,7 +1060,7 @@ PKT_ST_CRC_LO 7
 {
 "127
 } 0
-"260 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"260 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_GetSinceReportFlags FlowControl_GetSinceReportFlags `(uc  1 e 1 0 ]
 {
 "262
@@ -1079,7 +1079,7 @@ PKT_ST_CRC_LO 7
 {
 "272
 } 0
-"322 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"322 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_SendPowerState FlowReport_SendPowerState `(v  1 e 1 0 ]
 {
 [v FlowReport_SendPowerState@state state `uc  1 p 1 wreg ]
@@ -1110,14 +1110,14 @@ PKT_ST_CRC_LO 7
 [v FlowReport_SendParam@pr pr `S86  1 a 8 63 ]
 "298
 } 0
-"224 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"224 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_GetParams FlowControl_GetParams `(v  1 e 1 0 ]
 {
 [s S86 . 8 `us 1 leak1_counts 2 0 `us 1 leak1_window_s 2 2 `us 1 leak2_counts 2 4 `us 1 leak2_window_s 2 6 ]
 [v FlowControl_GetParams@out out `*.39S86  1 p 2 5 ]
 "227
 } 0
-"362 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"362 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_SendNak FlowReport_SendNak `(v  1 e 1 0 ]
 {
 [v FlowReport_SendNak@reason reason `uc  1 p 1 wreg ]
@@ -1163,7 +1163,7 @@ PKT_ST_CRC_LO 7
 [v send_small_packet@func func `uc  1 p 1 46 ]
 "286
 } 1
-"27 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
+"27 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
 [v _Packet_CRC16 Packet_CRC16 `(us  1 e 2 0 ]
 {
 "29
@@ -1173,12 +1173,12 @@ PKT_ST_CRC_LO 7
 [v Packet_CRC16@len len `us  1 p 2 13 ]
 "34
 } 0
-"116 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"116 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_NotifyAA FlowReport_NotifyAA `(v  1 e 1 0 ]
 {
 "119
 } 0
-"275 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"275 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_Unlock FlowControl_Unlock `(v  1 e 1 0 ]
 {
 [v FlowControl_Unlock@flags flags `uc  1 p 1 wreg ]
@@ -1194,7 +1194,7 @@ PKT_ST_CRC_LO 7
 [v FlowControl_SetParams@in in `*.39CS86  1 p 2 0 ]
 "249
 } 0
-"58 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
+"58 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _UART_RX_Pop UART_RX_Pop `(a  1 e 1 0 ]
 {
 "60
@@ -1203,7 +1203,7 @@ PKT_ST_CRC_LO 7
 [v UART_RX_Pop@b b `*.39uc  1 p 2 5 ]
 "70
 } 0
-"50 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
+"50 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
 [v _Packet_ParserTimeoutCheck Packet_ParserTimeoutCheck `(v  1 e 1 0 ]
 {
 [s S62 . 24 `E13279 1 state 1 0 `uc 1 func 1 1 `us 1 len 2 2 `us 1 idx 2 4 `[8]uc 1 data 8 6 `us 1 crc_calc 2 14 `us 1 crc_rx 2 16 `ul 1 last_byte_ms 4 18 `a 1 bad_len 1 22 `a 1 bad_crc 1 23 ]
@@ -1225,12 +1225,12 @@ PKT_ST_CRC_LO 7
 [v Packet_ParserReset@p p `*.39S62  1 p 2 5 ]
 "48
 } 0
-"139 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"139 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_IsSending FlowReport_IsSending `(a  1 e 1 0 ]
 {
 "142
 } 0
-"237 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
+"237 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _UART_TX_IsEmpty UART_TX_IsEmpty `(a  1 e 1 0 ]
 {
 "247
@@ -1246,22 +1246,22 @@ PKT_ST_CRC_LO 7
 {
 "147
 } 0
-"24 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
+"24 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
 [v _Sys_Time_Init Sys_Time_Init `(v  1 e 1 0 ]
 {
 "31
 } 0
-"55 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
+"55 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
 [v _MCU_Time_Init MCU_Time_Init `(v  1 e 1 0 ]
 {
 "59
 } 1
-"69 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
+"69 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
 [v _Sys_Time_EnterDeepSleep Sys_Time_EnterDeepSleep `(E13136  1 e 1 0 ]
 {
 "127
 } 0
-"105 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
+"105 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _UART_WokeByEdge UART_WokeByEdge `(a  1 e 1 0 ]
 {
 "108
@@ -1276,18 +1276,18 @@ PKT_ST_CRC_LO 7
 {
 "96
 } 0
-"38 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
+"38 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
 [v _Sys_Time_ResumeTick Sys_Time_ResumeTick `(v  1 e 1 0 ]
 {
 "58
 } 0
-"49 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
+"49 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
 [v _MCU_Time_Advance MCU_Time_Advance `(v  1 e 1 0 ]
 {
 [v MCU_Time_Advance@unMs unMs `ul  1 p 4 5 ]
 "52
 } 0
-"22 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/PulseCounter.c
+"22 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/PulseCounter.c
 [v _PulseCounter_Init PulseCounter_Init `(v  1 e 1 0 ]
 {
 "45
@@ -1297,7 +1297,7 @@ PKT_ST_CRC_LO 7
 {
 "50
 } 0
-"78 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
+"78 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
 [v _MValve_OP3_Process MValve_OP3_Process `(v  1 e 1 0 ]
 {
 "107
@@ -1317,12 +1317,12 @@ PKT_ST_CRC_LO 7
 {
 "26
 } 0
-"157 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
+"157 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
 [v _MCU_Time_Process MCU_Time_Process `(v  1 e 1 0 ]
 {
 "165
 } 0
-"51 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
+"51 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
 [v _LedFsm_Process LedFsm_Process `(v  1 e 1 0 ]
 {
 "76
@@ -1332,12 +1332,12 @@ PKT_ST_CRC_LO 7
 {
 "27
 } 0
-"13 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Led.c
+"13 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Led.c
 [v _LEDs_Init LEDs_Init `(v  1 e 1 0 ]
 {
 "49
 } 0
-"146 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"146 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_WakeDuePending FlowReport_WakeDuePending `(a  1 e 1 0 ]
 {
 "152
@@ -1384,7 +1384,7 @@ PKT_ST_CRC_LO 7
 [v send_raw@n n `uc  1 p 1 8 ]
 "246
 } 0
-"182 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
+"182 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _print_char print_char `(a  1 e 1 0 ]
 {
 [v print_char@c c `uc  1 p 1 wreg ]
@@ -1398,7 +1398,7 @@ PKT_ST_CRC_LO 7
 {
 "252
 } 0
-"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
+"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Packet.c
 [v _Packet_CRC16_Update Packet_CRC16_Update `(us  1 e 2 0 ]
 {
 "20
@@ -1413,12 +1413,12 @@ PKT_ST_CRC_LO 7
 {
 "15
 } 0
-"30 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
+"30 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/led_fsm_sysstate.c
 [v _LedFsm_NotifyDataCycle LedFsm_NotifyDataCycle `(v  1 e 1 0 ]
 {
 "39
 } 0
-"75 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
+"75 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _FlowLog_GetWriteAtDue FlowLog_GetWriteAtDue `(us  1 e 2 0 ]
 {
 "78
@@ -1453,7 +1453,7 @@ PKT_ST_CRC_LO 7
 {
 "189
 } 0
-"94 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
+"94 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowReport.c
 [v _FlowReport_Init FlowReport_Init `(v  1 e 1 0 ]
 {
 "113
@@ -1463,12 +1463,12 @@ PKT_ST_CRC_LO 7
 {
 "161
 } 0
-"16 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowMeter.c
+"16 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowMeter.c
 [v _FlowMeter_Init FlowMeter_Init `(v  1 e 1 0 ]
 {
 "20
 } 0
-"99 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
+"99 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _FlowLog_Process FlowLog_Process `(v  1 e 1 0 ]
 {
 "107
@@ -1493,7 +1493,7 @@ PKT_ST_CRC_LO 7
 [v ovf_set@on on `a  1 p 1 7 ]
 "52
 } 0
-"203 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"203 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_OnCapture FlowControl_OnCapture `(v  1 e 1 0 ]
 {
 [v FlowControl_OnCapture@delta delta `us  1 p 2 0 ]
@@ -1537,7 +1537,7 @@ PKT_ST_CRC_LO 7
 [v sliding_sum@out_n out_n `*.39us  1 p 2 40 ]
 "133
 } 0
-"154 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
+"154 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _FlowLog_GetWriteIndex FlowLog_GetWriteIndex `(us  1 e 2 0 ]
 {
 "157
@@ -1568,7 +1568,7 @@ PKT_ST_CRC_LO 7
 [v ___lwmod@divisor divisor `ui  1 p 2 7 ]
 "25
 } 0
-"36 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Compress_Pack_10_14.c
+"36 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Compress_Pack_10_14.c
 [v _Compress_Unpack Compress_Unpack `(v  1 e 1 0 ]
 {
 "38
@@ -1594,14 +1594,14 @@ PKT_ST_CRC_LO 7
 [v Compress_Pack@dst dst `*.39uc  1 p 2 9 ]
 "34
 } 0
-"81 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
+"81 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowLog.c
 [v _FlowLog_Init FlowLog_Init `(v  1 e 1 0 ]
 {
 "90
 [v FlowLog_Init@i i `us  1 a 2 19 ]
 "97
 } 0
-"37 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowMeter.c
+"37 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/FlowMeter.c
 [v _FlowMeter_GetTotal FlowMeter_GetTotal `(ul  1 e 4 0 ]
 {
 "41
@@ -1615,7 +1615,7 @@ PKT_ST_CRC_LO 7
 [v flowmeter_refresh@inc inc `us  1 a 2 11 ]
 "29
 } 0
-"65 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/PulseCounter.c
+"65 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/PulseCounter.c
 [v _PulseCounter_Get PulseCounter_Get `(us  1 e 2 0 ]
 {
 "70
@@ -1624,12 +1624,12 @@ PKT_ST_CRC_LO 7
 [v PulseCounter_Get@lo lo `uc  1 a 1 9 ]
 "72
 } 0
-"212 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"212 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_Process FlowControl_Process `(v  1 e 1 0 ]
 {
 "221
 } 0
-"17 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
+"17 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
 [v _timeSpan timeSpan `(ul  1 e 4 0 ]
 {
 "19
@@ -1638,14 +1638,14 @@ PKT_ST_CRC_LO 7
 [v timeSpan@unOldTime_ms unOldTime_ms `ul  1 p 4 9 ]
 "24
 } 0
-"147 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"147 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _apply_valve apply_valve `(v  1 s 1 apply_valve ]
 {
 "149
 [v apply_valve@want_close want_close `a  1 a 1 10 ]
 "168
 } 0
-"54 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
+"54 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MValve_OP3.c
 [v _MValve_OP3_CmdOpen MValve_OP3_CmdOpen `(v  1 e 1 0 ]
 {
 "64
@@ -1655,12 +1655,12 @@ PKT_ST_CRC_LO 7
 {
 "76
 } 0
-"9 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
+"9 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
 [v _getNowTime getNowTime `(ul  1 e 4 0 ]
 {
 "12
 } 0
-"135 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
+"135 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Flow_Control.c
 [v _FlowControl_Init FlowControl_Init `(v  1 e 1 0 ]
 {
 "144
@@ -1701,25 +1701,25 @@ PKT_ST_CRC_LO 7
 [v ___lldiv@divisor divisor `ul  1 p 4 21 ]
 "30
 } 0
-"236 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
+"236 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
 [v _isr isr `IIH(v  1 e 1 0 ]
 {
 "240
 } 0
-"153 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
+"153 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _UART_ISR UART_ISR `(v  1 e 1 0 ]
 {
 "157
 [v UART_ISR@ch ch `uc  1 a 1 2 ]
 "177
 } 0
-"108 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
+"108 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/main.c
 [v _on_uart_rx on_uart_rx `(v  1 s 1 on_uart_rx ]
 {
 [v on_uart_rx@ch ch `uc  1 p 1 1 ]
 "114
 } 0
-"47 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
+"47 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Dev_Uart.c
 [v _UART_RX_Push UART_RX_Push `(v  1 e 1 0 ]
 {
 [v UART_RX_Push@b b `uc  1 p 1 wreg ]
@@ -1728,12 +1728,12 @@ PKT_ST_CRC_LO 7
 [v UART_RX_Push@b b `uc  1 p 1 0 ]
 "55
 } 1
-"136 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
+"136 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/Sys_Time_MCU_Specific.c
 [v _Sys_Time_ISR Sys_Time_ISR `(v  1 e 1 0 ]
 {
 "146
 } 0
-"39 /Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
+"39 /Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/MCU_Time.c
 [v _MCU_Time_Increase_Unit MCU_Time_Increase_Unit `(v  1 e 1 0 ]
 {
 "42
