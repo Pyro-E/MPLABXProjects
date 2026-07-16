@@ -24,7 +24,7 @@ rule C_COMPILER__PIC18F06Q40_Template_default_default_XC8_compile_unscanned_
 #############################################
 # Rule for linking C executable.
 
-rule C_EXECUTABLE_LINKER__PIC18F06Q40_Template_default_image_Uh9Nw9xX_
+rule C_EXECUTABLE_LINKER__PIC18F06Q40_Template_default_image_qzms7_vM_
   command = $PRE_LINK && /Applications/microchip/xc8/v3.10/bin/xc8-cc $FLAGS $LINK_FLAGS $in -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking C executable $TARGET_FILE
   restat = $RESTAT
@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /opt/homebrew/bin/cmake --regenerate-during-build -S/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/cmake/PIC18F06Q40_Template/default -B/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/_build/PIC18F06Q40_Template/default
+  command = /opt/homebrew/bin/cmake --regenerate-during-build -S/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/cmake/PIC18F06Q40_Template/default -B/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/_build/PIC18F06Q40_Template/default
   description = Re-running CMake...
   generator = 1
 
@@ -59,7 +59,7 @@ rule CLEAN_ADDITIONAL
 # Rule for cleaning all built files.
 
 rule CLEAN
-  command = /Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/ninja $FILE_ARG -t clean $TARGETS
+  command = /Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/ninja $FILE_ARG -t clean $TARGETS
   description = Cleaning all built files...
 
 
@@ -67,6 +67,6 @@ rule CLEAN
 # Rule for printing all primary targets available.
 
 rule HELP
-  command = /Users/kevinm1/.mplab/app-finder/apps/ninja/v1.13.2/ninja -t targets
+  command = /Users/kevinlu/.mplab/app-finder/apps/ninja/v1.13.2/ninja -t targets
   description = All primary targets available:
 

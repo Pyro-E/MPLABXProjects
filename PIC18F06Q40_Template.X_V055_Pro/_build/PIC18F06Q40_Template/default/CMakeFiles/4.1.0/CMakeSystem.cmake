@@ -3,7 +3,7 @@ set(CMAKE_HOST_SYSTEM_NAME "Darwin")
 set(CMAKE_HOST_SYSTEM_VERSION "24.6.0")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "arm64")
 
-include("/Users/kevinm1/zephyrproject/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/cmake/PIC18F06Q40_Template/default/.generated/toolchain.cmake")
+include("/Users/kevinlu/Code/Github/MPLABXProjects/PIC18F06Q40_Template.X_V055_Pro/cmake/PIC18F06Q40_Template/default/.generated/toolchain.cmake")
 
 set(CMAKE_SYSTEM "Generic")
 set(CMAKE_SYSTEM_NAME "Generic")

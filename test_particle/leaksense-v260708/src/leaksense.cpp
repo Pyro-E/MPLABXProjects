@@ -737,8 +737,11 @@ static inline void cloudEmit(const char *event, const char *payload) {
 #ifdef FAST_BENCH_TEST
   Log.info("CLOUD-SIM %s: %s", event, payload);   // simulate: log only, no transmit
 #else
-  Particle.publish(event, payload);               // real publish to the Particle cloud
-  Log.info("Cloud %s: %s", event, payload);       // and mirror it to USB for the log
+  if (Particle.publish(event, payload)) {         // real publish to the Particle cloud
+    Log.info("Cloud %s: %s", event, payload);     // and mirror it to USB for the log
+  } else {
+    Log.warn("Cloud publish FAILED for %s: %s", event, payload);   // dropped: rate-limited/disconnected/etc.
+  }
 #endif
 }
 
@@ -773,6 +776,7 @@ void publishIntervalDataChunks() {
       jw.insertKeyValue("sampleCount", (int)cnt);           // "sampleCount": how many samples in this chunk.
       jw.insertKeyValue("data", packed);                    // "data": the packed 3-digit sample string.
     }
+    if (jw.isTruncated()) Log.error("meterIntervals chunk %u/%u JSON truncated (buffer too small)", c + 1, total);
     cloudEmit("meterIntervals", jw.getBuffer());  // Cloud: publish; bench: log the exact chunk payload.
 #ifndef FAST_BENCH_TEST
     delay(1100);                                  // Wait 1.1 s between publishes (the cloud rate-limits to ~1/sec).
@@ -793,7 +797,8 @@ void imuPublish() {
 #endif
 #endif // !FAST_BENCH_TEST
 
-  JsonWriterStatic<512> jw;                       // 640-byte JSON builder; sensorData+hourlyGallons[24] ~540 bytes worst-case.
+  JsonWriterStatic<512> jw;                       // 512-byte JSON builder; sensorData+hourlyGallons[24] ~300 bytes worst-case at 1 decimal place.
+  jw.setFloatPlaces(1);                           // 1 decimal for every float below (matches printHourlyFlow()'s "%.1f" and keeps the payload well under 512 B).
   {                                               // Inner scope so the JSON object auto-finishes.
     JsonWriterAutoObject obj(&jw);                // Begin the JSON object.
     jw.insertKeyValue("pf", PLATFORM_STR);  // Board name.
@@ -825,6 +830,7 @@ void imuPublish() {
     jw.insertKeyArray("hourlyGallons");           // Begin an array "hourlyGallons": [ ... ].
     for (int i = 0; i < 24; i++) jw.insertArrayValue(roundTenth(hourlyData[i]));   // Add each hour's gallons (1 decimal).
     jw.finishObjectOrArray();                     // Close the hourlyGallons array.
+    jw.insertKeyValue("dailyGal", roundTenth(dailyGallons));   // Today's running total (matches USB "dailyGal=" line).
 #ifdef FAST_BENCH_TEST
     jw.insertKeyValue("rssi", (int)0);            // Bench: no radio; placeholder so the payload shape matches.
 #elif USE_WIFI
@@ -844,6 +850,7 @@ void imuPublish() {
     jw.insertKeyValue("uptime", (int)System.uptime());        // Seconds since boot.
   }
 
+  if (jw.isTruncated()) Log.error("sensorData JSON payload truncated (buffer too small)");
   cloudEmit("sensorData", jw.getBuffer());        // Cloud: publish + log; bench: log the exact payload (no transmit).
   publishIntervalDataChunks();                    // Then publish/log the detailed interval logger in chunks.
 

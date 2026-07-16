@@ -17,7 +17,7 @@
 #include "Particle.h"    // Pull in the Particle device-OS library. This is what gives
                          // us pinMode(), digitalWrite(), Serial, Time, etc.
 
-#define REPORT_INTERVAL_HR 24      // 
+#define REPORT_INTERVAL_HR 24      // PICK ONE: 24 or 48. The PIC firmware must match this value (see App_Config.h in the PIC repo).
 // #define REPORT_INTERVAL_HR 48
 
 // ------------------------------------------------------------------ Platform
