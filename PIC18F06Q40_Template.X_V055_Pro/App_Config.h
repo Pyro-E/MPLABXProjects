@@ -97,7 +97,6 @@
 
 /* ===== end QUICK TEST SETTINGS - details follow below ================ */
 
-
 /* ---- System clock (must match the RSTOSC config bits) ---- */
 #define APP_FOSC_HZ            64000000UL   /* 64 MHz internal */
 
@@ -132,6 +131,7 @@
  * for ANY value chosen (this is what removes the GPM-rate error). The nominal
  * seconds are shown in each comment as (counts x 0.5285 s). Max 255 counts
  * (8-bit Timer0) => max wake ~134.8 s. */
+
 #ifdef REPORT_CONFIG_DEBUG
   #define APP_FLOW_SLOTS         1000     /* ring-buffer slots (SRAM limit)          */
   #define APP_WAKE_COUNTS        6u       /* TEST: 6 x 0.5285 s = 3.17 s wake        */
