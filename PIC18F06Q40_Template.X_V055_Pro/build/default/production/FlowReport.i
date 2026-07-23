@@ -23175,10 +23175,10 @@ void FlowReport_SendPhotonCfg(void)
     d[i++] = (uint8_t)2u;
 
 
-    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 24) & 0xFFu);
-    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 16) & 0xFFu);
-    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 8) & 0xFFu);
-    d[i++] = (uint8_t)( ((uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) & 0xFFu);
+    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 24) & 0xFFu);
+    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 16) & 0xFFu);
+    d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) >> 8) & 0xFFu);
+    d[i++] = (uint8_t)( ((uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) & 0xFFu);
     d[i++] = (uint8_t)((((uint16_t)720u) >> 8) & 0xFFu);
     d[i++] = (uint8_t)( ((uint16_t)720u) & 0xFFu);
     d[i++] = (uint8_t)((uint8_t)24);

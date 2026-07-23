@@ -2222,8 +2222,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;Sys_Time_MCU_Specific.c: 82:     T0CON1 = ((uint8_t)(0x90u | 14u));
 [e = _T0CON1 -> | -> 144 `ui -> 14 `ui `uc ]
 "83
-[; ;Sys_Time_MCU_Specific.c: 83:     TMR0H = ((uint8_t)48u);
-[e = _TMR0H -> -> 48 `ui `uc ]
+[; ;Sys_Time_MCU_Specific.c: 83:     TMR0H = ((uint8_t)2u);
+[e = _TMR0H -> -> 2 `ui `uc ]
 "84
 [; ;Sys_Time_MCU_Specific.c: 84:     TMR0L = 0x00u;
 [e = _TMR0L -> -> 0 `ui `uc ]
@@ -2284,8 +2284,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! != -> . . _PIR3bits 0 7 `i -> 0 `i 1871  ]
 {
 "113
-[; ;Sys_Time_MCU_Specific.c: 113:         MCU_Time_Advance(((((uint32_t)48u << 14u) + 15UL) / 31UL));
-[e ( _MCU_Time_Advance (1 / + << -> -> 48 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul ]
+[; ;Sys_Time_MCU_Specific.c: 113:         MCU_Time_Advance(((((uint32_t)2u << 14u) + 15UL) / 31UL));
+[e ( _MCU_Time_Advance (1 / + << -> -> 2 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul ]
 "116
 [; ;Sys_Time_MCU_Specific.c: 116:     }
 }

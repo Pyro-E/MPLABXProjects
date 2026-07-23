@@ -22740,7 +22740,7 @@ void FlowLog_Init(void)
 
 void FlowLog_Process(void)
 {
-    if (timeSpan(s_mark_ms) < (((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) {
+    if (timeSpan(s_mark_ms) < (((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) {
         return;
     }
     s_mark_ms = getNowTime();

@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V3.10 build 20250813170317 
-                                                                                               Thu Jul 16 12:41:41 2026
+                                                                                               Thu Jul 23 11:05:59 2026
 
 Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1 
      1                           	processor	18F06Q40
@@ -10928,8 +10928,8 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  10822   002C24  4A46               	infsnz	FlowReport_SendPhotonCfg@i^(0+1280),f,c
  10823   002C26  2A47               	incf	(FlowReport_SendPhotonCfg@i+1)^(0+1280),f,c
  10824   002C28                     
- 10825                           ;FlowReport.c: 344:     d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL)
-      +                           / 31UL) * (uint32_t)2u)) >> 24) & 0xFFu);
+ 10825                           ;FlowReport.c: 344:     d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) 
+      +                          / 31UL) * (uint32_t)2u)) >> 24) & 0xFFu);
  10826   002C28  0E38               	movlw	low FlowReport_SendPhotonCfg@d
  10827   002C2A  2446               	addwf	FlowReport_SendPhotonCfg@i^(0+1280),w,c
  10828   002C2C  6ED9               	movwf	fsr2l,c
@@ -10940,8 +10940,8 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  10833   002C36  4A46               	infsnz	FlowReport_SendPhotonCfg@i^(0+1280),f,c
  10834   002C38  2A47               	incf	(FlowReport_SendPhotonCfg@i+1)^(0+1280),f,c
  10835   002C3A                     
- 10836                           ;FlowReport.c: 345:     d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL)
-      +                           / 31UL) * (uint32_t)2u)) >> 16) & 0xFFu);
+ 10836                           ;FlowReport.c: 345:     d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) 
+      +                          / 31UL) * (uint32_t)2u)) >> 16) & 0xFFu);
  10837   002C3A  0E38               	movlw	low FlowReport_SendPhotonCfg@d
  10838   002C3C  2446               	addwf	FlowReport_SendPhotonCfg@i^(0+1280),w,c
  10839   002C3E  6ED9               	movwf	fsr2l,c
@@ -10952,28 +10952,28 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  10844   002C48  4A46               	infsnz	FlowReport_SendPhotonCfg@i^(0+1280),f,c
  10845   002C4A  2A47               	incf	(FlowReport_SendPhotonCfg@i+1)^(0+1280),f,c
  10846   002C4C                     
- 10847                           ;FlowReport.c: 346:     d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)48u << 14u) + 15UL)
-      +                           / 31UL) * (uint32_t)2u)) >> 8) & 0xFFu);
+ 10847                           ;FlowReport.c: 346:     d[i++] = (uint8_t)((((uint32_t)(((((uint32_t)2u << 14u) + 15UL) 
+      +                          / 31UL) * (uint32_t)2u)) >> 8) & 0xFFu);
  10848   002C4C  0E38               	movlw	low FlowReport_SendPhotonCfg@d
  10849   002C4E  2446               	addwf	FlowReport_SendPhotonCfg@i^(0+1280),w,c
  10850   002C50  6ED9               	movwf	fsr2l,c
  10851   002C52  0E05               	movlw	high FlowReport_SendPhotonCfg@d
  10852   002C54  2047               	addwfc	(FlowReport_SendPhotonCfg@i+1)^(0+1280),w,c
  10853   002C56  6EDA               	movwf	fsr2h,c
- 10854   002C58  0EC6               	movlw	198
+ 10854   002C58  0E08               	movlw	8
  10855   002C5A  6EDF               	movwf	indf2,c
  10856   002C5C  4A46               	infsnz	FlowReport_SendPhotonCfg@i^(0+1280),f,c
  10857   002C5E  2A47               	incf	(FlowReport_SendPhotonCfg@i+1)^(0+1280),f,c
  10858   002C60                     
- 10859                           ;FlowReport.c: 347:     d[i++] = (uint8_t)( ((uint32_t)(((((uint32_t)48u << 14u) + 15UL)
-      +                           / 31UL) * (uint32_t)2u)) & 0xFFu);
+ 10859                           ;FlowReport.c: 347:     d[i++] = (uint8_t)( ((uint32_t)(((((uint32_t)2u << 14u) + 15UL) 
+      +                          / 31UL) * (uint32_t)2u)) & 0xFFu);
  10860   002C60  0E38               	movlw	low FlowReport_SendPhotonCfg@d
  10861   002C62  2446               	addwf	FlowReport_SendPhotonCfg@i^(0+1280),w,c
  10862   002C64  6ED9               	movwf	fsr2l,c
  10863   002C66  0E05               	movlw	high FlowReport_SendPhotonCfg@d
  10864   002C68  2047               	addwfc	(FlowReport_SendPhotonCfg@i+1)^(0+1280),w,c
  10865   002C6A  6EDA               	movwf	fsr2h,c
- 10866   002C6C  0E32               	movlw	50
+ 10866   002C6C  0E42               	movlw	66
  10867   002C6E  6EDF               	movwf	indf2,c
  10868   002C70  4A46               	infsnz	FlowReport_SendPhotonCfg@i^(0+1280),f,c
  10869   002C72  2A47               	incf	(FlowReport_SendPhotonCfg@i+1)^(0+1280),f,c
@@ -13320,8 +13320,8 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  13082   003656  0E9E               	movlw	158
  13083   003658  6F1B               	movwf	27,b	;volatile
  13084                           
- 13085                           ;Sys_Time_MCU_Specific.c: 83:     TMR0H = ((uint8_t)48u);
- 13086   00365A  0E30               	movlw	48
+ 13085                           ;Sys_Time_MCU_Specific.c: 83:     TMR0H = ((uint8_t)2u);
+ 13086   00365A  0E02               	movlw	2
  13087   00365C  6F19               	movwf	25,b	;volatile
  13088   00365E                     
  13089                           ; BSR set to: 3
@@ -13383,11 +13383,11 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  13145   00369E  EF5B  F01B         	goto	l6648
  13146   0036A2                     u4990:
  13147   0036A2                     
- 13148                           ;Sys_Time_MCU_Specific.c: 113:         MCU_Time_Advance(((((uint32_t)48u << 14u) + 15UL)
-      +                           / 31UL));
- 13149   0036A2  0E19               	movlw	25
+ 13148                           ;Sys_Time_MCU_Specific.c: 113:         MCU_Time_Advance(((((uint32_t)2u << 14u) + 15UL) 
+      +                          / 31UL));
+ 13149   0036A2  0E21               	movlw	33
  13150   0036A4  6E06               	movwf	MCU_Time_Advance@unMs^(0+1280),c
- 13151   0036A6  0E63               	movlw	99
+ 13151   0036A6  0E04               	movlw	4
  13152   0036A8  6E07               	movwf	(MCU_Time_Advance@unMs+1)^(0+1280),c
  13153   0036AA  0E00               	movlw	0
  13154   0036AC  6E08               	movwf	(MCU_Time_Advance@unMs+2)^(0+1280),c
@@ -16820,8 +16820,8 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  16407   00263A                     _FlowLog_Process:
  16408                           	callstack 117
  16409   00263A                     
- 16410                           ;FlowLog.c: 101:     if (timeSpan(s_mark_ms) < (((((uint32_t)48u << 14u) + 15UL) / 31UL)
-      +                           * (uint32_t)2u)) {
+ 16410                           ;FlowLog.c: 101:     if (timeSpan(s_mark_ms) < (((((uint32_t)2u << 14u) + 15UL) / 31UL) 
+      +                          * (uint32_t)2u)) {
  16411   00263A  C688  F50A         	movff	_s_mark_ms,timeSpan@unOldTime_ms
  16412   00263E  C689  F50B         	movff	_s_mark_ms+1,timeSpan@unOldTime_ms+1
  16413   002642  C68A  F50C         	movff	_s_mark_ms+2,timeSpan@unOldTime_ms+2
@@ -16830,9 +16830,9 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  16416   00264E  500D               	movf	(?_timeSpan+3)^(0+1280),w,c
  16417   002650  100C               	iorwf	(?_timeSpan+2)^(0+1280),w,c
  16418   002652  E109               	bnz	u4731
- 16419   002654  0E32               	movlw	50
+ 16419   002654  0E42               	movlw	66
  16420   002656  5C0A               	subwf	?_timeSpan^(0+1280),w,c
- 16421   002658  0EC6               	movlw	198
+ 16421   002658  0E08               	movlw	8
  16422   00265A  580B               	subwfb	(?_timeSpan+1)^(0+1280),w,c
  16423   00265C  B0D8               	btfsc	status,0,c
  16424   00265E  EF33  F013         	goto	u4731
@@ -19360,7 +19360,7 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  18819   002FA6                     
  18820                           ;Flow_Control.c: 74: static uint16_t quantize_window(uint16_t window_s);Flow_Control.c: 
       +                          75: {;Flow_Control.c: 79:     uint32_t n = ((uint32_t)window_s * 1000UL) / (uint32_t)(((
-      +                          ((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u);
+      +                          ((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u);
  18821   002FA6  C51F  F506         	movff	quantize_window@window_s,___lmul@multiplier
  18822   002FAA  C520  F507         	movff	quantize_window@window_s+1,___lmul@multiplier+1
  18823   002FAE  6A08               	clrf	(___lmul@multiplier+2)^(0+1280),c
@@ -19378,9 +19378,9 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  18835   002FCA  C507  F513         	movff	?___lmul+1,___lldiv@dividend+1
  18836   002FCE  C508  F514         	movff	?___lmul+2,___lldiv@dividend+2
  18837   002FD2  C509  F515         	movff	?___lmul+3,___lldiv@dividend+3
- 18838   002FD6  0E32               	movlw	50
+ 18838   002FD6  0E42               	movlw	66
  18839   002FD8  6E16               	movwf	___lldiv@divisor^(0+1280),c
- 18840   002FDA  0EC6               	movlw	198
+ 18840   002FDA  0E08               	movlw	8
  18841   002FDC  6E17               	movwf	(___lldiv@divisor+1)^(0+1280),c
  18842   002FDE  0E00               	movlw	0
  18843   002FE0  6E18               	movwf	(___lldiv@divisor+2)^(0+1280),c
@@ -21157,7 +21157,7 @@ DATA                 0      0    3532      0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V3.10 build 20250813170317 
-Symbol Table                                                                                   Thu Jul 16 12:41:41 2026
+Symbol Table                                                                                   Thu Jul 23 11:05:59 2026
 
                            _quantize_window 2FA6           __end_of_FlowReport_WakeDuePending 3F6E  
                            _photon_power_on 3E66                            ?_UART_TX_IsEmpty 0501  

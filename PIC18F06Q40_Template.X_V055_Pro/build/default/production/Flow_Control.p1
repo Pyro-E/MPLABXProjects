@@ -2077,9 +2077,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;Flow_Control.c: 75: {
 [f ]
 "79
-[; ;Flow_Control.c: 79:     uint32_t n = ((uint32_t)window_s * 1000UL) / (uint32_t)(((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u);
+[; ;Flow_Control.c: 79:     uint32_t n = ((uint32_t)window_s * 1000UL) / (uint32_t)(((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u);
 [v _n `ul ~T0 @X0 1 a ]
-[e = _n / * -> _window_s `ul -> 1000 `ul * / + << -> -> 48 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul ]
+[e = _n / * -> _window_s `ul -> 1000 `ul * / + << -> -> 2 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul ]
 "80
 [; ;Flow_Control.c: 80:     if (n > (uint32_t)1000) n = (uint32_t)1000;
 [e $ ! > _n -> -> 1000 `i `ul 1864  ]

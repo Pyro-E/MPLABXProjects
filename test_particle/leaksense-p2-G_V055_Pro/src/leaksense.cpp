@@ -134,12 +134,12 @@ retained PicParams    picParams          = {PIC_LEAK1_COUNTS_DFLT, PIC_LEAK1_WIN
                                             PIC_LEAK2_COUNTS_DFLT, PIC_LEAK2_WINDOW_DFLT};  // initialized to defaults.
 retained bool         picParamsDirty     = true;   // SET_PARAM to PIC on next contact
                                                    //   true = we still owe the PIC a fresh write of these params.
-retained float        dailyGallons       = 0.0f;   // Total gallons used so far today (in-progress, local UTC-8 day).
+retained float        dailyGallons       = 0.0f;   // Total gallons used so far today (in-progress, local Pacific day).
 retained float        lifetimeGallons    = 0.0f;   // Running total since install; never reset by day/hour rollovers --
                                                    //   only a MODE_PIN long-press (see serviceButton()) zeroes this.
 retained float        hourlyData[24]     = {0.0f}; // Gallons used in each of the 24 hours of the current (in-progress) local day.
 retained float        prevDayHourly[24]  = {0.0f}; // Completed prior local day's 24 hourly buckets, queued for the next publish.
-retained uint32_t     prevDayMidnightUtc = 0;       // UTC epoch of local (UTC-8) midnight that starts the day prevDayHourly covers.
+retained uint32_t     prevDayMidnightUtc = 0;       // UTC epoch of local (Pacific) midnight that starts the day prevDayHourly covers.
 retained bool         prevDayPending     = false;   // true once a completed day is snapshotted and awaiting publish (one period behind).
 retained int          lastSlotIngested   = -1;     // Which of the 24 hourlyData[] bins the last sample landed in
                                                    //   (-1 = none yet). Bin width = hourlyBinWidthHours().
@@ -666,13 +666,55 @@ if (g_cfg.missedFillMode == PIC_MISSED_FILL_AVERAGE) {
   }
 }
 
-// UTC epoch of local (UTC-8, per Time.zone() set in setup()) midnight for the
-// calendar day that 'utcEpoch' falls in. Used to timestamp which day a 24-entry
-// hourly snapshot belongs to, independent of which hour-of-day it's computed at.
+// UTC epoch of local (UTC-8/-7, per Time.zone() + syncDst() below) midnight for
+// the calendar day that 'utcEpoch' falls in. Used to timestamp which day a
+// 24-entry hourly snapshot belongs to, independent of which hour-of-day it's
+// computed at.
 static uint32_t localMidnightUtc(uint32_t utcEpoch) {
   return utcEpoch - ((uint32_t)Time.hour(utcEpoch) * 3600UL
                     + (uint32_t)Time.minute(utcEpoch) * 60UL
                     + (uint32_t)Time.second(utcEpoch));
+}
+
+// Day-of-month of the n-th Sunday in the month that contains 'day', given that
+// 'day' itself falls on weekday 'dow' (Time.weekday() convention: 1=Sun..7=Sat).
+static int nthSundayOfMonth(int day, int dow, int n) {
+  int firstSunday = 1;
+  for (int d = 1; d <= 7; d++) {                  // Walk day 1..7 of the month...
+    int wd = ((dow - 1) + (d - day)) % 7;         //   ...deriving each day's weekday from the
+    if (wd < 0) wd += 7;                          //   known (day, dow) pair (no month-1 lookup needed).
+    if (wd == 0) { firstSunday = d; break; }      // wd==0 -> Sunday (0-based here, unlike Time.weekday()).
+  }
+  return firstSunday + 7 * (n - 1);
+}
+
+// US DST rule (since 2007): local clocks spring forward on the 2nd Sunday of
+// March and fall back on the 1st Sunday of November. Only day-granularity is
+// resolved here (a session runs at most once/day), so the exact hour on the
+// change-over day itself is not pinned down -- immaterial given the >=1 h bin
+// width this feeds into.
+static bool usDstActiveNow() {
+  uint32_t now = Time.now();
+  int month = Time.month(now);
+  if (month < 3 || month > 11) return false;      // Dec/Jan/Feb: always standard time.
+  if (month > 3 && month < 11) return true;       // Apr..Oct: always daylight time.
+  int day = Time.day(now);
+  int dow = Time.weekday(now);
+  if (month == 3)  return day >= nthSundayOfMonth(day, dow, 2);   // on/after 2nd Sunday
+  /* month == 11 */ return day <  nthSundayOfMonth(day, dow, 1);  // before 1st Sunday
+}
+
+// Keep Time's DST flag in sync with the US rule so local-time math
+// (localMidnightUtc(), hour-of-day bin placement in accumulateHourly(), etc.)
+// runs at the correct real Pacific offset -- UTC-7 in summer, UTC-8 in winter
+// -- instead of always sitting at the UTC-8 PST base Time.zone(-8) sets in
+// setup(). Call once per session as soon as the clock is valid, before any
+// local-time-dependent code runs; cheap and idempotent (no-op once already in
+// the right state), so it's safe to call from every session's entry point.
+static void syncDst() {
+  bool active = usDstActiveNow();
+  if (active && !Time.isDST())  Time.beginDST();
+  if (!active && Time.isDST()) Time.endDST();
 }
 
 // hourlyData[24]/prevDayHourly[24] are fixed at 24 slots, but the PIC's
@@ -996,7 +1038,7 @@ void imuPublish() {
     jw.insertKeyArray("hourlyGallons");           // Begin an array "hourlyGallons": [ ... ].
     for (int i = 0; i < 24; i++) jw.insertArrayValue(roundTenth(pubHourly[i]));   // Add each hour's gallons (1 decimal).
     jw.finishObjectOrArray();                     // Close the hourlyGallons array.
-    jw.insertKeyValue("hourlyDayUtc", (int)pubDayUtc);   // UTC epoch of local (UTC-8) midnight this array covers.
+    jw.insertKeyValue("hourlyDayUtc", (int)pubDayUtc);   // UTC epoch of local (Pacific) midnight this array covers.
     jw.insertKeyValue("hourlyFinal", (int)pubFinal);     // 1 = a completed prior period (one period behind); 0 = current period so far.
     jw.insertKeyValue("binHours", (int)hourlyBinWidthHours());   // Hours each of the 24 hourlyGallons slots covers (1 or 2).
     jw.insertKeyValue("reportIntervalHr", (int)g_cfg.reportIntervalHr);   // PIC's configured report period (24 or 48), for reference.
@@ -1531,6 +1573,9 @@ void handleMonitoring() {
     nextSampleAtUtc = ((now / METER_INTERVAL_SEC) + 1) * METER_INTERVAL_SEC;   // ...set it to the next boundary.
   }
 
+  syncDst();   // Clock is valid (cloud sync above, or Time.setTime() in FAST_BENCH setup) --
+              // re-derive the local offset before any local-time math runs below.
+
   // 1) Pull the meter batch from the PIC (REQ_DATA -> RSP_DATA). No D10 gate --
   //    we are powered *because* the PIC wants this session, so we just ask. The
   //    PIC may have more than one chunk queued, so re-request until it reports an
@@ -1595,6 +1640,9 @@ void handleMonitoring() {
 void handleInitialHold() {
   if (!Time.isValid()) return;                    // Wait for cloud time: keeps buckets valid and avoids
                                                   //   pulling a batch we'd only drop (ingestPicBatch needs a clock).
+
+  syncDst();   // Clock just became valid -- re-derive the local offset before any
+              // local-time math runs below (this path polls + bins the meter live).
 
   // Pin the schedule to the target UTC hour as soon as we have a clock, even on this
   // very first cold-boot session -- this is what stops the report cadence from being
@@ -1690,8 +1738,10 @@ void setup() {
   waitFor(Serial.isConnected, SERIAL_CONNECT_MS); // step 2: OS enumerated the CDC device
     delay(g_cfg.serialDelayMs);                    // step 3 margin: let the PC monitor re-open the COM port
   }
-  Time.zone(-8);                 // PST display; logger math stays in UTC
-                                 //   Show local time as UTC-8 (Pacific); internal math still uses UTC.
+  Time.zone(-8);                 // Pacific STANDARD base (UTC-8); syncDst() (called each session, before
+                                 //   any local-time math) layers the +1 h DST offset on top when Pacific
+                                 //   Daylight Time is in effect, so local display/binning is UTC-7 in summer,
+                                 //   UTC-8 in winter. Internal math elsewhere still stores/keys off raw UTC.
   Log.info("LeakSense P2 boot on %s", PLATFORM_STR);   // Announce boot and which board we are.
 
   loadFlowCal();                                  // Load the saved flow calibration from EEPROM.

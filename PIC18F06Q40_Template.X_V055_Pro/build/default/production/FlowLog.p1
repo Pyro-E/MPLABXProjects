@@ -2268,8 +2268,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _FlowLog_Process ]
 [f ]
 "101
-[; ;FlowLog.c: 101:     if (timeSpan(s_mark_ms) < (((((uint32_t)48u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) {
-[e $ ! < ( _timeSpan (1 _s_mark_ms * / + << -> -> 48 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul 1879  ]
+[; ;FlowLog.c: 101:     if (timeSpan(s_mark_ms) < (((((uint32_t)2u << 14u) + 15UL) / 31UL) * (uint32_t)2u)) {
+[e $ ! < ( _timeSpan (1 _s_mark_ms * / + << -> -> 2 `ui `ul -> 14 `ui -> 15 `ul -> 31 `ul -> -> 2 `ui `ul 1879  ]
 {
 "102
 [; ;FlowLog.c: 102:         return;
