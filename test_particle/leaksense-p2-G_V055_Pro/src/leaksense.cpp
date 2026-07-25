@@ -17,11 +17,15 @@
  *   starts with setup() (run once at power-on) and then loop() (run over and
  *   over forever). Find those two functions near the BOTTOM of this file to see
  *   the big picture; everything above them is helpers that setup()/loop() call.
+ * 
+ * 23 Jul 26 cloudParam_260723 - Added server-side updates to parameters "Cal", "a1Count","a1Win","a2Count","a2Win"
+ *    (cloudUpdate.cpp: setCal/setA1Count/setA1Win/setA2Count/setA2Win, Particle.function() RPCs matching setFlowCal/setLeakParams' method)
  */
 
 #include "Particle.h"                 // Core device-OS API (pins, Serial, Time, sleep, cloud, etc.).
 #include "app_config.h"               // Our shared settings (pins, timeouts, defaults).
 #include "pic_link.h"                 // The PicLink class for talking to the PIC chip.
+#include "cloudUpdate.h"              // Server-side Cal/a1Count/a1Win/a2Count/a2Win cloud functions + boot-time server pull.
 #include "JsonParserGeneratorRK.h"    // A helper library to build JSON text we publish to the cloud.
 #if USE_IMU                            // Only if the optional motion sensor is enabled (it is OFF by default)...
 #include "Adafruit_LSM6DS33.h"         // ...include the IMU driver library.
@@ -1747,6 +1751,7 @@ void setup() {
   loadFlowCal();                                  // Load the saved flow calibration from EEPROM.
   loadConfig();                                   // Load the saved host config from EEPROM.
   loadPicParams();                                // Load the saved PIC params from EEPROM.
+  loadCloudUpdateConfig();                        // Load the cloudUpdate.cpp server-param cache from EEPROM.
 
   pinMode(LED1_PIN, OUTPUT);                       // Configure the status LED pin as an output.
   pinMode(SHUTOFF_SWITCH_PIN, OUTPUT);             // Configure the valve direction pin as an output.
@@ -1778,6 +1783,7 @@ void setup() {
   Particle.function("unlockValve", unlockValve);// clear PIC valve lock     // Clear a PIC valve lock.
   Particle.function("picReset", picReset);      // PKT_SYS_RESET            // Reset the PIC.
   Particle.function("syncPic", syncPic);                                    // Force-push cached PIC params.
+  registerCloudUpdateFunctions();  // setCal/setA1Count/setA1Win/setA2Count/setA2Win (cloudUpdate.cpp)
 #if USE_WIFI
   Particle.function("setWiFi", setWiFi);          // (Wi-Fi only) set credentials.
   Particle.function("clearWiFi", clearWiFi);      // (Wi-Fi only) clear credentials.
@@ -1845,7 +1851,22 @@ void setup() {
     changeState(STATE_MONITORING);
     Log.info("Setup complete -> FAST_BENCH (no cloud; evolving local clock; PIC UART + USB log)");
   } else {
-    // Power-gating (cloud): kick off the connection WITHOUT blocking here --
+    // Server-side config pull (cloudUpdate.cpp): ask the server for the latest
+    // Cal/a1Count/a1Win/a2Count/a2Win and apply whatever it sends via the real
+    // setCal()/setA1Count()/setA1Win()/setA2Count()/setA2Win() (validates,
+    // persists to EEPROM, and for leak params pushes to the PIC). This device
+    // is only online for a few seconds per report period, so a live RPC call
+    // from the dashboard can easily miss that window -- this makes the device
+    // check on its OWN schedule instead, every session, so a change queued at
+    // any time lands on the next boot. Bounded (network/cloud/reply all have
+    // timeouts): a PIC-less bench unit, dead network, or a webhook that never
+    // answers all just fall through, keeping whatever was persisted last time.
+    // Trade-off: this blocks setup() for that bounded window (worst case ~25s)
+    // on every session -- see cloudUpdate.cpp's SERVER_CFG_*_TIMEOUT_MS.
+    fetchServerConfig();
+
+    // Power-gating (cloud): kick off (or confirm, if fetchServerConfig() above
+    // already connected) the connection WITHOUT blocking further here --
     // handleConnecting() in loop() finishes it within the budget or CLOUD_FAILs,
     // then handleMonitoring() does one report and ends with 0x07.
 #if USE_WIFI
