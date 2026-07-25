@@ -289,9 +289,10 @@ void publishSensorData(void) {
  *  Every step here is bounded: a PIC-less bench unit, a dead network, or a
  *  webhook that never answers all just fall through and setup() continues
  *  with whatever Cal/leak-params were already persisted from last time. */
-static const uint32_t SERVER_CFG_NET_TIMEOUT_MS  = 10000UL;
-static const uint32_t SERVER_CFG_CLOUD_TIMEOUT_MS = 10000UL;
-static const uint32_t SERVER_CFG_REPLY_TIMEOUT_MS = 5000UL;
+ 
+static const uint32_t SERVER_CFG_NET_TIMEOUT_MS  = USE_CELLULAR ? 120000 : 10000; //= 10000UL;
+static const uint32_t SERVER_CFG_CLOUD_TIMEOUT_MS = USE_CELLULAR ? 30000 : 10000; // = 10000UL;
+static const uint32_t SERVER_CFG_REPLY_TIMEOUT_MS = USE_CELLULAR ? 30000 : 5000;  // = 5000UL;
 
 void fetchServerConfig(void) {
     Particle.subscribe("hook-response/device/check_config", configHandler, MY_DEVICES);

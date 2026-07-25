@@ -141,7 +141,7 @@
   #if REPORT_INTERVAL_HR == 24
     #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
     #define APP_WAKE_COUNTS        2u       /* PRODUCTION: 24 x 0.5285 s = 12.68 s wake*/
-        // 1u - 25.48 min; 2u - 51.42 min; 114u = 24:06 hr
+        // 1u - 25.48 min; 2u - 51.4 min; 114u = 24:06 hr
     #define APP_WAKES_PER_SAMPLE   2u       /* capture = 2 wakes (2 x 0.5285 s = 1.057 s) */
     #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~24 hours       */
   #endif
