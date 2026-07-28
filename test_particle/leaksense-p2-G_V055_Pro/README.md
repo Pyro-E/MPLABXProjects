@@ -6,10 +6,10 @@ requirements.
 
 | # | Requirement | Where it lives |
 |---|-------------|----------------|
-| 1 | Ingest PIC data + align to hourly intervals | `pic_link.*`, `ingestPicBatch()`, `accumulateHourly()` |
+| 1 | Ingest PIC data + align to hourly intervals | `pic_link.*`, `ingestPicBatch()`, `addToHourly()` |
 | 2 | Pass 4 variables cloud → Photon → PIC | `setLeakParams()` → `PicLink::setParams()` (`REQ_SET_PARAM` packet) |
 | 3 | Keep Boron compatible | `PLATFORM_ID` guards in `app_config.h` (Kevin verifies HW) |
-| 4 | Cloud connection only every 24 h | `runSleep()` 24h + epoch gate in `handleMonitoring()` |
+| 4 | Cloud connect + publish on every power-up | every session (see §2) -- the PIC, not the Photon, decides *when* to power on |
 
 > **V040 protocol update:** the PIC link is now the **framed packet protocol**
 > from the *PIC ↔ Photon2 Interface Specification* (`AA 55` marker + CRC-16/MODBUS
@@ -18,6 +18,11 @@ requirements.
 > now the PIC's own leak parameters (`leak1/leak2 counts + window`), and a new
 > motorized-valve subsystem (status read + lock clearing + reset) is wired in.
 > See §4 and §10.
+
+> **V048 power-gating update:** the D10 WAKE signal/handshake is gone. The PIC
+> now power-cycles the Photon directly (RC4 → P-MOS on the supply), so every
+> power-up already means "the PIC wants a session" -- the Photon connects to
+> the cloud and publishes on every session, not just every 24 h. See §2 and §4.
 
 ---
 
@@ -40,18 +45,41 @@ The project is **self-contained**: with the default config (`USE_IMU 0`) it buil
 with no registry downloads, because the only library it needs
 (`JsonParserGeneratorRK`) is vendored under `lib/`.
 
-## 2. Runtime flow (24-hour cycle)
+## 2. Runtime flow (power-gated: every session connects + publishes)
 
-- **PIC wakes the P2 (D10 ↑)** → the P2 reads the batch with `REQ_DATA` (framed,
-  CRC-checked; re-requested on bad CRC), folds it into the hourly buckets /
-  interval log / leak model, then sleeps again **without connecting to the
-  cloud** (core of requirement #4).
-- **24h timer wake** → drain any remaining PIC data via the WAKE handshake +
-  `REQ_DATA`, connect to the cloud, publish `sensorData` + `meterIntervals`
-  chunks, push any pending leak parameters to the PIC, refresh valve status,
-  then sleep.
+There is no D10 wake signal and no self-sleep anymore (`runSleep()` is a
+no-op stub kept only for reference -- "Power-gating: never self-sleep. The
+PIC removes our power to end a session."). The PIC fully **power-cycles**
+the Photon via a P-MOS on RC4: every time the PIC decides the Photon should
+run (a report is due, a leak/shutoff event, the cold-boot hold, etc.), it
+switches power on, `setup()` runs from scratch, and the Photon:
+
+1. Unconditionally starts a network + `Particle.connect()` attempt (`setup()`
+   sets `triggerPublish = true` before the state machine even begins).
+2. Once connected, pulls whatever the PIC has buffered via `REQ_DATA`
+   (`serviceMeterFromPic()` → `ingestPicBatch()`), folding it into the
+   rolling hourly view / interval log / leak model.
+3. Publishes `sensorData` (+ pushes any pending leak parameters, refreshes
+   valve status) -- **every session that reaches the cloud publishes**;
+   `handleMonitoring()`'s one-shot report and `handleInitialHold()`'s
+   periodic reports (every `INITIAL_HOLD_PUBLISH_MS` while held) both call
+   `imuPublish()` unconditionally, there is no "skip this one" gate.
+4. Tells the PIC to cut power (`PKT_PHOTON_OFF_REQ`, func `0x07`).
+
+The only time a power-up does **not** publish is a genuine connect failure:
+if the network/cloud doesn't come up within `TIMEOUT_CANNOT_FIND_CLOUD_MS`
+(~80 s), the session reports `OFF_REASON_CLOUD_FAIL` to the PIC instead and
+ends without publishing (there's no connection to publish over).
+
+*How "every 24 h" still works*: the Photon doesn't gate its own publishing --
+it tells the **PIC** when the next report is due (`syncPublishSchedule()` →
+`REQ_SET_SCHEDULE`, re-sent every session so PIC hardware-timer drift never
+accumulates), and the PIC is what decides when to power the Photon on for a
+normal report. Non-scheduled power-ups (leak alert, button, cold-boot hold)
+still connect and publish immediately when they happen -- that's requirement #4.
 - **Button (MODE/A1) wake** → publish immediately.
-- The device does not sleep while a leak/shutoff is active or while flow is in progress.
+- The device does not sleep while a leak/shutoff is active or while flow is in progress
+  (`waitForOtaIfActive()` also holds the session open for an in-progress OTA).
 
 ## 3. Cloud config: host analytics vs. PIC leak parameters (requirement #2)
 
@@ -109,11 +137,14 @@ AA 55 | func | len_hi len_lo | data[len] | crc_hi crc_lo
   `func+len+data` (the `AA 55` marker is excluded), transmitted **big-endian**
   (`crc_hi` then `crc_lo`). Verified against all six example frames in spec §8.
 - **All multi-byte fields are big-endian.**
-- **WAKE handshake (spec 5.3):** WAKE HIGH → send immediately; WAKE LOW → send
-  `0xF0`, wait for WAKE HIGH (`PHOTON_WAKE_WAIT_MS`, resend `0xF0` up to
-  `PHOTON_WAKE_RETRIES`), then send. WAKE stays HIGH while bytes flow either way,
-  so back-to-back packets keep the PIC awake; it drops 500 ms after the link
-  goes quiet.
+- **No WAKE handshake (power-gating model, PIC firmware V048):** the D10 WAKE
+  signal is gone -- the PIC now drives a P-MOS that switches the Photon's
+  *supply*, so "being powered" already means "the PIC wants a session, talk
+  now." The Photon sends immediately, never checks D10, never sends the old
+  `0xF0` wake byte (`pic_link.h`'s `wakeIsHigh()`/`waitWakeHigh()`/
+  `ensureWake()` are kept only so old callers compile; they always report
+  "ready"). A session ends with `PKT_PHOTON_OFF_REQ` (func `0x07`) so the PIC
+  cuts power.
 - **One request at a time:** after a `REQ_*` the P2 waits for the matching
   `RSP_*` before sending anything else, and **resends the same request** on
   timeout or bad CRC (up to `PHOTON_RETRY_COUNT`). `RSP_NAK` is reported, not
@@ -148,6 +179,26 @@ the `tsEnd` computation in `ingestPicBatch()` with that value. Also set
 `PIC_SAMPLE_INTERVAL_SEC` to match the PIC's actual sampling period; by default it is
 aligned 1:1 with the logger interval (60 s).
 
+The same reconstruction (`reconstructTsEnd()`) also anchors the missed-fill
+AVERAGE path (§ "How to handle flow BEFORE the received series" in
+`app_config.h`): a skipped/truncated span always sits immediately before the
+oldest received sample, so it can be walked hour-by-hour through
+`addToHourly()` exactly like real samples instead of being smeared flat.
+
+### Hourly view: rolling 48-hour window, not a calendar day
+
+`hourlyGallons` in `sensorData` is **48 fixed 1-hour bins** (`hourlyData[48]`,
+pure UTC-hour-aligned, oldest first), covering the last 48 FULLY COMPLETED
+clock hours -- not a local calendar day and not tied to `REPORT_INTERVAL_HR`.
+The still-open, currently-accumulating hour is reported separately as
+`hourlyFinal` (gallons so far) + `hourlyFinalUtc` (when that hour started);
+it only moves into `hourlyGallons[]` once it closes. `hourlyBaseUtc` is the
+UTC epoch `hourlyGallons[0]` starts at. Because the window always reflects
+the fully up-to-date state, there is no "one period behind" publish queue --
+every `sensorData` publish sends the current picture. Detail older than 48
+completed hours ago is truncated (the array simply can't hold more); the
+`lifetimeGal` / daily total are never truncated, only the hourly detail view.
+
 ## 6. P2 retained-memory handling
 
 The P2 retained-memory limits flagged earlier are worked around as follows.
@@ -173,7 +224,7 @@ The P2 retained-memory limits flagged earlier are worked around as follows.
 | LED / status | D7 |
 | Valve direction | D2 |
 | Valve SSR power | D6 |
-| PIC WAKE (input, PIC drives HIGH) | D10 |
+| PIC WAKE -- unused/reserved under power-gating (held `INPUT_PULLUP` so it never floats; the PIC now power-cycles the Photon via RC4/P-MOS instead) | D10 |
 | PIC UART | Serial1 (TX/RX) |
 | Battery ADC | A6 (P2) / A5 (Boron) |
 | Local hall sensor (optional) | A2 (enable with `USE_LOCAL_METER`) |

@@ -218,7 +218,12 @@ constexpr uint32_t LEAK_MODEL_INTERVAL_SEC = 300;  // 5 min leak slots
 //             volume is dropped. Matches "front-series loss is by design."
 //   AVERAGE = reconstruct it as an average flow computed from
 //             (impulseSinceReport - received pulses) over (captures - n), so the
-//             daily TOTAL gallons are preserved (the impulse count stays right).
+//             daily/lifetime TOTAL gallons are preserved (the impulse count stays
+//             right). The reconstructed span is also placed into the real hour(s)
+//             it actually occurred in (ingestPicBatch() walks it through
+//             addToHourly() before the received samples), not smeared flat --
+//             detail older than the last 48 completed hours is truncated, but
+//             the TOTAL never is.
 #define PIC_MISSED_FILL_ZERO     0
 #define PIC_MISSED_FILL_AVERAGE  1
 #define PIC_MISSED_FILL  PIC_MISSED_FILL_AVERAGE   // <-- select ZERO or AVERAGE here

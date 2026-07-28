@@ -141,13 +141,13 @@
   #if REPORT_INTERVAL_HR == 24
     #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
     #define APP_WAKE_COUNTS        2u       /* PRODUCTION: 24 x 0.5285 s = 12.68 s wake*/
-        // 1u - 25.48 min; 2u - 51.4 min; 114u = 24:06 hr
+        // 1u - 25.48 min; 2u - 51.4 min; 113u = 23:43 hr
     #define APP_WAKES_PER_SAMPLE   2u       /* capture = 2 wakes (2 x 0.5285 s = 1.057 s) */
     #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~24 hours       */
   #endif
   #if REPORT_INTERVAL_HR == 48
     #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
-    #define APP_WAKE_COUNTS        114u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
+    #define APP_WAKE_COUNTS        113u     /* PRODUCTION: 113 x 0.5285 s = 59.73 s wake*/
     #define APP_WAKES_PER_SAMPLE   4u       /* capture = 4 wakes (456 x 0.5285) = 241.0 s (~4 min) */
     #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
   #endif
@@ -228,7 +228,7 @@
  * start LOW in LEDs_Init().
  *   Define   -> they run the power/control waveform (Dev_Valve).
  *   Undefine -> they are left permanently LOW (driven once, no toggle). */
-//#define VALVE_PWR_CTRL_ENABLE
+#define VALVE_PWR_CTRL_ENABLE
 
 /* ---- OP3 valve high-level driver (MValve_OP3) ----------------------------
  * VALVE_PWR_CTRL_ENABLE      master enable for valve driving (above).
@@ -241,7 +241,7 @@
  *            PWR=H,CTRL=L -> drive CLOSE. After TIME_VALVE_FULL_TOGGLE_MS the
  *            driver forces BOTH pins LOW (saves the small holding current). */
 /* VALVE_TEST_TOGGLE is set in the QUICK TEST SETTINGS block at the top. */
-//#define VALVE_ON_WHEN_STARTUP
+#define VALVE_ON_WHEN_STARTUP
 
 /* full open or full close drive time (motor self-cuts at the end stop) */
 #define TIME_VALVE_FULL_TOGGLE_MS  10000UL
