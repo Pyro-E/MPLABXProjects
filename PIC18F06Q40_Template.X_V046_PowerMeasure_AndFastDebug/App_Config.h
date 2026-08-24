@@ -85,7 +85,7 @@
 
 #ifdef REPORT_CONFIG_DEBUG
   #define APP_FLOW_SLOTS      1000          /* ring-buffer slots */
-  #define APP_FLOW_PERIOD_MS  1000       /* fast test: ~2 s capture */
+  #define APP_FLOW_PERIOD_MS  10000      /* power-measure: ~10 s sleep/wake cycle */
   #define APP_FLOW_BATCH      (1*720)          /* report every 5 captures */
 #else
   #define APP_FLOW_SLOTS      1000         /* <=1024 (10-14 sample# limit) */

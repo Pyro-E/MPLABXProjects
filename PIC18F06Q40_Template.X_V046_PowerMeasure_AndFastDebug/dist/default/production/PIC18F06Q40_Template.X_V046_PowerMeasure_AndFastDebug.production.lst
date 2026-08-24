@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V3.10 build 20250813170317 
-                                                                                               Wed Jul  8 21:39:16 2026
+                                                                                               Tue Aug  4 18:33:53 2026
 
 Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1 
      1                           	processor	18F06Q40
@@ -12220,9 +12220,9 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  12020   002B74  0E9E               	movlw	158
  12021   002B76  6F1B               	movwf	27,b	;volatile
  12022                           
- 12023                           ;Sys_Time_MCU_Specific.c: 83:     TMR0H = ((uint8_t)(((1000 * 31UL) + (1UL << (14u - 1u)
-      +                          )) / (1UL << 14u)));
- 12024   002B78  0E02               	movlw	2
+ 12023                           ;Sys_Time_MCU_Specific.c: 83:     TMR0H = ((uint8_t)(((10000 * 31UL) + (1UL << (14u - 1u
+      +                          ))) / (1UL << 14u)));
+ 12024   002B78  0E13               	movlw	19
  12025   002B7A  6F19               	movwf	25,b	;volatile
  12026   002B7C                     
  12027                           ; BSR set to: 3
@@ -12288,10 +12288,10 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  12087   002BC0  EFEC  F015         	goto	l5507
  12088   002BC4                     u3890:
  12089   002BC4                     
- 12090                           ;Sys_Time_MCU_Specific.c: 113:         MCU_Time_Advance(1000);
- 12091   002BC4  0EE8               	movlw	232
+ 12090                           ;Sys_Time_MCU_Specific.c: 113:         MCU_Time_Advance(10000);
+ 12091   002BC4  0E10               	movlw	16
  12092   002BC6  6E06               	movwf	MCU_Time_Advance@unMs^(0+1280),c
- 12093   002BC8  0E03               	movlw	3
+ 12093   002BC8  0E27               	movlw	39
  12094   002BCA  6E07               	movwf	(MCU_Time_Advance@unMs+1)^(0+1280),c
  12095   002BCC  0E00               	movlw	0
  12096   002BCE  6E08               	movwf	(MCU_Time_Advance@unMs+2)^(0+1280),c
@@ -15015,7 +15015,7 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  14655   0023BE                     _FlowLog_Process:
  14656                           	callstack 117
  14657   0023BE                     
- 14658                           ;FlowLog.c: 39:     if (timeSpan(s_mark_ms) < 1000) {
+ 14658                           ;FlowLog.c: 39:     if (timeSpan(s_mark_ms) < 10000) {
  14659   0023BE  C5E2  F50A         	movff	_s_mark_ms,timeSpan@unOldTime_ms
  14660   0023C2  C5E3  F50B         	movff	_s_mark_ms+1,timeSpan@unOldTime_ms+1
  14661   0023C6  C5E4  F50C         	movff	_s_mark_ms+2,timeSpan@unOldTime_ms+2
@@ -15024,9 +15024,9 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  14664   0023D2  500D               	movf	(?_timeSpan+3)^(0+1280),w,c
  14665   0023D4  100C               	iorwf	(?_timeSpan+2)^(0+1280),w,c
  14666   0023D6  E109               	bnz	u3711
- 14667   0023D8  0EE8               	movlw	232
+ 14667   0023D8  0E10               	movlw	16
  14668   0023DA  5C0A               	subwf	?_timeSpan^(0+1280),w,c
- 14669   0023DC  0E03               	movlw	3
+ 14669   0023DC  0E27               	movlw	39
  14670   0023DE  580B               	subwfb	(?_timeSpan+1)^(0+1280),w,c
  14671   0023E0  B0D8               	btfsc	status,0,c
  14672   0023E2  EFF5  F011         	goto	u3711
@@ -17186,7 +17186,7 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  16707   00278C                     
  16708                           ;Flow_Control.c: 70: static uint16_t quantize_window(uint16_t window_s);Flow_Control.c: 
       +                          71: {;Flow_Control.c: 75:     uint32_t n = ((uint32_t)window_s * 1000UL) / (uint32_t)100
-      +                          0;
+      +                          00;
  16709   00278C  C51F  F506         	movff	quantize_window@window_s,___lmul@multiplier
  16710   002790  C520  F507         	movff	quantize_window@window_s+1,___lmul@multiplier+1
  16711   002794  6A08               	clrf	(___lmul@multiplier+2)^(0+1280),c
@@ -17204,9 +17204,9 @@ Microchip MPLAB XC8 C Compiler v3.10 (Free license) build 20250813170317 Og1
  16723   0027B0  C507  F513         	movff	?___lmul+1,___lldiv@dividend+1
  16724   0027B4  C508  F514         	movff	?___lmul+2,___lldiv@dividend+2
  16725   0027B8  C509  F515         	movff	?___lmul+3,___lldiv@dividend+3
- 16726   0027BC  0EE8               	movlw	232
+ 16726   0027BC  0E10               	movlw	16
  16727   0027BE  6E16               	movwf	___lldiv@divisor^(0+1280),c
- 16728   0027C0  0E03               	movlw	3
+ 16728   0027C0  0E27               	movlw	39
  16729   0027C2  6E17               	movwf	(___lldiv@divisor+1)^(0+1280),c
  16730   0027C4  0E00               	movlw	0
  16731   0027C6  6E18               	movwf	(___lldiv@divisor+2)^(0+1280),c
@@ -18912,7 +18912,7 @@ DATA                 0      0    3311      0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V3.10 build 20250813170317 
-Symbol Table                                                                                   Wed Jul  8 21:39:16 2026
+Symbol Table                                                                                   Tue Aug  4 18:33:53 2026
 
                      _quantize_window 278C     __end_of_FlowReport_WakeDuePending 3516  
                     ?_UART_TX_IsEmpty 0501                          ?_apply_valve 0501  

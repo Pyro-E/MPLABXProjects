@@ -352,7 +352,7 @@ PKT_ST_CRC_LO 7
 [s S323 . 1 `uc 1 SEN 1 0 :1:0 
 `uc 1 PS 1 0 :5:1 
 ]
-"2405 /Users/kevinlu/.mchp_packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8/pic/include/proc/pic18f06q40.h
+"2405 /Applications/microchip/mplabx/v6.30/packs/Microchip/PIC18F-Q_DFP/1.28.451/xc8/pic/include/proc/pic18f06q40.h
 [s S326 . 1 `uc 1 SWDTEN 1 0 :1:0 
 `uc 1 WDTPS 1 0 :5:1 
 ]

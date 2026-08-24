@@ -11,4 +11,12 @@
 /PIC18F06Q40_Template.X_V050/build/
 /PIC18F06Q40_Template.X_V050/dist/
 /PIC18F06Q40_Template.X_V053_CountWake_ProdDefault/dist/
+<<<<<<< Updated upstream
 /PIC18F06Q40_Template.X_V053_CountWake_ProdDefault/build/
+=======
+/PIC18F06Q40_Template.X_V053_CountWake_ProdDefault/build/
+*.cmake
+/PIC18F06Q40_Template.X_V050/_build
+/PIC18F06Q40_Template.X_V050/cmake
+test_particle/leaksense-p2-G_V055_Pro/boron.bin
+>>>>>>> Stashed changes
