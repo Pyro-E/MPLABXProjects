@@ -269,20 +269,33 @@ bool PicLink::setParams(const PicParams &in) {
                                                   //   true only if the PIC acknowledged the write.
 }
 
+// ---- REQ_SET_SCHEDULE -> RSP_ACK/NAK ---------------------------------------
+// Re-anchor the PIC's report-due countdown to fire after exactly
+// 'remainingCaptures' more captures. Returns true only if ACKed.
+bool PicLink::setSchedule(uint16_t remainingCaptures) {
+  uint8_t tx[2];
+  tx[0] = (uint8_t)(remainingCaptures >> 8); tx[1] = (uint8_t)(remainingCaptures);
+
+  uint8_t  rx[2];
+  uint16_t rl = 0;
+  int r = transact(REQ_SET_SCHEDULE, tx, sizeof(tx), RSP_ACK,
+                   rx, sizeof(rx), &rl, PHOTON_TIMEOUT_READ_MS);
+  return (r == PIC_OK);
+}
+
 // ---- REQ_GET_VALVE -> RSP_VALVE --------------------------------------------
 // Read the valve status into 'out'. Returns true on success.
 bool PicLink::getValve(PicValve &out) {
-  uint8_t  rx[8];                                  // The valve reply is 8 bytes.
+  uint8_t  rx[5];                                  // The valve reply is 5 bytes.
   uint16_t rl = 0;                                 // Will receive the reply length.
   int r = transact(REQ_GET_VALVE, nullptr, 0, RSP_VALVE,   // Send REQ_GET_VALVE, expect RSP_VALVE.
                    rx, sizeof(rx), &rl, PHOTON_TIMEOUT_READ_MS);
-  if (r != PIC_OK || rl != 8) return false;        // Fail if transaction failed or length wasn't 8.
+  if (r != PIC_OK || rl != 5) return false;        // Fail if transaction failed or length wasn't 5.
   out.pwr_pin         = rx[0];                      // Byte 0: valve power pin level (0/1).
   out.ctrl_pin        = rx[1];                      // Byte 1: valve control/direction pin level (0/1).
   out.motion          = rx[2];                      // Byte 2: valve motion state (0..6).
   out.lock_flags      = rx[3];                      // Byte 3: which locks are active (bit0=temp, bit1=perm).
-  out.temp_lock_count = ((uint32_t)rx[4] << 24) | ((uint32_t)rx[5] << 16) |   // Bytes 4-7: rebuild the 32-bit
-                        ((uint32_t)rx[6] << 8)  |  (uint32_t)rx[7];           // cumulative temp-lock counter.
+  out.leakSinceReport = rx[4];                      // Byte 4: LEAK1/LEAK2 tripped since last report (PIC clears after sending).
   return true;                                     // Successfully read the valve status.
 }
 
@@ -343,26 +356,27 @@ int PicLink::getPowerState(uint8_t *out) {
   return PIC_OK;                                   // Success.
 }
 
-// Ask the PIC for our timing + debug config (RSP_PHOTON_CFG, 0x89, 13 bytes).
+// Ask the PIC for our timing + debug config (RSP_PHOTON_CFG, 0x89, 14 bytes).
 // transact() already retries on timeout/bad-CRC, so one call is robust; the
 // caller adds a few more attempts for the very first exchange after power-up.
 int PicLink::getPhotonConfig(PicPhotonCfg *out) {
-  uint8_t  rx[13];                                 // 13-byte config block.
+  uint8_t  rx[14];                                 // 14-byte config block.
   uint16_t rl = 0;
   int r = transact(REQ_PHOTON_CFG, nullptr, 0, RSP_PHOTON_CFG,
                    rx, sizeof(rx), &rl, PHOTON_TIMEOUT_READ_MS);
   if (r != PIC_OK) return r;                       // timeout/CRC/etc -> caller retries
-  if (rl != 13) return PIC_ERR_BAD_FRAME;          // must be exactly 13 bytes
+  if (rl != 14) return PIC_ERR_BAD_FRAME;          // must be exactly 14 bytes
   if (out) {
     out->provided          = (rx[0] != 0);
     out->version           = rx[1];
     out->captureIntervalMs = ((uint32_t)rx[2] << 24) | ((uint32_t)rx[3] << 16) |
                              ((uint32_t)rx[4] <<  8) |  (uint32_t)rx[5];
     out->samplesPerReport  = (uint16_t)(((uint16_t)rx[6] << 8) | rx[7]);
-    out->fastBench         = (rx[8] != 0);
-    out->debugDataseries   = (rx[9] != 0);
-    out->missedFillMode    = rx[10];
-    out->serialDelayMs     = (uint16_t)(((uint16_t)rx[11] << 8) | rx[12]);
+    out->reportIntervalHr  = rx[8];
+    out->fastBench         = (rx[9] != 0);
+    out->debugDataseries   = (rx[10] != 0);
+    out->missedFillMode    = rx[11];
+    out->serialDelayMs     = (uint16_t)(((uint16_t)rx[12] << 8) | rx[13]);
   }
   return PIC_OK;
 }

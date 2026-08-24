@@ -26,6 +26,9 @@
  *              leak windows, 10 min temp-lock).
  * This single switch flips EVERY related value at once. */
 //#define REPORT_CONFIG_DEBUG   /* DEFAULT = PRODUCTION. Define this for fast bench test. */
+ #define REPORT_INTERVAL_HR 24      
+// #define REPORT_INTERVAL_HR 48
+
 
 /* ---- 2. SLEEP (power saving) -----------------------------------------
  * Defined   -> between captures the MCU enters deep Sleep (low power).
@@ -94,7 +97,6 @@
 
 /* ===== end QUICK TEST SETTINGS - details follow below ================ */
 
-
 /* ---- System clock (must match the RSTOSC config bits) ---- */
 #define APP_FOSC_HZ            64000000UL   /* 64 MHz internal */
 
@@ -129,17 +131,27 @@
  * for ANY value chosen (this is what removes the GPM-rate error). The nominal
  * seconds are shown in each comment as (counts x 0.5285 s). Max 255 counts
  * (8-bit Timer0) => max wake ~134.8 s. */
+
 #ifdef REPORT_CONFIG_DEBUG
   #define APP_FLOW_SLOTS         1000     /* ring-buffer slots (SRAM limit)          */
   #define APP_WAKE_COUNTS        6u       /* TEST: 6 x 0.5285 s = 3.17 s wake        */
   #define APP_WAKES_PER_SAMPLE   4u       /* capture = 4 wakes (24 x 0.5285) = 12.68 s */
   #define APP_SAMPLES_PER_REPORT 10u      /* report  = 10 captures = 126.8 s         */
 #else
-  #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
-  #define APP_WAKE_COUNTS        5u //6u //114u     /* PRODUCTION: 114 x 0.5285 s = 60.25 s wake*/
-  #define APP_WAKES_PER_SAMPLE   1u //4u       /* capture = 4 wakes (456 x 0.5285) = 241.0 s (~4 min) */
-  #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
-#endif
+  #if REPORT_INTERVAL_HR == 24
+    #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
+    #define APP_WAKE_COUNTS        2u       /* PRODUCTION: 24 x 0.5285 s = 12.68 s wake*/
+        // 1u - 25.48 min; 2u - 51.4 min; 113u = 23:43 hr
+    #define APP_WAKES_PER_SAMPLE   2u       /* capture = 2 wakes (2 x 0.5285) s = 2.114 s) */
+    #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~24 hours       */
+  #endif
+  #if REPORT_INTERVAL_HR == 48
+    #define APP_FLOW_SLOTS         1000     /* <=1024 (10-14 sample# limit)            */
+    #define APP_WAKE_COUNTS        113u     /* PRODUCTION: 113 x 0.5285 s = 59.73 s wake*/
+    #define APP_WAKES_PER_SAMPLE   4u       /* capture = 4 wakes (114 x 0.5285) = 238.9 s (~4 min) */
+    #define APP_SAMPLES_PER_REPORT 720u     /* report  = 720 captures = ~48 hours       */
+  #endif
+#endif 
 
 /* Derived: capture period (ring-buffer sample interval) and report batch.
  * FlowLog gates captures on APP_CAPTURE_PERIOD_MS; the leak window converts
@@ -216,7 +228,7 @@
  * start LOW in LEDs_Init().
  *   Define   -> they run the power/control waveform (Dev_Valve).
  *   Undefine -> they are left permanently LOW (driven once, no toggle). */
-//#define VALVE_PWR_CTRL_ENABLE
+#define VALVE_PWR_CTRL_ENABLE
 
 /* ---- OP3 valve high-level driver (MValve_OP3) ----------------------------
  * VALVE_PWR_CTRL_ENABLE      master enable for valve driving (above).
@@ -229,7 +241,7 @@
  *            PWR=H,CTRL=L -> drive CLOSE. After TIME_VALVE_FULL_TOGGLE_MS the
  *            driver forces BOTH pins LOW (saves the small holding current). */
 /* VALVE_TEST_TOGGLE is set in the QUICK TEST SETTINGS block at the top. */
-//#define VALVE_ON_WHEN_STARTUP
+#define VALVE_ON_WHEN_STARTUP
 
 /* full open or full close drive time (motor self-cuts at the end stop) */
 #define TIME_VALVE_FULL_TOGGLE_MS  10000UL
@@ -251,10 +263,10 @@
   #define TIME_VALVE_TEMP_LOCK_MS  30000UL  /* temp lock holds 30 s in debug */
 #else
   /* production values */
-  #define APP_LEAK1_COUNTS_DEF     100u     /* alert1 threshold counts       */
-  #define APP_LEAK1_WINDOW_S_DEF   300u     /* alert1 window  (8 min)        */
-  #define APP_LEAK2_COUNTS_DEF     1200u     /* alert2 threshold counts       */
-  #define APP_LEAK2_WINDOW_S_DEF   180u     /* alert2 window  (3 min)        */
+  #define APP_LEAK1_COUNTS_DEF     5000u     /* alert1 threshold counts for  leaks   */
+  #define APP_LEAK1_WINDOW_S_DEF   3600u     /* alert1 window for counting (sec)        */
+  #define APP_LEAK2_COUNTS_DEF     400u     /* alert2 threshold counts for overflows     */
+  #define APP_LEAK2_WINDOW_S_DEF   180u     /* alert2 window for counting (sec)        */
   #define TIME_VALVE_TEMP_LOCK_MS  600000UL /* temp lock holds 10 min        */
 #endif
 
@@ -382,10 +394,10 @@
   #ifdef TEST_INITIAL_HOLD_10MIN
     #define INITIAL_POWER_HOLD_MS      (10UL * 60UL * 1000UL)   /* test: 10 minutes */
   #else
-    #define INITIAL_POWER_HOLD_MS      (100UL * 1000UL)          /* test: 30 seconds */
+    #define INITIAL_POWER_HOLD_MS      (100UL * 1000UL)          /* test: 100 seconds */
   #endif
 #else
-  #define INITIAL_POWER_HOLD_MS        (10UL * 60UL * 1000UL)   /* PRODUCTION: 10 minutes */
+  #define INITIAL_POWER_HOLD_MS        (3UL * 60UL * 1000UL)   /* PRODUCTION: 3 minutes */
 #endif
 
 /* NOTE: TIMEOUT_CANNOT_FIND_CLOUD_MS (80 s) lives on the PHOTON side: if the

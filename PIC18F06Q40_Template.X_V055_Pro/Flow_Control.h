@@ -54,8 +54,17 @@ void     FlowControl_GetParams(leak_param_t *out);
 void     FlowControl_SetParams(const leak_param_t *in);   /* also recalcs + re-evals */
 
 /* ---- valve lock status (for RSP_VALVE) ---- */
-uint8_t  FlowControl_GetLockFlags(void);     /* TEMP_BIT | PERM_BIT */
-uint32_t FlowControl_GetTempLockCount(void); /* cumulative # of temp locks */
+uint8_t  FlowControl_GetLockFlags(void);     /* TEMP_BIT | PERM_BIT : locks currently ACTIVE */
+
+/* ---- leak trip flags SINCE THE LAST REPORT (for RSP_VALVE) ----
+ * The PIC keeps no lifetime count -- the Photon does that (see leaksense.cpp,
+ * incremented once per report and reset only by the physical button). These
+ * are transient, edge-triggered "did alert 1 / alert 2 trip at least once
+ * since we last told the Photon" bits, set in evaluate_alerts() and cleared
+ * by FlowControl_ClearSinceReport() right after FlowReport_SendValve() sends
+ * them (RSP_VALVE == "a report", same usage as FlowReport.c's own reports). */
+uint8_t  FlowControl_GetSinceReportFlags(void);   /* TEMP_BIT | PERM_BIT : tripped since last report */
+void     FlowControl_ClearSinceReport(void);      /* call right after sending RSP_VALVE */
 
 /* ---- unlock command (VALVE_UNLOCK packet) ----
  * flags: TEMP_BIT clears temporary lock, PERM_BIT clears permanent lock. */

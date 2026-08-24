@@ -187,3 +187,10 @@ bool FlowLog_BatchReady(void)
     }
     return false;
 }
+
+void FlowLog_SetGroupCountdown(uint16_t remainingCaptures)
+{
+    if (remainingCaptures < 1u) remainingCaptures = 1u;
+    if (remainingCaptures > FLOWLOG_BATCH) remainingCaptures = FLOWLOG_BATCH;
+    s_group = (uint16_t)(FLOWLOG_BATCH - remainingCaptures);
+}

@@ -17,6 +17,9 @@
 #include "Particle.h"    // Pull in the Particle device-OS library. This is what gives
                          // us pinMode(), digitalWrite(), Serial, Time, etc.
 
+#define REPORT_INTERVAL_HR 24      // PICK ONE: 24 or 48. The PIC firmware must match this value (see App_Config.h in the PIC repo).
+// #define REPORT_INTERVAL_HR 48
+
 // ------------------------------------------------------------------ Platform
 // "#if / #elif / #else / #endif" is the C++ PREPROCESSOR choosing code BEFORE
 // compiling. Depending on which board we build for, a different block is kept
@@ -173,14 +176,21 @@ constexpr uint32_t FLOW_IDLE_TIMEOUT_S = 5UL * 60UL;       // 5 min idle -> clea
 //#define PIC_MODE_TEST     // define -> fast test; undefined -> PRODUCTION (default)
 
 #ifdef PIC_MODE_TEST
-  #define PIC_CAPTURE_PERIOD_SEC     12          // integer, for timestamp spacing
-  #define PIC_SAMPLE_INTERVAL_SEC_F  12.684f     // precise window (rate/gallons)
-  #define PIC_SAMPLES_PER_REPORT     10
+  #define PIC_CAPTURE_PERIOD_SEC 12         // integer, for timestamp spacing
+  #define PIC_SAMPLE_INTERVAL_SEC_F 12.684f // precise window (rate/gallons)
+  #define PIC_SAMPLES_PER_REPORT 10
 #else
-  #define PIC_CAPTURE_PERIOD_SEC     240         // integer, for timestamp spacing
-  #define PIC_SAMPLE_INTERVAL_SEC_F  241.004f    // precise window (rate/gallons)
-  #define PIC_SAMPLES_PER_REPORT     720
+  #if REPORT_INTERVAL_HR == 24
+    #define PIC_CAPTURE_PERIOD_SEC 120        // integer, for timestamp spacing
+    #define PIC_SAMPLE_INTERVAL_SEC_F 120.502f // precise window (rate/gallons)
+  #endif
+  #if REPORT_INTERVAL_HR == 48
+    #define PIC_CAPTURE_PERIOD_SEC 240         // integer, for timestamp spacing
+    #define PIC_SAMPLE_INTERVAL_SEC_F 241.004f // precise window (rate/gallons)
+  #endif
+  #define PIC_SAMPLES_PER_REPORT 720
 #endif
+
 #define REPORT_PERIOD_SEC  ((uint32_t)PIC_SAMPLES_PER_REPORT * (uint32_t)PIC_CAPTURE_PERIOD_SEC)
 
 // FAST_BENCH_TEST virtual clock jitter: each session's advance is REPORT_PERIOD_SEC
@@ -208,7 +218,12 @@ constexpr uint32_t LEAK_MODEL_INTERVAL_SEC = 300;  // 5 min leak slots
 //             volume is dropped. Matches "front-series loss is by design."
 //   AVERAGE = reconstruct it as an average flow computed from
 //             (impulseSinceReport - received pulses) over (captures - n), so the
-//             daily TOTAL gallons are preserved (the impulse count stays right).
+//             daily/lifetime TOTAL gallons are preserved (the impulse count stays
+//             right). The reconstructed span is also placed into the real hour(s)
+//             it actually occurred in (ingestPicBatch() walks it through
+//             addToHourly() before the received samples), not smeared flat --
+//             detail older than the last 48 completed hours is truncated, but
+//             the TOTAL never is.
 #define PIC_MISSED_FILL_ZERO     0
 #define PIC_MISSED_FILL_AVERAGE  1
 #define PIC_MISSED_FILL  PIC_MISSED_FILL_AVERAGE   // <-- select ZERO or AVERAGE here
@@ -271,6 +286,11 @@ struct AppConfig {
                            //     0 = just warn; 1 = also close the valve automatically.
   uint8_t alertMode;       // (4) 0=off, 1=publish, 2=publish + extra alert
                            //     How loudly to report a leak to the cloud.
+  uint8_t publishHourUtc;  // (5) 0-23 UTC hour the daily/48h report should land on
+                           //     (see syncPublishSchedule()); PIC has no RTC, so the
+                           //     Photon re-anchors the PIC's report-due countdown to
+                           //     this hour every session instead of leaving it at
+                           //     whatever hour the device first powered on.
 };                         // (Note: the ";" after a struct's closing brace is REQUIRED in C++.)
 
 // Defaults (used on first boot / corrupt EEPROM)
@@ -279,11 +299,13 @@ constexpr float   CFG_LEAK_GPM_DFLT  = 5.0f;   // Default leak threshold: 5 GPM.
 constexpr float   CFG_SHUTOFF_DFLT   = 30.0f;  // Default 30-min shutoff volume: 30 gallons.
 constexpr uint8_t CFG_AUTOSHUT_DFLT  = 0;      // Default: do NOT auto-close the valve.
 constexpr uint8_t CFG_ALERTMODE_DFLT = 1;      // Default: publish alerts to the cloud.
+constexpr uint8_t CFG_PUBLISH_HOUR_DFLT = 17;   // Default: UTC time.
 
 // Accepted ranges for the cloud setter
 // When a user sends new settings from the cloud, we reject anything outside these bounds.
 constexpr float CFG_LEAK_GPM_MIN = 0.1f,  CFG_LEAK_GPM_MAX = 200.0f;  // Leak threshold must be 0.1 .. 200 GPM.
 constexpr float CFG_SHUTOFF_MIN  = 1.0f,  CFG_SHUTOFF_MAX  = 1000.0f; // Shutoff volume must be 1 .. 1000 gal.
+constexpr uint8_t CFG_PUBLISH_HOUR_MIN = 0, CFG_PUBLISH_HOUR_MAX = 23; // publishHourUtc must be 0..23.
 
 // ============================================================================
 //  PIC framed-protocol host parameters (V040 spec section 7).

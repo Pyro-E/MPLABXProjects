@@ -70,6 +70,11 @@ typedef enum {
                                      * live-but-connecting Photon. Any CRC-valid packet
                                      * resets that timer; this one carries no meaning
                                      * beyond keeping power (len 0). */
+    PKT_REQ_SET_SCHEDULE  = 0x0Bu,  /* data: u16 BE "captures remaining until report
+                                     * due" -> RSP_ACK/NAK. Lets the Photon (which knows
+                                     * wall-clock time) re-anchor the PIC's report-due
+                                     * countdown to a user-chosen hour of day. Clamped to
+                                     * [1, APP_SAMPLES_PER_REPORT] by FlowLog_SetGroupCountdown(). */
 
     /* PIC -> Photon */
     PKT_RSP_DATA          = 0x81u,  /* data: extended header + samples:

@@ -65,6 +65,9 @@ enum {
   REQ_POWER_STATE  = 0x08,   // -> RSP_POWER_STATE : ask if the PIC is in its initial power-hold (no payload).
   REQ_PHOTON_CFG   = 0x09,   // -> RSP_PHOTON_CFG : ask the PIC for our timing+debug config (no payload).
   PKT_KEEPALIVE    = 0x0A,   // (no reply)       : Photon -> PIC "alive, still connecting"; keeps PIC power up.
+  REQ_SET_SCHEDULE = 0x0B,   // u16 remaining captures -> RSP_ACK/NAK : re-anchor the PIC's
+                             //   report-due countdown so the next report lands at a chosen
+                             //   wall-clock hour (see syncPublishSchedule()). PIC has no RTC.
   RSP_DATA         = 0x81,   // The PIC's reply carrying flow samples.
   RSP_PARAM        = 0x82,   // The PIC's reply carrying its 4 leak parameters.
   RSP_VALVE        = 0x84,   // The PIC's reply carrying valve status.
@@ -133,19 +136,24 @@ struct PicPhotonCfg {
   uint8_t  version;           // wire-format version
   uint32_t captureIntervalMs; // real per-sample window in ms (rate divisor x1000)
   uint16_t samplesPerReport;  // PIC's APP_SAMPLES_PER_REPORT
+  uint8_t  reportIntervalHr;  // PIC's REPORT_INTERVAL_HR (24 or 48) -- drives the Photon's
+                             //   hourly-bin width (see leaksense.cpp: hourlyBinWidthHours()).
   bool     fastBench;         // true = skip cloud (virtual clock, sim publish)
   bool     debugDataseries;   // true = stream per-sample lines over USB-CDC
   uint8_t  missedFillMode;    // 0 = ZERO, 1 = AVERAGE
   uint16_t serialDelayMs;     // boot delay before the log burst
 };
 
-struct PicValve {            // RSP_VALVE payload (8 B)
+struct PicValve {            // RSP_VALVE payload (5 B)
                              //   The current state of the PIC's motorized valve.
   uint8_t  pwr_pin;          // VALVE_PWR  level (0/1)     : is valve power on?
   uint8_t  ctrl_pin;         // VALVE_CTRL level (0/1)     : valve direction signal.
   uint8_t  motion;           // 0..6 (see spec 4.3)        : current valve motion state.
-  uint8_t  lock_flags;       // bit0=temp, bit1=perm (0x03=both) : which locks are active.
-  uint32_t temp_lock_count;  // cumulative # of temporary locks   : how many times temp-locked so far.
+  uint8_t  lock_flags;       // bit0=temp, bit1=perm (0x03=both) : which locks are currently ACTIVE.
+  uint8_t  leakSinceReport;  // bit0=LEAK1(temp), bit1=LEAK2(perm) : tripped since the PIC last sent this.
+                             //   Transient -- the PIC clears it right after sending. The Photon owns the
+                             //   lifetime tally (leakingEventCount/overflowEventCount in leaksense.cpp),
+                             //   incrementing once per bit seen set here, reset only by the MODE button.
 };
 
 // Valve lock bit layout (shared by lock_flags and the UNLOCK command).
@@ -190,6 +198,10 @@ public:                                              // "public" = usable from o
   bool getParams(PicParams &out);                    // Read the PIC's 4 leak parameters into 'out'.
   // REQ_SET_PARAM -> RSP_ACK/NAK. true only on ACK.
   bool setParams(const PicParams &in);               // Write 4 leak parameters from 'in' to the PIC.
+
+  // REQ_SET_SCHEDULE -> RSP_ACK/NAK. true only on ACK. Re-anchors the PIC's
+  // report-due countdown to fire after exactly 'remainingCaptures' more captures.
+  bool setSchedule(uint16_t remainingCaptures);      // See syncPublishSchedule() in leaksense.cpp.
 
   // REQ_GET_VALVE -> RSP_VALVE. true on success (out populated).
   bool getValve(PicValve &out);                      // Read the valve status into 'out'.

@@ -63,6 +63,13 @@ enum {
   PKT_SYS_RESET    = 0x06,   // (no reply)       : tell the PIC to reset itself.
   PKT_PHOTON_OFF_REQ = 0x07, // (no reply)       : Photon -> PIC "cut my power, I'm done".
   REQ_POWER_STATE  = 0x08,   // -> RSP_POWER_STATE : ask if the PIC is in its initial power-hold (no payload).
+  REQ_SET_SCHEDULE = 0x0B,   // u16 remaining captures -> RSP_ACK/NAK : re-anchor the PIC's
+                             //   report-due countdown so the next report lands at a chosen
+                             //   wall-clock hour (see syncPublishSchedule()). PIC has no RTC.
+                             //   NOTE: only understood by PIC firmware that implements it
+                             //   (PIC18F06Q40_Template.X_V055_Pro+); an older/unpaired PIC
+                             //   replies RSP_NAK(NAK_BAD_FUNC) or times out, which
+                             //   syncPublishSchedule() already treats as a soft failure.
   RSP_DATA         = 0x81,   // The PIC's reply carrying flow samples.
   RSP_PARAM        = 0x82,   // The PIC's reply carrying its 4 leak parameters.
   RSP_VALVE        = 0x84,   // The PIC's reply carrying valve status.
@@ -171,6 +178,10 @@ public:                                              // "public" = usable from o
   bool getParams(PicParams &out);                    // Read the PIC's 4 leak parameters into 'out'.
   // REQ_SET_PARAM -> RSP_ACK/NAK. true only on ACK.
   bool setParams(const PicParams &in);               // Write 4 leak parameters from 'in' to the PIC.
+
+  // REQ_SET_SCHEDULE -> RSP_ACK/NAK. true only on ACK. Re-anchors the PIC's
+  // report-due countdown to fire after exactly 'remainingCaptures' more captures.
+  bool setSchedule(uint16_t remainingCaptures);      // See syncPublishSchedule() in leaksense.cpp.
 
   // REQ_GET_VALVE -> RSP_VALVE. true on success (out populated).
   bool getValve(PicValve &out);                      // Read the valve status into 'out'.

@@ -124,6 +124,7 @@ static void dispatch_packet(const pkt_parser_t *p)
     case PKT_REQ_SET_PARAM:    print_string("REQ_SET_PARAM");   break;
     case PKT_REQ_GET_VALVE:    print_string("REQ_GET_VALVE");   break;
     case PKT_REQ_VALVE_UNLOCK: print_string("REQ_VALVE_UNLOCK");break;
+    case PKT_REQ_SET_SCHEDULE: print_string("REQ_SET_SCHEDULE");break;
     case PKT_SYS_RESET:        print_string("SYS_RESET");       break;
     case PKT_PHOTON_OFF_REQ:   print_string("PHOTON_OFF_REQ r=");
                                print_uint((p->len >= 1u) ? p->data[0] : 0u); break;
@@ -156,6 +157,16 @@ static void dispatch_packet(const pkt_parser_t *p)
             np.leak2_window_s = (uint16_t)(((uint16_t)p->data[6] << 8) | p->data[7]);
             FlowControl_SetParams(&np);
             FlowReport_SendAck(PKT_REQ_SET_PARAM);
+        } else {
+            FlowReport_SendNak(NAK_BAD_LEN);
+        }
+        break;
+
+    case PKT_REQ_SET_SCHEDULE:
+        if (p->len == 2u) {
+            uint16_t remaining = (uint16_t)(((uint16_t)p->data[0] << 8) | p->data[1]);
+            FlowLog_SetGroupCountdown(remaining);
+            FlowReport_SendAck(PKT_REQ_SET_SCHEDULE);
         } else {
             FlowReport_SendNak(NAK_BAD_LEN);
         }

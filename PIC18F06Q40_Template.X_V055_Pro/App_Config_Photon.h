@@ -27,7 +27,7 @@
 #define PIC_PROVIDES_PHOTON_CFG
 
 /* Wire-format version (bump if the block layout changes). */
-#define PCFG_VERSION            1u
+#define PCFG_VERSION            2u
 
 /* ---- A. TIMING (auto-derived from the PIC -> always in sync) ---------------
  * captureIntervalMs = the PIC's REAL count-multiple capture window in ms.
@@ -35,6 +35,10 @@
  * removed automatically whatever wake/counts the PIC uses. */
 #define PCFG_CAPTURE_INTERVAL_MS   ((uint32_t)APP_CAPTURE_PERIOD_MS)
 #define PCFG_SAMPLES_PER_REPORT    ((uint16_t)APP_SAMPLES_PER_REPORT)
+/* REPORT_INTERVAL_HR (App_Config.h: 24 or 48) -- so the Photon's hourlyGallons[24]
+ * array can bin at the right width (1 h/slot for 24 h, 2 h/slot for 48 h) instead
+ * of assuming 24 h. See leaksense.cpp: hourlyBinWidthHours(). */
+#define PCFG_REPORT_INTERVAL_HR    ((uint8_t)REPORT_INTERVAL_HR)
 
 /* ---- B. DEBUG TOGGLES (change freely, rebuild PIC only) --------------------
  * These drive the Photon's debug behaviour at runtime. */
