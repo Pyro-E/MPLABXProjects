@@ -779,7 +779,8 @@ constexpr int32_t  TZ_OFFSET_SEC_MAX  =  14 * 3600;                    // cloud 
 // them and writes them back after every cold boot.
 constexpr uint32_t GRID_ANCHOR_SEC_DFLT   = 0u;               // local midnight
 constexpr uint32_t GRID_INTERVAL_SEC_PROD = 48UL * 3600UL;    // 48 h
-constexpr uint32_t GRID_INTERVAL_SEC_TEST = 60UL;             // 1 min bench
+constexpr uint32_t GRID_INTERVAL_SEC_TEST = 300UL;            // 5 min bench
+// constexpr uint32_t GRID_INTERVAL_SEC_TEST = 60UL;           // 1 min bench
 // constexpr uint32_t GRID_INTERVAL_SEC_TEST = 1800UL;        // 30 min bench
 constexpr uint32_t GRID_INTERVAL_SEC_MIN  = 60u;              // sanity bounds for the
 constexpr uint32_t GRID_INTERVAL_SEC_MAX  = 7UL * 24UL * 3600UL;  // cloud setter

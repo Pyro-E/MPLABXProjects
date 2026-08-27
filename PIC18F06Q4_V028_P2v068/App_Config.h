@@ -337,7 +337,8 @@
  * the declared interval; the actual grid interval = captures * capture period. */
 #ifdef REPORT_CONFIG_DEBUG
   #ifdef BENCH_1H_BUCKET_30MIN
-    #define LOCO_REPORT_INTERVAL_SEC  60UL      /* 1 min */
+    #define LOCO_REPORT_INTERVAL_SEC  300UL     /* 5 min */
+    //#define LOCO_REPORT_INTERVAL_SEC  60UL      /* 1 min */
     //#define LOCO_REPORT_INTERVAL_SEC  1800UL    /* 30 min */
   #else
     #define LOCO_REPORT_INTERVAL_SEC  180UL     /* ~3 min (bench test) */

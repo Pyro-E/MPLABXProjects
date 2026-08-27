@@ -3996,7 +3996,7 @@ void setup() {
     hourlyCarryClear(hourlyCarry);
   }
 
-  // The bench build reports every 60 s rather than every 48 hours. This is
+  // The bench build reports every 300 s rather than every 48 hours. This is
   // the SAME algorithm with different numbers - the whole point of the fast test
   // is that nothing else changes.
   if (g_cfg.cadenceFast && g_grid.intervalSec == GRID_INTERVAL_SEC_PROD) {
