@@ -155,7 +155,8 @@ retained PicParams    picParams          = {PIC_LEAK1_COUNTS_DFLT, PIC_LEAK1_WIN
 retained bool         picParamsDirty     = true;   // SET_PARAM to PIC on next contact
                                                    //   true = we still owe the PIC a fresh write of these params.
 retained float        dailyGallons       = 0.0f;   // Total gallons used so far today.
-retained float        hourlyData[24]     = {0.0f}; // Gallons in each of the 24 buckets of the current day.
+retained float        hourlyData[24]     = {0.0f}; // Leftover "today" totals. Not published (req 5:
+                                                   //   the contract array is hourlyGallons[48]).
                                                    //   Bucket width = g_bucketSec (3600 s production).
 retained int          lastBucketIngested = -1;     // Index of the last bucket we wrote (-1 = none yet).
 retained uint32_t     lastBucketDay      = 0;      // Day counter (local epoch / (24 * bucketSec)).
@@ -633,10 +634,10 @@ static void legacyRollingApply(const HourlyResult &h) {
       lastBucketIngested = idx;
       lastBucketDay      = day;
     } else if (day != lastBucketDay) {            // a whole day of buckets has passed
-      Log.info("[DAT] DAY_ROLLOVER: daily=%.2f gal reset (bucket=%us, day %lu -> %lu)",
+      Log.info("[DAT] DAY_ROLLOVER: daily=%.2f gal (bucket=%us, day %lu -> %lu); "
+               "hourlyData[24] is NOT zeroed (req 5: roll, do not reset)",
                dailyGallons, (unsigned)h.bucketSec,
                (unsigned long)lastBucketDay, (unsigned long)day);
-      for (int j = 0; j < BUCKET_COUNT; j++) hourlyData[j] = 0.0f;
       dailyGallons       = 0.0f;
       lastBucketIngested = idx;
       lastBucketDay      = day;
@@ -2000,7 +2001,7 @@ void printHourlyFlow() {
   Log.info("[DAT] carry forward: %lu pulses / %.4f gal in the open bucket starting %lu",
            (unsigned long)hourlyCarry.pulses, hourlyCarry.gallons,
            (unsigned long)hourlyCarry.binStartLocal);
-  Log.info("[DAT] legacy rolling hourlyGallons[24] dailyGal=%.1f bucketSec=%lu",
+  Log.info("[DAT] dailyGal=%.1f bucketSec=%lu (48-slot window is hourlyGallons)",
            roundTenth(dailyGallons), (unsigned long)g_bucketSec);
 }
 
@@ -2172,6 +2173,11 @@ static inline void contractGrid(uint32_t &intervalSec, uint32_t &anchorSec) {
 
 // ---- V068: the contract's fixed 48-slot "hourlyGallons" event --------------
 //
+// Req 5: local-time bins [0-47], up to 48 completed hours. Slot 47 is the most
+// recently CLOSED hour; the still-open hour is HourlyrReset, not [47]. A new
+// completed hour rolls existing values toward slot 0 (no midnight wipe). Hours
+// older than 48 fall off. There is no [0-23] publish.
+//
 // One message, one meaning: THIS IS THE STATE OF THE LAST 48 BUCKETS. It is
 // deliberately not chunked - splitting it would destroy exactly that property,
 // and there is no way to read half a sliding window. If it ever grows too large
@@ -2328,13 +2334,11 @@ void imuPublish() {
 
   // V068: 512 -> 1024, and an explicit float precision.
   //
-  // Both were already wrong before the contract fields were added. With no
-  // float-places set, JsonWriter formats floats with "%f" - SIX decimals - so
-  // "temp":23.500000 and a 24-element hourlyRolling24 of ~10 bytes per value.
-  // That payload did not fit 512 bytes and the library silently truncated it:
-  // the tail of the object, including the closing brace, was being dropped. The
-  // warning below exists so this cannot recur unnoticed. Three places keeps
-  // flowCal (1.255) exact while removing the padding.
+  // With no float-places set, JsonWriter formats floats with "%f" (six decimals).
+  // Combined with the old 24-slot hourlyRolling24 that overran 512 bytes and the
+  // library silently dropped the closing brace. The 24-slot array is no longer
+  // published (req 5). Three places keeps flowCal (1.255) exact. The warning
+  // below exists so a future field cannot silently truncate again.
   JsonWriterStatic<1024> jw;
   jw.setFloatPlaces(HOURLY_BUCKET_DECIMALS);
   {                                               // Inner scope so the JSON object auto-finishes.
@@ -2366,10 +2370,8 @@ void imuPublish() {
       jw.insertKeyValue("valveTempLocks",(int)lastValve.temp_lock_count);// Cumulative temp-lock count.
     }
     jw.insertKeyValue("bucketSec", (int)g_bucketSec);   // Width of one bucket (3600 = true hourly).
-    // The AUTHORITATIVE bucket series is published separately as "hourlyGallons"
-    // events, because its length varies (47, 48, 49, or hundreds after an
-    // outage). These are the counts for that series; the array below is the
-    // legacy fixed 24-slot rolling view the existing dashboard still reads.
+    // The variable-length series is "hourlyBuckets". The contract 48-slot window
+    // is "hourlyGallons". Counts here describe the audit series for this session.
     jw.insertKeyValue("bucketsMakeable", (int)g_hourlyMakeable);
     jw.insertKeyValue("bucketsSent",     (int)g_hourlySent);
     jw.insertKeyValue("tzOffsetSec",     (int)g_tzOffsetSec);
@@ -2453,17 +2455,8 @@ void imuPublish() {
     // Lifetime total. See the declaration for why this is the power-cycle-
     // surviving reading rather than the since-power-up one.
     jw.insertKeyValue("lifetimeGal", (double)g_lifetimeGal);
-    // The legacy view is a DISPLAY array, so it is emitted at display precision
-    // (one place) rather than at the three places the scalar fields use. That is
-    // worth 48 bytes here, and sensorData has no room to spare: with the fifteen
-    // contract fields added it measures ~960 bytes against Particle's 1024-byte
-    // event limit. The places are restored afterwards so nothing added below
-    // this line silently inherits the array's precision.
-    jw.setFloatPlaces(ROLL48_DECIMALS);
-    jw.insertKeyArray("hourlyRolling24");         // Legacy fixed-length view.
-    for (int i = 0; i < BUCKET_COUNT; i++) jw.insertArrayValue(roundTenth(hourlyData[i]));
-    jw.finishObjectOrArray();
-    jw.setFloatPlaces(HOURLY_BUCKET_DECIMALS);
+    // Req 5: do not publish [0-23]. The contract array is hourlyGallons[48]
+    // (+ HourlyrReset) in publishHourlyRolling48().
     if (!g_cfg.cloudEnabled) {
       jw.insertKeyValue("rssi", (int)0);          // Bench: no radio; placeholder so the payload shape matches.
     } else {
@@ -4003,7 +3996,7 @@ void setup() {
     hourlyCarryClear(hourlyCarry);
   }
 
-  // The bench build reports every 30 minutes rather than every 48 hours. This is
+  // The bench build reports every 60 s rather than every 48 hours. This is
   // the SAME algorithm with different numbers - the whole point of the fast test
   // is that nothing else changes.
   if (g_cfg.cadenceFast && g_grid.intervalSec == GRID_INTERVAL_SEC_PROD) {

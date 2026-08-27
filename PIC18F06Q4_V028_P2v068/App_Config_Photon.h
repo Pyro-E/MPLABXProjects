@@ -53,10 +53,12 @@
  * the fix; setting the literal to 1 would only postpone the same inversion to
  * the next production/bench switch. This mirrors what section A above already
  * does for the timing fields. */
-#ifdef REPORT_CONFIG_DEBUG
-  #define PCFG_FAST_BENCH          1u      /* 1 = fast bench cadence/bucket profile   */
+#ifdef BENCH_1H_BUCKET_30MIN
+  #define PCFG_FAST_BENCH          0u      /* 1-hour boxes */
+#elif defined(REPORT_CONFIG_DEBUG)
+  #define PCFG_FAST_BENCH          1u      /* 60 s boxes */
 #else
-  #define PCFG_FAST_BENCH          0u      /* 0 = production cadence/bucket profile   */
+  #define PCFG_FAST_BENCH          0u      /* production 1-hour boxes */
 #endif
 #define PCFG_DEBUG_DATASERIES      1u      /* 1=Photon prints every sample over USB-CDC */
 #define PCFG_MISSED_FILL_MODE      1u      /* 0=ZERO, 1=AVERAGE (missed-pulse reconstruction) */

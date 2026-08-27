@@ -27,6 +27,11 @@
  * This single switch flips EVERY related value at once. */
 #define REPORT_CONFIG_DEBUG   /* DEFAULT = DEBUG (bench test). Comment out for production. */
 
+/* 1-hour boxes + PIC wakes Particle every 60 s (was 30 min).
+ * Comment out for previous bench (60 s boxes, ~3 min reports).
+ * Also set the SAME name in test_particle/leaksense-p2-G_V068/src/app_config.h */
+#define BENCH_1H_BUCKET_30MIN
+
 /* Bench self-timing: when defined, the PIC ACKs the Photon's SET_PARAM but keeps
  * its OWN #define grid (LOCO_ALIGN_ANCHOR_SEC / LOCO_REPORT_INTERVAL_SEC) and
  * drives measure/capture/wake/report from it. The Photon only sorts and reports
@@ -121,8 +126,13 @@
  * all zero and nothing downstream can be tested. Defining this replaces the
  * pulse source with a software schedule (see FlowMeter.c). The real counter is
  * left configured but ignored; everything above the meter runs unchanged.
- * MUST be undefined for production and whenever a real meter is attached. */
-#define APP_VFLOW_ENABLE
+ * MUST be undefined for production and whenever a real meter is attached.
+ *
+ * Next time:
+ *   Uncomment APP_VFLOW_ENABLE  -> bench fake pulses, no meter needed.
+ *   Comment it out (as now)     -> real RC5 meter (blow or water).
+ * Rebuild this PIC in MPLAB and program the board. Do not Particle-flash. */
+//#define APP_VFLOW_ENABLE
 
 /* Rate schedule: { run until this ms, pulses per second, name }.
  * The last entry runs forever. Times are absolute since boot, so a run is
@@ -323,10 +333,15 @@
 #define APP_FLOW_TMR0H   ((uint8_t)APP_WAKE_COUNTS)
 
 /* Reporting interval (seconds) reported/settable via GET/SET_PARAM. Kept
- * consistent with the build mode: ~30 min in test, 48 h in production. This is
+ * consistent with the build mode: 60 s in this bench, 48 h in production. This is
  * the declared interval; the actual grid interval = captures * capture period. */
 #ifdef REPORT_CONFIG_DEBUG
-  #define LOCO_REPORT_INTERVAL_SEC  180UL       /* ~3 min (bench test) */
+  #ifdef BENCH_1H_BUCKET_30MIN
+    #define LOCO_REPORT_INTERVAL_SEC  60UL      /* 1 min */
+    //#define LOCO_REPORT_INTERVAL_SEC  1800UL    /* 30 min */
+  #else
+    #define LOCO_REPORT_INTERVAL_SEC  180UL     /* ~3 min (bench test) */
+  #endif
 #else
   #define LOCO_REPORT_INTERVAL_SEC  (48UL*3600UL)
 #endif

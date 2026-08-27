@@ -119,7 +119,7 @@ static size_t buildBuckets(uint16_t perChunk, float perBucket, uint8_t decimals,
 
 // ---- sensorData, including the V068 contract fields -------------------------
 template <size_t BUF>
-static size_t buildSensorData(int decimals, float rolling24Val, bool *truncated) {
+static size_t buildSensorData(int decimals, bool *truncated) {
   JsonWriterStatic<BUF> jw;
   if (decimals >= 0) jw.setFloatPlaces(decimals);
   {
@@ -169,14 +169,7 @@ static size_t buildSensorData(int decimals, float rolling24Val, bool *truncated)
     jw.insertKeyValue("a2Events", (int)1);
     jw.insertKeyValue("Shutoffs", (int)1);
     jw.insertKeyValue("lifetimeGal", (double)123456.789);
-    // The legacy array is emitted at DISPLAY precision (one place), not at the
-    // three places the scalar fields use - 48 bytes that sensorData does not
-    // have to spare. The places are restored after it.
-    if (decimals >= 0) jw.setFloatPlaces(ROLL48_DECIMALS);
-    jw.insertKeyArray("hourlyRolling24");
-    for (int i = 0; i < BUCKET_COUNT; i++) jw.insertArrayValue(roundDecimals(rolling24Val, 1));
-    jw.finishObjectOrArray();
-    if (decimals >= 0) jw.setFloatPlaces(decimals);
+    // Req 5: no [0-23] array on the wire. The contract window is hourlyGallons[48].
     jw.insertKeyValue("rssi", (int)-62);
     jw.insertKeyValue("battery", (float)3.912f);
     jw.insertKeyValue("freeMem", (int)123456);
@@ -252,33 +245,27 @@ int main() {
 
   // ---- 5. sensorData ------------------------------------------------------
   {
-    size_t v068 = buildSensorData<1024>(HOURLY_BUCKET_DECIMALS, 12.4f, &tr);
-    printf("       sensorData     V068, typical rolling24     : %4u bytes\n",
+    size_t v068 = buildSensorData<1024>(HOURLY_BUCKET_DECIMALS, &tr);
+    printf("       sensorData     V068, typical               : %4u bytes\n",
            (unsigned)v068);
     check(!tr, "sensorData: the V068 payload fits its 1024-byte buffer");
     check(v068 < PARTICLE_EVENT_MAX_BYTES,
           "sensorData: the V068 payload is inside the Particle event limit");
 
-    // sensorData is the payload with the least headroom in this release: the
-    // fifteen contract fields were added to an object that already carried ~35.
-    // A large property drives every one of the 24 legacy slots to three digits,
-    // which is the case that decides whether the margin is real.
-    size_t worst = buildSensorData<1024>(HOURLY_BUCKET_DECIMALS, 128.4f, &tr);
-    printf("       sensorData     V068, worst-case rolling24  : %4u bytes\n",
+    size_t worst = buildSensorData<1024>(HOURLY_BUCKET_DECIMALS, &tr);
+    printf("       sensorData     V068, no 24-slot array      : %4u bytes\n",
            (unsigned)worst);
-    check(!tr, "sensorData: a large property's payload still fits");
+    check(!tr, "sensorData: payload still fits without hourlyRolling24");
     check(worst < PARTICLE_EVENT_MAX_BYTES,
-          "sensorData: a large property's payload is inside the Particle event limit");
+          "sensorData: payload is inside the Particle event limit");
 
-    // The pre-existing defect: a 512-byte buffer and unbounded "%f" floats.
-    // This is the V067 shape MINUS the contract fields, so it shows the payload
-    // was already over its buffer before this release added anything.
+    // V067 truncated because it stuffed a 24-slot array into a 512-byte buffer
+    // with unbounded "%f" floats. That array is gone (req 5); the 1024-byte
+    // buffer is the shipping size. Keep a 512-byte probe as a size print only.
     bool trOld = false;
-    size_t v067 = buildSensorData<512>(-1, 12.4f, &trOld);
-    printf("       sensorData     V067 shape,  512 buf, %%f    : %4u bytes, truncated=%d\n",
+    size_t v067 = buildSensorData<512>(-1, &trOld);
+    printf("       sensorData     512 buf, %%f (size probe)    : %4u bytes, truncated=%d\n",
            (unsigned)v067, (int)trOld);
-    check(trOld,
-          "sensorData: the V067 512-byte buffer DID truncate - a pre-existing defect");
   }
 
   printf("%s (%d failure%s)\n", g_fail ? "FAILED" : "all checks passed",

@@ -8,18 +8,24 @@
  * and slot 0 is the 48th completed hour back. This firmware already had two
  * other views of the same water:
  *
- *   hourlyData[24]   date-aligned, index = (binStart / bucketSec) % 24, zeroed
- *                    at local midnight. It answers "today".
+ *   hourlyData[24]   leftover date-aligned "today" totals. Not published.
+ *                    Not zeroed at midnight (req 5: never wipe hourly history).
  *   g_hourly[]       the variable-length series of completed buckets. It answers
  *                    "exactly what was measured", and its length is NOT 48 -
  *                    47 and 49 are routine, and a flash-ring recovery can carry
  *                    96 or more.
  *
- * Neither can be reshaped into the contract array. An array reset at midnight
- * cannot express "the last 48 hours", and forcing the variable series into 48
- * slots would discard the older half of every recovery. So this is a third view,
- * fed from the same finished buckets as the other two, which is what stops the
- * three from ever disagreeing about a total.
+ * Neither can be reshaped into the contract array. Forcing the variable series
+ * into 48 slots would discard the older half of every recovery. So this is a
+ * third view, fed from the same finished buckets, which is what stops the
+ * views from disagreeing about a total.
+ *
+ * Req 5 (local-time 48 h window):
+ *   - slots [0..47] are COMPLETED hours only; [47] is the newest completed hour
+ *   - the still-open (incomplete) hour is HourlyrReset, never written here
+ *   - a new completed hour SHIFTS the window (old values roll toward slot 0);
+ *     values older than 48 hours fall off the front (truncated)
+ *   - do not zero the window on a short report or at midnight
  *
  * It lives in its own translation unit for one practical reason: it can then be
  * linked into tools/hostcheck/roll48_test.cpp and its arithmetic actually

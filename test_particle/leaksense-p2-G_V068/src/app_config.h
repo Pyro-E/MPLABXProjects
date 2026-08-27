@@ -140,20 +140,16 @@
 #define BUILD_MODE_CLOUD_FAIL 2
 #define BUILD_MODE_CLOUD_FAST 3
 
+// Must match PIC App_Config.h (comment out both for 60 s boxes / ~3 min reports).
+#define BENCH_1H_BUCKET_30MIN
+
 #ifndef BUILD_MODE
-  #define BUILD_MODE  BUILD_MODE_CLOUD_FAST   // <-- the ONE switch. Set to one of the four above.
-#endif                                        //     V065 (req 4.갑): was CLOUD_FAIL. The 9600 campaign
-                                              //     proved the metering accounting; CLOUD_FAST turns the
-                                              //     time axis on (real Wi-Fi, real cloud time) while
-                                              //     keeping the fast bench cadence, so the whole
-                                              //     never-executed path -- bucket placement, sec 6.7
-                                              //     replay, missed-fill, LOCO second-stage calibration,
-                                              //     publish -- runs in minutes.
-                                              //     This automatically gives CLOUD_ENABLED=1 and
-                                              //     BENCH_VIRTUAL_CLOCK=0 (see the derived block below),
-                                              //     which is exactly what req 4.갑 asks for. CADENCE_FAST
-                                              //     stays 1 and is independent of the PIC's
-                                              //     PCFG_FAST_BENCH, as the request notes.
+  #ifdef BENCH_1H_BUCKET_30MIN
+    #define BUILD_MODE  BUILD_MODE_PRODUCTION     // 1-hour boxes, cloud on
+  #else
+    #define BUILD_MODE  BUILD_MODE_CLOUD_FAST     // 60 s boxes, cloud on
+  #endif
+#endif
 
 // ---- Derived axis flags (do not edit; they follow BUILD_MODE) --------------
 // CADENCE_FAST and CLOUD_ENABLED are the two axes (Appendix H.13.1). BENCH_VIRTUAL
@@ -729,7 +725,7 @@ constexpr bool DIAG_VERBOSE_ENABLE = true;
 // Legacy 24-slot rolling view, kept only for the existing dashboard schema and
 // for the contract JSON (bin0 = oldest completed, bin47 = newest). The authoritative
 // output is the variable-length bucket list above.
-constexpr uint8_t  BUCKET_COUNT    = 24;      // legacy hourlyGallons[] length
+constexpr uint8_t  BUCKET_COUNT    = 24;      // leftover "today" hourlyData[] length (not published)
 
 // Bucket alignment scheme (feature K / doc 05 section 5.3). Both are implemented;
 // pick one here.
@@ -783,7 +779,8 @@ constexpr int32_t  TZ_OFFSET_SEC_MAX  =  14 * 3600;                    // cloud 
 // them and writes them back after every cold boot.
 constexpr uint32_t GRID_ANCHOR_SEC_DFLT   = 0u;               // local midnight
 constexpr uint32_t GRID_INTERVAL_SEC_PROD = 48UL * 3600UL;    // 48 h
-constexpr uint32_t GRID_INTERVAL_SEC_TEST = 1800UL;           // 30 min bench
+constexpr uint32_t GRID_INTERVAL_SEC_TEST = 60UL;             // 1 min bench
+// constexpr uint32_t GRID_INTERVAL_SEC_TEST = 1800UL;        // 30 min bench
 constexpr uint32_t GRID_INTERVAL_SEC_MIN  = 60u;              // sanity bounds for the
 constexpr uint32_t GRID_INTERVAL_SEC_MAX  = 7UL * 24UL * 3600UL;  // cloud setter
 
